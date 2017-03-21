@@ -1,0 +1,21 @@
+#configurations
+alias zshconfig="vim ~/.zshrc"
+alias vimrc="vim ~/.vimrc"
+alias aliases="vim ~/.aliases"
+alias gitconfig="vim ~/.gitconfig"
+
+#file system
+alias l='ls -al'
+alias ..="cd .."
+
+#Git
+
+
+#other
+alias php-server='php -S localhost:8000' 
+alias dirs='dirs -v'
+
+
+
+
+
