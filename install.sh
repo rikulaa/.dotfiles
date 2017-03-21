@@ -44,3 +44,5 @@ done
 
 #Update submodule (Vundle) so that Vim recognises it
 git submodule update --init --recursive
+#Install plugins automatically
+vim +PluginInstall +qall
