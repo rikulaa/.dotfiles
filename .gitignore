@@ -1,0 +1,7 @@
+#ignore
+
+#Plugin EXCEPT Vundle
+vim/bundle/*
+!vim/bundle/Vundle.vim
+
+
