@@ -23,8 +23,10 @@ cd $dir
 echo "...done"
 
 
-#handle directories
+#Handle creation of directories if not created
 mkdir -p ~/.vim
+
+
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
     if [ -a $file ]; then
@@ -33,6 +35,7 @@ for file in $files; do
         echo "Creating symlink to $file in home directory."
         ln -s $dir/$file ~/.$file
     else 
+        #if we dont have a file created at $HOME
         touch ~/.$file 
         ls -s $dir/$file ~/.$file  
     fi
