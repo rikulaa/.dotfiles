@@ -14,6 +14,9 @@ Plugin 'VundleVim/Vundle.vim'		"Vundle
 "NERDTree
 Plugin 'scrooloose/nerdtree'		"NERDTree
 
+"NERDTree comments
+Plugin 'scrooloose/nerdcommenter'
+
 "Emmet
 Plugin 'mattn/emmet-vim'			"Emmet
 
