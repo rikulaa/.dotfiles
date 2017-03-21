@@ -8,7 +8,7 @@
 
 dir=~/.dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="vimrc vim zshrc bashrc gitconfig aliases"    # list of files/folders to symlink in homedir
+files="vimrc vim zshrc bashrc gitconfig aliases oh-my-zsh"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -26,7 +26,7 @@ echo "...done"
 
 #Handle creation of directories if not created
 mkdir -p ~/.vim
-
+mkdir -p ~./oh-my-zsh
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
