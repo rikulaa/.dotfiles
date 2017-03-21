@@ -41,3 +41,6 @@ for file in $files; do
         ls -s $dir/$file ~/.$file  
     fi
 done
+
+#Update submodule (Vundle) so that Vim recognises it
+git submodule update --init --recursive
