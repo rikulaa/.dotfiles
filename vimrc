@@ -78,7 +78,12 @@ noremap <Leader>w :update<CR>	"quicksave
 noremap <Leader>q :q<CR>        "quit
 noremap <Leader>wq :wq<CR>      "write and quit
 nmap <leader>ne :NERDTree<cr>   "open nerdtree
+
 nnoremap <C-h> <C-w>h	"for windows navigation
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Tab navigation like VScode/browser
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
