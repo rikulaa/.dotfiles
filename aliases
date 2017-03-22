@@ -3,7 +3,7 @@ alias zshconfig="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias aliases="vim ~/.aliases"
 alias gitconfig="vim ~/.gitconfig"
-alias dotfiles="cd ~/.dotfiles"
+alias dotfiles="cd ~/.dotfiles && ls -al"
 
 #file system
 alias l='ls -al'
