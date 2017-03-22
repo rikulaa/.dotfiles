@@ -51,6 +51,7 @@ set autoread                " Reload files changed outside vim
 
 " UI
 set number					"for line numbering
+set wildmenu                "display all matching files when we tab complete
 set ruler
 syntax enable				"show syntax
 set t_Co=256                "enable 256 colors
