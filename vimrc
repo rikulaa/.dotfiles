@@ -85,5 +85,5 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Tab navigation like VScode/browser
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-S-tab> :tabp<CR>
+nnoremap <C-tab>   :tabN<CR>
