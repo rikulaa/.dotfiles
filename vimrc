@@ -46,6 +46,7 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 "General
+set path+=**                "Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 
 " UI
