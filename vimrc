@@ -68,7 +68,7 @@ filetype plugin indent on    " required
 set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 autocmd vimenter * NERDTree " Open NERDTree when opening vim
-
+set encoding=utf-8
 "****************************************************************************
 " UI
 "****************************************************************************
@@ -85,6 +85,8 @@ set showmatch				" Highligth matching [({})]
 set laststatus=2            " For Airline to show itself on startup"
 nnoremap <leader><space> :nohlsearch<CR>	
 
+" Fixing the weird symbols instead of folders on some systems
+let g:NERDTreeDirArrows=0
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
