@@ -32,6 +32,9 @@ Plugin 'honza/vim-snippets'
 " Autoclose brackets
 Plugin 'jiangmiao/auto-pairs'
 
+"HTML, XML Help
+Plugin 'othree/xml.vim'
+
 " Vim Surround plugin
 Plugin 'tpope/vim-surround'
 
