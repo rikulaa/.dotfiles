@@ -134,7 +134,7 @@ set hlsearch				" Highlight matches
 let mapleader="\<Space>"	" Use space as leader key
 noremap <Leader>w :update<CR>	"quicksave
 noremap <Leader>q :q<CR>        "quit
-noremap <Leader>wq :wq<CR>      "write and quit
+"noremap <Leader>wq :wq<CR>      "write and quit
 nmap <leader>ne :NERDTree<cr>   "open nerdtree
 
 "For windows navigation
