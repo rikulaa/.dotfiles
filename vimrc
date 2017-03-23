@@ -26,6 +26,9 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
+" Autoclose brackets
+Plugin 'jiangmiao/auto-pairs'
+
 "Theme based on visual studio code
 Plugin 'tomasiser/vim-code-dark'
 
