@@ -35,6 +35,10 @@ Plugin 'jiangmiao/auto-pairs'
 "HTML, XML Help
 Plugin 'othree/xml.vim'
 
+"jsx syntax
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+
 " Vim Surround plugin
 Plugin 'tpope/vim-surround'
 
