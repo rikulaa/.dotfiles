@@ -64,7 +64,7 @@ filetype plugin indent on    " required
 "****************************************************************************
 set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
-
+autocmd vimenter * NERDTree " Open NERDTree when opening vim
 
 "****************************************************************************
 " UI
