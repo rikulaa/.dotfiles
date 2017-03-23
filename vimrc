@@ -17,6 +17,9 @@ Plugin 'scrooloose/nerdtree'		"NERDTree
 "NERDTree comments
 Plugin 'scrooloose/nerdcommenter'
 
+" CtrlP Fuzzy file finder
+Plugin 'kien/ctrlp.vim'
+
 "Emmet
 Plugin 'mattn/emmet-vim'			"Emmet
 
@@ -28,6 +31,12 @@ Plugin 'honza/vim-snippets'
 
 " Autoclose brackets
 Plugin 'jiangmiao/auto-pairs'
+
+" Vim Surround plugin
+Plugin 'tpope/vim-surround'
+
+"Vim airline
+Plugin 'vim-airline/vim-airline'
 
 "Theme based on visual studio code
 Plugin 'tomasiser/vim-code-dark'
@@ -70,6 +79,7 @@ colorscheme codedark		" Theme
 set showcmd					" Show command at the bottom
 set cursorline              " Shows line where the cursos is
 set showmatch				" Highligth matching [({})]
+set laststatus=2            " For Airline to show itself on startup"
 nnoremap <leader><space> :nohlsearch<CR>	
 
 " NERDTress File highlighting
