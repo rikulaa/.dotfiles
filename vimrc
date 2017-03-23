@@ -60,6 +60,7 @@ set autoread                " Reload files changed outside vim
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
+set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
