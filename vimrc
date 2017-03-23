@@ -128,7 +128,8 @@ set expandtab				" When tabbing, insert (four) spaces
 "****************************************************************************
 set incsearch				" Search as characters are entered
 set hlsearch				" Highlight matches
-
+" Ignore these folders when searching with ctrlp
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 "****************************************************************************
 "Keybindings
