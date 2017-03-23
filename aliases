@@ -9,9 +9,6 @@ alias dotfiles="cd ~/.dotfiles && ls -al"
 alias l='ls -al'
 alias ..="cd .."
 
-#Git
-
-
 #other
 alias php-server='php -S localhost:8000' 
 alias dirs='dirs -v'
