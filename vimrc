@@ -33,11 +33,13 @@ Plugin 'honza/vim-snippets'
 Plugin 'jiangmiao/auto-pairs'
 
 "HTML, XML Help
-Plugin 'othree/xml.vim'
+Plugin 'alvan/vim-closetag'
+"Plugin 'othree/xml.vim'
 
 "jsx syntax
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+Plugin 'chemzqm/vim-jsx-improve'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'mxw/vim-jsx'
 
 " Vim Surround plugin
 Plugin 'tpope/vim-surround'
@@ -69,12 +71,18 @@ filetype plugin indent on    " required
 "****************************************************************************
 "General
 "****************************************************************************
-set path+=**                " Provide tab-completion for all file-related tasks
+"set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 autocmd vimenter * NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
+" filenames like *.xml, *.html, *.xhtml, ...
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx"
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
+
 "****************************************************************************
 " UI
 "****************************************************************************
