@@ -97,6 +97,7 @@ set showcmd					" Show command at the bottom
 set cursorline              " Shows line where the cursos is
 set showmatch				" Highligth matching [({})]
 set laststatus=2            " For Airline to show itself on startup"
+set sidescroll=1            " Better side scrolling"
 nnoremap <leader><space> :nohlsearch<CR>	
 
 " Fixing the weird symbols instead of folders on some systems
