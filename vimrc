@@ -47,6 +47,9 @@ Plugin 'chemzqm/vim-jsx-improve'
 " Vim Surround plugin
 Plugin 'tpope/vim-surround'
 
+" Vim fugitive (Git)
+Plugin 'tpope/vim-fugitive'
+
 "Vim airline
 Plugin 'vim-airline/vim-airline'
 
