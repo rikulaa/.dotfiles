@@ -23,6 +23,9 @@ Plugin 'kien/ctrlp.vim'
 "Emmet
 Plugin 'mattn/emmet-vim'			"Emmet
 
+"Necomplete
+Plugin 'Shougo/neocomplete.vim'
+
 "snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -77,6 +80,8 @@ autocmd vimenter * NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
+" Enable neocomplete
+let g:neocomplete#enable_at_startup = 1
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx"
 let g:snipMate = {}
