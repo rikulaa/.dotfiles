@@ -83,6 +83,8 @@ autocmd vimenter * NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
+set backupdir=~/.vim/backup// " Move all swap files to this location"
+set directory=~/.vim/swp//
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
 " filenames like *.xml, *.html, *.xhtml, ...
