@@ -182,7 +182,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "****************************************************************************
 let mapleader="\<Space>"	" Use space as leader key
 noremap <Leader>w :update<CR>	"quicksave
-noremap <Leader>q :q<CR>        "quit
+"noremap <Leader>q :q<CR>        "quit
 "noremap <Leader>wq :wq<CR>      "write and quit
 nmap <leader>e :NERDTreeToggle <CR>
 
@@ -193,10 +193,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Move to the previous buffer with 
-"nnoremap <leader>p  :bp<CR>
 nnoremap <S-Tab>  :bp<CR>
-
 " Move to the next buffer with 
-"nnoremap <leader>n :bn<CR>
 nnoremap <Tab>    :bn<CR>
 
+" Close buffer
+nnoremap <leader>q  :bd<CR>
