@@ -4,6 +4,7 @@ alias vimrc="vim ~/.vimrc"
 alias aliases="vim ~/.aliases"
 alias gitconfig="vim ~/.gitconfig"
 alias dotfiles="cd ~/.dotfiles && ls -al"
+alias tmuxconf="vim ~/.tmux.conf"
 
 #file system
 alias l='ls -al'
@@ -12,6 +13,10 @@ alias ..="cd .."
 #other
 alias php-server='php -S localhost:8000' 
 alias dirs='dirs -v'
+
+#
+# Force tmux to open in 256 colour mode
+alias tmux="tmux -2"
 
 
 
