@@ -184,7 +184,7 @@ let mapleader="\<Space>"	" Use space as leader key
 noremap <Leader>w :update<CR>	"quicksave
 "noremap <Leader>q :q<CR>        "quit
 "noremap <Leader>wq :wq<CR>      "write and quit
-nmap <leader>e :NERDTreeToggle <CR>
+nmap <leader>e :NERDTreeToggle<CR>
 
 "For windows navigation
 nnoremap <C-h> <C-w>h	
