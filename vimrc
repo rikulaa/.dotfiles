@@ -26,6 +26,11 @@ Plugin 'mattn/emmet-vim'			"Emmet
 "Necomplete
 Plugin 'Shougo/neocomplete.vim'
 
+"Syntasticf
+Plugin 'vim-syntastic/syntastic'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
+
+
 "snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -85,6 +90,20 @@ set nowrap                  " Disable text wrapping"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
 set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
+
+"Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -93,10 +112,12 @@ let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
 
+
 "****************************************************************************
 " UI
 "****************************************************************************
 set number					" For line numbering
+set scrolloff=8            " keep 8 lines of space above and below the cursor
 set wildmenu                " Display all matching files when we tab complete
 set ruler
 set relativenumber          " For relative line numbering
@@ -109,6 +130,7 @@ set showmatch				" Highligth matching [({})]
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
 nnoremap <leader><space> :nohlsearch<CR>	
+
 
 " Fixing the weird symbols instead of folders on some systems
 let g:NERDTreeDirArrows=0
