@@ -47,4 +47,5 @@ git submodule update --init --recursive
 #Install plugins automatically
 vim +PluginInstall +qall
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Install oh-my-zsh 
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
