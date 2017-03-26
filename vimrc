@@ -27,8 +27,8 @@ Plugin 'mattn/emmet-vim'			"Emmet
 Plugin 'Shougo/neocomplete.vim'
 
 "Syntasticf
-Plugin 'vim-syntastic/syntastic'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
+"Plugin 'vim-syntastic/syntastic'
+"Plugin 'mtscout6/syntastic-local-eslint.vim'
 
 
 "snipmate
@@ -84,7 +84,7 @@ filetype plugin indent on    " required
 "****************************************************************************
 "set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
-autocmd vimenter * NERDTree " Open NERDTree when opening vim
+"autocmd vimenter * NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
@@ -92,17 +92,17 @@ set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
 
 "Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 1
 
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -131,6 +131,11 @@ set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
 nnoremap <leader><space> :nohlsearch<CR>	
 
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " Fixing the weird symbols instead of folders on some systems
 let g:NERDTreeDirArrows=0
@@ -179,7 +184,7 @@ let mapleader="\<Space>"	" Use space as leader key
 noremap <Leader>w :update<CR>	"quicksave
 noremap <Leader>q :q<CR>        "quit
 "noremap <Leader>wq :wq<CR>      "write and quit
-nmap <leader>ne :NERDTree<cr>   "open nerdtree
+nmap <leader>e :NERDTreeToggle <CR>
 
 "For windows navigation
 nnoremap <C-h> <C-w>h	
@@ -187,8 +192,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Tab navigation like VScode/browser 
-" THIS DOESNT WORK IN EVERY TERMINAL.
-" Works in gvim though
-nnoremap <C-S-Tab> :tabp<CR>
-nnoremap <C-Tab>   :tabn<CR>
+" Move to the previous buffer with 
+"nnoremap <leader>p  :bp<CR>
+nnoremap <S-Tab>  :bp<CR>
+
+" Move to the next buffer with 
+"nnoremap <leader>n :bn<CR>
+nnoremap <Tab>    :bn<CR>
+
