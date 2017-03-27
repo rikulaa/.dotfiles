@@ -26,6 +26,9 @@ echo "...done"
 
 #Handle creation of directories if not created
 mkdir -p ~/.vim
+mkdir -p ~/bin
+# Link bin manually
+ln -s ~/bin $dir/bin 
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
@@ -37,7 +40,7 @@ for file in $files; do
     else 
         #if we dont have a file created at $HOME
         touch ~/.$file 
-        ls -s $dir/$file ~/.$file  
+        ln -s $dir/$file ~/.$file  
     fi
 done
 
