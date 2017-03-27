@@ -9,7 +9,7 @@
 dir=~/.dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases"    # list of files/folders to symlink in homedir
-
+binfiles="eslint backup-documents backup-documents-to"
 ##########
 
 # create dotfiles_old in homedir
@@ -26,9 +26,6 @@ echo "...done"
 
 #Handle creation of directories if not created
 mkdir -p ~/.vim
-mkdir -p ~/bin
-# Link bin manually
-ln -s ~/bin $dir/bin 
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
@@ -43,6 +40,16 @@ for file in $files; do
         ln -s $dir/$file ~/.$file  
     fi
 done
+
+mkdir -p ~/bin
+# Link bin 
+for binfile in $binfiles; do 
+    if [ -a ~/bin/$binfile ]; then
+        mv ~/bin/$binfile ~dotfiles_old/bin
+    fi
+        ln -s $dir/bin/$binfile ~/bin/$binfile
+done
+
 
 #Update submodule (Vundle) so that Vim recognises it
 git submodule update --init --recursive
