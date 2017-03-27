@@ -27,7 +27,7 @@ Plugin 'mattn/emmet-vim'			"Emmet
 Plugin 'Shougo/neocomplete.vim'
 
 "Syntasticf
-"Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic'
 "Plugin 'mtscout6/syntastic-local-eslint.vim'
 
 
@@ -92,17 +92,17 @@ set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
 
 "Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
-"let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'eslint'
 
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1

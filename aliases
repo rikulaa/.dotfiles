@@ -9,6 +9,7 @@ alias tmuxconf="vim ~/.tmux.conf"
 #file system
 alias l='ls -al'
 alias ..="cd .."
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 #other
 alias php-server='php -S localhost:8000' 
