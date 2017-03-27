@@ -1,0 +1,3 @@
+#!/bin/bash
+#this will backup your Documents folder , currently in :Data disk
+rsync -av --progress --delete /media/riku/Data/Documents /media/riku/$1
