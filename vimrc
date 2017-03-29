@@ -91,6 +91,8 @@ set backupcopy=yes          " Doesnt with webpack-dev-server without this?
 set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
 
+set timeoutlen=1000 ttimeoutlen=0
+
 set ttyfast                 " Smoother scrolling"
 set lazyredraw              " Smootherrrr.??"
 set re=1                    " smoothenes"
