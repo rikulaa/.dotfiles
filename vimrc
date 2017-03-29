@@ -91,6 +91,11 @@ set backupcopy=yes          " Doesnt with webpack-dev-server without this?
 set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
 
+set ttyfast                 " Smoother scrolling"
+set lazyredraw              " Smootherrrr.??"
+set re=1                    " smoothenes"
+set regexpengine=1          " more smoothness"
+
 "Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -120,13 +125,13 @@ set number					" For line numbering
 set scrolloff=8            " keep 8 lines of space above and below the cursor
 set wildmenu                " Display all matching files when we tab complete
 set ruler
-set relativenumber          " For relative line numbering
+"set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
 set showcmd					" Show command at the bottom
-set cursorline              " Shows line where the cursos is
-set showmatch				" Highligth matching [({})]
+"set cursorline              " Shows line where the cursos is
+"Rset showmatch				" Highligth matching [({})]
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
 nnoremap <leader><space> :nohlsearch<CR>	
