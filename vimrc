@@ -30,6 +30,8 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'vim-syntastic/syntastic'
 "Plugin 'mtscout6/syntastic-local-eslint.vim'
 
+"html
+Plugin 'othree/html5.vim'
 
 "snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
