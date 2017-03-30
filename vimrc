@@ -1,7 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required for vundle loading plugins correclty
 
+"============================================================================
 " set the runtime path to include Vundle and initialize
+"============================================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
@@ -31,6 +33,8 @@ Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 Plugin 'tpope/vim-fugitive'             " Git utility
 Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
+
+" Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 
 " All of your Plugins must be added before the following line
@@ -50,13 +54,13 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 "
-"****************************************************************************
+"============================================================================
 "Plugin settings
-"****************************************************************************
+"============================================================================
 "Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set statusline+=%=
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -68,8 +72,8 @@ let g:syntastic_javascript_eslint_exe = 'eslint'
 
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
-" filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx"
+" filenames like =.xml, =.html, =.xhtml, ...
+let g:closetag_filenames = "=.html,=.xhtml,=.phtml,=.jsx"
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
@@ -88,7 +92,7 @@ let g:NERDTreeDirArrows=0
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.='. a:extension .'$#'
 endfunction
 
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
@@ -106,12 +110,12 @@ call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
-"****************************************************************************
+"============================================================================
 "General
-"****************************************************************************
-set path+=**                " Provide tab-completion for all file-related tasks
+"============================================================================
+set path+===                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
-"autocmd vimenter * NERDTree " Open NERDTree when opening vim
+"autocmd vimenter = NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set scrolloff=8             " keep 8 lines of space above and below the cursor
@@ -128,10 +132,9 @@ set re=1                    " smoothenes"
 set regexpengine=1          " more smoothness"
 
 
-
-"****************************************************************************
+"============================================================================
 "Searching
-"****************************************************************************
+"============================================================================
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
 "set showmatch				" Highligth matching [({})]
@@ -139,9 +142,9 @@ set hlsearch                " Highligth search
 set incsearch				" Search as characters are entered
 
 
-"****************************************************************************
+"============================================================================
 " UI
-"****************************************************************************
+"============================================================================
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
@@ -154,21 +157,19 @@ set showcmd					" Show command at the bottom
 let loaded_matchparen = 1   " Do not show matching bracket
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
-nnoremap <leader><space> :nohlsearch<CR>	
 
 
-
-"****************************************************************************
+"============================================================================
 " Spaces & tab 
-"****************************************************************************
+"============================================================================
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4			" When indenting with >
 set expandtab				" When tabbing, insert (four) spaces
 
-"****************************************************************************
+"============================================================================
 "Keybindings
-"****************************************************************************
+"============================================================================
 let mapleader="\<Space>"	" Use space as leader key
 
 " Save if changes
@@ -188,3 +189,5 @@ nnoremap <S-Tab>  :bp<CR>
 nnoremap <Tab>    :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
+
+nnoremap <leader><space> :nohlsearch<CR>	
