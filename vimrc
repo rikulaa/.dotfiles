@@ -122,6 +122,8 @@ set autoread                " Reload files changed outside vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set scrolloff=8             " keep 8 lines of space above and below the cursor
+set splitright              " Split new windows to the right"
+set splitbelow              " Split horizontal new windows to the bottom"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
 set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
