@@ -70,10 +70,13 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint'
 
+"filenames like *.xml, *.html, *.xhtml, ...
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx"
+
+
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
-" filenames like =.xml, =.html, =.xhtml, ...
-let g:closetag_filenames = "=.html,=.xhtml,=.phtml,=.jsx"
+
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
@@ -148,7 +151,7 @@ set incsearch				" Search as characters are entered
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
-"set relativenumber          " For relative line numbering
+set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
