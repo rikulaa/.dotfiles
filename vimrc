@@ -12,9 +12,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'		"Vundle
 
-Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer
-Plugin 'scrooloose/nerdcommenter'       "NERDTree comments
-Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
+Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer Plugin 'scrooloose/nerdcommenter'       "NERDTree comments Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'Shougo/neocomplete.vim'         "Neocomplete for autcompletion
 Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
@@ -153,7 +151,7 @@ set incsearch				" Search as characters are entered
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
-set relativenumber          " For relative line numbering
+"set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
