@@ -12,7 +12,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'		"Vundle
 
-Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer Plugin 'scrooloose/nerdcommenter'       "NERDTree comments Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
+Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer 
+Plugin 'scrooloose/nerdcommenter'       "NERDTree comments 
+Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'Shougo/neocomplete.vim'         "Neocomplete for autcompletion
 Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
@@ -129,10 +131,10 @@ set directory=~/.vim/swp//
 " Reduce timeout caused by pressin Esc"
 set timeoutlen=1000 ttimeoutlen=0   
 
-set ttyfast                 " Smoother scrolling"
-set lazyredraw              " Smootherrrr.??"
-set re=1                    " smoothenes"
-set regexpengine=1          " more smoothness"
+"set ttyfast                  Smoother scrolling"
+"set lazyredraw               Smootherrrr.??
+"set re=1                     smoothenes"
+"set regexpengine=1           more smoothness"
 
 
 "============================================================================
