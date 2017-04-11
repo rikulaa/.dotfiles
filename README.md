@@ -1,7 +1,12 @@
 # .dotfiles
 My dotfiles for Vim, zsh, tmux and Git
 
-Also remember to install: zsh, tmux, VSCode
+Also remember to install: 
+
+zsh, 
+tmux, 
+VSCode
+ranger?
 
 vim-syntastic requires the "eslint" script in order to use
 the local eslint.
