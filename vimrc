@@ -131,8 +131,8 @@ set directory=~/.vim/swp//
 " Reduce timeout caused by pressin Esc"
 set timeoutlen=1000 ttimeoutlen=0   
 
-"set ttyfast                  Smoother scrolling"
-"set lazyredraw               Smootherrrr.??
+set ttyfast                 " Smoother scrolling"
+set lazyredraw              " "Smootherrrr.??
 "set re=1                     smoothenes"
 "set regexpengine=1           more smoothness"
 
