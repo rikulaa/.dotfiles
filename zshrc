@@ -83,6 +83,9 @@ source $ZSH/oh-my-zsh.sh
 if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
+
+
+export EDITOR=vim 
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
