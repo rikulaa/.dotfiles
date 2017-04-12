@@ -177,6 +177,10 @@ set expandtab				" When tabbing, insert (four) spaces
 "============================================================================
 let mapleader="\<Space>"	" Use space as leader key
 
+"Easier copy and paste from system clipboard
+noremap <leader>y "+y   
+nnoremap <leader>p "+p
+
 " Save if changes
 noremap <Leader>w :update<CR>	"quicksave
 " Toggle nerdtree
