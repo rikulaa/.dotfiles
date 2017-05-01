@@ -11,6 +11,7 @@ alias tmuxconf="vim ~/.tmux.conf"
 alias l="ls -al"
 alias ..="cd .."
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias vpn="cd /etc/openvpn/"
 
 alias www="cd /var/www/ && ls"
 
@@ -23,7 +24,6 @@ alias dirs="dirs -v"
 #
 # Force tmux to open in 256 colour mode
 alias tmux="tmux -2"
-
 
 
 
