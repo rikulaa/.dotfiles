@@ -1,6 +1,6 @@
 [user]
-	email = riku.laajala@gmail.com
-	name = RikLaa
+	email = riku.laajala@meiko.fi
+	name = rikulaa
 [credential]
     helper = cache --timeout=3600
 [alias]
