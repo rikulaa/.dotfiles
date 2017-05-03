@@ -34,6 +34,9 @@ Plugin 'tpope/vim-surround'             " Vim Surround plugin
 Plugin 'tpope/vim-fugitive'             " Git utility
 Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
 
+Plugin 'editorconfig/editorconfig-vim'
+"Plugin 'sgur/vim-editorconfig'
+
 " Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 
@@ -72,7 +75,6 @@ let g:syntastic_javascript_eslint_exe = 'eslint'
 
 "filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx"
-
 
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
