@@ -9,7 +9,7 @@
 dir=~/.dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases"    # list of files/folders to symlink in homedir
-binfiles="eslint backup-documents backup-documents-to"
+binfiles="eslint"
 ##########
 
 # create dotfiles_old in homedir
