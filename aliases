@@ -25,6 +25,3 @@ alias dirs="dirs -v"
 # Force tmux to open in 256 colour mode
 alias tmux="tmux -2"
 
-
-
-
