@@ -160,7 +160,7 @@ syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
 set showcmd					" Show command at the bottom
-"set cursorline              " Shows line where the cursos is
+set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
