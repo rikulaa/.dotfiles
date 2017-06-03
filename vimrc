@@ -2,7 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required for vundle loading plugins correclty
 
 "============================================================================
-" set the runtime path to include Vundle and initialize
+" set the runtime path to include Vundle and initialize, just testing
 "============================================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -33,6 +33,7 @@ Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 "Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 Plugin 'tpope/vim-fugitive'             " Git utility
+Plugin 'airblade/vim-gitgutter'         " Show git diffs on sidebar
 Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
 
 Plugin 'editorconfig/editorconfig-vim'
