@@ -123,6 +123,7 @@ set autoread                " Reload files changed outside vim
 "autocmd vimenter = NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
+set backspace=2             " Allow deleting in insert mode 
 set scrolloff=8             " keep 8 lines of space above and below the cursor
 set splitright              " Split new windows to the right"
 set splitbelow              " Split horizontal new windows to the bottom"
