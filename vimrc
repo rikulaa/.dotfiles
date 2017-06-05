@@ -13,7 +13,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'		"Vundle
 
 Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer 
-Plugin 'scrooloose/nerdcommenter'       "NERDTree comments 
+"Plugin 'scrooloose/nerdcommenter'       "NERDTree comments 
+Plugin 'tpope/vim-commentary'           " Comments
 Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
