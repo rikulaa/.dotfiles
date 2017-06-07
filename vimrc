@@ -15,7 +15,8 @@ Plugin 'VundleVim/Vundle.vim'		"Vundle
 Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer 
 "Plugin 'scrooloose/nerdcommenter'       "NERDTree comments 
 Plugin 'tpope/vim-commentary'           " Comments
-Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
+" Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
+Plugin 'junegunn/fzf'                   " fuzzy searc
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
 Plugin 'Shougo/neocomplete.vim'         "Neocomplete for autcompletion
@@ -29,6 +30,7 @@ Plugin 'honza/vim-snippets'             " Custom snippets
 Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 "Plugin 'othree/xml.vim'
+Plugin 'moll/vim-node'
 Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 "Plugin 'pangloss/vim-javascript'
 "Plugin 'mxw/vim-jsx'
@@ -91,6 +93,9 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
+" Custom separators
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -164,7 +169,7 @@ syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
 set showcmd					" Show command at the bottom
-"set cursorline              " Shows line where the cursos is
+" set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
@@ -191,6 +196,9 @@ nnoremap <leader>p "+p
 noremap <Leader>w :update<CR>	"quicksave
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
+
+" FZF
+nnoremap <leader>t :FZF<CR>
 
 "For windows navigation
 nnoremap <C-h> <C-w>h	
