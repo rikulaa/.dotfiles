@@ -29,7 +29,8 @@ Plugin 'garbas/vim-snipmate'            " Required for snipmate
 Plugin 'honza/vim-snippets'             " Custom snippets
 Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
-"Plugin 'othree/xml.vim'
+
+Plugin 'othree/xml.vim'
 Plugin 'moll/vim-node'
 Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 "Plugin 'pangloss/vim-javascript'
@@ -79,7 +80,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint'
 
 "filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js"
 
 " Enable neocomplete
 let g:neocomplete#enable_at_startup = 1
