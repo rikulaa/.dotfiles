@@ -20,7 +20,8 @@ Plugin 'junegunn/fzf'                   " fuzzy searc
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
 Plugin 'Shougo/neocomplete.vim'         "Neocomplete for autcompletion
-Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
+" Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
+Plugin 'w0rp/ale'
 "Plugin 'mtscout6/syntastic-local-eslint.vim'
 Plugin 'othree/html5.vim'               " Improved html syntax, indent
 Plugin 'MarcWeber/vim-addon-mw-utils'   " Required for snipmate
@@ -42,9 +43,12 @@ Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
 
 Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'sgur/vim-editorconfig'
+"
+Plugin 'christoomey/vim-tmux-navigator'
 
 " Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
+Plugin 'joshdick/onedark.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -169,8 +173,9 @@ set ruler
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
+" colorscheme onedark
 set showcmd					" Show command at the bottom
-" set cursorline              " Shows line where the cursos is
+set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
@@ -202,10 +207,10 @@ nmap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>t :FZF<CR>
 
 "For windows navigation
-nnoremap <C-h> <C-w>h	
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" nnoremap <C-h> <C-w>h	
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
 
 " Move to the previous buffer with 
 nnoremap <S-Tab>  :bp<CR>
