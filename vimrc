@@ -46,9 +46,12 @@ Plugin 'editorconfig/editorconfig-vim'
 "
 Plugin 'christoomey/vim-tmux-navigator'
 
+Plugin 'ap/vim-css-color'
+
 " Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plugin 'joshdick/onedark.vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
