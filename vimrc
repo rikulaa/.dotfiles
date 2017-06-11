@@ -32,9 +32,9 @@ Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 
 Plugin 'othree/xml.vim'
-Plugin 'moll/vim-node'
+" Plugin 'moll/vim-node'
 Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
-"Plugin 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 "Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 Plugin 'tpope/vim-fugitive'             " Git utility
@@ -96,8 +96,11 @@ let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
 
+" Dont run linter on text change
+let g:ale_lint_on_text_changed = 'never'
+
 " Ignore these folders when searching with ctrlp
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -151,8 +154,10 @@ set directory=~/.vim/swp//
 set timeoutlen=1000 ttimeoutlen=0   
 
 set ttyfast                 " Smoother scrolling"
+set ttyscroll=3
 set lazyredraw              " "Smootherrrr.??
-"set re=1                     smoothenes"
+set re=1                    
+set synmaxcol=200           " dont color lines that are too long
 "set regexpengine=1           more smoothness"
 
 
@@ -174,7 +179,7 @@ set incsearch				" Search as characters are entered
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
-"set relativenumber          " For relative line numbering
+" set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 colorscheme codedark		" Theme
