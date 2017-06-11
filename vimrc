@@ -156,6 +156,8 @@ set lazyredraw              " "Smootherrrr.??
 "============================================================================
 "Searching
 "============================================================================
+set grepprg=rg\ --vimgrep   " Use ripgrep instad of grep"
+
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
 "set showmatch				" Highligth matching [({})]
@@ -202,6 +204,8 @@ nnoremap <leader>p "+p
 noremap <Leader>w :update<CR>	"quicksave
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
+
+nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
 
 " FZF
 nnoremap <leader>t :FZF<CR>
