@@ -182,6 +182,7 @@ set ruler
 " set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
+set t_ut=
 colorscheme codedark		" Theme
 " colorscheme onedark
 set showcmd					" Show command at the bottom
@@ -232,3 +233,14 @@ nnoremap <Tab>    :bn<CR>
 nnoremap <leader>q  :bd<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>	
+
+" More colors for code dark
+" call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
+" call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
+" call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
+" call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
+" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
+ 
+
+
+
