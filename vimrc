@@ -44,6 +44,7 @@ Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
 Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'sgur/vim-editorconfig'
 "
+Plugin 'wincent/terminus'
 Plugin 'christoomey/vim-tmux-navigator'
 
 Plugin 'ap/vim-css-color'
