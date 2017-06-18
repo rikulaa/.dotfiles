@@ -1,5 +1,6 @@
 tap 'homebrew/bundle'
 tap 'caskroom/cask'
+tap 'homebrew/homebrew-php'
 
 #Essentials
 brew 'node'
@@ -12,6 +13,10 @@ brew 'openssl'
 brew 'ripgrep'
 brew 'htop'
 brew 'vim'
+
+#php
+brew 'homebrew/php/composer'
+brew 'homebrew/php/php71'
 
 #cask
 #browsers
