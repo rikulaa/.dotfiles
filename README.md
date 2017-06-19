@@ -1,12 +1,7 @@
 # .dotfiles
-My dotfiles for Vim, zsh, tmux and Git
+My dotfiles for vim, zsh, tmux, brew and git
 
-Also remember to install: 
-
-zsh, 
-tmux, 
-VSCode
-ranger?
+Check Brewfile for additional programs to install
 
 vim-syntastic requires the "eslint" script in order to use
 the local eslint.
