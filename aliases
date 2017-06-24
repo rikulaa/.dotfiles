@@ -1,27 +1,28 @@
 #configurations
-alias zshconfig = $EDITOR "~/.zshrc"
-alias vimrc = $EDITOR "~/.vimrc"
-alias aliases = $EDITOR "~/.aliases"
-alias gitconfig = $EDITOR "~/.gitconfig"
-alias dotfiles = "cd ~/.dotfiles && ls -al"
-alias dot = "cd ~/.dotfiles && ls -al"
-alias tmuxconf = $EDITOR "~/.tmux.conf"
+alias zshconfig='$EDITOR ~/.zshrc'
+alias vimrc='$EDITOR ~/.vimrc'
+alias aliases='$EDITOR ~/.aliases'
+alias gitconfig='$EDITOR ~/.gitconfig'
+alias dotfiles='cd ~/.dotfiles && ls -al'
+alias dot='cd ~/.dotfiles && ls -al'
+alias tmuxconf='$EDITOR ~/.tmux.conf'
 
 #file system
-alias l="ls -al"
-alias ..="cd .."
+alias l='ls -al'
+alias ..='cd ..'
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-alias vpn="cd /etc/openvpn/"
+alias vpn='cd /etc/openvpn/'
 
-alias www="cd /var/www/ && ls"
+alias www='cd /var/www/ && ls'
 
-alias rmd="rm -Rf"
+alias rmd='rm -Rf'
+alias touchd='mkdir'
 
 #other
-alias php-server="php -S localhost:8000" 
-alias dirs="dirs -v"
+alias php-server='php -S localhost:8000' 
+alias dirs='dirs -v'
 
 #
 # Force tmux to open in 256 colour mode
-alias tmux="tmux -2"
+alias tmux='tmux -2'
 
