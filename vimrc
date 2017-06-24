@@ -211,7 +211,7 @@ noremap <leader>y "+y
 nnoremap <leader>p "+p
 
 " Save if changes
-noremap <Leader>w :update<CR>	"quicksave
+noremap <Leader>s :update<CR>	"quicksave
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
 
