@@ -27,4 +27,4 @@ alias dirs='dirs -v'
 alias tmux='tmux -2'
 
 # get weather 
-alias weather='php ~/Documents/projects/personal/weather-cli/weather.php'
+alias weather='php ~/Code/me/weather-cli/weather.php'
