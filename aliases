@@ -26,3 +26,5 @@ alias dirs='dirs -v'
 # Force tmux to open in 256 colour mode
 alias tmux='tmux -2'
 
+# get weather 
+alias weather='php ~/Documents/projects/personal/weather-cli/weather.php'
