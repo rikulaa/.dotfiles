@@ -1,6 +1,7 @@
 #!/bin/sh
+# Add last modified date to the beginning of the file
 
 fileName=$1
 parsedDate=$(stat -t %F $fileName | grep -oh '....-..-..' | tail -1)
-# parsedDate=$(stat -t %F $1 | grep -oh '....-..-..' | tail -1)
+
 mv $fileName "${parsedDate}_${fileName}"
