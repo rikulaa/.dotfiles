@@ -13,6 +13,7 @@ cdl() {
 		ls;
 	}
 alias cdl="cdl"
+
 alias l='ls -al'
 
 goBack() {
@@ -20,6 +21,7 @@ goBack() {
     ls;
 }
 alias ..='goBack'
+
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias vpn='cd /etc/openvpn/'
 
@@ -35,6 +37,9 @@ alias dirs='dirs -v'
 #
 # Force tmux to open in 256 colour mode
 alias tmux='tmux -2'
+alias tm='tmux -2'
+alias tmk='tmux kill-session'
+alias tma='tmux attach'
 
 # get weather 
 alias weather='php ~/Code/me/weather-cli/weather.php'
