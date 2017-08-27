@@ -18,6 +18,9 @@ brew 'vim'
 brew 'homebrew/php/composer'
 brew 'homebrew/php/php71'
 
+#other
+brew 'mplayer'
+
 #cask
 #browsers
 cask 'chromium'
@@ -37,6 +40,10 @@ cask 'sequel-pro'
 cask 'dropbox'
 cask 'vlc'
 
+cask 'slack'
+
 cask 'keeweb'
 cask 'windscribe'
 cask 'harvest'
+cask 'hammerspoon'
+cask 'usb-overdrive'
