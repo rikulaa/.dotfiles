@@ -6,9 +6,15 @@
 
 ########## Variables
 
-dir=~/.dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
-files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases"    # list of files/folders to symlink in homedir
+# dotfiles directory
+dir=~/.dotfiles                    
+# old dotfiles backup directory
+olddir=~/dotfiles_old             
+
+# list of files/folders to symlink in homedir
+# add only files you wish to symlink, this helps to exclude
+# files you might not need
+files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases"    
 binfiles="eslint stamp"
 ##########
 
