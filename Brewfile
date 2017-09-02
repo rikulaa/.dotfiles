@@ -34,6 +34,7 @@ cask 'vagrant'
 
 
 #coding
+cask 'iterm2'
 cask 'visual-studio-code'
 cask 'sequel-pro'
 
