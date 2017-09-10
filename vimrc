@@ -13,16 +13,14 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'		"Vundle
 
 Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer 
-"Plugin 'scrooloose/nerdcommenter'       "NERDTree comments 
 Plugin 'tpope/vim-commentary'           " Comments
-" Plugin 'kien/ctrlp.vim'                 " CtrlP Fuzzy file finder
 Plugin 'junegunn/fzf'                   " fuzzy searc
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
 Plugin 'Shougo/neocomplete.vim'         "Neocomplete for autcompletion
 " Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
 Plugin 'w0rp/ale'
-"Plugin 'mtscout6/syntastic-local-eslint.vim'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
 Plugin 'othree/html5.vim'               " Improved html syntax, indent
 Plugin 'MarcWeber/vim-addon-mw-utils'   " Required for snipmate
 Plugin 'tomtom/tlib_vim'                " Required for snipmate
@@ -32,17 +30,17 @@ Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 
 Plugin 'othree/xml.vim'
-" Plugin 'moll/vim-node'
+Plugin 'moll/vim-node'
 Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'pangloss/vim-javascript'
-"Plugin 'mxw/vim-jsx'
+Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 Plugin 'tpope/vim-fugitive'             " Git utility
 Plugin 'airblade/vim-gitgutter'         " Show git diffs on sidebar
 Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
 
 Plugin 'editorconfig/editorconfig-vim'
-"Plugin 'sgur/vim-editorconfig'
+" Plugin 'sgur/vim-editorconfig'
 "
 Plugin 'wincent/terminus'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -187,7 +185,7 @@ set t_ut=
 colorscheme codedark		" Theme
 " colorscheme onedark
 set showcmd					" Show command at the bottom
-" set cursorline              " Shows line where the cursos is
+set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
