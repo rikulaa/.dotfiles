@@ -42,6 +42,7 @@ cask 'dropbox'
 cask 'vlc'
 
 cask 'slack'
+cask 'toggldesktop'
 
 cask 'keeweb'
 cask 'windscribe'
