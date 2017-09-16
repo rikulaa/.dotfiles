@@ -12,5 +12,5 @@ install_osx:
 install_linux:
 	sudo apt install git
 	sudo apt install zsh
-	chsh -s $(which zsh)
+	chsh -s "$(which zsh)"
 
