@@ -10,7 +10,6 @@ brew 'fzf'
 brew 'git'
 brew 'tmux'
 brew 'openssl'
-brew 'ripgrep'
 brew 'htop'
 brew 'vim'
 
