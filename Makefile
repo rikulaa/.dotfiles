@@ -8,9 +8,12 @@ install_symlinks:
 
 install_osx:
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	brew tap Homebrew/bundle
+	brew bundle
+	@echo "Remember to check osx-tweaks"
 
 install_linux:
 	sudo apt install git
 	sudo apt install zsh
-	chsh -s "$(which zsh)"
+	chsh -s $(shell which zsh)
 
