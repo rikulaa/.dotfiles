@@ -42,7 +42,7 @@ for file in $files; do
         ln -s $dir/$file ~/.$file
     else 
         #if we dont have a file created at $HOME
-        touch ~/.$file 
+        # touch ~/.$file 
         ln -s $dir/$file ~/.$file  
     fi
 done
