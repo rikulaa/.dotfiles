@@ -1,4 +1,6 @@
-tap 'homebrew/bundle'
+#  will be installed by Makefile
+# tap 'homebrew/bundle'
+
 tap 'caskroom/cask'
 tap 'homebrew/homebrew-php'
 
