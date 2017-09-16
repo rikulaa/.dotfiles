@@ -163,7 +163,7 @@ set synmaxcol=200           " dont color lines that are too long
 "============================================================================
 "Searching
 "============================================================================
-set grepprg=rg\ --vimgrep   " Use ripgrep instad of grep"
+" set grepprg=rg\ --vimgrep   " Use ripgrep instad of grep"
 
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
@@ -213,7 +213,8 @@ noremap <Leader>s :update<CR>	"quicksave
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
 
-nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
+" nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
+nnoremap <leader>F :grep 
 
 " FZF
 nnoremap <leader>t :FZF<CR>
