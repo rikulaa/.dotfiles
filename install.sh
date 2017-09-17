@@ -1,10 +1,12 @@
 #!/bin/bash
 
+echo ""
 echo "Do you want to bootstrap new system? (y/n)"
 echo "You can also select invidual scripts to install only specific parts"
 read
 if [[ $REPLY = [yY] ]]; then 
     echo "Starting installation.."
+    echo ""
 else 
     echo "Aborting" 
     exit 1
@@ -32,7 +34,7 @@ if [[ "$UNAME" == 'Linux' ]]; then
     echo ""
     source $scripts/symlink.sh
     echo ""
-    source $scripts/post_install.sh
+    source $scripts/linux_post_install.sh
 
 # OSX
 elif [[ "$UNAME" == 'Darwin' ]]; then
@@ -44,7 +46,7 @@ elif [[ "$UNAME" == 'Darwin' ]]; then
     echo ""
     source $scripts/osx_programs.sh
     echo ""
-    source $scripts/post_install.sh
+    source $scripts/osx_post_install.sh
 
 fi
 
