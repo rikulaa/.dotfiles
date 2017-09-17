@@ -1,15 +1,12 @@
 # .dotfiles
 Configurations for vim, zsh, tmux, brew and git
 
-## Required programs
+# Installation
 
-git 
-fzf
-zsh
+Run install.sh to bootstrap your system. 
+OSX and Linux have different configurations (see scripts folder).
+Only the symlink.sh is run by both systems but 
+it has rules for symlinking files for the current system 
+(systems might have different configurations files)
 
-On Mac you can use brewfile to install these and other additional 
-programs
-
-Vim uses fz for searching, fzf can be downloaded as binary
-when using vim.
-
+Git must be installed before running these

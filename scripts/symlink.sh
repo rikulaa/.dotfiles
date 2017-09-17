@@ -8,9 +8,6 @@ read
 if [[ $REPLY = [yY] ]]; then 
         echo "Symlinking dotfiles..."
 
-        ########## Variables
-        # get the current system
-
         # dotfiles directory
         dir=~/.dotfiles                    
         # old dotfiles backup directory

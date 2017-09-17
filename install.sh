@@ -16,13 +16,6 @@ else
 fi
 
 
-# if [ -d ~/.dotfiles ]
-# then
-#   echo "You already have .dotfiles installed. You'll need to remove ~/.dotfiles if you want to install"
-#   exit 1
-# fi
-
-
 # scripts folder
 scripts=./scripts
 
