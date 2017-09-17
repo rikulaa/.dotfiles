@@ -37,6 +37,8 @@ if [[ "$UNAME" == 'Linux' ]]; then
     echo ""
     source $scripts/symlink.sh
     echo ""
+    source $scripts/linux_programs.sh
+    echo ""
     source $scripts/linux_post_install.sh
 
 # OSX
