@@ -1,5 +1,5 @@
 # .dotfiles
-Configurations for vim, zsh, tmux, brew and git
+Configurations for vim, zsh, tmux, hammerspoon, brew and git
 
 # Installation
 
@@ -10,3 +10,7 @@ it has rules for symlinking files for the current system
 (systems might have different configurations files)
 
 Git must be installed before running these
+
+# VS-Code
+
+Download syncing, setup with your own gist and download settings
