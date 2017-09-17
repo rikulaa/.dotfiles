@@ -38,8 +38,10 @@ alias dirs='dirs -v'
 # Force tmux to open in 256 colour mode
 alias tmux='tmux -2'
 alias tm='tmux -2'
-alias tmk='tmux kill-session'
 alias tma='tmux attach'
+alias tmks='tmux kill-session'
+alias tmkp='tmux kill-pane'
+alias tmkw='tmux kill-window'
 
 # get weather 
 alias weather='php ~/Code/me/weather-cli/weather.php'
