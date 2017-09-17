@@ -2,8 +2,11 @@
 
 echo ""
 echo "Do you want to bootstrap new system? (y/n)"
-echo "You can also select invidual scripts to install only specific parts"
+
+echo "Check the scripts -folder if you wish to install only specific parts to your system"
+echo ""
 read
+
 if [[ $REPLY = [yY] ]]; then 
     echo "Starting installation.."
     echo ""
