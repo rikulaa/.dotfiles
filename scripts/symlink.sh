@@ -9,16 +9,21 @@ if [[ $REPLY = [yY] ]]; then
         echo "Symlinking dotfiles..."
 
         ########## Variables
+        # get the current system
 
         # dotfiles directory
         dir=~/.dotfiles                    
         # old dotfiles backup directory
         olddir=~/dotfiles_old             
 
-        # list of files/folders to symlink in homedir
-        # add only files you wish to symlink, this helps to exclude
-        # files you might not need
-        files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases"    
+        # choose files depending on current system
+        OS=$(uname)
+        if [ $OS == Darwin ]; then
+            # osx
+            files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases hammerspoon"
+        else
+            files="vimrc vim zshrc bashrc gitconfig tmux.conf aliases"
+        fi
 
         # create dotfiles_old in homedir
         echo "Creating $olddir for backup of any existing dotfiles in ~"
@@ -32,22 +37,15 @@ if [[ $REPLY = [yY] ]]; then
         echo "...done"
 
 
-        #Handle creation of directories if not created
-        mkdir -p ~/.vim
-
         # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
         for file in $files; do
             if [ -a ~/.$file ]; then
                 echo "Moving any existing dotfiles from ~ to $olddir"
-                mv ~/.$file ~/dotfiles_old/
-                echo "Creating symlink to $file in home directory."
-                ln -s $dir/$file ~/.$file
-            else 
-                #if we dont have a file created at $HOME
-                # touch ~/.$file 
-                echo "Creating symlink to $file in home directory."
-                ln -s $dir/$file ~/.$file  
+                mv  ~/.$file ~/dotfiles_old/
             fi
+
+                echo "Creating symlink to $file in home directory."
+                ln -Fs $dir/$file ~/.$file
         done
 
         # # Link bin 
@@ -63,7 +61,7 @@ if [[ $REPLY = [yY] ]]; then
         #Install plugins automatically
         vim +PluginInstall +qall
 
-        # Install oh-my-zsh, move previosly installed version to dotfiles_old
+        # Install oh-my-zsh, move previously installed version to dotfiles_old
         if [ -a ~/.oh-my-zsh ]; then
             mv ~/.oh-my-zsh ~/dotfiles_old/
         fi

@@ -9,3 +9,4 @@ rm ~/.gitconfig
 rm -Rf ~/.vim
 rm -Rf ~/.oh-my-zsh
 rm -Rf ~/bin
+rm -Rf ~/.hammerspoon
