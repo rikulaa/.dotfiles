@@ -239,8 +239,11 @@ nnoremap <leader><space> :nohlsearch<CR>
 " call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
 " call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
 " call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
-" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
- 
-
+" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', 
+"
+au BufNewFile,BufRead *.js gf $3hgf
+au BufNewFile,BufRead *.jsx gf $3hgf
+au BufNewFile,BufRead *.vue gf $3hgf
+" nmap <leader>f $3hgf
 
 
