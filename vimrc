@@ -186,7 +186,8 @@ colorscheme codedark		" Theme
 set showcmd					" Show command at the bottom
 set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
-set laststatus=2            " For Airline to show itself on startup"
+" set laststatus=1            " For Airline to show itself on startup"
+" set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
 
 
@@ -213,7 +214,8 @@ nnoremap <leader>p "+p
 nmap <leader>e :NERDTreeToggle<CR>
 
 " nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
-nnoremap <leader>F :grep 
+" nnoremap <leader>F :grep 
+nnoremap <leader>F :grep -R --exclude-dir=node_modules 
 
 " FZF
 nnoremap <leader>t :FZF<CR>
