@@ -1,8 +1,3 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required for vundle loading plugins correclty
-
-"============================================================================
-" set the runtime path to include Vundle and initialize, just testing
 "============================================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -30,7 +25,7 @@ Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 
 Plugin 'othree/xml.vim'
-Plugin 'moll/vim-node'
+" Plugin 'moll/vim-node'
 Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
@@ -76,6 +71,9 @@ filetype plugin indent on    " required
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%=
+
+" map <leader>s <Plug>(easymotion-s)
+" nnoremap <leader>s <Plug>(easymotion-s)
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -136,6 +134,7 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 "============================================================================
 "General
 "============================================================================
+filetype plugin indent on   " Required for omnifunc
 set path+===                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 "autocmd vimenter = NERDTree " Open NERDTree when opening vim
@@ -209,7 +208,7 @@ noremap <leader>y "+y
 nnoremap <leader>p "+p
 
 " Save if changes
-noremap <Leader>s :update<CR>	"quicksave
+" noremap <Leader>s :update<CR>	"quicksave
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
 
@@ -234,16 +233,16 @@ nnoremap <leader>q  :bd<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>	
 
+inoremap <>> <ESC>=jA
+
 " More colors for code dark
 " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
 " call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
 " call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
 " call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
 " call <sid>hi('jsOperator', s:cdBlue, {}, 'none', 
-"
-au BufNewFile,BufRead *.js gf $3hgf
-au BufNewFile,BufRead *.jsx gf $3hgf
-au BufNewFile,BufRead *.vue gf $3hgf
-" nmap <leader>f $3hgf
 
-
+au BufNewFile,BufRead *.js noremap gf $3hgf
+au BufNewFile,BufRead *.jsx noremap gf $3hgf
+au BufNewFile,BufRead *.vue noremap  gf $3hgf
+" nmap <leader>f $3hgf....
