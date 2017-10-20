@@ -43,5 +43,9 @@ alias tmks='tmux kill-session'
 alias tmkp='tmux kill-pane'
 alias tmkw='tmux kill-window'
 
+alias docker-stop-all='docker kill $(docker ps -q)'
+alias docker-rm-containers='docker rm $(docker ps -a -q)'
+alias docker-rm-images=' docker rmi $(docker images -q)'
+
 # get weather 
 alias weather='php ~/Code/me/weather-cli/weather.php'
