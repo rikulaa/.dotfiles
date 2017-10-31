@@ -7,6 +7,10 @@ alias dotfiles='cd ~/.dotfiles && ls -al'
 alias dot='cd ~/.dotfiles && ls -al'
 alias tmuxconf='$EDITOR ~/.tmux.conf'
 
+alias school='cd ~/Code/school'
+alias work='cd ~/Code/work'
+alias me='cd ~/Code/me'
+
 #file system
 cdl() {
 		cd $1;
