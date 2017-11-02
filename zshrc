@@ -87,6 +87,6 @@ fi
 
 export EDITOR=vim 
 
-ANDROID_DEVELOPMENT="$HOME/Library/Android/sdk/tools:$HOME/Library/Android/sdk/platform-tools"
+ANDROID_HOME="$HOME/Library/Android/sdk/"
 
-export PATH="/usr/local/sbin:$HOME/bin:$PATH:$ANDROID_DEVELOPMENT"
+export PATH="/usr/local/sbin:$HOME/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
