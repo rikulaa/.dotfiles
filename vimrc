@@ -177,14 +177,14 @@ set incsearch				" Search as characters are entered
 " set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
-set relativenumber          " For relative line numbering
+" set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
 colorscheme codedark		" Theme
 " colorscheme onedark
 set showcmd					" Show command at the bottom
-set cursorline              " Shows line where the cursos is
+" set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 " set laststatus=1            " For Airline to show itself on startup"
 " set laststatus=2            " For Airline to show itself on startup"
