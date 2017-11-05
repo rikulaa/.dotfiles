@@ -12,7 +12,6 @@ Plugin 'tpope/vim-commentary'           " Comments
 Plugin 'junegunn/fzf'                   " fuzzy searc
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
-Plugin 'Shougo/neocomplete.vim'         "Neocomplete for autcompletion
 " Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
 Plugin 'w0rp/ale'
 Plugin 'mtscout6/syntastic-local-eslint.vim'
@@ -41,6 +40,14 @@ Plugin 'wincent/terminus'
 Plugin 'christoomey/vim-tmux-navigator'
 
 Plugin 'ap/vim-css-color'
+
+Plugin 'dsawardekar/wordpress.vim'
+
+
+" Testing neodeplte
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
 
 " Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
@@ -86,8 +93,8 @@ let g:syntastic_javascript_eslint_exe = 'eslint'
 "filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js"
 
-" Enable neocomplete
-let g:neocomplete#enable_at_startup = 1
+" Enable deocomplete
+let g:deoplete#enable_at_startup = 1
 
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
