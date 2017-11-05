@@ -151,10 +151,10 @@ set directory=~/.vim/swp//
 " Reduce timeout caused by pressin Esc"
 set timeoutlen=1000 ttimeoutlen=0   
 
-set ttyfast                 " Smoother scrolling"
-set ttyscroll=3
+" set ttyfast                 " Smoother scrolling"
+" set ttyscroll=3
 set lazyredraw              " "Smootherrrr.??
-set re=1                    
+" set re=1                    
 set synmaxcol=200           " dont color lines that are too long
 "set regexpengine=1           more smoothness"
 
@@ -174,10 +174,10 @@ set incsearch				" Search as characters are entered
 "============================================================================
 " UI
 "============================================================================
-set number					" For line numbering
+" set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
-" set relativenumber          " For relative line numbering
+set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
@@ -248,3 +248,17 @@ au BufNewFile,BufRead *.js noremap gf $3hgf
 au BufNewFile,BufRead *.jsx noremap gf $3hgf
 au BufNewFile,BufRead *.vue noremap  gf $3hgf
 " nmap <leader>f $3hgf....
+"
+"
+" " Performance improvments
+if has("mac")
+  set nocursorline
+
+  if exists("+relativenumber")
+    set norelativenumber
+    set number
+  endif
+
+  set foldlevel=0
+  set foldmethod=manual
+endif
