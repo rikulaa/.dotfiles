@@ -75,7 +75,6 @@
   :config 
   (helm-mode t)
   :bind (("M-x" . helm-M-x)
-	 ("C-[" . helm-quit)
 	 ("M-<f5>" . helm-find-files)
 	 ([f10] . helm-buffers-list)
 	 ([S-f10] . helm-recentf)))
@@ -143,10 +142,23 @@
 (use-package ace-jump-mode
   :ensure t)
 
+(use-package yasnippet
+  :ensure t)
+(yas-global-mode 1)
+
+(use-package powerline
+  :ensure t)
+(powerline-vim-theme)
+
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+
 ;; keybinding
 ;;(define-key evil/leader (kbd "b") 'helm-buffers-list)
 ;;(define-key evil-normal-state-map [remap xref-find-definitions] 'dumb-jump-go) 
+;; (define-key helm-map (kbd "C-[") 'helm-keyboard-quit)
 (define-key evil-normal-state-map (kbd "gd") 'dumb-jump-go)
+(define-key evil-normal-state-map (kbd "SPC ;") 'helm-M-x)
 (define-key evil-normal-state-map (kbd "gcc") 'comment-line)
 (define-key evil-insert-state-map (kbd "TAB") 'self-insert-command); # only in text-mode
 
@@ -158,7 +170,8 @@
   "e"  'neotree-toggle
   "g" 'magit-status
   "s" 'evil-ace-jump-char-mode
-  ";" 'helm-M-x
+  "m" 'list-bookmarks
+  "f" 'helm-find-files
   ;;"gd" 'dumb-jump-go
   )
 
@@ -197,9 +210,16 @@
   :init (progn (load-theme 'ample t t)
                (load-theme 'ample-flat t t)
                (load-theme 'ample-light t t)
-               (enable-theme 'ample))
+               ;; (enable-theme 'ample))
   :defer t
+  :ensure t))
+(use-package spacegray-theme
   :ensure t)
+(load-theme 'spacegray t)
+
+(use-package airline-themes
+  :ensure t)
+(load-theme 'airline-papercolor)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -215,9 +235,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("9b1c580339183a8661a84f5864a6c363260c80136bd20ac9f00d7e1d662e936a" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b563a87aa29096e0b2e38889f7a5e3babde9982262181b65de9ce8b78e9324d5" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
  '(package-selected-packages
    (quote
-    (ace-jump-mode git-gutter evil-magit js2-jsx-mode ample-theme auto-complete editorconfig php-mode web-mode magit dumb-jump evil-indent-textobject evil-surround evil-jumper helm-projectile projectile helm use-package evil-visual-mark-mode)))
+    (spacegray-theme airline-themes powerline ace-jump-mode git-gutter evil-magit js2-jsx-mode ample-theme auto-complete editorconfig php-mode web-mode magit dumb-jump evil-indent-textobject evil-surround evil-jumper helm-projectile projectile helm use-package evil-visual-mark-mode)))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
