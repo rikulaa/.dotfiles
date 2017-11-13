@@ -176,9 +176,7 @@
   )
 
 ; (define-key helm-map "\C-[" 'helm-keyboard-quit)
-; (define-key evil-normal-state-map "\C-["  'keyboard-quit)
-; (define-key evil-visual-state-map "\C-[" 'keyboard-quit)
-; (define-key minibuffer-local-map "\C-[" 'minibuffer-keyboard-quit)
+; (define-key evil-normal-state-map "\C-["  'keyboard-quit) ; (define-key evil-visual-state-map "\C-[" 'keyboard-quit) ; (define-key minibuffer-local-map "\C-[" 'minibuffer-keyboard-quit)
 ; (define-key minibuffer-local-ns-map "\C-[" 'minibuffer-keyboard-quit)
 ; (define-key minibuffer-local-completion-map "\C-[" 'minibuffer-keyboard-quit)
 ; (define-key minibuffer-local-must-match-map "\C-[" 'minibuffer-keyboard-quit)
@@ -217,9 +215,7 @@
   :ensure t)
 (load-theme 'spacegray t)
 
-(use-package airline-themes
-  :ensure t)
-(load-theme 'airline-papercolor)
+
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
