@@ -5,6 +5,7 @@
     helper = cache --timeout=3600
 [alias]
     cm = !git add -A && git commit -m
+    cmp = "!f() { git add -A; git commit -m 'git aliases'; git push;  }; f"
     undo = reset HEAD~1 --mixed
     co = checkout
     cob = checkout -b
@@ -12,3 +13,4 @@
     st = status -sb
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lga = log --graph --all --decorate --oneline
+     say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
