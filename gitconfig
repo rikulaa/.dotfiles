@@ -5,7 +5,7 @@
     helper = cache --timeout=3600
 [alias]
     cm = !git add -A && git commit -m
-    cmp = "!f() { git add -A; git commit -m 'git aliases'; git push;  }; f"
+    cmp = "!f() { msg=$1; git add -A; echo $msg; git commit -m '$msg'; git push;  }; f"
     undo = reset HEAD~1 --mixed
     co = checkout
     cob = checkout -b
