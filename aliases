@@ -16,24 +16,28 @@ alias me='cd ~/Code/me'
 function cd_ls() { builtin cd "$@" && ls; }
 alias cd="cd_ls"
 
-alias l='ls -al'
-
 goBack() {
     cd ..;
 }
 alias ..='goBack'
+
+alias l='ls -al'
 
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias vpn='cd /etc/openvpn/'
 
 alias www='cd /var/www/ && ls'
 
+# create delete folders
 alias rmd='rm -Rf'
 alias touchd='mkdir'
 
 #other
 alias php-server='php -S localhost:8000' 
 alias dirs='dirs -v'
+
+alias v='vim'
+alias e='emacs'
 
 #
 # Force tmux to open in 256 colour mode

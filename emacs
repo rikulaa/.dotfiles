@@ -175,7 +175,7 @@
   ;;"gd" 'dumb-jump-go
   )
 
-; (define-key helm-map "\C-[" 'helm-keyboard-quit)
+(define-key helm-map (kbd "C-[") 'helm-keyboard-quit)
 ; (define-key evil-normal-state-map "\C-["  'keyboard-quit) ; (define-key evil-visual-state-map "\C-[" 'keyboard-quit) ; (define-key minibuffer-local-map "\C-[" 'minibuffer-keyboard-quit)
 ; (define-key minibuffer-local-ns-map "\C-[" 'minibuffer-keyboard-quit)
 ; (define-key minibuffer-local-completion-map "\C-[" 'minibuffer-keyboard-quit)
