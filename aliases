@@ -12,17 +12,14 @@ alias work='cd ~/Code/work'
 alias me='cd ~/Code/me'
 
 #file system
-cdl() {
-		cd $1;
-		ls;
-	}
-alias cdl="cdl"
+# extend cd to always list files when navigating
+function cd_ls() { builtin cd "$@" && ls; }
+alias cd="cd_ls"
 
 alias l='ls -al'
 
 goBack() {
     cd ..;
-    ls;
 }
 alias ..='goBack'
 
