@@ -1,4 +1,5 @@
-local cmd = {"cmd", "alt", "ctrl"};
+-- local cmd = {"cmd", "alt", "ctrl"};
+local cmd = {"alt"};
 
 hs.hotkey.bind(cmd, "R", function()
   hs.reload()
@@ -46,10 +47,10 @@ hs.hotkey.bind(cmd, "O", function() push(0.5, 0, 0.5, 0.5) end)
 hs.hotkey.bind(cmd, "L", function() push(0.5, 0, 0.5, 1) end)
 
 -- window right bottom
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, ".", function() push(0.5, 0.5, 0.5, 0.5) end)
+hs.hotkey.bind(cmd, ".", function() push(0.5, 0.5, 0.5, 0.5) end)
 
 -- window bottom
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "J", function()
+hs.hotkey.bind(cmd, "J", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
@@ -63,7 +64,7 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "J", function()
 end)
 
 --window left bottom
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "N", function()
+hs.hotkey.bind(cmd, "N", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
@@ -74,5 +75,24 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "N", function()
   f.w = max.w / 2
   f.h = max.h  
   win:setFrame(f)
+end)
+
+
+-- open terminal
+hs.hotkey.bind(cmd, "t", function()
+    -- local iterm = hs.application:name('iterm2');
+    hs.application.open("iTerm");
+end)
+
+-- open browser
+hs.hotkey.bind(cmd, "b", function()
+    -- local iterm = hs.application:name('iterm2');
+    hs.application.open("firefox");
+end)
+
+-- open editor
+hs.hotkey.bind(cmd, "e", function()
+    -- local iterm = hs.application:name('iterm2');
+    hs.application.open("Visual Studio Code");
 end)
 
