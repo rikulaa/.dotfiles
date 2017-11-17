@@ -201,6 +201,9 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
 (setq scroll-step 1) ;; keyboard scroll one line at a time
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+
 
 					; Use Source Code Pro 14pt in GUI
 ;;(when (display-graphic-p) (set-face-attribute 'default nil :font "Source Code Pro for Powerline-14"))
@@ -223,7 +226,7 @@
 (show-paren-mode)
 
 ;; enable line numbers
-(global-linum-mode t)
+;; (global-linum-mode t)
 
 
 (custom-set-variables
