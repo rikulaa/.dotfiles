@@ -208,6 +208,7 @@
 					; Use Source Code Pro 14pt in GUI
 ;;(when (display-graphic-p) (set-face-attribute 'default nil :font "Source Code Pro for Powerline-14"))
 (use-package ample-theme
+  :ensure t
   :init (progn (load-theme 'ample t t)
                (load-theme 'ample-flat t t)
                (load-theme 'ample-light t t)
@@ -226,7 +227,7 @@
 (show-paren-mode)
 
 ;; enable line numbers
-;; (global-linum-mode t)
+(global-linum-mode t)
 
 
 (custom-set-variables
