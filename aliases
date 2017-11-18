@@ -13,13 +13,15 @@ alias me='cd ~/Code/me'
 
 #file system
 # extend cd to always list files when navigating
-function cd_ls() { builtin cd "$@" && ls; }
+function cd_ls() { builtin cd "$@" && ls -l; }
 alias cd="cd_ls"
 
 goBack() {
     cd ..;
 }
 alias ..='goBack'
+bindkey -s '..' 'goBack\n'
+bindkey -s '^n^h' 'goBack\n'
 
 alias l='ls -al'
 
