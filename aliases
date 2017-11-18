@@ -60,3 +60,4 @@ alias react-native-android-emulator='/Users/rikulaa/Library/Android/sdk/tools/em
 
 # get weather 
 alias weather='php ~/Code/me/weather-cli/weather.php'
+
