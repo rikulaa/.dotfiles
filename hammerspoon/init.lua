@@ -91,7 +91,7 @@ end)
 
 -- open browser
 hs.hotkey.bind(mod, "b", function()
-    hs.application.open("firefox");
+    hs.application.open("Google Chrome");
 end)
 
 -- open editor
