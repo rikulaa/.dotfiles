@@ -38,7 +38,8 @@ alias touchd='mkdir'
 alias php-server='php -S localhost:8000' 
 alias dirs='dirs -v'
 
-alias v='vim'
+alias v='nvim'
+alias vim='nvim'
 alias e='emacs'
 
 #
