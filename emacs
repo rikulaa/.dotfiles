@@ -1,4 +1,4 @@
-;; time the loading of the .emacs
+; time the loading of the .emacs
 ;; keep this on top of your .emacs
 (defvar *emacs-load-start* (current-time))
 (defun anarcat/time-to-ms (time)
@@ -87,6 +87,8 @@
 (use-package helm-projectile
   :ensure t)
 (helm-projectile-on)
+(use-package projectile-ripgrep
+  :ensure t)
 
 ;; jumping to definition
 (use-package dumb-jump
@@ -149,10 +151,21 @@
   :ensure t)
 (yas-global-mode 1)
 
-(use-package powerline
-  :ensure t)
-(powerline-vim-theme)
-
+;(use-package spaceline
+;  :ensure t
+;  :config
+;  )
+;(spaceline-spacemacs-theme)
+(use-package telephone-line
+  :ensure t
+  :config
+  (telephone-line-evil-config))
+;(use-package powerline
+  ;:ensure t
+  ;:config
+  ;(powerline-vim-theme)
+  ;)
+;
 (setq helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match    t)
 
@@ -215,12 +228,12 @@
   :init (progn (load-theme 'ample t t)
                (load-theme 'ample-flat t t)
                (load-theme 'ample-light t t)
-               ;; (enable-theme 'ample))
+               (enable-theme 'ample)
   :defer t
   :ensure t))
-(use-package spacegray-theme
-  :ensure t)
-(load-theme 'spacegray t)
+;;(use-package spacegray-theme
+  ;;:ensure t)
+;;(load-theme 'spacegray t)
 
 
 
