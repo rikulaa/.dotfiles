@@ -2,6 +2,11 @@
 local mod = {"alt"};
 local mod2 = {"alt", "shift"}
 
+-- hightlight current window (blur other)
+-- hs.window.highlight.ui.overlay=true
+-- hs.window.highlight.start()
+
+
 -- switcher = hs.window.switcher.new() -- default windowfilter: only visible windows, all Spaces
 -- hs.hotkey.bind('alt','tab','Next window',function()switcher:next()end)
 
@@ -88,15 +93,19 @@ hs.hotkey.bind(mod2, "N", function() push(0, 0.5, 0.5, 0.5) end)
 
 -- open terminal
 hs.hotkey.bind(mod, "return", function()
-    hs.application.open("iTerm");
+    hs.application.open("iTerm")
 end)
 
 -- open browser
 hs.hotkey.bind(mod, "b", function()
-    hs.application.open("Google Chrome");
+    hs.application.open("Google Chrome")
 end)
 
 -- open editor
 hs.hotkey.bind(mod, "e", function()
-    hs.application.open("Visual Studio Code");
+    hs.application.open("Visual Studio Code")
+end)
+
+hs.hotkey.bind(mod, "f", function()
+  hs.application.open("Finder")
 end)
