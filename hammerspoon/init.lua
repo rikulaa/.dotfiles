@@ -2,6 +2,9 @@
 local mod = {"alt"};
 local mod2 = {"alt", "shift"}
 
+-- switcher = hs.window.switcher.new() -- default windowfilter: only visible windows, all Spaces
+-- hs.hotkey.bind('alt','tab','Next window',function()switcher:next()end)
+
 function setGrid() 
   hs.grid.setGrid('2x2', hs.screen.primaryScreen())
 end
@@ -33,22 +36,21 @@ function getAllWindows()
   hs.grid.show()
 end
 
+function focusWindows(focusDirection)
+  if not focusDirection then
+    local win = hs.window.focusedWindow()
+    win:sendToBack()
+    -- local otherWindows = hs.window:otherWindowsAllScreens()
+    -- if otherWindows[1] then hs.window.focus(otherWindows[1]) end
+  end
+end
 
-
-
--- hs.hotkey.bind({"mod", "alt", "ctrl"}, "H", function()
---   local win = hs.window.focusedWindow()
---   local f = win:frame()
-
---   f.x = f.x - 10
---   win:setFrame(f)
 
 hs.hotkey.bind(mod, "A", function() getAllWindows() end)
 
 -- window left 
 hs.hotkey.bind(mod2, "H", function() push(0, 0, 0.5, 1) end)
-hs.hotkey.bind(mod, "H", function() hs.window.focusWindowWest() end)
--- hs.hotkey.bind(mod, "H", function() push(0, 0, 0.5, 1) end)
+hs.hotkey.bind(mod, "H", function() focusWindows(hs.window.focusWindowWest()) end)
 
 -- window left top
 hs.hotkey.bind(mod2, "U", function() push(0, 0, 0.5, 0.5) end)
@@ -60,7 +62,7 @@ hs.hotkey.bind(mod2, "I", function() push(0, 0, 1, 10) end)
 
 -- window top
 hs.hotkey.bind(mod2, "K", function() push(0, 0, 1, 0.5) end)
-hs.hotkey.bind(mod, "K", function() hs.window.focusWindowNorth() end)
+hs.hotkey.bind(mod, "K", function() focusWindows(hs.window.focusWindowNorth()) end)
 -- hs.hotkey.bind(mod, "K", function() push(0, 0, 1, 10) end)
 
 -- window right top
@@ -69,7 +71,7 @@ hs.hotkey.bind(mod2, "O", function() push(0.5, 0, 0.5, 0.5) end)
 
 -- window right
 hs.hotkey.bind(mod2, "L", function() push(0.5, 0, 0.5, 1) end)
-hs.hotkey.bind(mod, "L", function() hs.window.focusWindowEast() end)
+hs.hotkey.bind(mod, "L", function() focusWindows(hs.window.focusWindowEast()) end)
 -- hs.hotkey.bind(mod, "L", function() push(0, 0, 1, 10) end)
 
 -- window right bottom
@@ -78,7 +80,7 @@ hs.hotkey.bind(mod2, ".", function() push(0.5, 0.5, 0.5, 0.5) end)
 
 -- window bottom
 hs.hotkey.bind(mod2, "J", function() push(0, 0.5, 1, 0.5) end)
-hs.hotkey.bind(mod, "J", function() hs.window.focusWindowSouth() end)
+hs.hotkey.bind(mod, "J", function() focusWindows(hs.window.focusWindowSouth()) end)
 
 
 -- window left bottom
@@ -98,4 +100,3 @@ end)
 hs.hotkey.bind(mod, "e", function()
     hs.application.open("Visual Studio Code");
 end)
-
