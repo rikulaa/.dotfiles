@@ -19,8 +19,8 @@ alias cd="cd_ls"
 goBack() {
     cd ..;
 }
-alias ..='goBack'
-bindkey -s '..' 'goBack\n'
+alias ..='cd ..'
+# bindkey -s '..' 'goBack\n'
 bindkey -s '^n^h' 'goBack\n'
 
 alias l='ls -al'
