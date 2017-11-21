@@ -77,7 +77,7 @@ hs.hotkey.bind(mod2, "O", function() push(0.5, 0, 0.5, 0.5) end)
 -- window right
 hs.hotkey.bind(mod2, "L", function() push(0.5, 0, 0.5, 1) end)
 hs.hotkey.bind(mod, "L", function() focusWindows(hs.window.focusWindowEast()) end)
--- hs.hotkey.bind(mod, "L", function() push(0, 0, 1, 10) end)
+-- hs.hotkey.bind(mod, "L", function() push(0, 0, 1, 10) ejd)
 
 -- window right bottom
 hs.hotkey.bind(mod2, ".", function() push(0.5, 0.5, 0.5, 0.5) end)
@@ -90,6 +90,18 @@ hs.hotkey.bind(mod, "J", function() focusWindows(hs.window.focusWindowSouth()) e
 
 -- window left bottom
 hs.hotkey.bind(mod2, "N", function() push(0, 0.5, 0.5, 0.5) end)
+
+-- move windows between screen
+hs.hotkey.bind(mod2, "M", function() 
+  -- hack which only support two monitors properly
+  local win = hs.window.focusedWindow()
+  if win:moveOneScreenWest(0) then
+    return
+  end
+   if win:moveOneScreenEast(0) then
+    return
+   end
+end)
 
 -- open terminal
 hs.hotkey.bind(mod, "return", function()
