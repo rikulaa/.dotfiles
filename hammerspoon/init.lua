@@ -1,6 +1,12 @@
 -- local mod = {"cmd", "alt", "ctrl"};
 local mod = {"alt"};
 local mod2 = {"alt", "shift"}
+-- gap size
+local gaps = 5
+
+-- not stable
+-- expose_space = hs.expose.new(nil,{includeOtherSpaces=false}) -- only windows in the current Mission Control Space
+-- hs.hotkey.bind(mod,"E",'Expose',function()expose_space:toggleShow()end)
 
 -- hightlight current window (blur other)
 -- hs.window.highlight.ui.overlay=true
@@ -28,10 +34,10 @@ function push(x, y, w, h)
   local screen = win:screen()
   local max = screen:frame()
 
-  f.x = max.x + (max.w * x)
-  f.y = max.y + (max.h * y)
-  f.w = max.w * w
-  f.h = max.h * h
+  f.x = max.x + (max.w * x) + gaps
+  f.y = max.y + (max.h * y) + gaps
+  f.w = max.w * w - (gaps * 2)
+  f.h = max.h * h - (gaps * 2)
   win:setFrame(f)
 end
 
@@ -50,11 +56,23 @@ function focusWindows(focusDirection)
   end
 end
 
+local verticalStart = 0;
+local horizontalStart = 0;
+local verticalEnd = 0.5;
+local horizontalEnd = 0.5;
 
-hs.hotkey.bind(mod, "A", function() getAllWindows() end)
+
+hs.hotkey.bind(mod, "G", function() getAllWindows() end)
 
 -- window left 
-hs.hotkey.bind(mod2, "H", function() push(0, 0, 0.5, 1) end)
+hs.hotkey.bind(mod2, "H", function() 
+  verticalEnd = verticalEnd + 0.25
+  if verticalEnd > 1 then 
+    verticalEnd = 0.5 
+  end
+    push(verticalStart, horizontalStart, verticalEnd, 1)
+  -- push(0, 0, 0.5, 1) 
+end)
 hs.hotkey.bind(mod, "H", function() focusWindows(hs.window.focusWindowWest()) end)
 
 -- window left top
@@ -62,7 +80,7 @@ hs.hotkey.bind(mod2, "U", function() push(0, 0, 0.5, 0.5) end)
 -- hs.hotkey.bind(mod, "U", function() hs.grid.pushWindowUp() end)
 
 -- window fullscreen
-hs.hotkey.bind(mod2, "I", function() push(0, 0, 1, 10) end)
+hs.hotkey.bind(mod2, "I", function() push(0, 0, 1, 1) end)
 -- hs.hotkey.bind(mod, "I", function()  end)
 
 -- window top
@@ -114,7 +132,7 @@ hs.hotkey.bind(mod, "b", function()
 end)
 
 -- open editor
-hs.hotkey.bind(mod, "e", function()
+hs.hotkey.bind(mod, "C", function()
     hs.application.open("Visual Studio Code")
 end)
 
