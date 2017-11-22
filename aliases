@@ -1,3 +1,6 @@
+# get local aliases (not under version control)
+source ~/.aliases_local
+
 #configurations
 alias zshrc='$EDITOR ~/.zshrc'
 alias vimrc='$EDITOR ~/.vimrc'
