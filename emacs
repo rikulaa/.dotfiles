@@ -151,23 +151,8 @@
   :ensure t)
 (yas-global-mode 1)
 
-;(use-package spaceline
-;  :ensure t
-;  :config
-;  )
-;(spaceline-spacemacs-theme)
-(use-package telephone-line
-  :ensure t
-  :config
-  (telephone-line-evil-config))
-;(use-package powerline
-  ;:ensure t
-  ;:config
-  ;(powerline-vim-theme)
-  ;)
-;
-(setq helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match    t)
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+(require 'powerline)
 
 ;; keybinding
 ;;(define-key evil/leader (kbd "b") 'helm-buffers-list)
@@ -177,6 +162,9 @@
 (define-key evil-normal-state-map (kbd "SPC ;") 'helm-M-x)
 (define-key evil-normal-state-map (kbd "gcc") 'comment-line)
 (define-key evil-insert-state-map (kbd "TAB") 'self-insert-command); # only in text-mode
+
+;; visual mode comment selection
+(define-key evil-visual-state-map (kbd "gc") 'comment-or-uncomment-region);
 
 (evil-leader/set-key 
   "bl" 'helm-buffers-list
@@ -220,9 +208,12 @@
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
 
+;; dont truncate logn lines
+(set-default 'truncate-lines t)
+
 
 					; Use Source Code Pro 14pt in GUI
-;;(when (display-graphic-p) (set-face-attribute 'default nil :font "Source Code Pro for Powerline-14"))
+;; (when (display-graphic-p) (set-face-attribute 'default nil :font "Source Code Pro for Powerline-14"))
 (use-package ample-theme
   :ensure t
   :init (progn (load-theme 'ample t t)
@@ -231,9 +222,9 @@
                (enable-theme 'ample)
   :defer t
   :ensure t))
-;;(use-package spacegray-theme
-  ;;:ensure t)
-;;(load-theme 'spacegray t)
+;; (use-package spacegray-theme
+;;   :ensure t)
+;; (load-theme 'spacegray t)
 
 
 
@@ -253,10 +244,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("938d8c186c4cb9ec4a8d8bc159285e0d0f07bad46edf20aa469a89d0d2a586ea" "6de7c03d614033c0403657409313d5f01202361e35490a3404e33e46663c2596" "ed317c0a3387be628a48c4bbdb316b4fa645a414838149069210b66dd521733f" "9b1c580339183a8661a84f5864a6c363260c80136bd20ac9f00d7e1d662e936a" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b563a87aa29096e0b2e38889f7a5e3babde9982262181b65de9ce8b78e9324d5" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
+    ("721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "d8f76414f8f2dcb045a37eb155bfaa2e1d17b6573ed43fb1d18b936febc7bbc2" "158013ec40a6e2844dbda340dbabda6e179a53e0aea04a4d383d69c329fba6e6" "b181ea0cc32303da7f9227361bb051bbb6c3105bb4f386ca22a06db319b08882" "938d8c186c4cb9ec4a8d8bc159285e0d0f07bad46edf20aa469a89d0d2a586ea" "6de7c03d614033c0403657409313d5f01202361e35490a3404e33e46663c2596" "ed317c0a3387be628a48c4bbdb316b4fa645a414838149069210b66dd521733f" "9b1c580339183a8661a84f5864a6c363260c80136bd20ac9f00d7e1d662e936a" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b563a87aa29096e0b2e38889f7a5e3babde9982262181b65de9ce8b78e9324d5" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" default)))
  '(package-selected-packages
    (quote
-    (vue-mode spacegray-theme airline-themes powerline ace-jump-mode git-gutter evil-magit js2-jsx-mode ample-theme auto-complete editorconfig php-mode web-mode magit dumb-jump evil-indent-textobject evil-surround evil-jumper helm-projectile projectile helm use-package evil-visual-mark-mode)))
+    (telephone-line spaceline vue-mode spacegray-theme airline-themes powerline ace-jump-mode git-gutter evil-magit js2-jsx-mode ample-theme auto-complete editorconfig php-mode web-mode magit dumb-jump evil-indent-textobject evil-surround evil-jumper helm-projectile projectile helm use-package evil-visual-mark-mode)))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

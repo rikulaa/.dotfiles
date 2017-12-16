@@ -17,7 +17,12 @@ local gaps = 5
 -- hs.hotkey.bind('alt','tab','Next window',function()switcher:next()end)
 
 function setGrid() 
-  hs.grid.setGrid('2x2', hs.screen.primaryScreen())
+  hs.grid.setGrid('8x4', hs.screen.primaryScreen())
+  local external = hs.screen.primaryScreen():next()
+  hs.alert.show(external)
+  if external then
+    hs.grid.setGrid('6x6', external)
+  end
 end
 setGrid()
 
