@@ -42,6 +42,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ap/vim-css-color'
 
 Plugin 'dsawardekar/wordpress.vim'
+Plugin 'jwalton512/vim-blade'
+Plugin 'StanAngeloff/php.vim'
 
 
 " Testing neodeplte
