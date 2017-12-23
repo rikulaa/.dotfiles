@@ -24,6 +24,8 @@ Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 
 Plugin 'othree/xml.vim'
+Plugin 'posva/vim-vue'
+" Plugin 'moll/vim-node'
 " Plugin 'moll/vim-node'
 Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'pangloss/vim-javascript'
@@ -158,7 +160,10 @@ set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
 
 " Reduce timeout caused by pressin Esc"
-set timeoutlen=1000 ttimeoutlen=0   
+set timeout
+set ttimeout
+set timeoutlen=3000
+set ttimeoutlen=50
 
 " set ttyfast                 " Smoother scrolling"
 " set ttyscroll=3
@@ -177,7 +182,7 @@ set hidden
 "============================================================================
 "Searching
 "============================================================================
-" set grepprg=rg\ --vimgrep   " Use ripgrep instad of grep"
+set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
 
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
@@ -229,8 +234,8 @@ nnoremap <leader>p "+p
 nmap <leader>e :NERDTreeToggle<CR>
 
 " nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
-" nnoremap <leader>F :grep 
-nnoremap <leader>F :grep -R --exclude-dir=node_modules 
+nnoremap <leader>F :grep -i 
+" nnoremap <leader>F :grep -R --exclude-dir=node_modules 
 
 " FZF
 nnoremap <leader>t :FZF<CR>
@@ -258,8 +263,24 @@ inoremap <>> <ESC>=jA
 " call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
 " call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
 " call <sid>hi('jsOperator', s:cdBlue, {}, 'none', 
+"
+function! GoToFile()
+    " let currentFile = expand("<cword>")
+    " let currentLine = getline(".")
+    " let path = split(split(currentLine, "'")[1], "./")[1]
+    " let absolutePath = expand("%:p:h")
+    " let absolutePath = getcwd()
 
-au BufNewFile,BufRead *.js noremap gf $3hgf
+    " let targetFile = join([absolutePath, "/", path, ".js"], "")
+    " echo targetFile
+    " echom targetFile
+    " :execute ":e" targetFile
+    " echo path
+    " echo expand("%:p:h")
+    :normal $3hgf
+:endfunction
+
+au BufNewFile,BufRead *.js noremap gf :call GoToFile()<CR>
 au BufNewFile,BufRead *.jsx noremap gf $3hgf
 au BufNewFile,BufRead *.vue noremap  gf $3hgf
 " nmap <leader>f $3hgf....
@@ -277,3 +298,4 @@ if has("mac")
   set foldlevel=0
   set foldmethod=manual
 endif
+
