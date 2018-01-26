@@ -143,38 +143,6 @@ hs.hotkey.bind(mod, "J", function() focusWindows(hs.window.focusWindowSouth()) e
 -- window left bottom
 hs.hotkey.bind(mod2, "N", function() push(0, 0.5, 0.5, 0.5) end)
 
--- -- window left 
--- hs.hotkey.bind(mod2, "H", function() push(0, 0, 0.5, 1) end)
--- hs.hotkey.bind(mod, "H", function() focusWindows(hs.window.focusWindowWest()) end)
-
--- -- window left top
--- hs.hotkey.bind(mod2, "U", function() push(0, 0, 0.5, 0.5) end)
-
--- -- window fullscreen
--- hs.hotkey.bind(mod2, "I", function() push(0, 0, 1, 1) end)
-
--- -- window top
--- hs.hotkey.bind(mod2, "K", function() push(0, 0, 1, 0.5) end)
--- hs.hotkey.bind(mod, "K", function() focusWindows(hs.window.focusWindowNorth()) end)
-
--- -- window right top
--- hs.hotkey.bind(mod2, "O", function() push(0.5, 0, 0.5, 0.5) end)
-
--- -- window right
--- hs.hotkey.bind(mod2, "L", function() push(0.5, 0, 0.5, 1) end)
--- hs.hotkey.bind(mod, "L", function() focusWindows(hs.window.focusWindowEast()) end)
-
--- -- window right bottom
--- hs.hotkey.bind(mod2, ".", function() push(0.5, 0.5, 0.5, 0.5) end)
-
--- -- window bottom
--- hs.hotkey.bind(mod2, "J", function() push(0, 0.5, 1, 0.5) end)
--- hs.hotkey.bind(mod, "J", function() focusWindows(hs.window.focusWindowSouth()) end)
-
-
--- -- window left bottom
--- hs.hotkey.bind(mod2, "N", function() push(0, 0.5, 0.5, 0.5) end)
-
 -- move windows between screen
 hs.hotkey.bind(mod2, "M", function() 
   -- hack which only support two monitors properly
