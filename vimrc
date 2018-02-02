@@ -12,9 +12,10 @@ Plugin 'tpope/vim-commentary'           " Comments
 Plugin 'junegunn/fzf'                   " fuzzy searc
 Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
+
 " Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
 Plugin 'w0rp/ale'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
+" Plugin 'mtscout6/syntastic-local-eslint.vim'
 Plugin 'othree/html5.vim'               " Improved html syntax, indent
 Plugin 'MarcWeber/vim-addon-mw-utils'   " Required for snipmate
 Plugin 'tomtom/tlib_vim'                " Required for snipmate
@@ -22,12 +23,13 @@ Plugin 'garbas/vim-snipmate'            " Required for snipmate
 Plugin 'honza/vim-snippets'             " Custom snippets
 Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
+Plugin 'valloric/matchtagalways'        " Matching xml tag
 
 Plugin 'othree/xml.vim'
 Plugin 'posva/vim-vue'
 " Plugin 'moll/vim-node'
 " Plugin 'moll/vim-node'
-Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
+" Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
@@ -80,7 +82,7 @@ filetype plugin indent on    " required
 "============================================================================
 "Syntastic
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%=
 
 " map <leader>s <Plug>(easymotion-s)
@@ -91,11 +93,61 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'eslint'
+
+" FIND FILE IN PARETN
+" function! FindFileInParent(what, where) abort 
+"     let old_suffixesadd = &suffixesadd
+"     let &suffixesadd = ''
+"     let file = findfile(a:what, escape(a:where, ' ,') . ';')
+"     let &suffixesadd = old_suffixesadd
+"     return file
+" endfunction
+
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = 'eslint'
+
+" JS - prefer project-scope node_modules linters to global linters
+" http://nunes.io/notes/guide/vim-how-to-setup-eslint/
+
+" function CheckJavaScriptLinter(filepath, linter)
+"     if exists('b:syntastic_checkers')
+"         return
+"     endif
+"     if filereadable(a:filepath)
+"         let b:syntastic_checkers = [a:linter]
+"         let {'b:syntastic_' . a:linter . '_exec'} = a:filepath
+"     endif
+" endfunction
+
+" function SetupJavaScriptLinter()
+"     let l:current_folder = expand('%:p:h')
+"     let l:bin_folder = fnamemodify(FindFileInParent('package.json', l:current_folder), ':h')
+"     let l:bin_folder = l:bin_folder . '/node_modules/.bin/'
+"     call CheckJavaScriptLinter(l:bin_folder . 'eslint', 'eslint')
+" endfunction
+
+" autocmd FileType javascript call SetupJavaScriptLinter()
+
+
+let g:ale_fixers = {
+\'javascript': ['eslint'],
+\}
+
+
+
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 "filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js"
+
+
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'javascript.jsx': 1
+    \}
 
 " Enable deocomplete
 let g:deoplete#enable_at_startup = 1
@@ -165,12 +217,12 @@ set ttimeout
 set timeoutlen=3000
 set ttimeoutlen=50
 
-" set ttyfast                 " Smoother scrolling"
+" set ttyfast                  Smoother scrolling"
 " set ttyscroll=3
 set lazyredraw              " "Smootherrrr.??
 " set re=1                    
 set synmaxcol=200           " dont color lines that are too long
-"set regexpengine=1           more smoothness"
+set regexpengine=1          
 
 
 "============================================================================
@@ -204,7 +256,7 @@ set t_ut=
 colorscheme codedark		" Theme
 " colorscheme onedark
 set showcmd					" Show command at the bottom
-" set cursorline              " Shows line where the cursos is
+set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 " set laststatus=1            " For Airline to show itself on startup"
 " set laststatus=2            " For Airline to show itself on startup"
@@ -234,12 +286,13 @@ nnoremap <leader>p "+p
 nmap <leader>e :NERDTreeToggle<CR>
 
 " nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
-nnoremap <leader>F :grep -i 
+nnoremap <leader>F :grep -i -uu 
 " nnoremap <leader>F :grep -R --exclude-dir=node_modules 
 
 " FZF
 nnoremap <leader>t :FZF<CR>
 
+nnoremap <C-`> :term<CR>
 "For windows navigation
 " nnoremap <C-h> <C-w>h	
 " nnoremap <C-j> <C-w>j
@@ -280,7 +333,7 @@ function! GoToFile()
     :normal $3hgf
 :endfunction
 
-au BufNewFile,BufRead *.js noremap gf :call GoToFile()<CR>
+au BufNewFile,BufRead *.js noremap gf $3hgf
 au BufNewFile,BufRead *.jsx noremap gf $3hgf
 au BufNewFile,BufRead *.vue noremap  gf $3hgf
 " nmap <leader>f $3hgf....
@@ -288,7 +341,7 @@ au BufNewFile,BufRead *.vue noremap  gf $3hgf
 "
 " " Performance improvments
 if has("mac")
-  set nocursorline
+  " set nocursorline
 
   if exists("+relativenumber")
     set norelativenumber

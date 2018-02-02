@@ -3,7 +3,7 @@
 #Plugin EXCEPT Vundle
 vim/bundle/*
 vim/backup/*
-vim/spw/*
+vim/swp/
 !vim/bundle/Vundle.vim
 
 
