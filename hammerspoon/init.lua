@@ -58,6 +58,29 @@ function push(x, y, w, h)
   win:setFrame(f)
 end
 
+function pushHorizontal(x, w)
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x + (max.w * x) + gaps
+  f.w = max.w * w - (gaps * 2)
+  win:setFrame(f)
+end
+
+function pushVertical(y, h)
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.y = max.y + (max.h * y) + gaps
+  f.h = max.h * h - (gaps * 2)
+  win:setFrame(f)
+end
+
+
 function getAllWindows() 
   local windows = hs.window.orderedWindows()
   -- io.write("hello")
@@ -73,7 +96,10 @@ function focusWindows(focusDirection)
   end
 end
 
-local _stepMultiplier = 0
+-- local _stepMultiplier = 0
+local _stepMultiplierHorizontal = 0
+local _stepMultiplierVertical = 0
+
 local _verticalStart = 0
 local _horizontalStart = 0
 local _verticalEnd = 0.5
@@ -83,15 +109,29 @@ local _direction = ""
 local _maxSteps = 0.5 / _step
 
 
-function checkDirection(direction) 
+function checkDirectionHorizontal(direction) 
   if direction == _direction then
-    if _stepMultiplier < _maxSteps then
-      _stepMultiplier = _stepMultiplier + 1
-    else _stepMultiplier = -1
+    if _stepMultiplierHorizontal < _maxSteps then
+      _stepMultiplierHorizontal = _stepMultiplierHorizontal + 1
+    else _stepMultiplierHorizontal = -1
     end
   else
 
-    _stepMultiplier = 0
+    _stepMultiplierHorizontal = 0
+  end
+
+  _direction = direction
+end
+
+function checkDirectionVertical(direction) 
+  if direction == _direction then
+    if _stepMultiplierVertical < _maxSteps then
+      _stepMultiplierVertical = _stepMultiplierVertical + 1
+    else _stepMultiplierVertical = -1
+    end
+  else
+
+    _stepMultiplierVertical = 0
   end
 
   _direction = direction
@@ -101,8 +141,8 @@ hs.hotkey.bind(mod, "G", function() getAllWindows() end)
 
 -- window left 
 hs.hotkey.bind(mod2, "H", function()
-  checkDirection("left")
-  push(0, 0, 0.5 + (_step * _stepMultiplier), 1) 
+  checkDirectionHorizontal("left")
+  pushHorizontal(0, 0.5 + (_step * _stepMultiplierHorizontal))
   end)
 hs.hotkey.bind(mod, "H", function() focusWindows(hs.window.focusWindowWest()) end)
 
@@ -110,12 +150,15 @@ hs.hotkey.bind(mod, "H", function() focusWindows(hs.window.focusWindowWest()) en
 hs.hotkey.bind(mod2, "U", function() push(0, 0, 0.5, 0.5) end)
 
 -- window fullscreen
-hs.hotkey.bind(mod2, "I", function() push(0, 0, 1, 1) end)
+hs.hotkey.bind(mod2, "I", function() 
+  _direction = ""
+  push(0, 0, 1, 1) 
+end)
 
 -- window top
 hs.hotkey.bind(mod2, "K", function()
-  checkDirection("up")
-  push(0, 0, 1, 0.5 + (_step * _stepMultiplier)) 
+  checkDirectionVertical("up")
+  pushVertical(0, 0.5 + (_step * _stepMultiplierVertical))
 end)
 hs.hotkey.bind(mod, "K", function() focusWindows(hs.window.focusWindowNorth()) end)
 
@@ -124,8 +167,8 @@ hs.hotkey.bind(mod2, "O", function() push(0.5, 0, 0.5, 0.5) end)
 
 -- window right
 hs.hotkey.bind(mod2, "L", function()
-  checkDirection("right")
-  push(0.5 - (_step * _stepMultiplier), 0, 0.5 + (_step * _stepMultiplier), 1) 
+  checkDirectionHorizontal("right")
+  pushHorizontal(0.5 - (_step * _stepMultiplierHorizontal), 0.5 + (_step * _stepMultiplierHorizontal))
 end)
 hs.hotkey.bind(mod, "L", function() focusWindows(hs.window.focusWindowEast()) end)
 
@@ -134,8 +177,8 @@ hs.hotkey.bind(mod2, ".", function() push(0.5, 0.5, 0.5, 0.5) end)
 
 -- window bottom
 hs.hotkey.bind(mod2, "J", function() 
-  checkDirection("down")
-  push(0, 0.5 - (_step * _stepMultiplier), 1, 0.5 + (_step * _stepMultiplier)) 
+  checkDirectionVertical("down")
+  pushVertical(0.5 - (_step * _stepMultiplierVertical), 0.5 + (_step * _stepMultiplierVertical))
 end)
 hs.hotkey.bind(mod, "J", function() focusWindows(hs.window.focusWindowSouth()) end)
 
@@ -157,7 +200,11 @@ end)
 
 -- open terminal
 hs.hotkey.bind(mod, "return", function()
-    hs.application.open("iTerm")
+    -- local iterm = hs.application.get('iTerm')
+    hs.application.open('iTerm')
+    hs.application.get('iTerm')
+    local menu = hs.application.getMenuItems()
+    hs.alert.show(menu)
 end)
 
 -- open browser
