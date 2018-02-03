@@ -4,28 +4,6 @@ local mod2 = {"alt", "shift"}
 -- gap size
 local gaps = 5
 
--- not stable
--- expose_space = hs.expose.new(nil,{includeOtherSpaces=false}) -- only windows in the current Mission Control Space
--- hs.hotkey.bind(mod,"E","Expose",function()expose_space:toggleShow()end)
-
--- hightlight current window (blur other)
--- hs.window.highlight.ui.overlay=true
--- hs.window.highlight.start()
-
-
--- switcher = hs.window.switcher.new() -- default windowfilter: only visible windows, all Spaces
--- hs.hotkey.bind("alt","tab","Next window",function()switcher:next()end)
-
-
--- local onScreenChange = function () 
---   hs.alert.show("external")
--- end
-
-local screenWatcher = hs.screen.watcher.new(function()
-end)
-
-screenWatcher:start()
-
 function setGrid() 
   -- hs.grid.setGrid("8x4", hs.screen.primaryScreen())
   hs.grid.setGrid("6x6", hs.screen.primaryScreen())
@@ -83,7 +61,6 @@ end
 
 function getAllWindows() 
   local windows = hs.window.orderedWindows()
-  -- io.write("hello")
   hs.grid.show()
 end
 
@@ -102,8 +79,6 @@ local _stepMultiplierVertical = 0
 
 local _verticalStart = 0
 local _horizontalStart = 0
-local _verticalEnd = 0.5
-local _horizontalEnd = 0.5
 local _step = 0.25
 local _direction = ""
 local _maxSteps = 0.5 / _step
@@ -220,3 +195,61 @@ end)
 hs.hotkey.bind(mod, "f", function()
   hs.application.open("Finder")
 end)
+
+
+-- App watcher
+-- event == 5 (application focused)
+-- event == 6 (application defocused)
+local appWatcher = hs.application.watcher.new(function(name, event, app) 
+  if name == "Finder" then
+    if event == 5 then
+      vimModeStart()
+    end
+
+    if event == 6 then
+      vimModeEnd()
+    end
+  end
+
+end)
+appWatcher:start()
+
+-- VIM mode
+local vimKeyModifier = hs.eventtap.new({10}, function(event) 
+  local keyCode = event:getKeyCode()
+  local flags = event:getFlags() 
+  local isCtrlPressed = flags.ctrl
+
+  -- left
+  if keyCode == 4 and isCtrlPressed then
+    return true, {hs.eventtap.event.newKeyEvent(123, true)}
+  end
+
+  -- down 
+  if keyCode == 38 and isCtrlPressed then
+    return true, {hs.eventtap.event.newKeyEvent(125, true)}
+  end
+
+  -- up 
+  if keyCode == 40 and isCtrlPressed then
+    return true, {hs.eventtap.event.newKeyEvent(126, true)}
+  end
+
+  -- right 
+  if keyCode == 37 and isCtrlPressed then
+    return true, {hs.eventtap.event.newKeyEvent(124, true)}
+  end
+
+  return false
+end)
+
+function vimModeStart() 
+  vimKeyModifier:start()  
+end
+
+function vimModeEnd() 
+  vimKeyModifier:stop()
+end
+
+-- Spoons
+hs.loadSpoon("Calendar")
