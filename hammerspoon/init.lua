@@ -181,9 +181,9 @@ function initShortcuts()
   end)
 
   -- open browser
-  hs.hotkey.bind(mod, "b", function()
-      hs.application.open("Firefox")
-  end)
+  -- hs.hotkey.bind(mod, "b", function()
+  --     hs.application.open("Firefox")
+  -- end)
 
   -- open editor
   hs.hotkey.bind(mod, "C", function()
