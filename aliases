@@ -29,7 +29,12 @@ bindkey -s '^n^h' 'goBack\n'
 
 alias l='ls -al'
 
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+printTree() {
+    find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+}
+
+alias tree=printTree
+# alias tree="find ${1} -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias vpn='cd /etc/openvpn/'
 
 alias www='cd /var/www/ && ls'
