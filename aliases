@@ -55,6 +55,7 @@ alias e='emacs'
 # Force tmux to open in 256 colour mode
 alias tmux='tmux -2'
 alias tm='tmux -2'
+alias tmd='tmux detach'
 alias tma='tmux attach'
 alias tmks='tmux kill-session'
 alias tmkp='tmux kill-pane'
