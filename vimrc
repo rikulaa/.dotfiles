@@ -132,6 +132,9 @@ let g:syntastic_check_on_wq = 0
 let g:ale_fixers = {
 \'javascript': ['eslint'],
 \}
+let g:ale_linters = {
+\'php': [],
+\}
 
 
 
@@ -308,7 +311,13 @@ nnoremap <leader>q  :bd<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>	
 
+" git
+nnoremap <leader>g  :Gstatus<CR>
+
 inoremap <>> <ESC>=jA
+
+" commands
+command Vimrc :e ~/.vimrc
 
 " More colors for code dark
 " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
@@ -333,9 +342,32 @@ function! GoToFile()
     :normal $3hgf
 :endfunction
 
-au BufNewFile,BufRead *.js noremap gf $3hgf
-au BufNewFile,BufRead *.jsx noremap gf $3hgf
-au BufNewFile,BufRead *.vue noremap  gf $3hgf
+function! GoToDefinition()
+    " echo expand('<cword>')
+
+    :normal gD
+    :normal $3hgf
+
+    " let currentFile = expand("<cword>")
+    " let currentLine = getline(".")
+    " let path = split(split(currentLine, "'")[1], "./")[1]
+    " let absolutePath = expand("%:p:h")
+    " let absolutePath = getcwd()
+
+    " let targetFile = join([absolutePath, "/", path, ".js"], "")
+    " echo targetFile
+    " echom targetFile
+    " :execute ":e" targetFile
+    " echo path
+    " echo expand("%:p:h") :normal $3hgf
+:endfunction
+
+au BufNewFile,BufRead *.js noremap gd :call GoToDefinition()<CR>
+au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinition()<CR>
+au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinition()<CR>
+" au BufNewFile,BufRead *.js noremap gf $3hgf
+" au BufNewFile,BufRead *.jsx noremap gf $3hgf
+" au BufNewFile,BufRead *.vue noremap  gf $3hgf
 " nmap <leader>f $3hgf....
 "
 "
