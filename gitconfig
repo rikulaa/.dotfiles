@@ -4,13 +4,16 @@
 [credential]
     helper = cache --timeout=3600
 [alias]
-    cm = !git add -A && git commit -m
+    a = add 
+    A = add -A
+    cm = commit -m
     cmp = "!f() { git add -A; git commit; git push; }; f"
     undo = reset HEAD~1 --mixed
     co = checkout
     cob = checkout -b
     ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-    st = status -sb
+    # st = status -sb
+    st = status
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lga = log --graph --all --decorate --oneline
      say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
