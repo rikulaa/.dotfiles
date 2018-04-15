@@ -292,11 +292,29 @@ noremap <leader>y "+y
 nmap <leader>e :NERDTreeToggle<CR>
 
 " nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
-nnoremap <leader>F :grep -i -uu 
+" nnoremap <leader>F :grep -i -uu 
+function! Grep(searchword)
+    " :execute "grep! -S -uu -g '!node_modules/' -g '!.git/' -g '!yarn.lock' ". a:searchword
+    :execute "grep! -S -u --hidden  -g '!node_modules/' -g '!.git/' -g '!yarn.lock' ". a:searchword
+    :execute "cw"
+endfunction
+
+function! GrepFromFiles(selection) 
+    let name = input('Search for: ', a:selection)
+    if name != ""
+        :execute ":call Grep(name)"
+    endif
+
+:endfunction
+nnoremap <leader>f :call GrepFromFiles("")<CR>
+vmap <leader>f y :call GrepFromFiles(@")<CR>
 " nnoremap <leader>F :grep -R --exclude-dir=node_modules 
 
 " FZF
 nnoremap <leader>p :FZF<CR>
+
+" List buffers
+nnoremap <leader>b :ls<CR>:b
 
 nnoremap <C-`> :term<CR>
 "For windows navigation
@@ -321,51 +339,29 @@ inoremap <>> <ESC>=jA
 
 " commands
 command Vimrc :e ~/.vimrc
+" au BufNewFile,BufRead .vimrc noremap <leader>f :source %
+"
+" Neovim terminal mapping
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-[> <C-\><C-n>
 
 " More colors for code dark
 " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
-" call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
-" call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
-" call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
-" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', 
-"
-function! GoToFile()
-    " let currentFile = expand("<cword>")
-    " let currentLine = getline(".")
-    " let path = split(split(currentLine, "'")[1], "./")[1]
-    " let absolutePath = expand("%:p:h")
-    " let absolutePath = getcwd()
-
-    " let targetFile = join([absolutePath, "/", path, ".js"], "")
-    " echo targetFile
-    " echom targetFile
-    " :execute ":e" targetFile
-    " echo path
-    " echo expand("%:p:h")
-    :normal $3hgf
-:endfunction
+"call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
+"call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
+"call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
+"call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
+""
 
 function! GoToDefinition()
-    " echo expand('<cword>')
-
+    " let def = expand("<cword>")
     :normal gD
-    :normal $3hgf
-
-    " let currentFile = expand("<cword>")
-    " let currentLine = getline(".")
-    " let path = split(split(currentLine, "'")[1], "./")[1]
-    " let absolutePath = expand("%:p:h")
-    " let absolutePath = getcwd()
-
-    " let targetFile = join([absolutePath, "/", path, ".js"], "")
-    " echo targetFile
-    " echom targetFile
-    " :execute ":e" targetFile
-    " echo path
-    " echo expand("%:p:h") :normal $3hgf
+    :set hls
+    :execute "normal /;/\<CR>"
+    :normal 3hgf
 :endfunction
 
-au BufNewFile,BufRead *.js noremap gd :call GoToDefinition()<CR>
+au BufNewFile,BufRead *.js noremap gd *:call GoToDefinition()<CR>
 au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinition()<CR>
 au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinition()<CR>
 " au BufNewFile,BufRead *.js noremap gf $3hgf
