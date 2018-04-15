@@ -25,6 +25,7 @@ Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 Plugin 'valloric/matchtagalways'        " Matching xml tag
 
+Plugin 'gabrielelana/vim-markdown'
 Plugin 'othree/xml.vim'
 Plugin 'posva/vim-vue'
 " Plugin 'moll/vim-node'
@@ -32,6 +33,7 @@ Plugin 'posva/vim-vue'
 " Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 Plugin 'tpope/vim-fugitive'             " Git utility
 Plugin 'airblade/vim-gitgutter'         " Show git diffs on sidebar
@@ -133,6 +135,7 @@ let g:ale_fixers = {
 \'javascript': ['eslint'],
 \}
 let g:ale_linters = {
+\'javascript': ['eslint'],
 \'php': [],
 \}
 
@@ -160,7 +163,7 @@ let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
 
 " Dont run linter on text change
-let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_text_changed = 'never'
 
 " Ignore these folders when searching with ctrlp
 " let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
@@ -281,7 +284,7 @@ let mapleader="\<Space>"	" Use space as leader key
 
 "Easier copy and paste from system clipboard
 noremap <leader>y "+y   
-nnoremap <leader>p "+p
+" nnoremap <leader>p "+p
 
 " Save if changes
 " noremap <Leader>s :update<CR>	"quicksave
@@ -293,7 +296,7 @@ nnoremap <leader>F :grep -i -uu
 " nnoremap <leader>F :grep -R --exclude-dir=node_modules 
 
 " FZF
-nnoremap <leader>t :FZF<CR>
+nnoremap <leader>p :FZF<CR>
 
 nnoremap <C-`> :term<CR>
 "For windows navigation
