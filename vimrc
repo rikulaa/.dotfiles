@@ -294,11 +294,8 @@ nmap <leader>e :NERDTreeToggle<CR>
 " nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*"
 " nnoremap <leader>F :grep -i -uu 
 function! Grep(searchword)
-    let exlude = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' "
-    " include envs
-    let include = "-g '.env' "
-    " :execute "grep! -S -g '!node_modules/' -g '!.git/' -g '!yarn.lock' ". a:searchword $(pwd)
-    :execute "grep! -S --hidden ". include . exlude . "-F " . "'" . a:searchword . "'"
+    let globs = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' "
+    :execute "grep! -S --hidden ". globs . "-F " . "'" . a:searchword . "'"
     :execute "cw"
 endfunction
 
@@ -349,11 +346,11 @@ command Vimrc :e ~/.vimrc
 " tnoremap <C-[> <C-\><C-n>
 
 " More colors for code dark
-" call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
-"call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
-"call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
-"call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
-"call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
+ " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
+" call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
+" call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
+" call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
+" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
 ""
 
 function! GoToDefinition()
