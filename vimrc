@@ -345,8 +345,8 @@ command Vimrc :e ~/.vimrc
 " au BufNewFile,BufRead .vimrc noremap <leader>f :source %
 "
 " Neovim terminal mapping
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-[> <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
+" tnoremap <C-[> <C-\><C-n>
 
 " More colors for code dark
 " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
