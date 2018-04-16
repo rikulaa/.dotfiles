@@ -291,11 +291,14 @@ noremap <leader>y "+y
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
 
-" nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*" 
+" nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*"
 " nnoremap <leader>F :grep -i -uu 
 function! Grep(searchword)
-    " :execute "grep! -S -uu -g '!node_modules/' -g '!.git/' -g '!yarn.lock' ". a:searchword
-    :execute "grep! -S -u --hidden  -g '!node_modules/' -g '!.git/' -g '!yarn.lock' ". a:searchword
+    let exlude = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' "
+    " include envs
+    let include = "-g '.env' "
+    " :execute "grep! -S -g '!node_modules/' -g '!.git/' -g '!yarn.lock' ". a:searchword $(pwd)
+    :execute "grep! -S --hidden ". include . exlude . "-F " . "'" . a:searchword . "'"
     :execute "cw"
 endfunction
 
