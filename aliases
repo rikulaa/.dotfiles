@@ -1,6 +1,9 @@
 # get local aliases (not under version control)
-source ~/.aliases_local
-alias aliases_local='$EDITOR ~/.aliases_local'
+if [ -f ~/.aliases ]; then
+    source ~/.aliases_local
+    alias aliases_local='$EDITOR ~/.aliases_local'
+fi
+
 
 #configurations
 alias zshrc='$EDITOR ~/.zshrc'
