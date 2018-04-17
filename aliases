@@ -1,5 +1,5 @@
 # get local aliases (not under version control)
-if [ -f ~/.aliases ]; then
+if [ -f ~/.aliases_local ]; then
     source ~/.aliases_local
     alias aliases_local='$EDITOR ~/.aliases_local'
 fi
