@@ -255,6 +255,7 @@ set incsearch				" Search as characters are entered
 " set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set ruler
+set nocursorline
 " set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
@@ -372,7 +373,7 @@ au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinition()<CR>
 "
 " " Performance improvments
 if has("mac")
-  " set nocursorline
+  set nocursorline
 
   if exists("+relativenumber")
     set norelativenumber
