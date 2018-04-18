@@ -489,7 +489,7 @@ function! GoToDefinitionPHP()
     let currentLine=getline('.')
 
     " Make basic checks to see if we are using a class
-    if currentLine =~ '^use' || currentLine =~ 'new' || currentLine =~ '^class'
+    if word != 'use' && (currentLine =~ '^use' || currentLine =~ 'new' || currentLine =~ '^class')
         call SearchFilesByWord(word)
     elseif currentLine =~ '\\' . word
         let searchWord = get(split(word, ":"), 0)
