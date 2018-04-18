@@ -405,7 +405,7 @@ inoremap <C-=> <ESC>=jA
 " commands
 command Vimrc :e ~/.vimrc
 
-command Gadd :!git a %
+command Ga :!git a %
 " au BufNewFile,BufRead .vimrc noremap <leader>f :source %
 "
 " Neovim terminal mapping
