@@ -404,6 +404,8 @@ inoremap <C-=> <ESC>=jA
 
 " commands
 command Vimrc :e ~/.vimrc
+
+command Gadd :!git a %
 " au BufNewFile,BufRead .vimrc noremap <leader>f :source %
 "
 " Neovim terminal mapping
@@ -507,6 +509,7 @@ au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
 " " Performance improvments
 " if has("mac")
 "   set nocursorline
+"
 
 "   if exists("+relativenumber")
 "     set norelativenumber
