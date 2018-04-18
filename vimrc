@@ -375,6 +375,7 @@ vmap <leader>f y :call GrepFromFiles(@")<CR>
 
 " FZF
 nnoremap <leader>p :FZF<CR>
+vmap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " List buffers
 nnoremap <leader>b :ls<CR>:b
@@ -416,6 +417,10 @@ command Vimrc :e ~/.vimrc
 " call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
 " call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
 ""
+function! SearchFilesByWord(word)
+    :execute ":FZF -q " . a:word
+endfunction
+
 function! GoToDefaultExport()
     let result = search('export default', '', '')
 endfunction
@@ -474,6 +479,25 @@ function! GoToDefinitionJS()
 au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
 au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
 au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
+
+function! GoToDefinitionPHP()
+    " Use fzf to searc for class
+    let word = expand("<cword>")
+    :normal gD
+    let currentLine=getline('.')
+
+    " Make basic checks to see if we are using a class
+    if currentLine =~ '^use' || currentLine =~ 'new' || currentLine =~ '^class'
+        call SearchFilesByWord(word)
+    elseif currentLine =~ '\\' . word
+        let searchWord = get(split(word, ":"), 0)
+        call SearchFilesByWord(searchWord)
+    else 
+        silent
+    endif
+
+endfunction
+au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
 " au BufNewFile,BufRead *.js noremap gf $3hgf
 " au BufNewFile,BufRead *.jsx noremap gf $3hgf
 " au BufNewFile,BufRead *.vue noremap  gf $3hgf
