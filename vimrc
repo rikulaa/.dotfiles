@@ -35,6 +35,7 @@ Plugin 'posva/vim-vue'
 " Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'alampros/vim-styled-jsx'
 
 Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 Plugin 'tpope/vim-fugitive'             " Git utility
@@ -295,6 +296,7 @@ set regexpengine=1
 "Files, buffers
 " allows to switch from unsaved buffer
 set hidden
+set noswapfile
 "============================================================================
 
 "============================================================================
@@ -316,14 +318,14 @@ set incsearch				" Search as characters are entered
 set wildmenu                " Display all matching files when we tab complete
 set ruler
 set nocursorline
-" set relativenumber          " For relative line numbering
+" set cursorline              " Shows line where the cursos is
+set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
 colorscheme codedark		" Theme
 " colorscheme onedark
 set showcmd					" Show command at the bottom
-set cursorline              " Shows line where the cursos is
 let loaded_matchparen = 1   " Do not show matching bracket
 " set laststatus=1            " For Airline to show itself on startup"
 " set laststatus=2            " For Airline to show itself on startup"
@@ -414,31 +416,64 @@ command Vimrc :e ~/.vimrc
 " call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
 " call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
 ""
+function! GoToDefaultExport()
+    let result = search('export default', '', '')
+endfunction
 
-function! GoToDefinition()
+function! GoToDefinitionJS()
+    let startingLine=getline('.')
     let word = expand("<cword>")
-    :normal gD
-    :set hls
+
+    if matchstr(startingLine, '^import') != 'import'
+        :normal gD
+        :set hls
+    end
+
     let currentLine=getline('.')
     let importLine = '[import]*' .'[' . word . ']*[from]'
     let splitted = split(currentLine, "'")
-    if splitted[0] =~ importLine
-        try 
-            :execute "normal /;/\<CR>"
-            :normal 3hgf
-        catch
-            :normal `` 
-        finally
+    echo splitted
 
-        endtry
+    let targetFilePath = get(splitted, -1 - 1)
+    " let targetFilePath = splitted[-1 - 1]
 
-    else
+    " try to jump to definition only if file not npm module
+    if matchstr(targetFilePath, "^\.") == '.'
+        if splitted[0] =~ importLine
+            " try to open file with gf
+            try 
+                :execute "normal /;/\<CR>"
+                :normal 3hgf
+                call GoToDefaultExport()
+            catch
+                " try to open file with :e <filename>*
+                try
+                    let currentFolder =  expand('%:p:h') 
+                    :execute ":e " . currentFolder . '/' . targetFilePath . '*'
+                    call GoToDefaultExport()
+                catch
+                    :normal `` 
+                endtry
+            finally
+
+            endtry
+        else
+        end
+    " else
+        " try
+        "     " try to open module from node_modules (works only if vim started
+        "     " from project root)
+        "     :execute ":e ./node_modules/" . targetFilePath . '*'
+        " catch
+        "     :normal `` 
+        " endtry
+
     end
 :endfunction
 
-au BufNewFile,BufRead *.js noremap gd *:call GoToDefinition()<CR>
-au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinition()<CR>
-au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinition()<CR>
+au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
+au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
+au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
 " au BufNewFile,BufRead *.js noremap gf $3hgf
 " au BufNewFile,BufRead *.jsx noremap gf $3hgf
 " au BufNewFile,BufRead *.vue noremap  gf $3hgf
@@ -446,15 +481,15 @@ au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinition()<CR>
 "
 "
 " " Performance improvments
-if has("mac")
-  set nocursorline
+" if has("mac")
+"   set nocursorline
 
-  if exists("+relativenumber")
-    set norelativenumber
-    set number
-  endif
+"   if exists("+relativenumber")
+"     set norelativenumber
+"     set number
+"   endif
 
-  set foldlevel=0
-  set foldmethod=manual
-endif
+"   set foldlevel=0
+"   set foldmethod=manual
+" endif
 
