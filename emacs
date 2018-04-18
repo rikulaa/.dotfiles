@@ -159,6 +159,7 @@
 ;;(define-key evil-normal-state-map [remap xref-find-definitions] 'dumb-jump-go) 
 ;; (define-key helm-map (kbd "C-[") 'helm-keyboard-quit)
 (define-key evil-normal-state-map (kbd "gd") 'dumb-jump-go)
+(define-key evil-normal-state-map (kbd "gD") 'js2-jump-to-definition)
 (define-key evil-normal-state-map (kbd "SPC ;") 'helm-M-x)
 (define-key evil-normal-state-map (kbd "gcc") 'comment-line)
 (define-key evil-insert-state-map (kbd "TAB") 'self-insert-command); # only in text-mode
