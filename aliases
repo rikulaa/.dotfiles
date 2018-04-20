@@ -50,8 +50,16 @@ alias touchd='mkdir'
 alias php-server='php -S localhost:8000' 
 alias dirs='dirs -v'
 
-alias v='nvim'
-alias vim='nvim'
+if [ -x "$(command -v nvim)" ]; then
+    alias vim="nvim"
+else
+    if [ -x "$(command -v vim)" ]; then
+        alias="vim"
+    else
+        alias="vi"
+    fi
+fi
+
 alias e='emacs'
 
 #
