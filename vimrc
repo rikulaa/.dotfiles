@@ -402,9 +402,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 " git
 nnoremap <leader>g  :Gstatus<CR>
 
-inoremap <>> <ESC>=jA
-inoremap <C-=> <ESC>=jA
-
 " commands
 command Vimrc :e ~/.vimrc
 
