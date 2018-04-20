@@ -5,7 +5,7 @@ if [ -f ~/.aliases_local ]; then
 fi
 
 
-#configurations
+# ======== CONFIGURATIONS ============
 alias zshrc='$EDITOR ~/.zshrc'
 alias vimrc='$EDITOR ~/.vimrc'
 alias aliases='$EDITOR ~/.aliases'
@@ -18,26 +18,20 @@ alias school='cd ~/Code/school'
 alias work='cd ~/Code/work'
 alias me='cd ~/Code/me'
 
-#file system
-# extend cd to always list files when navigating
-function cd_ls() { builtin cd "$@" && ls -l; }
-alias cd="cd_ls"
 
-goBack() {
-    cd ..;
-}
+# ======== FILE SYSTEM ============
+# extend cd to always list files when navigating
+function cd() { builtin cd "$@" && ls -l; }
+
+# move backwards more easily
+goBack() { cd ..; }
 alias ..='cd ..'
-# bindkey -s '..' 'goBack\n'
 bindkey -s '^n^h' 'goBack\n'
 
 alias l='ls -al'
 
-printTree() {
-    find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-}
+tree() { find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' }
 
-alias tree=printTree
-# alias tree="find ${1} -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias vpn='cd /etc/openvpn/'
 
 alias www='cd /var/www/ && ls'
@@ -46,9 +40,11 @@ alias www='cd /var/www/ && ls'
 alias rmd='rm -Rf'
 alias touchd='mkdir'
 
-#other
-alias php-server='php -S localhost:8000' 
 alias dirs='dirs -v'
+
+# ======== OTHER ============
+alias php-server='php -S localhost:8000' 
+
 
 if [ -x "$(command -v nvim)" ]; then
     alias vim="nvim"
@@ -62,7 +58,10 @@ fi
 
 alias e='emacs'
 
-#
+
+# ======== APPLICATIONS ============
+
+# TMUX
 # Force tmux to open in 256 colour mode
 alias tmux='tmux -2'
 alias tm='tmux -2'
@@ -96,12 +95,17 @@ function tma() {
         tmux attach
     fi
 }
+
+
+# DOCKER
 alias d-c='docker-compose'
 alias docker-stop-all='docker kill $(docker ps -q)'
 alias docker-rm-containers='docker rm $(docker ps -a -q)'
 alias docker-rm-images=' docker rmi $(docker images -q)'
 
+
+# REACT NATIVE 
 alias rn='react-native'
 
-# android studio
+# ANDROID-STUDIO
 alias react-native-android-emulator='/Users/rikulaa/Library/Android/sdk/tools/emulator -avd react-native -netdelay none -netspeed full'
