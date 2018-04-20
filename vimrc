@@ -55,6 +55,9 @@ Plugin 'jwalton512/vim-blade'
 Plugin 'StanAngeloff/php.vim'
 
 
+Plugin 'jreybert/vimagit'
+
+
 " Testing neodeplte
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
