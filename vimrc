@@ -360,7 +360,7 @@ nmap <leader>e :NERDTreeToggle<CR>
 " nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*"
 " nnoremap <leader>F :grep -i -uu 
 function! Grep(searchword)
-    let globs = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' "
+    let globs = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
     :execute "grep! -S --hidden ". globs . "-F " . "'" . a:searchword . "'"
     :execute "cw"
 endfunction
