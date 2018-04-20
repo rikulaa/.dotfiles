@@ -62,6 +62,18 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# get default editor
+if [ -x "$(command -v nvim)" ]; then
+    VIM_EDITOR='nvim'
+else
+    if [ -x "$(command -v vim)" ]; then
+        VIM_EDITOR='vim'
+    else
+        VIM_EDITOR='vi'
+    fi
+fi
+
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -85,7 +97,7 @@ if [ -f ~/.aliases ]; then
 fi
 
 
-export EDITOR=vim 
+export EDITOR=$VIM_EDITOR 
 
 export ANDROID_HOME="$HOME/Library/Android/sdk/"
 
