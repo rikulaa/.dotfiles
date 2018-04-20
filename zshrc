@@ -101,4 +101,8 @@ export EDITOR=$VIM_EDITOR
 
 export ANDROID_HOME="$HOME/Library/Android/sdk/"
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+
 export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
