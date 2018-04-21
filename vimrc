@@ -1,73 +1,67 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required for vundle loading plugins correclty
 "============================================================================
+" Plugins
+"============================================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
+"
 Plugin 'VundleVim/Vundle.vim'		"Vundle
 
+" General usability
 Plugin 'scrooloose/nerdtree'		    "NERDTree, file-explorer 
 Plugin 'tpope/vim-commentary'           " Comments
-Plugin 'junegunn/fzf'                   " fuzzy searc
-Plugin 'mattn/emmet-vim'			    "Emmet
 Plugin 'easymotion/vim-easymotion'      
-" needs ruby
-" Plugin 'wincent/command-t'
+Plugin 'tpope/vim-surround'             " Vim Surround plugin 
 
-" Plugin 'vim-syntastic/syntastic'        "Syntastic for checking code for errors
-Plugin 'w0rp/ale'
-" Plugin 'mtscout6/syntastic-local-eslint.vim'
-Plugin 'othree/html5.vim'               " Improved html syntax, indent
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'             " Custom snippets
 Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
 Plugin 'valloric/matchtagalways'        " Matching xml tag
 
+Plugin 'wincent/terminus'               " Better cursor in terminal vim
+Plugin 'christoomey/vim-tmux-navigator' " Navigate vim and tmux panes more easily
+
+" Git
+Plugin 'tpope/vim-fugitive'             " Git utility
+Plugin 'airblade/vim-gitgutter'         " Show git diffs on sidebar
+Plugin 'jreybert/vimagit'
+
+" Languages
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'othree/xml.vim'
 Plugin 'posva/vim-vue'
-" Plugin 'moll/vim-node'
-" Plugin 'moll/vim-node'
-" Plugin 'chemzqm/vim-jsx-improve'        " Improve jsx syntax
+Plugin 'othree/html5.vim'               " Improved html syntax, indent
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'alampros/vim-styled-jsx'
-
-Plugin 'tpope/vim-surround'             " Vim Surround plugin 
-Plugin 'tpope/vim-fugitive'             " Git utility
-Plugin 'airblade/vim-gitgutter'         " Show git diffs on sidebar
-Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
-
-Plugin 'editorconfig/editorconfig-vim'
-" Plugin 'sgur/vim-editorconfig'
-"
-Plugin 'wincent/terminus'
-Plugin 'christoomey/vim-tmux-navigator'
-
-Plugin 'ap/vim-css-color'
-
 Plugin 'dsawardekar/wordpress.vim'
 Plugin 'jwalton512/vim-blade'
 Plugin 'StanAngeloff/php.vim'
 
+Plugin 'junegunn/fzf'                   " fuzzy searc
+Plugin 'mattn/emmet-vim'			    "Emmet
 
-Plugin 'jreybert/vimagit'
-
-
-" Testing neodeplte
+" Lint, autocomplete, etc
+Plugin 'w0rp/ale'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'carlitux/deoplete-ternjs'
+Plugin 'editorconfig/editorconfig-vim'
+
+" Snippets
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'             " Custom snippets
+
+" Ui
+Plugin 'vim-airline/vim-airline'        " Cool statusbar and info
+Plugin 'ap/vim-css-color'
 
 " Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plugin 'joshdick/onedark.vim'
-
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
