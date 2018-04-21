@@ -67,10 +67,53 @@ alias tmux='tmux -2'
 alias tm='tmux -2'
 alias tmd='tmux detach'
 alias tmas='tmux attach'
-alias tmns='tmux new-session'
 alias tmks='tmux kill-session'
 alias tmkp='tmux kill-pane'
 alias tmkw='tmux kill-window'
+
+# Create new sessions
+function tmns() {
+    name=$1
+
+    # Create session without name
+    if [ -z "$name" ]; then
+        tmux new-session -n vim -d 
+        tmux new-window -n terminal
+        tmux attach-session -d -t :vim
+    else 
+        # Check if session with current name exists
+        tmux has -t $name
+        has_session=$?
+        if [ $has_session -eq 1 ]; then
+            tmux new-session -n vim -d -s $name 
+            tmux new-window -n terminal
+            tmux attach-session -d -t $name:vim
+        else
+            echo "Duplicate session already exists"
+        fi
+
+    fi
+}
+
+
+
+# Default templates when starging tmux session
+# function tm() {
+#     # parse the current folder name from the full path
+#     # echo $( pwd | sed -E -n 's/[/a-zA-Z0-9]*[/]//p')
+#     current_folder=$(basename "$PWD" | sed -E 's/\.//g')
+
+#     tmux has -t $current_folder
+#     has_session=$?
+
+#     if [ $has_session -eq 1 ]; then
+#         tmux new-session -n vim -d -s $current_folder 
+#         tmux new-window -n terminal
+#         tmux attach-session -d -t $current_folder:vim
+#     else 
+#         echo "Duplicate session already exists"
+#     fi
+# }
 
 # tmux attach session
 function tma() {
