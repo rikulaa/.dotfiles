@@ -79,7 +79,7 @@ filetype plugin indent on    " required
 "============================================================================
 "General
 "============================================================================
-set path+===                " Provide tab-completion for all file-related tasks
+set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 "autocmd vimenter = NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
