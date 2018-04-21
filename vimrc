@@ -349,8 +349,8 @@ set expandtab				" When tabbing, insert (four) spaces
 let mapleader="\<Space>"	" Use space as leader key
 
 "Easier copy and paste from system clipboard
-noremap <leader>y "+y   
-" nnoremap <leader>p "+p
+nnoremap <leader>Y "*y
+nnoremap <leader>P "+p
 
 " Save if changes
 " noremap <Leader>s :update<CR>	"quicksave
