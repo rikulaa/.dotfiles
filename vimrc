@@ -1,3 +1,5 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required for vundle loading plugins correclty
 "============================================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -78,193 +80,11 @@ filetype plugin indent on    " required
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-
-" Put your non-Plugin stuff after this line
-"
-"
-"============================================================================
-"Plugin settings
-"============================================================================
-"Syntastic
-set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%=
-
-" map <leader>s <Plug>(easymotion-s)
-" nnoremap <leader>s <Plug>(easymotion-s)
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-
-" FIND FILE IN PARETN
-" function! FindFileInParent(what, where) abort 
-"     let old_suffixesadd = &suffixesadd
-"     let &suffixesadd = ''
-"     let file = findfile(a:what, escape(a:where, ' ,') . ';')
-"     let &suffixesadd = old_suffixesadd
-"     return file
-" endfunction
-
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exe = 'eslint'
-
-" JS - prefer project-scope node_modules linters to global linters
-" http://nunes.io/notes/guide/vim-how-to-setup-eslint/
-
-" function CheckJavaScriptLinter(filepath, linter)
-"     if exists('b:syntastic_checkers')
-"         return
-"     endif
-"     if filereadable(a:filepath)
-"         let b:syntastic_checkers = [a:linter]
-"         let {'b:syntastic_' . a:linter . '_exec'} = a:filepath
-"     endif
-" endfunction
-
-" function SetupJavaScriptLinter()
-"     let l:current_folder = expand('%:p:h')
-"     let l:bin_folder = fnamemodify(FindFileInParent('package.json', l:current_folder), ':h')
-"     let l:bin_folder = l:bin_folder . '/node_modules/.bin/'
-"     call CheckJavaScriptLinter(l:bin_folder . 'eslint', 'eslint')
-" endfunction
-
-" autocmd FileType javascript call SetupJavaScriptLinter()
-
-
-let g:ale_fixers = {
-\'javascript': ['eslint'],
-\}
-let g:ale_linters = {
-\'javascript': ['eslint'],
-\'php': [],
-\}
-
-
-
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-"filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js"
-
-
-let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'jinja' : 1,
-    \ 'javascript.jsx': 1
-    \}
-
-" Enable deocomplete
-let g:deoplete#enable_at_startup = 1
-
-let g:deoplete#sources#ternjs#timeout = 1
-
-" Whether to include the types of the completions in the result data. Default: 0
-let g:deoplete#sources#ternjs#types = 1
-
-" Whether to include the distance (in scopes for variables, in prototypes for 
-" properties) between the completions and the origin position in the result 
-" data. Default: 0
-let g:deoplete#sources#ternjs#depths = 1
-
-" Whether to include documentation strings (if found) in the result data.
-" Default: 0
-" let g:deoplete#sources#ternjs#docs = 1
-
-" When on, only completions that match the current word at the given point will
-" be returned. Turn this off to get all results, so that you can filter on the 
-" client side. Default: 1
-let g:deoplete#sources#ternjs#filter = 0
-
-" Whether to use a case-insensitive compare between the current word and 
-" potential completions. Default 0
-let g:deoplete#sources#ternjs#case_insensitive = 1
-
-" When completing a property and no completions are found, Tern will use some 
-" heuristics to try and return some properties anyway. Set this to 0 to 
-" turn that off. Default: 1
-let g:deoplete#sources#ternjs#guess = 1
-
-" Determines whether the result set will be sorted. Default: 1
-let g:deoplete#sources#ternjs#sort = 0
-
-" When disabled, only the text before the given position is considered part of 
-" the word. When enabled (the default), the whole variable name that the cursor
-" is on will be included. Default: 1
-let g:deoplete#sources#ternjs#expand_word_forward = 0
-
-" Whether to ignore the properties of Object.prototype unless they have been 
-" spelled out by at least two characters. Default: 1
-let g:deoplete#sources#ternjs#omit_object_prototype = 0
-
-" Whether to include JavaScript keywords when completing something that is not 
-" a property. Default: 0
-let g:deoplete#sources#ternjs#include_keywords = 1
-
-" If completions should be returned when inside a literal. Default: 1
-let g:deoplete#sources#ternjs#in_literal = 0
-
-
-"Add extra filetypes
-let g:deoplete#sources#ternjs#filetypes = [
-            \ 'jsx',
-            \ 'javascript.jsx',
-            \ 'vue',
-            \ '...'
-            \ ]
-
-
-let g:UltiSnipsSnippetsDir="~/.vim/custom_snippets"
-let g:UltiSnipsSnippetDirectories=[g:UltiSnipsSnippetsDir]
-
-" Dont run linter on text change
-" let g:ale_lint_on_text_changed = 'never'
-
-" Ignore these folders when searching with ctrlp
-" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-" Custom separators
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" Fixing the weird symbols instead of folders on some systems
-let g:NERDTreeDirArrows=0
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.='. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
 "============================================================================
 "General
 "============================================================================
-filetype plugin indent on   " Required for omnifunc
 set path+===                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 "autocmd vimenter = NERDTree " Open NERDTree when opening vim
@@ -277,9 +97,12 @@ set splitbelow              " Split horizontal new windows to the bottom"
 set backupcopy=yes          " Doesnt with webpack-dev-server without this?
 set backupdir=~/.vim/backup// " Move all swap files to this location"
 set directory=~/.vim/swp//
+set noswapfile              " Dont use swapfiles"
 
-" Reduce timeout caused by pressin Esc"
-set timeout
+set hidden                  " Can change to another buffer without saving change"
+
+
+set timeout                 " Reduce timeout caused by pressin Esc"
 set ttimeout
 set timeoutlen=3000
 set ttimeoutlen=50
@@ -290,26 +113,6 @@ set ttyfast                   "Smoother scrolling"
 " set re=1                    
 set synmaxcol=200           " dont color lines that are too long
 set regexpengine=1          
-
-
-"============================================================================
-"Files, buffers
-" allows to switch from unsaved buffer
-set hidden
-set noswapfile
-"============================================================================
-
-"============================================================================
-"Searching
-"============================================================================
-set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
-
-set ignorecase              " When typing smallcase, search is case-insensitive"
-set smartcase               " If any character is UPPER-case, search case-sensitive"
-"set showmatch				" Highligth matching [({})]
-set hlsearch                " Highligth search 
-set incsearch				" Search as characters are entered
-
 
 "============================================================================
 " UI
@@ -326,11 +129,10 @@ set t_ut=
 colorscheme codedark		" Theme
 " colorscheme onedark
 set showcmd					" Show command at the bottom
-let loaded_matchparen = 1   " Do not show matching bracket
+" let loaded_matchparen = 1   " Do not show matching bracket
 " set laststatus=1            " For Airline to show itself on startup"
 " set laststatus=2            " For Airline to show itself on startup"
 set sidescroll=1            " Better side scrolling"
-
 
 "============================================================================
 " Spaces & tab 
@@ -341,7 +143,18 @@ set shiftwidth=4			" When indenting with >
 set expandtab				" When tabbing, insert (four) spaces
 
 "============================================================================
-"Keybindings
+"Searching
+"============================================================================
+set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
+
+set ignorecase              " When typing smallcase, search is case-insensitive"
+set smartcase               " If any character is UPPER-case, search case-sensitive"
+"set showmatch				" Highligth matching [({})]
+set hlsearch                " Highligth search 
+set incsearch				" Search as characters are entered
+
+"============================================================================
+"Keybindings, custom mappings
 "============================================================================
 let mapleader="\<Space>"	" Use space as leader key
 
@@ -354,8 +167,8 @@ nnoremap <leader>P "+p
 " Toggle nerdtree
 nmap <leader>e :NERDTreeToggle<CR>
 
-" nnoremap <leader>F :grep -i -g "!flow-typed" -g "!node_modules" -g "!vim/*"
-" nnoremap <leader>F :grep -i -uu 
+" Grep from files (current pwd). Seachword is a string, no regex, which allows
+" to search for any kind of string inside project
 function! Grep(searchword)
     let globs = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
     :execute "grep! -S --hidden ". globs . "-F " . "'" . a:searchword . "'"
@@ -371,7 +184,6 @@ function! GrepFromFiles(selection)
 :endfunction
 nnoremap <leader>f :call GrepFromFiles("")<CR>
 vmap <leader>f y :call GrepFromFiles(@")<CR>
-" nnoremap <leader>F :grep -R --exclude-dir=node_modules 
 
 " FZF
 nnoremap <leader>p :FZF<CR>
@@ -409,13 +221,6 @@ command Ga :!git a %
 " tnoremap <Esc> <C-\><C-n>
 " tnoremap <C-[> <C-\><C-n>
 
-" More colors for code dark
- " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
-" call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
-" call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
-" call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
-" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
-""
 function! SearchFilesByWord(word)
     :execute ":FZF -q " . a:word
 endfunction
@@ -494,26 +299,145 @@ function! GoToDefinitionPHP()
     else 
         silent
     endif
-
 endfunction
+
 au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
-" au BufNewFile,BufRead *.js noremap gf $3hgf
-" au BufNewFile,BufRead *.jsx noremap gf $3hgf
-" au BufNewFile,BufRead *.vue noremap  gf $3hgf
-" nmap <leader>f $3hgf....
-"
-"
-" " Performance improvments
-" if has("mac")
-"   set nocursorline
-"
 
-"   if exists("+relativenumber")
-"     set norelativenumber
-"     set number
-"   endif
+"============================================================================
+" Additional plugin settings
+"============================================================================
 
-"   set foldlevel=0
-"   set foldmethod=manual
-" endif
 
+" ======== Linting =========
+" ** Ale **
+"" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_fixers = {
+\'javascript': ['eslint'],
+\}
+let g:ale_linters = {
+\'javascript': ['eslint'],
+\'php': [],
+\}
+
+
+" ======== Tags =========
+" ** Closetag **
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js"
+
+" ** MatchTagAlways **
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'javascript.jsx': 1
+    \}
+
+
+" ======== Autocomplete =========
+" ** Deoplete **
+" Enable deocomplete
+let g:deoplete#enable_at_startup = 1
+
+let g:deoplete#sources#ternjs#timeout = 1
+
+" Whether to include the types of the completions in the result data. Default: 0
+let g:deoplete#sources#ternjs#types = 1
+
+" Whether to include the distance (in scopes for variables, in prototypes for 
+" properties) between the completions and the origin position in the result 
+" data. Default: 0
+let g:deoplete#sources#ternjs#depths = 1
+
+" Whether to include documentation strings (if found) in the result data.
+" Default: 0
+" let g:deoplete#sources#ternjs#docs = 1
+
+" When on, only completions that match the current word at the given point will
+" be returned. Turn this off to get all results, so that you can filter on the 
+" client side. Default: 1
+let g:deoplete#sources#ternjs#filter = 0
+
+" Whether to use a case-insensitive compare between the current word and 
+" potential completions. Default 0
+let g:deoplete#sources#ternjs#case_insensitive = 1
+
+" When completing a property and no completions are found, Tern will use some 
+" heuristics to try and return some properties anyway. Set this to 0 to 
+" turn that off. Default: 1
+let g:deoplete#sources#ternjs#guess = 1
+
+" Determines whether the result set will be sorted. Default: 1
+let g:deoplete#sources#ternjs#sort = 0
+
+" When disabled, only the text before the given position is considered part of 
+" the word. When enabled (the default), the whole variable name that the cursor
+" is on will be included. Default: 1
+let g:deoplete#sources#ternjs#expand_word_forward = 0
+
+" Whether to ignore the properties of Object.prototype unless they have been 
+" spelled out by at least two characters. Default: 1
+let g:deoplete#sources#ternjs#omit_object_prototype = 0
+
+" Whether to include JavaScript keywords when completing something that is not 
+" a property. Default: 0
+let g:deoplete#sources#ternjs#include_keywords = 1
+
+" If completions should be returned when inside a literal. Default: 1
+let g:deoplete#sources#ternjs#in_literal = 0
+
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [
+            \ 'jsx',
+            \ 'javascript.jsx',
+            \ 'vue',
+            \ '...'
+            \ ]
+
+" ======== Snippets =========
+" ** UltiSnips **
+let g:UltiSnipsSnippetsDir="~/.vim/custom_snippets"
+let g:UltiSnipsSnippetDirectories=[g:UltiSnipsSnippetsDir]
+
+" ======== UI =========
+" ** Airline **
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" ** Nerdtree **
+" Fixing the weird symbols instead of folders on some systems
+let g:NERDTreeDirArrows=0
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+
+
+" ** Code Dark (them) **
+ " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
+" call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
+" call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
+" call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
+" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
+""
