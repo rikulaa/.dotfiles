@@ -19,9 +19,7 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'w0rp/ale'
 " Plugin 'mtscout6/syntastic-local-eslint.vim'
 Plugin 'othree/html5.vim'               " Improved html syntax, indent
-Plugin 'MarcWeber/vim-addon-mw-utils'   " Required for snipmate
-Plugin 'tomtom/tlib_vim'                " Required for snipmate
-Plugin 'garbas/vim-snipmate'            " Required for snipmate
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'             " Custom snippets
 Plugin 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plugin 'alvan/vim-closetag'             " Close HTML, XML tags
@@ -222,9 +220,8 @@ let g:deoplete#sources#ternjs#filetypes = [
             \ ]
 
 
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript.es6.react'
+let g:UltiSnipsSnippetsDir="~/.vim/custom_snippets"
+let g:UltiSnipsSnippetDirectories=[g:UltiSnipsSnippetsDir]
 
 " Dont run linter on text change
 " let g:ale_lint_on_text_changed = 'never'
