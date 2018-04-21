@@ -397,7 +397,7 @@ nnoremap <Tab>    :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
 
-nnoremap <leader><space> :nohlsearch<CR>	
+nnoremap <leader>l :nohlsearch<CR>	
 
 " git
 nnoremap <leader>g  :Gstatus<CR>
