@@ -159,8 +159,18 @@ nnoremap <leader>P "+p
 
 " Save if changes
 " noremap <Leader>s :update<CR>	"quicksave
-" Toggle nerdtree
-nmap <leader>e :NERDTreeToggle<CR>
+
+function! ToggleNERDTree()
+    let l:isNERDTreeFocused = exists("b:NERDTree")
+    if isNERDTreeFocused == 0 && bufexists(expand('%'))
+        :NERDTreeFind
+    else
+        :NERDTreeToggle
+    endif
+
+
+endfunction
+nmap <leader>e :call ToggleNERDTree()<CR>
 
 " Grep from files (current pwd). Seachword is a string, no regex, which allows
 " to search for any kind of string inside project
