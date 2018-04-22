@@ -200,6 +200,14 @@ nnoremap <S-Tab>  :bp<CR>
 nnoremap <Tab>    :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
+command Bda :%bdelete
+
+function! DeleteAndCloseBuffer()
+    let l:message = "Delete file: " . expand('%')
+    let l:confirmation = confirm(message, "&Yes\n&No\n" )
+    if confirmation == 1 | call delete(expand('%')) | bd! | endif
+endfunction
+command Rm :call DeleteAndCloseBuffer()
 
 nnoremap <leader>l :nohlsearch<CR>	
 
