@@ -226,6 +226,8 @@ nnoremap <leader>g  :Gstatus<CR>
 
 " commands
 command Vimrc :e ~/.vimrc
+command So :source %
+command Reload :source ~/.vimrc
 
 command Ga :!git a %
 " au BufNewFile,BufRead .vimrc noremap <leader>f :source %
