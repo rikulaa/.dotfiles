@@ -233,7 +233,7 @@ command Ga :!git a %
 " au BufNewFile,BufRead .vimrc noremap <leader>f :source %
 "
 " Neovim terminal mapping
-" tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 " tnoremap <C-[> <C-\><C-n>
 
 function! SearchFilesByWord(word)
