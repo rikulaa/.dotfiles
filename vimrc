@@ -95,6 +95,7 @@ set noswapfile              " Dont use swapfiles"
 
 set hidden                  " Can change to another buffer without saving change"
 
+set updatetime=500          " Shows gitgutter signs faster 
 
 set timeout                 " Reduce timeout caused by pressin Esc"
 set ttimeout
