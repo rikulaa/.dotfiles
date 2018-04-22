@@ -276,6 +276,7 @@ function! GoToDefinitionJS()
 
 au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
 au BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
+au BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
 au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
 au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
 
@@ -302,7 +303,7 @@ au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
 function! Test()
     let currentFiletype = &filetype
     if currentFiletype =~ 'javascript'
-       execute ":!yarn test "
+       call OpenSplitTerminal('yarn test')
     else
         echo "No test environment configured"
     endif
@@ -325,13 +326,21 @@ function! TestFile()
 endfunction
 command TestFile :call TestFile()
 
+" args (command, inVertical, widthOrHeight)
 function! OpenSplitTerminal(commands, ...)
-    " If get optional height
-    let height = get(a:, 1, 15)
-    execute ":" . height . 'new'
+    " Check if should open in vertical mode
+    let l:isVertical = get(a:, 1)
+    " If get optional heigh or width
+    let l:heightOrWidth = get(a:, 2, 15)
+
+    let l:openingCommand = isVertical ? 'vnew' : 'new'
+
+    execute ":" . heightOrWidth . openingCommand
     call OpenTerminal(a:commands)
     normal G
-    execute ":wincmd k"
+
+    let l:windowDirection = isVertical ? 'h' : 'k'
+    execute ":wincmd " . windowDirection
 endfunction
 
 function! OpenTerminal(commands)
