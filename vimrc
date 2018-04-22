@@ -275,6 +275,7 @@ function! GoToDefinitionJS()
 :endfunction
 
 au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
+au BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
 au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
 au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
 
@@ -296,6 +297,46 @@ function! GoToDefinitionPHP()
 endfunction
 
 au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
+
+" Run all test
+function! Test()
+    let currentFiletype = &filetype
+    if currentFiletype =~ 'javascript'
+       execute ":!yarn test "
+    else
+        echo "No test environment configured"
+    endif
+endfunction
+command Test :call Test()
+
+" Test currentfile
+function! TestFile()
+    let filePath = expand('%:p')
+    let currentFiletype = &filetype
+
+    let currentFiletype = &filetype
+    if currentFiletype =~ 'javascript'
+       " execute ":!yarn test " . filePath
+       let command = 'yarn test ' . filePath
+       call OpenSplitTerminal(command)
+    else
+        echo "No test environment configured"
+    endif
+endfunction
+command TestFile :call TestFile()
+
+function! OpenSplitTerminal(commands, ...)
+    " If get optional height
+    let height = get(a:, 1, 15)
+    execute ":" . height . 'new'
+    call OpenTerminal(a:commands)
+    normal G
+    execute ":wincmd k"
+endfunction
+
+function! OpenTerminal(commands)
+    call termopen(a:commands)
+endfunction
 
 "============================================================================
 " Additional plugin settings
