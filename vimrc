@@ -194,8 +194,25 @@ vmap <leader>f y :call GrepFromFiles(@")<CR>
 nnoremap <leader>p :FZF<CR>
 vmap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
-" List buffers
-nnoremap <leader>b :ls<CR>:b
+" Open buffer with FZF
+" https://github.com/junegunn/fzf/wiki/Examples-(vim)
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <leader>b :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
 
 nnoremap <C-`> :term<CR>
 "For windows navigation
