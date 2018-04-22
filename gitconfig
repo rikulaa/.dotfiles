@@ -17,4 +17,5 @@
     #st = status
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lga = log --graph --all --decorate --oneline
+    select-commit = "!f() { git log --graph --all --decorate --oneline | fzf | cut -c 2-9; }; f"
      say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
