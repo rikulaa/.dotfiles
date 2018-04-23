@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ -x $(command -v fzf) ]; then
+    cd ~/Code/cheatsheets
+
+    canContinue=true
+
+    while $canContinue; do
+        current_cheatsheet=$(ls ~/Code/cheatsheets | fzf --preview="cat $FILE {}" --preview-window=right:90%)
+        if [ -z $current_cheatsheet ]; then
+            canContinue=false
+        else 
+            $EDITOR $current_cheatsheet
+        fi
+    done
+
+else
+    echo "FZF not found"
+fi
