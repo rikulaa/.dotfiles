@@ -29,7 +29,7 @@ Plugin 'airblade/vim-gitgutter'         " Show git diffs on sidebar
 Plugin 'jreybert/vimagit'
 
 " Languages
-Plugin 'gabrielelana/vim-markdown'
+" Plugin 'gabrielelana/vim-markdown'
 Plugin 'othree/xml.vim'
 Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'               " Improved html syntax, indent
