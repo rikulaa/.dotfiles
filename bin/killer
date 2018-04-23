@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -x $(command -v fzf) ]; then
+    processToTerminate="$(fzf | sed 's/\([0-9]*[0-9] \).*/\1 /' | sed -e 's/[a-z]*//g')"
+    echo $processToTerminate
+
+    if [ -z $processToTerminate ]; then
+        exit 0
+    else
+        kill $processToTerminate
+    fi
+else 
+    echo "FZF not found"
+fi
+
