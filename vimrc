@@ -176,7 +176,7 @@ nmap <leader>e :call ToggleNERDTree()<CR>
 " to search for any kind of string inside project
 function! Grep(searchword)
     let globs = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
-    :execute "grep! -S --hidden ". globs . "-F " . "'" . a:searchword . "'"
+    :execute "grep! -S --hidden ". globs . "-F " . '"' . a:searchword . '"'
     :execute "cw"
 endfunction
 
