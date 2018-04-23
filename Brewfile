@@ -14,6 +14,7 @@ brew 'tmux'
 brew 'openssl'
 brew 'htop'
 brew 'vim'
+brew 'kitty'
 
 #php
 brew 'homebrew/php/composer'
