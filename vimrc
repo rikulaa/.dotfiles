@@ -519,4 +519,18 @@ let g:NERDTreeDirArrows=0
 " call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 " call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 " call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+"
+"
+" Code dark additional colors
+" call <sid>hi('jsArguments', s:cdBlue, {}, 'none', {})
+" call <sid>hi('jsDomNodeConsts', s:cdGreen, {}, 'none', {})
+" call <sid>hi('jsObjectFuncName', s:cdRed, {}, 'none', {})
+
+" call <sid>hi('jsObjectProp', s:cdLightBlue, {}, 'none', {})
+" call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
+" call <sid>hi('jsClassDefinition', s:cdBlueGreen, {}, 'none', {})
+" call <sid>hi('xmlTag', s:cdGray, {}, 'none', {})
+" call <sid>hi('xmlTagName', s:cdBlueGreen, {}, 'none', {})
+" call <sid>hi('jsClassKeyword', s:cdBlue, {}, 'none', {})
+" call <sid>hi('jsExtendsKeyword', s:cdBlue, {}, 'none', {})
 
