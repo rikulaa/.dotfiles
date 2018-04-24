@@ -172,6 +172,9 @@ function! ToggleNERDTree()
 endfunction
 nmap <leader>e :call ToggleNERDTree()<CR>
 
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
 " Grep from files (current pwd). Seachword is a string, no regex, which allows
 " to search for any kind of string inside project
 function! Grep(searchword)
