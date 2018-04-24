@@ -51,6 +51,11 @@ Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'carlitux/deoplete-ternjs'
 Plugin 'editorconfig/editorconfig-vim'
 
+" Plugin 'prabirshrestha/async.vim'
+" Plugin 'prabirshrestha/vim-lsp'
+" Plugin 'prabirshrestha/asyncomplete.vim'
+" Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+
 " Snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'             " Custom snippets
@@ -534,3 +539,14 @@ let g:NERDTreeDirArrows=0
 " call <sid>hi('jsClassKeyword', s:cdBlue, {}, 'none', {})
 " call <sid>hi('jsExtendsKeyword', s:cdBlue, {}, 'none', {})
 
+
+"
+"
+" if executable('typescript-language-server')
+"     au User lsp_setup call lsp#register_server({
+"       \ 'name': 'typescript-language-server',
+"       \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+"       \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+"       \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
+"       \ })
+" endif
