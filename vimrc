@@ -520,12 +520,3 @@ let g:NERDTreeDirArrows=0
 " call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 " call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
-
-
-" ** Code Dark (them) **
- " call <sid>hi('jsFuncCall', s:cdYellow, {}, 'none', {})
-" call <sid>hi('jsExportDefault', s:cdPink, {}, 'none', {})
-" call <sid>hi('jsTemplateVar', s:cdLightBlue, {}, 'none', {})
-" call <sid>hi('jsTemplateBraces', s:cdBlue, {}, 'none', {})
-" call <sid>hi('jsOperator', s:cdBlue, {}, 'none', {})
-""
