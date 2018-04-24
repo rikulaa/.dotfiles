@@ -174,13 +174,23 @@ nnoremap <leader>P "+p
 " noremap <Leader>s :update<CR>	"quicksave
 
 function! ToggleNERDTree()
-    let l:isNERDTreeFocused = exists("b:NERDTree")
-    if isNERDTreeFocused == 0 && bufexists(expand('%'))
+    let l:shouldFindFile = 1
+    let l:currentBuffer = expand('%')
+
+    if currentBuffer != ""
+        for buf in getbufinfo()
+            if buf.name =~ "NERD_tree"  && buf.hidden
+                let l:shouldFindFile = 0
+                break
+            endif
+        endfor
+    endif
+
+    if shouldFindFile == 0
         :NERDTreeFind
     else
         :NERDTreeToggle
     endif
-
 
 endfunction
 nmap <leader>e :call ToggleNERDTree()<CR>
