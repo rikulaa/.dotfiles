@@ -48,8 +48,14 @@ Plugin 'w0rp/ale'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
+" needs global tern executable
 Plugin 'carlitux/deoplete-ternjs'
 Plugin 'editorconfig/editorconfig-vim'
+
+" run npm install in this directory
+Plugin 'ternjs/tern_for_vim'
+
+Plugin 'ludovicchabant/vim-gutentags'
 
 " Plugin 'prabirshrestha/async.vim'
 " Plugin 'prabirshrestha/vim-lsp'
@@ -322,11 +328,14 @@ function! GoToDefinitionJS()
     end
 :endfunction
 
-au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
+" au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
+au BufNewFile,BufRead *.js noremap gd :TernDef<CR>
 au BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
 au BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
-au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
-au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
+" au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
+au BufNewFile,BufRead *.jsx noremap gd :TernDef<CR>
+" au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
+au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 
 function! GoToDefinitionPHP()
     " Use fzf to searc for class
@@ -488,6 +497,10 @@ let g:deoplete#sources#ternjs#filetypes = [
             \ 'vue',
             \ '...'
             \ ]
+
+let g:gutentags_cache_dir='~/Code/_tags'
+let g:gutentags_exclude_project_root=['~/.dotfiles']
+let g:gutentags_enabled=0
 
 " ======== Snippets =========
 " ** UltiSnips **

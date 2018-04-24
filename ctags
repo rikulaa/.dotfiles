@@ -178,7 +178,6 @@
 --exclude=.svn
 --exclude=.hg
 --exclude=min
---exclude=vendor
 --exclude=\*.min.\*
 --exclude=\*.map
 --exclude=\*.swp
@@ -203,5 +202,9 @@
 --exclude=tests
 --exclude=.tmp
 --exclude=*bundle.*
+--exclude=**public/build/**
+--exclude=**public/js/**
+--exclude=_ide_helper.php
+--exclude=*debugbar
 
 --sort=no
