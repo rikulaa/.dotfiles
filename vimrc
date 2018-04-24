@@ -329,13 +329,14 @@ function! GoToDefinitionJS()
 :endfunction
 
 " au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
-au BufNewFile,BufRead *.js noremap gd :TernDef<CR>
-au BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
-au BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
+au BufEnter,BufNewFile,BufRead *.js noremap gd :TernDef<CR>
+au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
+au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
 " au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
-au BufNewFile,BufRead *.jsx noremap gd :TernDef<CR>
-" au BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
-au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
+au BufEnter,BufNewFile,BufRead *.jsx noremap gd :TernDef<CR>
+au BufEnter,BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
+" au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
+
 
 function! GoToDefinitionPHP()
     " Use fzf to searc for class
