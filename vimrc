@@ -409,7 +409,7 @@ let g:ale_linters = {
 
 " ======== Tags =========
 " ** Closetag **
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php"
 
 " ** MatchTagAlways **
 let g:mta_filetypes = {
@@ -417,7 +417,8 @@ let g:mta_filetypes = {
     \ 'xhtml' : 1,
     \ 'xml' : 1,
     \ 'jinja' : 1,
-    \ 'javascript.jsx': 1
+    \ 'javascript.jsx': 1,
+    \ 'blade' : 1
     \}
 
 
