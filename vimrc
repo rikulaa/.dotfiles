@@ -347,6 +347,8 @@ au BufEnter,BufNewFile,BufRead *.jsx noremap gd :TernDef<CR>
 au BufEnter,BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 
+command Run :!%
+au Filetype sh map <leader>r :Run<CR>
 
 function! GoToDefinitionPHP()
     " Use fzf to searc for class
