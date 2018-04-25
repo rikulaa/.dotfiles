@@ -17,3 +17,5 @@
     st = status -sb
     history = "!f() { git lg | fzf --ansi --color=dark --reverse --preview 'git show --name-only --color=always {+1}' --border  | cut -c 1-7; }; f"
     h = "!f() { git lg | fzf --ansi --color=dark --reverse --preview 'git show --name-only --color=always {+1}' --border  | cut -c 1-7; }; f"
+[core]
+    excludesFile = ~/.dotfiles/gitignore_global
