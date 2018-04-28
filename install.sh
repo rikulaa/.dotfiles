@@ -26,25 +26,25 @@ UNAME=$(uname)
 if [[ "$UNAME" == 'Linux' ]]; then
 
     echo ""
-    source $scripts/linux_pre_install.sh
+    source $scripts/linux_pre_install
     echo ""
-    source $scripts/symlink.sh
+    source $scripts/symlink
     echo ""
-    source $scripts/linux_programs.sh
+    source $scripts/linux_programs
     echo ""
-    source $scripts/linux_post_install.sh
+    source $scripts/linux_post_install
 
 # OSX
 elif [[ "$UNAME" == 'Darwin' ]]; then
 
     echo ""
-    source $scripts/osx_pre_install.sh
+    source $scripts/osx_pre_install
     echo ""
-    source $scripts/symlink.sh
+    source $scripts/symlink
     echo ""
-    source $scripts/osx_programs.sh
+    source $scripts/osx_programs
     echo ""
-    source $scripts/osx_post_install.sh
+    source $scripts/osx_post_install
 
 fi
 

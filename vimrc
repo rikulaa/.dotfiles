@@ -3,8 +3,9 @@ filetype off                  " required for vundle loading plugins correclty
 "============================================================================
 " Plugins
 "============================================================================
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.dotfiles/vim/bundle/Vundle.vim
+call vundle#begin('~/.dotfiles/vim/bundle/')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 "
@@ -101,9 +102,9 @@ set backspace=2             " Allow deleting in insert mode
 set scrolloff=8             " keep 8 lines of space above and below the cursor
 set splitright              " Split new windows to the right"
 set splitbelow              " Split horizontal new windows to the bottom"
-set backupcopy=yes          " Doesnt with webpack-dev-server without this?
-set backupdir=~/.vim/backup// " Move all swap files to this location"
-set directory=~/.vim/swp//
+" set backupcopy=no          " Doesnt with webpack-dev-server without this (if backups not on)?
+set backupdir=~/.dotfiles/vim/backup/ " Move all swap files to this location"
+set directory=~/.dotfiles/vim/swp/
 set noswapfile              " Dont use swapfiles"
 
 set hidden                  " Can change to another buffer without saving change"

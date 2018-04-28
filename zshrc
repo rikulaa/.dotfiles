@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
+export ZSH=$HOME/.config/oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -92,8 +92,8 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f $HOME/.dotfiles/aliases ]; then
+    . $HOME/.dotfiles/aliases
 fi
 
 
@@ -105,4 +105,4 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 
-export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"

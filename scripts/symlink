@@ -1,0 +1,99 @@
+#!/bin/bash
+# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
+
+# check if user wants to skip this
+echo "Symlink dotfiles to your homefolder? (y/n)"
+read
+
+if [[ $REPLY = [yY] ]]; then 
+    echo "Symlinking dotfiles..."
+
+    # dotfiles directory
+    dotfiles_dir=$HOME/.dotfiles                    
+    # old dotfiles backup directory
+    old_dir=$HOME/dotfiles_old_$(date +%Y_%m_%d)
+
+
+    # choose files depending on current system
+    OS=$(uname)
+    if [ $OS == Darwin ]; then
+        # osx
+        files="vimrc zshrc bashrc gitconfig tmux.conf hammerspoon"
+    else
+        files="vimrc zshrc bashrc gitconfig tmux.conf"
+    fi
+
+    # create dotfiles_old in homedir
+    echo "Creating $old_dir for backup of any existing dotfiles in $HOME"
+    mkdir -p $old_dir
+    chmod 772 $old_dir
+    echo "...done"
+
+
+    ################################
+    # dotfiles
+    ################################
+    for file in $files; do
+        if [ -e $HOME/.$file ]; then
+            echo "Moving any existing dotfiles from $HOME to $old_dir"
+            mv  $HOME/.$file $old_dir
+        fi
+        echo "Creating symlink to $file in home directory."
+        ln -s $dotfiles_dir/$file ~/.$file
+    done
+
+    # neovim
+    if [ -e $HOME/.config/nvim/init.vim ]; then
+        echo "Moving any existing dotfiles from $HOME to $old_dir"
+        mv  $HOME/.config/nvim/init.vim $old_dir
+    fi
+    echo "Creating symlink to vimrc in $HOME/.config/nvim/init.vim" 
+    ln -s $dotfiles_dir/vimrc $HOME/.config/nvim/init.vim
+
+
+
+    ################################
+    # BIN 
+    ################################
+    target_bin=$HOME/.local/bin
+
+    echo "Checking if $target_bin exists..."
+    if [[ -d $target_bin ]]; then
+        echo "$target_bin, exists!"
+    else
+        echo "$target_bin not found, creating directory"
+        mkdir -p $target_bin
+    fi
+
+    # Link files to target bin
+    echo "Linking files from $dotfiles_dir/bin to $target_bin"
+    for file_path in $dotfiles_dir/bin/*; do
+        filename=$(basename $file_path)
+
+        if [ -e $target_bin/$filename ]; then
+            echo "File $filename already exists in $target_bin, taking backup..."
+            mv $target_bin/$filename $old_dir/bin
+        fi
+
+        # Make the actual link
+        ln -s $file_path $target_bin
+    done
+
+    # Install oh-my-zsh, move previously installed version to dotfiles_old
+    if [ -d $HOME/.config/oh-my-zsh ]; then
+        mv $HOME/.config/oh-my-zsh $old_dir
+    fi
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh
+
+    # Setup vim plugin
+
+    #Update submodule (Vundle) so that Vim recognises it
+    git submodule update --init --recursive
+    #Install plugins automatically
+    vim +PluginInstall +qall
+
+
+
+else 
+    echo "Skipping symlinks" 
+fi
