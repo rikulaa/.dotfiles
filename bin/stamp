@@ -2,6 +2,6 @@
 # Add last modified date to the beginning of the file
 
 fileName=$1
-parsedDate=$(stat -t %F $fileName | grep -oh '....-..-..' | tail -1)
+parsedDate=$(date +%Y-%m-%d)
 
 mv $fileName "${parsedDate}_${fileName}"
