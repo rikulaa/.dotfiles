@@ -4,6 +4,7 @@ echo "Do you want to install programs specified in Brewfile? (y/n)"
 read
 
 if [[ $REPLY = [yY] ]]; then 
+        cd $HOME/.dotfiles/
         echo "Installing programs..."
         brew tap Homebrew/bundle
         brew bundle
