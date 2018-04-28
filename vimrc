@@ -514,7 +514,7 @@ let g:gutentags_enabled=0
 
 " ======== Snippets =========
 " ** UltiSnips **
-let g:UltiSnipsSnippetsDir="~/.vim/custom_snippets"
+let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/custom_snippets"
 let g:UltiSnipsSnippetDirectories=[g:UltiSnipsSnippetsDir]
 
 " ======== UI =========
