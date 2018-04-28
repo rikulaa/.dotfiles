@@ -23,15 +23,21 @@ alias me='cd ~/src/me'
 
 # ======== FILE SYSTEM ============
 # extend cd to always list files when navigating
-function cd() { builtin cd "$@" && ls -l }
+function cd() {
+    builtin cd "$@" && ls -l 
+}
 
-# move backwards more easily
-goBack() { cd .. }
+# # move backwards more easily
+goBack() {
+    cd .. 
+}
 alias ..='cd ..'
 
 alias l='ls -al'
 
-tree() { find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' }
+tree() {
+    find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' 
+}
 
 alias vpn='cd /etc/openvpn/'
 
