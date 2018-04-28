@@ -170,6 +170,9 @@ let mapleader="\<Space>"	" Use space as leader key
 nnoremap <leader>Y "*y
 nnoremap <leader>P "+p
 
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
 " Save if changes
 " noremap <Leader>s :update<CR>	"quicksave
 
