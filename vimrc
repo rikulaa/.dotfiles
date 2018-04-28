@@ -204,7 +204,7 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " Grep from files (current pwd). Seachword is a string, no regex, which allows
 " to search for any kind of string inside project
 function! Grep(searchword)
-    let globs = "-g '!node_modules/' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
+    let globs = "-g '!node_modules' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
     :execute "grep! -S --hidden ". globs . "-F " . '"' . a:searchword . '"'
     :execute "cw"
 endfunction
@@ -220,7 +220,12 @@ nnoremap <leader>f :call GrepFromFiles("")<CR>
 vmap <leader>f y :call GrepFromFiles(@")<CR>
 
 " FZF
-nnoremap <leader>p :FZF<CR>
+function! Fzf()
+    " If pwd is git project, get only the files tracked by git, else use
+    " ripgrep to fetch files
+    call fzf#run({'source': 'git ls-files || rg --files . ', 'window': '30new','sink': 'e'})
+endfunction
+nnoremap <leader>p :call Fzf()<CR>
 vmap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Open buffer with FZF
