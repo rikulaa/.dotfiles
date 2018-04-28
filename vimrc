@@ -75,7 +75,7 @@ Plugin 'ap/vim-css-color'
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plugin 'joshdick/onedark.vim'
 
-Plugin 'file:///~/.vim/custom_snippets'
+Plugin 'file:///~/.dotfiles/vim/custom_snippets'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
