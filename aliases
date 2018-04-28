@@ -16,9 +16,9 @@ alias tmuxconf='$EDITOR $HOME/.dotfiles/tmux.conf'
 
 alias bin='cd ~/.local/bin'
 
-alias school='cd ~/Code/school'
-alias work='cd ~/Code/work'
-alias me='cd ~/Code/me'
+alias school='cd ~/src/school'
+alias work='cd ~/src/work'
+alias me='cd ~/src/me'
 
 
 # ======== FILE SYSTEM ============
