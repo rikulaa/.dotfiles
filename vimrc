@@ -93,6 +93,7 @@ filetype plugin indent on    " required
 "============================================================================
 "General
 "============================================================================
+set rtp+=~/.local/bin       " Use executables (fzf) from bin
 set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 "autocmd vimenter = NERDTree " Open NERDTree when opening vim

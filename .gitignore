@@ -7,4 +7,6 @@ vim/swp/
 !vim/bundle/Vundle.vim
 .DS_STORE
 
+tools/fzf
+
 
