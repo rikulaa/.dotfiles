@@ -5,7 +5,6 @@ if [[ -d $HOME/.dotfiles/tools/fzf ]]; then
     # Delete previous binaries
     cd $HOME/.dotfiles/tools/fzf/
     rm $HOME/.dotfiles/tools/fzf/bin/fzf
-    rm $HOME/.dotfiles/tools/fzf/bin/fzf-tmux
     git pull
 else
     echo "Cloning FZF repository..."
