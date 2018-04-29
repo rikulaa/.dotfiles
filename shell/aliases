@@ -3,11 +3,12 @@ if [ -f $HOME/.aliases ]; then
     source $HOME/.aliases
 fi
 
+shell_config_dir=$HOME/.dotfiles/shell
 
 # ======== CONFIGURATIONS ============
-alias zshrc='$EDITOR $HOME/.dotfiles/zshrc'
-alias vimrc='$EDITOR $HOME/.dotfiles/vimrc'
-alias aliases='$EDITOR $HOME/.dotfiles/aliases'
+alias zshrc='$EDITOR $shell_config_dir/zshrc'
+alias vimrc='$EDITOR $shell_config_dir/vimrc'
+alias aliases='$EDITOR $shell_config_dir/aliases'
 alias aliases_local='$EDITOR $HOME/.aliases'
 alias gitconfig='$EDITOR $HOME/.dotfiles/gitconfig'
 alias dotfiles='cd ~/.dotfiles && ls -al'

@@ -32,7 +32,9 @@ if [[ "$UNAME" == 'Linux' ]]; then
     echo ""
     source $scripts/linux_programs
     echo ""
-    source $scripts/setup_zsh
+    source $scripts/setup_shell
+    echo ""
+    source $scripts/setup_fzf
     echo ""
     source $scripts/linux_post_install
 
@@ -46,7 +48,9 @@ elif [[ "$UNAME" == 'Darwin' ]]; then
     echo ""
     source $scripts/osx_programs
     echo ""
-    source $scripts/setup_zsh
+    source $scripts/setup_shell
+    echo ""
+    source $scripts/setup_fzf
     echo ""
     source $scripts/osx_post_install
 

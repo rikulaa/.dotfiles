@@ -1,0 +1,27 @@
+#!/bin/bash
+
+old_dir=$HOME/dotfiles_old
+
+if [[ -e $HOME/.bashrc ]]; then
+    echo "Changing previous .bashrc to .bashrc.old"    
+    mv $HOME/.bashrc $HOME/.bashrc.old
+fi
+
+echo "Linking .bashrc to $HOME"
+ln -s $HOME/.dotfiles/shell/bashrc $HOME/.bashrc
+
+
+if [[ -e $HOME/.zshrc ]]; then
+    echo "Changing previous .zshrc to .zshrc.old"    
+    mv $HOME/.zshrc $old_dir
+fi
+
+echo "Linking .zshrc to $HOME"
+ln -s $HOME/.dotfiles/shell/zshrc $HOME/.zshrc
+
+
+# Install oh-my-zsh, move previously installed version to dotfiles_old
+if [ -d $HOME/.config/oh-my-zsh ]; then
+    rm -rf $HOME/.config/oh-my-zsh
+fi
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh

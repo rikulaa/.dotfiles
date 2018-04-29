@@ -11,16 +11,16 @@ if [[ $REPLY = [yY] ]]; then
     # dotfiles directory
     dotfiles_dir=$HOME/.dotfiles                    
     # old dotfiles backup directory
-    old_dir=$HOME/dotfiles_old_$(date +%Y_%m_%d)
+    old_dir=$HOME/dotfiles_old
 
 
     # choose files depending on current system
     OS=$(uname)
     if [ $OS == Darwin ]; then
         # osx
-        files="vimrc zshrc bashrc gitconfig tmux.conf hammerspoon"
+        files="vimrc gitconfig tmux.conf hammerspoon"
     else
-        files="vimrc zshrc bashrc gitconfig tmux.conf"
+        files="vimrc gitconfig tmux.conf"
     fi
 
     # create dotfiles_old in homedir
@@ -78,12 +78,6 @@ if [[ $REPLY = [yY] ]]; then
         # Make the actual link
         ln -s $file_path $target_bin
     done
-
-    # Install oh-my-zsh, move previously installed version to dotfiles_old
-    if [ -d $HOME/.config/oh-my-zsh ]; then
-        mv $HOME/.config/oh-my-zsh $old_dir
-    fi
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh
 
     # Setup vim plugin
 

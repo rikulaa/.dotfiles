@@ -62,18 +62,6 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# get default editor
-if [ -x "$(command -v nvim)" ]; then
-    VIM_EDITOR='nvim'
-else
-    if [ -x "$(command -v vim)" ]; then
-        VIM_EDITOR='vim'
-    else
-        VIM_EDITOR='vi'
-    fi
-fi
-
-
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -92,17 +80,11 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-if [ -f $HOME/.dotfiles/aliases ]; then
-    . $HOME/.dotfiles/aliases
+shell_dir=$HOME/.dotfiles/shell
+
+if [ -f $shell_dir/aliases ]; then
+    . $shell_dir/aliases
 fi
 
+source $shell_dir/env
 
-export EDITOR=$VIM_EDITOR 
-
-export ANDROID_HOME="$HOME/Library/Android/sdk/"
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-
-export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
