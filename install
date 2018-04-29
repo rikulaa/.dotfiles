@@ -17,7 +17,7 @@ fi
 
 
 # scripts folder
-scripts=./scripts
+scripts=$HOME/.dotfiles/scripts
 
 # get os 
 UNAME=$(uname)
@@ -32,6 +32,8 @@ if [[ "$UNAME" == 'Linux' ]]; then
     echo ""
     source $scripts/linux_programs
     echo ""
+    source $scripts/setup_zsh
+    echo ""
     source $scripts/linux_post_install
 
 # OSX
@@ -43,6 +45,8 @@ elif [[ "$UNAME" == 'Darwin' ]]; then
     source $scripts/symlink
     echo ""
     source $scripts/osx_programs
+    echo ""
+    source $scripts/setup_zsh
     echo ""
     source $scripts/osx_post_install
 
