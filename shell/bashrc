@@ -90,8 +90,12 @@ function prompt_command {
     fi
 
     # Add git to prompt
+    is_git() { 
+        git status >/dev/null 2>&1 
+    }
+
     git_prompt=''
-    if [ -d .git ]; then
+    if is_git; then
 
         git_dirty_files=$(git status -s -b | grep '.[AMD??]' -c) 
         git_dirty=''
