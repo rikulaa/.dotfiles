@@ -33,14 +33,21 @@ else
     fi
 
     curl -OL $TARGET_URL
-    tar -xvf $TAR_PACKAGE
+    # tar -xvf $TAR_PACKAGE
+    # Extracting tar package, to -C 'direcotry' and stripping additional root folders
+    mkdir -p $ripgrep_dir/rg && tar -xvf $TAR_PACKAGE -C rg --strip-components=1
 
-    # Remove previous
-    if [ -e $HOME/.local/bin/rg ]; then
-        rm $HOME/.local/bin/rg
+    if [ ! -d $HOME/.local/bin ]; then
+        mkdir -p $HOME/.local/bin
+    else
+        # Remove previous
+        if [ -e $HOME/.local/bin/rg ]; then
+            rm $HOME/.local/bin/rg
+        fi
     fi
+
     # Link new binary
-    ln -s $ripgrep_dir/$EXTRACTED_FOLDER/rg $HOME/.local/bin/rg
+    ln -s $ripgrep_dir/rg/rg $HOME/.local/bin/rg
 
     # Remove tar file
     rm $TAR_PACKAGE
