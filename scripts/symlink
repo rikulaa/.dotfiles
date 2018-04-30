@@ -79,15 +79,6 @@ if [[ $REPLY = [yY] ]]; then
         ln -s $file_path $target_bin
     done
 
-    # Setup vim plugin
-
-    #Update submodule (Vundle) so that Vim recognises it
-    git submodule update --init --recursive
-    #Install plugins automatically
-    vim +PluginInstall +qall
-
-
-
 else 
     echo "Skipping symlinks" 
 fi

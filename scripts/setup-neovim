@@ -1,0 +1,87 @@
+#!/bin/bash
+latest_version=$($HOME/.dotfiles/bin/get-latest-release-tag neovim/neovim)
+
+base_dir=$HOME/.dotfiles/tools/neovim-$latest_version
+
+if [ -e $base_dir ] && [ -h $HOME/.local/bin/nvim ]; then
+    echo "Neovim already up to date"
+    
+else
+    if [ -e $base_dir ];then
+        rm -rf $base_dir
+    fi
+
+    mkdir $base_dir
+    cd $base_dir
+
+    if [[ "$(uname)" == 'Darwin' ]]; then
+        target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim-macos.tar.gz
+        tar_package=nvim-macos.tar.gz
+        extracted_folder=nvim-maxos
+
+        if [ -x $(command -v brew) ]; then
+            echo "Checking if python is installed..."
+            command -v python >/dev/null 2>&1 || { echo >&2 "Python installation was not found. Installing..."; brew install python; }
+            pip install neovim; 
+
+            echo "Downloading neovim (tar-package) for OSX..."
+            curl -OL $target_url
+                
+            echo "Extracting..."
+            tar -xvf $tar_package
+
+            # Remove previous symlink
+            if [ -h $HOME/.local/bin/nvim ]; then
+                rm $HOME/.local/bin/nvim
+            fi
+            # Link new binary
+            ln -s $base_dir/$extracted_folder/nvim $HOME/.local/bin/nvim
+
+            # Remove tar file
+            rm $tar_package
+            echo "Neovim installed!"
+        else
+            echo "Neovim needs python3 support. Please install homebrew so we can install python."
+        fi
+
+    else
+        target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim.appimage
+
+        command -v python3 >/dev/null 2>&1 || { echo >&2 "Python installation was not found. Installing..."; sudo apt install python -y; }
+        command -v pip3 >/dev/null 2>&1 || { echo >&2 "Pip was not found. Installing..."; sudo apt install python3-pip -y; }
+        sudo pip3 install neovim
+        # ln -s $(which python3) $HOME/.local/bin/py3
+
+        # download appimage
+        echo "Downloading neovim (appimage) for linux..."
+        curl -OL $target_url
+
+        # Remove previous symlink
+        if [ -h $HOME/.local/bin/nvim ]; then
+            rm $HOME/.local/bin/nvim
+        fi
+        # Link new appimage
+        chmod 772 $base_dir/$extracted_folder/nvim.appimage
+        ln -s $base_dir/$extracted_folder/nvim.appimage $HOME/.local/bin/nvim
+        echo "Neovim installed!"
+
+    fi
+
+
+
+    #Update submodule (Vundle) so that Vim recognises it
+    git submodule update --init --recursive
+    #Install plugins automatically
+    $HOME/.local/bin/nvim  +PluginInstall +qall
+
+    # Remove old versions
+    old_versions=$HOME/.dotfiles/tools/neovim*
+    for version in $old_versions; do
+        if [ "$(basename $version)" != "neovim-$latest_version" ]; then
+            rm -rf $version
+        fi
+    done
+fi
+
+
+
