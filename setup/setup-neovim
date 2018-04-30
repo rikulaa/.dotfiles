@@ -36,16 +36,11 @@ else
             # Make sure that .local/bin exists
             if [ ! -d $HOME/.local/bin ]; then
                 mkdir -p $HOME/.local/bin
-            else
-                # Remove previous symlink
-                if [ -h $HOME/.local/bin/nvim ]; then
-                    rm $HOME/.local/bin/nvim
-                fi
             fi
 
 
             # Link new binary
-            ln -s $base_dir/neovim/bin/nvim $HOME/.local/bin/nvim
+            ln -sf $base_dir/neovim/bin/nvim $HOME/.local/bin/nvim
 
             # Remove tar file
             rm $tar_package
