@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ -e $HOME/.gitconfig ]]; then
+    echo "Changing previous .gitconfig to .gitconfig.old"    
+    mv $HOME/.gitconfig $HOME/.gitconfig.old
+fi
+
+echo "Linking gitconfig to $HOME"
+ln -s $HOME/.dotfiles/git/gitconfig $HOME/.gitconfig
+
