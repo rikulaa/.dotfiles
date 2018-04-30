@@ -17,4 +17,8 @@ if [[ -e $HOME/.local/bin/fzf ]]; then
     rm $HOME/.local/bin/fzf
 fi
 
-ln -s $HOME/.dotfiles/tools/fzf/bin/fzf $HOME/.local/bin
+if [ ! -d $HOME/.local/bin ]; then
+    mkdir $HOME/.local/bin
+fi
+	
+ln -s $HOME/.dotfiles/tools/fzf/bin/fzf $HOME/.local/bin/fzf
