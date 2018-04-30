@@ -1,7 +1,7 @@
 #  will be installed by Makefile
 # tap 'homebrew/bundle'
 
-tap 'caskroom/cask'
+# tap 'caskroom/cask'
 tap 'homebrew/homebrew-php'
 
 #Essentials
@@ -12,7 +12,6 @@ brew 'git'
 brew 'tmux'
 brew 'openssl'
 brew 'htop'
-brew 'vim'
 brew 'kitty'
 
 #php
