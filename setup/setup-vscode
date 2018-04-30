@@ -10,7 +10,6 @@ if exists code; then
 else
     echo "Installing vs-code"
     if [[ "$(uname)" == 'Darwin' ]]; then
-        brew tap 'caskroom/cask'
         brew cask install visual-studio-code
     else
         curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
