@@ -18,9 +18,9 @@ if [[ $REPLY = [yY] ]]; then
     OS=$(uname)
     if [ $OS == Darwin ]; then
         # osx
-        files="vimrc gitconfig tmux.conf hammerspoon"
+        files="vimrc gitconfig hammerspoon"
     else
-        files="vimrc gitconfig tmux.conf"
+        files="vimrc gitconfig" 
     fi
 
     # create dotfiles_old in homedir
