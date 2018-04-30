@@ -5,6 +5,17 @@ fi
 
 shell_config_dir=$HOME/.dotfiles/shell
 
+# for setting colors in ls
+if ls --color > /dev/null 2>&1; then
+    # gnu 
+    colorflag="--color"
+else
+    # osx
+    colorflag="-G"
+fi
+
+
+
 # ======== CONFIGURATIONS ============
 alias zshrc='$EDITOR $shell_config_dir/zshrc'
 alias bashrc='$EDITOR $shell_config_dir/bashrc'
@@ -26,7 +37,7 @@ alias me='cd ~/src/me'
 # ======== FILE SYSTEM ============
 # extend cd to always list files when navigating
 function cd() {
-    builtin cd "$@" && ls -l
+    builtin cd "$@" && ls -l $colorflag
 }
 
 # # move backwards more easily
@@ -35,7 +46,8 @@ goBack() {
 }
 alias ..='cd ..'
 
-alias l='ls -al'
+alias l="ls -al $colorflag"
+alias ls="ls $colorflag"
 
 tree() {
     find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' 
