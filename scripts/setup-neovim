@@ -17,7 +17,6 @@ else
     if [[ "$(uname)" == 'Darwin' ]]; then
         target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim-macos.tar.gz
         tar_package=nvim-macos.tar.gz
-        extracted_folder=nvim-maxos
 
         if [ -x $(command -v brew) ]; then
             echo "Checking if python is installed..."
@@ -28,14 +27,16 @@ else
             curl -OL $target_url
                 
             echo "Extracting..."
-            tar -xvf $tar_package
+            # tar -xvf $tar_package
+            # Extracting tar package, to -C 'direcotry' and stripping additional root folders
+            mkdir -p $base_dir/neovim && tar -xvf $tar_package -C $base_dir/neovim --strip-components=1
 
             # Remove previous symlink
             if [ -h $HOME/.local/bin/nvim ]; then
                 rm $HOME/.local/bin/nvim
             fi
             # Link new binary
-            ln -s $base_dir/$extracted_folder/nvim $HOME/.local/bin/nvim
+            ln -s $base_dir/neovim/bin/nvim $HOME/.local/bin/nvim
 
             # Remove tar file
             rm $tar_package
@@ -61,8 +62,8 @@ else
             rm $HOME/.local/bin/nvim
         fi
         # Link new appimage
-        chmod 772 $base_dir/$extracted_folder/nvim.appimage
-        ln -s $base_dir/$extracted_folder/nvim.appimage $HOME/.local/bin/nvim
+        chmod 772 $base_dir/nvim.appimage
+        ln -s $base_dir/nvim.appimage $HOME/.local/bin/nvim
         echo "Neovim installed!"
 
     fi
