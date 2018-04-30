@@ -9,7 +9,7 @@ fi
 
 echo "Linking .bashrc to $HOME"
 ln -s $HOME/.dotfiles/shell/bashrc $HOME/.bashrc
-
+ln -s $HOME/.dotfiles/shell/dircolors $HOME/.dircolors
 
 if [[ -e $HOME/.zshrc ]]; then
     echo "Changing previous .zshrc to .zshrc.old"    
