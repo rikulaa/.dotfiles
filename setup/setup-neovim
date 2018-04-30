@@ -31,10 +31,17 @@ else
             # Extracting tar package, to -C 'direcotry' and stripping additional root folders
             mkdir -p $base_dir/neovim && tar -xvf $tar_package -C $base_dir/neovim --strip-components=1
 
-            # Remove previous symlink
-            if [ -h $HOME/.local/bin/nvim ]; then
-                rm $HOME/.local/bin/nvim
+            # Make sure that .local/bin exists
+            if [ ! -d $HOME/.local/bin ]; then
+                mkdir -p $HOME/.local/bin
+            else
+                # Remove previous symlink
+                if [ -h $HOME/.local/bin/nvim ]; then
+                    rm $HOME/.local/bin/nvim
+                fi
             fi
+
+
             # Link new binary
             ln -s $base_dir/neovim/bin/nvim $HOME/.local/bin/nvim
 
@@ -57,10 +64,17 @@ else
         echo "Downloading neovim (appimage) for linux..."
         curl -OL $target_url
 
-        # Remove previous symlink
-        if [ -h $HOME/.local/bin/nvim ]; then
-            rm $HOME/.local/bin/nvim
+
+        # Make sure that .local/bin exists
+        if [ ! -d $HOME/.local/bin ]; then
+            mkdir -p $HOME/.local/bin
+        else
+            # Remove previous symlink
+            if [ -h $HOME/.local/bin/nvim ]; then
+                rm $HOME/.local/bin/nvim
+            fi
         fi
+
         # Link new appimage
         chmod 772 $base_dir/nvim.appimage
         ln -s $base_dir/nvim.appimage $HOME/.local/bin/nvim
