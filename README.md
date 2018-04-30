@@ -1,15 +1,11 @@
-# .dotfiles
-Configurations for vim, zsh, tmux, hammerspoon, brew and git
-
 # Installation
 
-Run install.sh to bootstrap your system. 
-OSX and Linux have different configurations (see scripts folder).
-Only the symlink.sh is run by both systems but 
-it has rules for symlinking files for the current system 
-(systems might have different configurations files)
+Dependencies: git, curl
 
-Git must be installed before running these
+See 'setup'-folder for installation scripts. 
+On osx setup-brew must be run first.
+Running the installation scripts NUKES your previous configuration so, beware.
+
 
 # VS-Code
 
