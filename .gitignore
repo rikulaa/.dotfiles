@@ -8,6 +8,7 @@ vim/swp/
 .DS_STORE
 
 tools/fzf
+tools/neovim*
 tools/ripgrep*
 tools/*
 
