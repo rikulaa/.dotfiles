@@ -3,7 +3,7 @@
 echo ""
 echo "Do you want to bootstrap new system? (y/n)"
 
-echo "Check the scripts -folder if you wish to install only specific parts to your system"
+echo "Check the setup -folder if you wish to install only specific parts to your system"
 echo ""
 read
 
@@ -16,8 +16,8 @@ else
 fi
 
 
-# scripts folder
-scripts=$HOME/.dotfiles/scripts
+# setup folder
+setup_dir=$HOME/.dotfiles/setup
 
 # get os 
 UNAME=$(uname)
@@ -26,33 +26,33 @@ UNAME=$(uname)
 if [[ "$UNAME" == 'Linux' ]]; then
 
     echo ""
-    source $scripts/linux_pre_install
+    source $setup_dir/linux_pre_install
     echo ""
-    source $scripts/symlink
+    source $setup_dir/symlink
     echo ""
-    source $scripts/linux_programs
+    source $setup_dir/linux_programs
     echo ""
-    source $scripts/setup_shell
+    source $setup_dir/setup_shell
     echo ""
-    source $scripts/setup_fzf
+    source $setup_dir/setup_fzf
     echo ""
-    source $scripts/linux_post_install
+    source $setup_dir/linux_post_install
 
 # OSX
 elif [[ "$UNAME" == 'Darwin' ]]; then
 
     echo ""
-    source $scripts/osx_pre_install
+    source $setup_dir/osx_pre_install
     echo ""
-    source $scripts/symlink
+    source $setup_dir/symlink
     echo ""
-    source $scripts/osx_programs
+    source $setup_dir/osx_programs
     echo ""
-    source $scripts/setup_shell
+    source $setup_dir/setup_shell
     echo ""
-    source $scripts/setup_fzf
+    source $setup_dir/setup_fzf
     echo ""
-    source $scripts/osx_post_install
+    source $setup_dir/osx_post_install
 
 fi
 
