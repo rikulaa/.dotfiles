@@ -9,5 +9,6 @@ vim/swp/
 
 tools/fzf
 tools/ripgrep*
+tools/*
 
 
