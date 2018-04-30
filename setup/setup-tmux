@@ -16,11 +16,6 @@ else
     fi
 fi
 
-if [ -h $HOME/.tmux.conf ] || [ -e $HOME/.tmux.conf ]; then
-    echo "Renaming previous config to .tmux.conf.old"
-    mv $HOME/.tmux.conf $HOME/.tmux.conf.old
-fi
-
 echo "Linking tmux.conf to $HOME"
-ln -s $HOME/.dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+ln -sf $HOME/.dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 

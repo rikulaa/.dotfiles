@@ -19,10 +19,6 @@ echo "Linking files from $dotfiles_dir/bin to $target_bin"
 for file_path in $dotfiles_dir/bin/*; do
     filename=$(basename $file_path)
 
-    if [ -e $target_bin/$filename ]; then
-        rm $target_bin/$filename
-    fi
-
     # Make the actual link
-    ln -s $file_path $target_bin
+    ln -sf $file_path $target_bin
 done
