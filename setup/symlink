@@ -18,9 +18,9 @@ if [[ $REPLY = [yY] ]]; then
     OS=$(uname)
     if [ $OS == Darwin ]; then
         # osx
-        files="vimrc gitconfig hammerspoon"
+        files="hammerspoon"
     else
-        files="vimrc gitconfig" 
+        files="" 
     fi
 
     # create dotfiles_old in homedir
