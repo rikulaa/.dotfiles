@@ -1,12 +1,14 @@
 #!/bin/sh
 
+cheatsheets_dir=$HOME/.dotfiles/cheatsheets
+
 if [ -x $(command -v fzf) ]; then
-    cd ~/Code/cheatsheets
+    cd $cheatsheets_dir
 
     canContinue=true
 
     while $canContinue; do
-        current_cheatsheet=$(ls ~/Code/cheatsheets | fzf --ansi --color=dark  --preview="markdown-cli $FILE {}" --border --preview-window=right:90%)
+        current_cheatsheet=$(ls $cheatsheets_dir | fzf --ansi --color=dark  --preview="cat $FILE {}" --border --preview-window=right:90%)
         if [ -z $current_cheatsheet ]; then
             canContinue=false
         else 
