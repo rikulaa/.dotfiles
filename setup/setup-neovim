@@ -2,6 +2,7 @@
 latest_version=$($HOME/.dotfiles/bin/get-latest-release-tag neovim/neovim)
 
 base_dir=$HOME/.dotfiles/tools/neovim-$latest_version
+dotfiles_dir=$HOME/.dotfiles
 
 if [ -e $base_dir ] && [ -h $HOME/.local/bin/nvim ]; then
     echo "Neovim already up to date"
@@ -14,6 +15,7 @@ else
     mkdir $base_dir
     cd $base_dir
 
+    # OSX INSTALL
     if [[ "$(uname)" == 'Darwin' ]]; then
         target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim-macos.tar.gz
         tar_package=nvim-macos.tar.gz
@@ -52,6 +54,7 @@ else
             echo "Neovim needs python3 support. Please install homebrew so we can install python."
         fi
 
+    # LINUX INSTALL
     else
         target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim.appimage
 
@@ -82,7 +85,42 @@ else
 
     fi
 
+    # LINKING 
 
+    echo "Linking vimrc to $HOME and $HOME/.config/nvim/"
+
+    # neovim
+    if [ ! -d $HOME/.config/nvim ]; then
+	mkdir -p $HOME/.config/nvim
+    else
+	if [ -e $HOME/.config/nvim/init.vim ]; then
+	    echo "Deleting old init.vim"
+	    rm  $HOME/.config/nvim/init.vim
+        fi
+    fi
+
+    echo "Creating symlink to vimrc in $HOME" 
+    ln -s $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
+
+    if [ -e $HOME/.vimrc ] || [ -h $HOME/.vimrc ]; then
+        echo "Deleting old init.vim"
+        rm  $HOME/.vimrc
+    fi
+    ln -s $dotfiles_dir/vim/vimrc $HOME/.vimrc
+
+
+    echo "Linking ctags and tern-config to $hOME"
+    if [ -h $HOME/.ctags ] || [ -e $HOME/.ctags ]; then
+	rm $HOME/.ctags
+    fi
+    ln -s $dotfiles_dir/vim/ctags $HOME/.ctags
+
+
+    echo "Linking ctags and tern-config to $hOME"
+    if [ -h $HOME/.tern-config ] || [ -e $HOME/.tern-config ]; then
+	rm $HOME/.tern-config
+    fi
+    ln -s $dotfiles_dir/vim/tern-config $HOME/.tern-config
 
     #Update submodule (Vundle) so that Vim recognises it
     git submodule update --init --recursive
