@@ -1,9 +1,15 @@
 #!/bin/bash
+
+exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 latest_version=$($HOME/.dotfiles/bin/get-latest-release-tag neovim/neovim)
 
 base_dir=$HOME/.dotfiles/tools/neovim-$latest_version
 dotfiles_dir=$HOME/.dotfiles
 
+# base_dir gets name from the latest version
 if [ -e $base_dir ] && [ -h $HOME/.local/bin/nvim ]; then
     echo "Neovim already up to date"
     
@@ -20,18 +26,23 @@ else
         target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim-macos.tar.gz
         tar_package=nvim-macos.tar.gz
 
-        if [ -x $(command -v brew) ]; then
+        # Make sure brew exists
+        if exists brew; then
+
             echo "Checking if python is installed..."
-            command -v python >/dev/null 2>&1 || { echo >&2 "Python installation was not found. Installing..."; brew install python; }
-            pip install neovim; 
+            if ! exists python; then
+                echo "Python installation was not found, installing..."
+                brew install python
+                pip install neovim
+            fi
 
             echo "Downloading neovim (tar-package) for OSX..."
             curl -OL $target_url
                 
             echo "Extracting..."
-            # tar -xvf $tar_package
+
             # Extracting tar package, to -C 'direcotry' and stripping additional root folders
-            mkdir -p $base_dir/neovim && tar -xvf $tar_package -C $base_dir/neovim --strip-components=1
+            mkdir -p $base_dir/neovim && tar -xf $tar_package -C $base_dir/neovim --strip-components=1
 
             # Make sure that .local/bin exists
             if [ ! -d $HOME/.local/bin ]; then
@@ -53,10 +64,14 @@ else
     else
         target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim.appimage
 
-        command -v python3 >/dev/null 2>&1 || { echo >&2 "Python installation was not found. Installing..."; sudo apt install python -y; }
-        command -v pip3 >/dev/null 2>&1 || { echo >&2 "Pip was not found. Installing..."; sudo apt install python3-pip -y; }
-        sudo pip3 install neovim
-        # ln -s $(which python3) $HOME/.local/bin/py3
+
+        echo "Checking if python is installed..."
+        if ! exists python3; then
+            echo "Python installation was not found, installing..."
+            sudo apt install python python3-pip -y
+            sudo apt install  -y
+            sudo pip3 install neovim
+        fi
 
         # download appimage
         echo "Downloading neovim (appimage) for linux..."
@@ -66,16 +81,11 @@ else
         # Make sure that .local/bin exists
         if [ ! -d $HOME/.local/bin ]; then
             mkdir -p $HOME/.local/bin
-        else
-            # Remove previous symlink
-            if [ -h $HOME/.local/bin/nvim ]; then
-                rm $HOME/.local/bin/nvim
-            fi
         fi
 
         # Link new appimage
         chmod 772 $base_dir/nvim.appimage
-        ln -s $base_dir/nvim.appimage $HOME/.local/bin/nvim
+        ln -sf $base_dir/nvim.appimage $HOME/.local/bin/nvim
         echo "Neovim installed!"
 
     fi
@@ -86,36 +96,21 @@ else
 
     # neovim
     if [ ! -d $HOME/.config/nvim ]; then
-	mkdir -p $HOME/.config/nvim
-    else
-	if [ -e $HOME/.config/nvim/init.vim ]; then
-	    echo "Deleting old init.vim"
-	    rm  $HOME/.config/nvim/init.vim
-        fi
+        mkdir -p $HOME/.config/nvim
     fi
 
     echo "Creating symlink to vimrc in $HOME" 
-    ln -s $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
+    ln -sf $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
 
-    if [ -e $HOME/.vimrc ] || [ -h $HOME/.vimrc ]; then
-        echo "Deleting old init.vim"
-        rm  $HOME/.vimrc
-    fi
-    ln -s $dotfiles_dir/vim/vimrc $HOME/.vimrc
+    ln -sf $dotfiles_dir/vim/vimrc $HOME/.vimrc
 
 
-    echo "Linking ctags and tern-config to $hOME"
-    if [ -h $HOME/.ctags ] || [ -e $HOME/.ctags ]; then
-	rm $HOME/.ctags
-    fi
-    ln -s $dotfiles_dir/vim/ctags $HOME/.ctags
+    echo "Linking ctags and tern-config to $HOME"
+    ln -sf $dotfiles_dir/vim/ctags $HOME/.ctags
 
 
-    echo "Linking ctags and tern-config to $hOME"
-    if [ -h $HOME/.tern-config ] || [ -e $HOME/.tern-config ]; then
-	rm $HOME/.tern-config
-    fi
-    ln -s $dotfiles_dir/vim/tern-config $HOME/.tern-config
+    echo "Linking ctags and tern-config to $HOME"
+    ln -sf $dotfiles_dir/vim/tern-config $HOME/.tern-config
 
     #Update submodule (Vundle) so that Vim recognises it
     git submodule update --init --recursive
