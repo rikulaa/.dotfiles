@@ -97,7 +97,9 @@ function prompt_command {
     git_prompt=''
     if is_git; then
 
-        git_dirty_files=$(git status -s -b | grep '.[AMD??]' -c) 
+        git_status=$(git status -sb)
+
+        git_dirty_files=$(echo $git_status | grep '[AMD??]' -c) 
         git_dirty=''
         if [[ $git_dirty_files > 0 ]]; then
             git_dirty='\[\033[01;33m\]*'
@@ -105,24 +107,24 @@ function prompt_command {
 
         git_branch=" ($(git branch | sed -n 's/[*][a-zA-Z/]*//p' | cut -b 2- || ''))"
 
-        # git_ahead_amount=$(git status -b -s | grep 'ahead.[0-9]' -o | grep '[0-9]' -o)
-        # git_ahead=''
-        # if [[ $git_ahead_amount > 0 ]]; then
-        #     # green
-        #     git_ahead=' \[\033[01;32m\]+${git_ahead_amount}'
-        # fi
+        git_ahead_amount=$(echo $git_status | grep 'ahead.[0-9]' -o | grep '[0-9]' -o)
+        git_ahead=''
+        if [[ $git_ahead_amount > 0 ]]; then
+            # green
+            git_ahead=' \[\033[01;32m\]+${git_ahead_amount}'
+        fi
 
-        # git_behind=''
-        # git_behind_amount=$(git status -b -s | grep 'behind.[0-9]' -o | grep '[0-9]' -o)
-        # if [[ $git_behind_amount > 0 ]]; then
-        #     # red 
-        #     git_behind='\[\033[01;31m\]-${git_behind_amount}'
+        git_behind=''
+        git_behind_amount=$(echo $git_status | grep 'behind.[0-9]' -o | grep '[0-9]' -o)
+        if [[ $git_behind_amount > 0 ]]; then
+            # red 
+            git_behind='\[\033[01;31m\]-${git_behind_amount}'
             
-        # fi
+        fi
 
 
-        git_prompt='\[\033[01;31m\]$git_branch'$git_dirty
-        # git_prompt='\[\033[01;31m\]$git_branch'$git_dirty$git_ahead$git_behind
+        # git_prompt='\[\033[01;31m\]$git_branch'$git_dirty
+        git_prompt='\[\033[01;31m\]$git_branch'$git_dirty$git_ahead$git_behind
     fi
 
     if [ "$color_prompt" = yes ]; then
