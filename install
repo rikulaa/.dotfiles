@@ -1,51 +1,102 @@
 #!/bin/bash
 
-# NAMES=('all', 'brew', 'shell', 'editor', 'devenv', 'desktop', 'programs')
-OPTIONS=(
-'all:Run every installation script', 
-'brew:Setup Homebrew for OSX', 
-'shell:Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)',
-'editor:Setup editors (neovim, vscode)',
-'devenv:Setup development environment (node)',
-'desktop:Setup desktop environment',
-'programs:Install additional programs'
-)
-
-
-
-
+# get this files directory (dotfiles directory)
 dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+setup_dir=$dotfiles_dir/setup
 
-all() {
-    printf 'install all \n'
+#source  helpers
+. $dotfiles_dir/setup/helpers
+
+
+install_all() {
+    case "$(uname -sm)" in
+        Darwin\ *)
+            install_brew
+            install_shell
+            install_editor
+            install_devenv
+            install_desktop
+            install_programs
+            ;;
+        Linux\ *64)
+            install_shell
+            install_editor
+            install_devenv
+            install_programs
+            ;;
+    esac
 }
 
-shell() {
-    printf 'install shell thingie \n'
+install_shell() {
+    printf '===============================\n'
+    printf 'SHELL\n\n' 
+
+    $setup_dir/setup-shell
+    $setup_dir/setup-fzf
+    $setup_dir/setup-ripgrep
+    $setup_dir/setup-tmux
+    $setup_dir/setup-git
+
+    printf '\nSHELL done!\n' 
+    printf '===============================\n\n'
 }
 
-brew() {
-    printf 'install brew thine \n'
+install_brew() {
+    if [[ "$(uname)" == "Darwin" ]]; then
+
+        printf '===============================\n'
+        printf 'HOMEBREW\n\n' 
+
+        $setup_dir/setup-brew
+
+        printf '\nHOMEBREW installed!\n' 
+        printf '===============================\n\n'
+    else
+        printf 'Brew setup only available in OSX!\n'
+    fi
 }
 
-editor() {
-    printf 'install editors \n'
+install_editor() {
+    printf '===============================\n'
+    printf 'EDITORS\n\n' 
+
+    $setup_dir/setup-neovim
+    $setup_dir/setup-vscode
+
+    printf '\nEDITORS installed!\n' 
+    printf '===============================\n\n'
 }
 
-devenv() {
-    printf 'install dev env \n'
+install_devenv() {
+    printf '===============================\n'
+    printf 'DEVELOPMENT ENVIRONMENT\n\n' 
+
+    $setup_dir/setup-node
+
+    printf '\nDEVELOPMENT ENVIRONMENT setup done!\n'
+    printf '===============================\n\n'
 }
 
-desktop() {
-    printf 'install desktop \n'
+install_desktop() {
+    printf '===============================\n'
+    printf 'DESKTOP\n\n' 
+
+    $setup_dir/setup-hammerspoon
+
+    printf '\nDESKTOP done!\n' 
+    printf '==============================\n\n'
 }
 
 
-programs() {
-    printf 'install programs \n'
+install_programs() {
+    printf '===============================\n'
+    printf 'PROGRAMS\n\n' 
+
+    printf '\nPROGRAMS installed!\n' 
+    printf '===============================\n\n'
 }
 
-help() {
+print_menu() {
     printf 'This script will help to bootstrap a new system.'
     printf '\n'
     printf 'Use the options below to install specific parts'
@@ -54,121 +105,59 @@ help() {
     printf 'Example usage: install --$arg ...'
     printf '\n\n'
 
+    printf '%-15s  %-30s' ' --all' 'Setup whole environment' 
+    printf '\n'
+
+    printf '%-15s  %-30s' ' --brew (OSX)' 'Setup Homebrew for OSX' 
+    printf '\n'
+
+    printf '%-15s  %-30s' ' --shell' 'Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)' 
+    printf '\n'
+
+    printf '%-15s  %-30s' ' --editor' 'Setup editors (neovim, vscode)' 
+    printf '\n'
+
+    printf '%-15s  %-30s' ' --devenv' 'Setup development environment (node)' 
+    printf '\n'
 
 
-    for option in "${OPTIONS[@]}"; do
+    printf '%-15s  %-30s' ' --desktop' 'Setup specific desktop configuration (hammerspoon or ...)' 
+    printf '\n'
 
 
-        while IFS=';' read -ra ADDR; do
-            for i in "${ADDR[@]}"; do
-                # process "$i"
-                echo $i
-            done
-        done <<< "$option"
-
-        # split sub-list if available
-        # if [[ $option == *":"* ]]; then
-        #     # split option to prefix and description name from sub-list
-        #     tmpOption=(${option//:/ })
-        #     prefix=${tmpOption[0]}
-        #     description=${tmpOption[1]}
-
-        #     printf '%-15s  %-30s' " --$prefix" "$description" 
-        #     printf '\n'
-
-        # fi       
-    done
-
-
-
-    # printf '%-15s  %-30s' ' --brew (OSX)' 'Setup Homebrew for OSX' 
-    # printf '\n'
-
-    # printf '%-15s  %-30s' ' --shell' 'Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)' 
-    # printf '\n'
-
-    # printf '%-15s  %-30s' ' --editor' 'Setup editors (neovim, vscode)' 
-    # printf '\n'
-
-    # printf '%-15s  %-30s' ' --devenv' 'Setup development environment (node)' 
-    # printf '\n'
-
-
-    # printf '%-15s  %-30s' ' --desktop' 'Setup specific desktop configuration (hammerspoon or ...)' 
-    # printf '\n'
-
-
-    # printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
-    # printf '\n'
+    printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
+    printf '\n'
 
     printf '\n\n'
 } 
 
-# If no args provided, print help
-if [ -z "$@" ]; then
-    help
+# INIT
+if [ -z "$1" ]; then
+    print_menu
+else
+    for arg in "$@"; do
+        case "$arg" in
+            --all)
+                install_all
+                ;;
+            --brew)
+                install_brew
+                ;;
+            --shell)
+                install_shell
+                ;;
+            --editor)
+                install_editor
+                ;;
+            --devenv)
+                install_devenv
+                ;;
+            --desktop) 
+                install_desktop
+                ;;
+            --programs)
+                install_programs
+                ;;
+        esac
+    done
 fi
-
-for setup_cmd in "$@"; do
-    echo $setup_cmd
-done
-
-# echo ""
-# echo "Do you want to bootstrap new system? (y/n)"
-
-# echo "Check the setup -folder if you wish to install only specific parts to your system"
-# echo ""
-# read
-
-# if [[ $REPLY = [yY] ]]; then 
-#     echo "Starting installation.."
-#     echo ""
-# else 
-#     echo "Aborting" 
-#     exit 1
-# fi
-
-
-# # setup folder
-# setup_dir=$HOME/.dotfiles/setup
-
-# # get os 
-# UNAME=$(uname)
-
-# # LINUX
-# if [[ "$UNAME" == 'Linux' ]]; then
-
-#     echo ""
-#     source $setup_dir/linux_pre_install
-#     echo ""
-#     source $setup_dir/symlink
-#     echo ""
-#     source $setup_dir/linux_programs
-#     echo ""
-#     source $setup_dir/setup_shell
-#     echo ""
-#     source $setup_dir/setup_fzf
-#     echo ""
-#     source $setup_dir/linux_post_install
-
-# # OSX
-# elif [[ "$UNAME" == 'Darwin' ]]; then
-
-#     echo ""
-#     source $setup_dir/osx_pre_install
-#     echo ""
-#     source $setup_dir/symlink
-#     echo ""
-#     source $setup_dir/osx_programs
-#     echo ""
-#     source $setup_dir/setup_shell
-#     echo ""
-#     source $setup_dir/setup_fzf
-#     echo ""
-#     source $setup_dir/osx_post_install
-
-# fi
-
-# echo ""
-# echo ""
-# echo "Dotfiles installed!"
