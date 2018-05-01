@@ -9,7 +9,8 @@
     cm = commit
     cmp = git commit && git push
     acm = !git add -A && git commit
-    cmp = "!f() { git add -A; git commit; git push; }; f"
+    cmp = "!f() { git commit; git push; }; f"
+    acmp = "!f() { git add -A; git commit; git push; }; f"
     undo = reset HEAD~1 --mixed
     co = checkout
     cob = checkout -b
