@@ -27,7 +27,7 @@ case "$(uname -sm)" in
         done
 
         for cask in $casks; do
-            brew cask install
+            brew cask install $cask
         done
 
         ;;

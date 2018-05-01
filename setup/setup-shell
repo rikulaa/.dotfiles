@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "Linking .bashrc to $HOME"
+echo "Linking .bashrc, .bash_profile to $HOME"
 ln -sf $HOME/.dotfiles/shell/bashrc $HOME/.bashrc
+ln -sf $HOME/.dotfiles/shell/bash_profile $HOME/.bash_profile
 ln -sf $HOME/.dotfiles/shell/dircolors $HOME/.dircolors
 
 echo "Linking .zshrc to $HOME"
