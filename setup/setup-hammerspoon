@@ -14,7 +14,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
         echo ""
         echo "Linking hammerspoon config..."
-        ln -sf $HOME/.dotfiles/hammerspoon $home/.hammerspoon
+        if [ -d $HOME/.hammerspoon ] || [ -h $HOME/.hammerspoon ]; then
+            rm -rf $HOME/.hammerspoon
+        fi
+
+        ln -s $HOME/.dotfiles/hammerspoon $HOME/.hammerspoon
         echo ""
     else
         echo "brew or brew cask command was not found, run setup-brew to install them!"
