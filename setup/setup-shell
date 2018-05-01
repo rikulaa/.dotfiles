@@ -1,7 +1,5 @@
 #!/bin/bash
 
-old_dir=$HOME/dotfiles_old
-
 echo "Linking .bashrc to $HOME"
 ln -sf $HOME/.dotfiles/shell/bashrc $HOME/.bashrc
 ln -sf $HOME/.dotfiles/shell/dircolors $HOME/.dircolors

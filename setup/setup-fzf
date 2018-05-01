@@ -13,6 +13,7 @@ fi
 
 $HOME/.dotfiles/tools/fzf/install --bin
 
+#  Create ~/.local/bin dir if it doesn't exist
 if [ ! -d $HOME/.local/bin ]; then
     mkdir -p $HOME/.local/bin
 fi

@@ -5,12 +5,17 @@ exists()
   command -v "$1" >/dev/null 2>&1
 }
 
+# check if tmux already installed
 if exists tmux; then
-    echo "Tmux installed"
+    echo "Tmux already installed"
 else
     echo "Installing tmux"
     if [[ "$(uname)" == 'Darwin' ]]; then
-        brew install tmux
+        if exists brew; then
+            brew install tmux
+        else
+            echo "Homebrew was not found. Run setup-brew."
+        fi
     else
         sudo apt install tmux -y
     fi

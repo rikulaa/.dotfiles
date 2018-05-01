@@ -12,119 +12,121 @@ dotfiles_dir=$HOME/.dotfiles
 # base_dir gets name from the latest version
 if [ -e $base_dir ] && [ -h $HOME/.local/bin/nvim ]; then
     echo "Neovim already up to date"
-    
-else
-    if [ -e $base_dir ];then
-        rm -rf $base_dir
-    fi
-
-    mkdir $base_dir
-    cd $base_dir
-
-    # OSX INSTALL
-    if [[ "$(uname)" == 'Darwin' ]]; then
-        target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim-macos.tar.gz
-        tar_package=nvim-macos.tar.gz
-
-        # Make sure brew exists
-        if exists brew; then
-
-            echo "Checking if python is installed..."
-            if ! exists python; then
-                echo "Python installation was not found, installing..."
-                brew install python
-                pip install neovim
-            fi
-
-            echo "Downloading neovim (tar-package) for OSX..."
-            curl -OL $target_url
-                
-            echo "Extracting..."
-
-            # Extracting tar package, to -C 'direcotry' and stripping additional root folders
-            mkdir -p $base_dir/neovim && tar -xf $tar_package -C $base_dir/neovim --strip-components=1
-
-            # Make sure that .local/bin exists
-            if [ ! -d $HOME/.local/bin ]; then
-                mkdir -p $HOME/.local/bin
-            fi
+    exit 1
+fi
 
 
-            # Link new binary
-            ln -sf $base_dir/neovim/bin/nvim $HOME/.local/bin/nvim
+# Start installation
+if [ -e $base_dir ];then
+    rm -rf $base_dir
+fi
 
-            # Remove tar file
-            rm $tar_package
-            echo "Neovim installed!"
-        else
-            echo "Neovim needs python3 support. Please install homebrew so we can install python."
-        fi
+mkdir $base_dir
+cd $base_dir
 
-    # LINUX INSTALL
-    else
-        target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim.appimage
+# OSX INSTALL
+if [[ "$(uname)" == 'Darwin' ]]; then
+    target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim-macos.tar.gz
+    tar_package=nvim-macos.tar.gz
 
+    # Make sure brew exists
+    if exists brew; then
 
         echo "Checking if python is installed..."
-        if ! exists python3; then
+        if ! exists python; then
             echo "Python installation was not found, installing..."
-            sudo apt install python python3-pip -y
-            sudo apt install  -y
-            sudo pip3 install neovim
+            brew install python
+            pip install neovim
         fi
 
-        # download appimage
-        echo "Downloading neovim (appimage) for linux..."
+        echo "Downloading neovim (tar-package) for OSX..."
         curl -OL $target_url
 
+        echo "Extracting..."
+
+        # Extracting tar package, to -C 'direcotry' and stripping additional root folders
+        mkdir -p $base_dir/neovim && tar -xf $tar_package -C $base_dir/neovim --strip-components=1
 
         # Make sure that .local/bin exists
         if [ ! -d $HOME/.local/bin ]; then
             mkdir -p $HOME/.local/bin
         fi
 
-        # Link new appimage
-        chmod 772 $base_dir/nvim.appimage
-        ln -sf $base_dir/nvim.appimage $HOME/.local/bin/nvim
+
+        # Link new binary
+        ln -sf $base_dir/neovim/bin/nvim $HOME/.local/bin/nvim
+
+        # Remove tar file
+        rm $tar_package
         echo "Neovim installed!"
-
+    else
+        echo "Neovim needs python3 support. Please install homebrew by running setup-brew, so we can install python."
     fi
 
-    # LINKING 
+    # LINUX INSTALL
+else
+    target_url=https://github.com/neovim/neovim/releases/download/$latest_version/nvim.appimage
 
-    echo "Linking vimrc to $HOME and $HOME/.config/nvim/"
 
-    # neovim
-    if [ ! -d $HOME/.config/nvim ]; then
-        mkdir -p $HOME/.config/nvim
+    echo "Checking if python is installed..."
+    if ! exists python3; then
+        echo "Python installation was not found, installing..."
+        sudo apt install python python3-pip -y
+        sudo apt install  -y
+        sudo pip3 install neovim
     fi
 
-    echo "Creating symlink to vimrc in $HOME" 
-    ln -sf $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
-
-    ln -sf $dotfiles_dir/vim/vimrc $HOME/.vimrc
-
-
-    echo "Linking ctags and tern-config to $HOME"
-    ln -sf $dotfiles_dir/vim/ctags $HOME/.ctags
+    # download appimage
+    echo "Downloading neovim (appimage) for linux..."
+    curl -OL $target_url
 
 
-    echo "Linking ctags and tern-config to $HOME"
-    ln -sf $dotfiles_dir/vim/tern-config $HOME/.tern-config
+    # Make sure that .local/bin exists
+    if [ ! -d $HOME/.local/bin ]; then
+        mkdir -p $HOME/.local/bin
+    fi
 
-    #Update submodule (Vundle) so that Vim recognises it
-    git submodule update --init --recursive
-    #Install plugins automatically
-    $HOME/.local/bin/nvim  +PluginInstall +qall
+    # Link new appimage
+    chmod 772 $base_dir/nvim.appimage
+    ln -sf $base_dir/nvim.appimage $HOME/.local/bin/nvim
+    echo "Neovim installed!"
 
-    # Remove old versions
-    old_versions=$HOME/.dotfiles/tools/neovim*
-    for version in $old_versions; do
-        if [ "$(basename $version)" != "neovim-$latest_version" ]; then
-            rm -rf $version
-        fi
-    done
 fi
+
+# LINKING 
+
+echo "Linking vimrc to $HOME and $HOME/.config/nvim/"
+
+# neovim
+if [ ! -d $HOME/.config/nvim ]; then
+    mkdir -p $HOME/.config/nvim
+fi
+
+echo "Creating symlink to vimrc in $HOME" 
+ln -sf $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
+
+ln -sf $dotfiles_dir/vim/vimrc $HOME/.vimrc
+
+
+echo "Linking ctags and tern-config to $HOME"
+ln -sf $dotfiles_dir/vim/ctags $HOME/.ctags
+
+
+echo "Linking ctags and tern-config to $HOME"
+ln -sf $dotfiles_dir/vim/tern-config $HOME/.tern-config
+
+#Update submodule (Vundle) so that Vim recognises it
+git submodule update --init --recursive
+#Install plugins automatically
+$HOME/.local/bin/nvim  +PluginInstall +qall
+
+# Remove old versions
+old_versions=$HOME/.dotfiles/tools/neovim*
+for version in $old_versions; do
+    if [ "$(basename $version)" != "neovim-$latest_version" ]; then
+        rm -rf $version
+    fi
+done
 
 
 

@@ -5,6 +5,11 @@ exists()
   command -v "$1" >/dev/null 2>&1
 }
 
+if exists node; then 
+    echo "Node.js already installed"
+    exit 1
+fi
+
 # OSX
 if [[ "$(uname)" == "Darwin" ]]; then
     # Make sure brew is installed

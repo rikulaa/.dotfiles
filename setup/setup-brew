@@ -2,7 +2,7 @@
 
 exists()
 {
-  command -v "$1" >/dev/null 2>&1
+    command -v "$1" >/dev/null 2>&1
 }
 
 # requirements for Homebrew
@@ -13,10 +13,10 @@ xcode-select --install | echo "xcode-installed"
 # Dont install if brew already exists
 if exists brew; then
     echo "Brew already installed!"
-else
-    echo ""
-    echo "Installing brew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-    brew tap 'caskroom/cask'
+    exit 1
 fi
+echo ""
+echo "Installing brew..."
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew tap 'caskroom/cask'
