@@ -72,7 +72,7 @@ install_devenv() {
     printf '===============================\n'
     printf 'DEVELOPMENT ENVIRONMENT\n\n' 
 
-    $setup_dir/setup-node
+    $setup_dir/setup-devenv
 
     printf '\nDEVELOPMENT ENVIRONMENT setup done!\n'
     printf '===============================\n\n'
@@ -92,6 +92,8 @@ install_desktop() {
 install_programs() {
     printf '===============================\n'
     printf 'PROGRAMS\n\n' 
+
+    $setup_dir/setup-programs
 
     printf '\nPROGRAMS installed!\n' 
     printf '===============================\n\n'

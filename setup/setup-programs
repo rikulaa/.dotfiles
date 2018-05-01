@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This installing misc. programs needed
+
+exists()
+{
+    command -v "$1" >/dev/null 2>&1
+}
+
+case "$(uname -sm)" in
+    Darwin\ *)
+        if ! exists brew; then
+            echo "Homebrew is not installed! Please run 'install --brew' to install it."
+            exit 1
+        fi
+
+        brews="mplayer"
+        casks="firefox chrome keeweb harvest rambox usb-overdrive windscribe slack"
+
+        for brew in $brews; do
+            brew install $brew
+        done
+
+        for cask in $casks; do
+            brew cask install $cask
+        done
+
+        ;;
+    Linux\ *64)
+        programs="mplayer firefox"
+
+        for program in $programs; do
+            sudo apt install $program -y
+        done
+
+        ;;
+esac
