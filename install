@@ -1,61 +1,174 @@
 #!/bin/bash
 
-echo ""
-echo "Do you want to bootstrap new system? (y/n)"
+# NAMES=('all', 'brew', 'shell', 'editor', 'devenv', 'desktop', 'programs')
+OPTIONS=(
+'all:Run every installation script', 
+'brew:Setup Homebrew for OSX', 
+'shell:Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)',
+'editor:Setup editors (neovim, vscode)',
+'devenv:Setup development environment (node)',
+'desktop:Setup desktop environment',
+'programs:Install additional programs'
+)
 
-echo "Check the setup -folder if you wish to install only specific parts to your system"
-echo ""
-read
 
-if [[ $REPLY = [yY] ]]; then 
-    echo "Starting installation.."
-    echo ""
-else 
-    echo "Aborting" 
-    exit 1
+
+
+dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+all() {
+    printf 'install all \n'
+}
+
+shell() {
+    printf 'install shell thingie \n'
+}
+
+brew() {
+    printf 'install brew thine \n'
+}
+
+editor() {
+    printf 'install editors \n'
+}
+
+devenv() {
+    printf 'install dev env \n'
+}
+
+desktop() {
+    printf 'install desktop \n'
+}
+
+
+programs() {
+    printf 'install programs \n'
+}
+
+help() {
+    printf 'This script will help to bootstrap a new system.'
+    printf '\n'
+    printf 'Use the options below to install specific parts'
+    printf '\n\n'
+
+    printf 'Example usage: install --$arg ...'
+    printf '\n\n'
+
+
+
+    for option in "${OPTIONS[@]}"; do
+
+
+        while IFS=';' read -ra ADDR; do
+            for i in "${ADDR[@]}"; do
+                # process "$i"
+                echo $i
+            done
+        done <<< "$option"
+
+        # split sub-list if available
+        # if [[ $option == *":"* ]]; then
+        #     # split option to prefix and description name from sub-list
+        #     tmpOption=(${option//:/ })
+        #     prefix=${tmpOption[0]}
+        #     description=${tmpOption[1]}
+
+        #     printf '%-15s  %-30s' " --$prefix" "$description" 
+        #     printf '\n'
+
+        # fi       
+    done
+
+
+
+    # printf '%-15s  %-30s' ' --brew (OSX)' 'Setup Homebrew for OSX' 
+    # printf '\n'
+
+    # printf '%-15s  %-30s' ' --shell' 'Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)' 
+    # printf '\n'
+
+    # printf '%-15s  %-30s' ' --editor' 'Setup editors (neovim, vscode)' 
+    # printf '\n'
+
+    # printf '%-15s  %-30s' ' --devenv' 'Setup development environment (node)' 
+    # printf '\n'
+
+
+    # printf '%-15s  %-30s' ' --desktop' 'Setup specific desktop configuration (hammerspoon or ...)' 
+    # printf '\n'
+
+
+    # printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
+    # printf '\n'
+
+    printf '\n\n'
+} 
+
+# If no args provided, print help
+if [ -z "$@" ]; then
+    help
 fi
 
+for setup_cmd in "$@"; do
+    echo $setup_cmd
+done
 
-# setup folder
-setup_dir=$HOME/.dotfiles/setup
+# echo ""
+# echo "Do you want to bootstrap new system? (y/n)"
 
-# get os 
-UNAME=$(uname)
+# echo "Check the setup -folder if you wish to install only specific parts to your system"
+# echo ""
+# read
 
-# LINUX
-if [[ "$UNAME" == 'Linux' ]]; then
+# if [[ $REPLY = [yY] ]]; then 
+#     echo "Starting installation.."
+#     echo ""
+# else 
+#     echo "Aborting" 
+#     exit 1
+# fi
 
-    echo ""
-    source $setup_dir/linux_pre_install
-    echo ""
-    source $setup_dir/symlink
-    echo ""
-    source $setup_dir/linux_programs
-    echo ""
-    source $setup_dir/setup_shell
-    echo ""
-    source $setup_dir/setup_fzf
-    echo ""
-    source $setup_dir/linux_post_install
 
-# OSX
-elif [[ "$UNAME" == 'Darwin' ]]; then
+# # setup folder
+# setup_dir=$HOME/.dotfiles/setup
 
-    echo ""
-    source $setup_dir/osx_pre_install
-    echo ""
-    source $setup_dir/symlink
-    echo ""
-    source $setup_dir/osx_programs
-    echo ""
-    source $setup_dir/setup_shell
-    echo ""
-    source $setup_dir/setup_fzf
-    echo ""
-    source $setup_dir/osx_post_install
+# # get os 
+# UNAME=$(uname)
 
-fi
+# # LINUX
+# if [[ "$UNAME" == 'Linux' ]]; then
 
-echo ""
-echo ""
-echo "Dotfiles installed!"
+#     echo ""
+#     source $setup_dir/linux_pre_install
+#     echo ""
+#     source $setup_dir/symlink
+#     echo ""
+#     source $setup_dir/linux_programs
+#     echo ""
+#     source $setup_dir/setup_shell
+#     echo ""
+#     source $setup_dir/setup_fzf
+#     echo ""
+#     source $setup_dir/linux_post_install
+
+# # OSX
+# elif [[ "$UNAME" == 'Darwin' ]]; then
+
+#     echo ""
+#     source $setup_dir/osx_pre_install
+#     echo ""
+#     source $setup_dir/symlink
+#     echo ""
+#     source $setup_dir/osx_programs
+#     echo ""
+#     source $setup_dir/setup_shell
+#     echo ""
+#     source $setup_dir/setup_fzf
+#     echo ""
+#     source $setup_dir/osx_post_install
+
+# fi
+
+# echo ""
+# echo ""
+# echo "Dotfiles installed!"
