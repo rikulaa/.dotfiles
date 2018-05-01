@@ -36,6 +36,7 @@ install_shell() {
     $setup_dir/setup-ripgrep
     $setup_dir/setup-tmux
     $setup_dir/setup-git
+    $setup_dir/link-bin
 
     printf '\nSHELL done!\n' 
     printf '===============================\n\n'
