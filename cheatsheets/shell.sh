@@ -15,6 +15,9 @@ echo 'Hi $NAME'  #=> Hi $NAME
 echo "I'm in $(pwd)"
 echo "I'm in `pwd`"
 
+# print columns
+printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
+
 git commit && git push 
 git commit || echo "Commit failed"
 
@@ -78,6 +81,17 @@ if (( $a < $b ))
 if [ -e "file.txt" ]; then
   echo "file exists"
 fi
+
+# Switch cas
+case "$1" in
+  start | up)
+    vagrant up
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|ssh}"
+    ;;
+esac
 
 
 
