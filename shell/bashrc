@@ -21,6 +21,10 @@ esac
 # Enable history expansion with space
 # E.g. typing !!<space> will replace the !! with your last command
 bind Space:magic-space
+# Kill whole line with Control-g
+bind '"\C-g": kill-whole-line'
+# Vi mode
+# set -o vi
 
 # Turn on recursive globbing (enables ** to recurse all directories)
 shopt -s globstar 2> /dev/null
