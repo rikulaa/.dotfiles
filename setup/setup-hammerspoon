@@ -1,13 +1,25 @@
 #!/bin/bash
 
-if [[ "$(uname)" == "Darwin" ]]; then
-    echo "Installing hammerspoon"
-    brew cask install 'hammerspoon'
+exists()
+{
+  command -v "$1" >/dev/null 2>&1
+}
 
-    echo ""
-    echo "Linking hammerspoon config..."
-    ln -sf $HOME/.dotfiles/hammerspoon $home/.hammerspoon
-    echo ""
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    # Make sure brew
+    if exists brew; then
+        echo "Installing hammerspoon"
+        brew cask install 'hammerspoon'
+
+        echo ""
+        echo "Linking hammerspoon config..."
+        ln -sf $HOME/.dotfiles/hammerspoon $home/.hammerspoon
+        echo ""
+    else
+        echo "brew or brew cask command was not found, run setup-brew to install them!"
+        echo ""
+    fi
 else
     echo "Hammerspoon available only in OSX!"
     echo ""
