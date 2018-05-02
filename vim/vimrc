@@ -371,7 +371,7 @@ au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
 function! Test()
     let currentFiletype = &filetype
     if currentFiletype =~ 'javascript'
-       call OpenSplitTerminal('yarn test')
+       call OpenSplitTerminal('yarn test', 0, 30)
     else
         echo "No test environment configured"
     endif
@@ -387,7 +387,7 @@ function! TestFile()
     if currentFiletype =~ 'javascript'
        " execute ":!yarn test " . filePath
        let command = 'yarn test ' . filePath
-       call OpenSplitTerminal(command)
+       call OpenSplitTerminal(command, 0, 30)
     else
         echo "No test environment configured"
     endif
