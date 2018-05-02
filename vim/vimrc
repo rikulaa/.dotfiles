@@ -510,7 +510,7 @@ let g:deoplete#sources#ternjs#filetypes = [
             \ '...'
             \ ]
 
-let g:gutentags_cache_dir='~/Code/_tags'
+let g:gutentags_cache_dir='~/src/_tags'
 let g:gutentags_exclude_project_root=['~/.dotfiles']
 let g:gutentags_enabled=0
 
