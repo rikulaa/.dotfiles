@@ -170,6 +170,7 @@ let mapleader="\<Space>"	" Use space as leader key
 
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
+vmap <leader>Y "*y
 nnoremap <leader>P "+p
 
 map <ScrollWheelUp> <C-Y>
