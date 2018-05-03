@@ -82,13 +82,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-
 
 "============================================================================
 "General
@@ -96,7 +89,6 @@ filetype plugin indent on    " required
 set rtp+=~/.local/bin       " Use executables (fzf) from bin
 set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
-"autocmd vimenter = NERDTree " Open NERDTree when opening vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
 set backspace=2             " Allow deleting in insert mode 
@@ -121,8 +113,7 @@ set ttyfast                   "Smoother scrolling"
 " set ttyscroll=3
 " set lazyredraw              " "Smootherrrr.??
 " set re=1                    
-set synmaxcol=200           " dont color lines that are too long
-set regexpengine=1          
+" set synmaxcol=200           " dont color lines that are too long
 
 "============================================================================
 " UI
@@ -137,12 +128,8 @@ syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
 colorscheme codedark		" Theme
-" colorscheme onedark
 set showcmd					" Show command at the bottom
-" let loaded_matchparen = 1   " Do not show matching bracket
-" set laststatus=1            " For Airline to show itself on startup"
-" set laststatus=2            " For Airline to show itself on startup"
-set sidescroll=1            " Better side scrolling"
+set sidescroll=0            " Faster scrolling
 
 "============================================================================
 " Spaces & tab 
@@ -478,11 +465,6 @@ let g:deoplete#sources#ternjs#filter = 0
 " Whether to use a case-insensitive compare between the current word and 
 " potential completions. Default 0
 let g:deoplete#sources#ternjs#case_insensitive = 1
-
-" When completing a property and no completions are found, Tern will use some 
-" heuristics to try and return some properties anyway. Set this to 0 to 
-" turn that off. Default: 1
-let g:deoplete#sources#ternjs#guess = 1
 
 " Determines whether the result set will be sorted. Default: 1
 let g:deoplete#sources#ternjs#sort = 0
