@@ -73,7 +73,6 @@ Plugin 'ap/vim-css-color'
 
 " Themes
 Plugin 'tomasiser/vim-code-dark'        "Theme based on visual studio code
-Plugin 'joshdick/onedark.vim'
 
 Plugin 'file:///~/.dotfiles/vim/custom_snippets'
 
