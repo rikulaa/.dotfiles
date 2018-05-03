@@ -211,12 +211,13 @@ nnoremap <leader>f :call GrepFromFiles("")<CR>
 vmap <leader>f y :call GrepFromFiles(@")<CR>
 
 " FZF
-function! Fzf()
-    " If pwd is git project, get only the files tracked by git, else use
-    " ripgrep to fetch files
-    call fzf#run({'source': 'git ls-files || rg --files . ', 'window': '30new','sink': 'e'})
-endfunction
-nnoremap <leader>p :call Fzf()<CR>
+" function! Fzf()
+"     " If pwd is git project, get only the files tracked by git, else use
+"     " ripgrep to fetch files
+"     call fzf#run({'source': 'git ls-files || rg --files . ', 'window': '30new','sink': 'e'})
+" endfunction
+" nnoremap <leader>p :call Fzf()<CR>
+nnoremap <leader>p :FZF<CR>
 vmap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Open buffer with FZF
