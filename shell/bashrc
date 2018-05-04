@@ -26,6 +26,12 @@ bind '"\C-g": kill-whole-line'
 # Vi mode
 # set -o vi
 
+# set show-all-if-ambiguous on
+# set completion-ignore-case on
+# bind 'set show-all-if-ambiguous on'
+# bind 'TAB:menu-complete'
+# bind "set menu-complete-display-prefix on"
+
 # Turn on recursive globbing (enables ** to recurse all directories)
 shopt -s globstar 2> /dev/null
 
