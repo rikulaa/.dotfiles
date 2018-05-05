@@ -56,6 +56,9 @@ Plugin 'editorconfig/editorconfig-vim'
 " run npm install in this directory
 Plugin 'ternjs/tern_for_vim'
 
+" composer install && composer run-script parse-stubs
+Plugin 'roxma/LanguageServer-php-neovim'
+
 Plugin 'ludovicchabant/vim-gutentags'
 
 " Plugin 'prabirshrestha/async.vim'
@@ -322,28 +325,10 @@ au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
 au BufEnter,BufNewFile,BufRead *.jsx noremap gd :TernDef<CR>
 au BufEnter,BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
+au BufEnter,BufNewFile,BufRead *.php noremap  <leader>gd :ALEGoToDefinition<CR>
 
 command Run :!%
 au Filetype sh map <leader>r :Run<CR>
-
-function! GoToDefinitionPHP()
-    " Use fzf to searc for class
-    let word = expand("<cword>")
-    :normal gD
-    let currentLine=getline('.')
-
-    " Make basic checks to see if we are using a class
-    if word != 'use' && (currentLine =~ '^use' || currentLine =~ 'new' || currentLine =~ '^class')
-        call SearchFilesByWord(word)
-    elseif currentLine =~ '\\' . word
-        let searchWord = get(split(word, ":"), 0)
-        call SearchFilesByWord(searchWord)
-    else 
-        silent
-    endif
-endfunction
-
-au BufNewFile,BufRead *.php noremap  gd :call GoToDefinitionPHP()<CR>
 
 " Run all test
 function! Test()
@@ -408,9 +393,10 @@ let g:ale_fixers = {
 \}
 let g:ale_linters = {
 \'javascript': ['eslint'],
-\'php': [],
+\'php': ['langserver'],
 \}
 
+let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/bundle/LanguageServer-php-neovim/vendor/bin/php-language-server.php'
 
 " ======== Tags =========
 " ** Closetag **
