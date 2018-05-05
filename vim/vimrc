@@ -318,12 +318,12 @@ function! GoToDefinitionJS()
 :endfunction
 
 " au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
-au BufEnter,BufNewFile,BufRead *.js noremap gd :TernDef<CR>
+au BufEnter,BufNewFile,BufRead *.js noremap <leader>gd :TernDef<CR>
 au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
 au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
 " au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
-au BufEnter,BufNewFile,BufRead *.jsx noremap gd :TernDef<CR>
-au BufEnter,BufNewFile,BufRead *.vue noremap  gd :call GoToDefinitionJS()<CR>
+au BufEnter,BufNewFile,BufRead *.jsx noremap <leader>gd :TernDef<CR>
+au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 au BufEnter,BufNewFile,BufRead *.php noremap  <leader>gd :ALEGoToDefinition<CR>
 
