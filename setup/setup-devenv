@@ -14,8 +14,7 @@ case "$(uname -sm)" in
             exit 1
         fi
 
-        taps="homebrew/homebrew-php"
-        brews="ctags composer php@7.1"
+        brews="ctags composer php"
         casks="kitty virtualbox vagrant docker sequel-pro postman"
 
         for tap in $taps; do
