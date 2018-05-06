@@ -6,7 +6,7 @@ set rtp+=~/.dotfiles/vim
 call plug#begin('~/.dotfiles/vim/bundle')
 
 " General usability
-Plug 'scrooloose/nerdtree'		    "NERDTree, file-explorer 
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-commentary'           " Comments
 Plug 'easymotion/vim-easymotion'      
 Plug 'tpope/vim-surround'             " Vim Surround plugin 
@@ -26,14 +26,13 @@ Plug 'jreybert/vimagit'
 " Languages
 " Plug 'gabrielelana/vim-markdown'
 Plug 'othree/xml.vim'
-Plug 'posva/vim-vue'
-Plug 'othree/html5.vim'               " Improved html syntax, indent
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'othree/html5.vim', {'for': 'html'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'mxw/vim-jsx', {'for': 'javascript'}
 Plug 'alampros/vim-styled-jsx'
-Plug 'dsawardekar/wordpress.vim'
-Plug 'jwalton512/vim-blade'
-Plug 'StanAngeloff/php.vim'
+Plug 'jwalton512/vim-blade', {'for': 'blade'}
+Plug 'StanAngeloff/php.vim', {'for': 'php'}
 
 Plug 'junegunn/fzf'                   " fuzzy searc
 Plug 'mattn/emmet-vim'			    "Emmet
@@ -44,11 +43,11 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 " needs global tern executable
-Plug 'carlitux/deoplete-ternjs'
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 Plug 'editorconfig/editorconfig-vim'
 
 " run npm install in this directory
-Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+Plug 'ternjs/tern_for_vim', {'for': 'javascript', 'do': 'npm install'}
 
 Plug 'roxma/LanguageServer-php-neovim', {'do': 'composer install && composer run-script parse-stubs'}
 
@@ -458,6 +457,7 @@ let g:deoplete#sources#ternjs#filetypes = [
             \ '...'
             \ ]
 
+let g:gutentags_enabled=0
 let g:gutentags_cache_dir='~/src/_tags'
 let g:gutentags_exclude_project_root=[$HOME.'/.dotfiles']
 
