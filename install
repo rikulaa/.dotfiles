@@ -13,15 +13,15 @@ install_all() {
         Darwin\ *)
             install_brew
             install_shell
-            install_editor
             install_devenv
+            install_editor
             install_desktop
             install_programs
             ;;
         Linux\ *64)
             install_shell
-            install_editor
             install_devenv
+            install_editor
             install_programs
             ;;
     esac
