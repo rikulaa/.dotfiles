@@ -185,7 +185,8 @@ vmap <leader>f y :call GrepFromFiles(@")<CR>
 "     call fzf#run({'source': 'git ls-files || rg --files . ', 'window': '30new','sink': 'e'})
 " endfunction
 " nnoremap <leader>p :call Fzf()<CR>
-nnoremap <leader>p :FZF<CR>
+" nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e', 'options': '--ansi --color=dark --preview="cat $FILE {}"'})<CR>
+nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
 vmap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Open buffer with FZF
