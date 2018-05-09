@@ -68,6 +68,11 @@ Plug 'ap/vim-css-color'
 
 " Themes
 Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
+Plug 'andreypopp/vim-colors-plain'
+Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
+
+
 
 "Plug 'file:///~/.dotfiles/vim/custom_snippets'
 call plug#end()            " required
@@ -109,7 +114,13 @@ set nocursorline
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
-colorscheme codedark		" Theme
+" set termguicolors           " Better colors in terminal, needs support from tmux also
+"
+" colorscheme codedark		" Do not set termguicolors with this one
+" colorscheme onedark
+" colorscheme plain
+colorscheme gruvbox
+set background=dark    " Setting dark mode
 set showcmd					" Show command at the bottom
 set sidescroll=0            " Faster scrolling
 
