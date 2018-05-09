@@ -2,18 +2,18 @@
 " Plugs
 "============================================================================
 " load all plugins from under .dotfiles
-set rtp+=~/.dotfiles/vim       
+set rtp+=~/.dotfiles/vim
 call plug#begin('~/.dotfiles/vim/bundle')
 
 " General usability
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-commentary'           " Comments
-Plug 'easymotion/vim-easymotion'      
+Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'             " Vim Surround plugin 
 
 Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
-Plug 'valloric/matchtagalways'        " Matching xml tag
+" Plug 'valloric/matchtagalways'        " Matching xml tag
 
 Plug 'wincent/terminus'               " Better cursor in terminal vim
 Plug 'christoomey/vim-tmux-navigator' " Navigate vim and tmux panes more easily
@@ -25,7 +25,7 @@ Plug 'jreybert/vimagit'
 
 " Languages
 " Plug 'gabrielelana/vim-markdown'
-Plug 'othree/xml.vim'
+" Plug 'othree/xml.vim'
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'othree/html5.vim', {'for': 'html'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
@@ -366,6 +366,77 @@ endfunction
 function! OpenTerminal(commands)
     call termopen(a:commands)
 endfunction
+
+function! ChangeTagName()
+    let l:newName = input('Rename to: ')
+
+    " get decimal valu of the current character under cursos
+	" getline('.') returns the entire line that cursor is sitting on.
+	" col('.') returns the column number that the cursor is sitting
+	" on.
+	" The regular expression \%nc matches a specific given column
+	" where n is that column.
+	" The '.' regular expression matches exactly one
+	" character.
+
+	let dec = char2nr(matchstr(getline('.'), '\%' . col('.') . 'c.'))
+    if dec == 60 || dec == 47 
+        normal l
+    endif
+
+    if dec == 62 
+        normal h  
+    endif
+
+    let a:cursor_pos_start = getpos(".")
+
+    normal %l
+
+    execute 'normal! "_ciw'.newName
+    :call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
+    execute 'normal! "_ciw'.newName
+endfunction
+nnoremap <leader>rt :call ChangeTagName()<cr>
+
+
+function! ToggleImportsOrientation()
+    normal 0
+
+    let l:isSingleLineImport = search('{.*}', '', line('.'))
+   
+    " All import on single line
+    if isSingleLineImport
+        execute "normal 0f{a\<CR>"
+
+        let l:matches = searchpos(',', 'z', line("."))
+        while l:matches[1] > 0
+            execute "normal lxi\<CR>"
+            let l:matches = searchpos(',', 'z', line("."))
+        endwhile
+
+        execute "normal f}i\<CR>"
+    else
+        " Imports on multiple lines
+        let l:isMultiLineEnd = search('}', '', line('.'))
+        let l:isMultiLineStart = search('{', '', line('.'))
+
+        " Move to starting bracket
+        if isMultiLineStart
+            normal f{
+        elseif isMultiLineEnd
+            normal f}
+        endif
+
+        " Move everything to one line
+        normal va{J
+
+        " Trim whitespace before and after brackets
+        *s/{\s/{/g
+        *s/\s}/}/g
+
+    endif
+endfunction
+command ToggleImportsOrientation :call ToggleImportsOrientation()
 
 "============================================================================
 " Additional plugin settings
