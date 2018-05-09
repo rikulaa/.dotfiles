@@ -8,8 +8,23 @@ let ${1} == ${2};
 endsnippet
 
 snippet action
-export const ${1} = ns('${1}')
-export const ${2} = (${3}) => fsa(${1})
+export const ${1} = ns('$1');
+export const ${2} = (${3}) => fsa($1${4:});
+endsnippet
+
+snippet sagawatch
+function* $4(${5}) {
+  try {
+	${6}
+  }
+  catch (e) {
+    console.warn(e);
+  }
+}
+
+function* ${1}() {
+  yield ${2}(${3}, ${4});
+}
 endsnippet
 
 snippet cl
@@ -53,7 +68,7 @@ componentWillReceiveProps(nextProps) {
 }
 endsnippet
 
-snippet cwun
+snippet cwum
 componentWillUnmount() {
 	${1}
 }
@@ -107,4 +122,8 @@ snippet sst
 this.setState({
 	${1}: ${2}
 });
+endsnippet
+
+snippet cn
+className="${1}"
 endsnippet
