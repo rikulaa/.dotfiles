@@ -243,7 +243,7 @@ command Rm :call DeleteAndCloseBuffer()
 nnoremap <leader>l :nohlsearch<CR>	
 
 " git
-nnoremap <leader>g  :Gstatus<CR>
+nnoremap <leader>G  :Gstatus<CR>
 
 " commands
 command Vimrc :e ~/.vimrc
