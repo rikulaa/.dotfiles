@@ -15,7 +15,6 @@ Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
 " Plug 'valloric/matchtagalways'        " Matching xml tag
 
-Plug 'wincent/terminus'               " Better cursor in terminal vim
 Plug 'christoomey/vim-tmux-navigator' " Navigate vim and tmux panes more easily
 
 " Git
