@@ -452,6 +452,9 @@ command ToggleImportsOrientation :call ToggleImportsOrientation()
 " Additional plugin settings
 "============================================================================
 
+" ======== Git =========
+" Gitgutter
+let g:gitgutter_terminal_reports_focus=0
 
 " ======== Linting =========
 " ** Ale **
