@@ -69,6 +69,8 @@ if [[ ! $(uname) =~ "Darwin" ]]; then
     alias pbpaste='xclip -selection clipboard -o'
 fi
 
+alias sizeof='du -sh'
+
 
 
 ## ======== OTHER ============
