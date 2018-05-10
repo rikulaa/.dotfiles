@@ -10,12 +10,11 @@ Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-commentary'           " Comments
 " Pug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'             " Vim Surround plugin 
-
 Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
 " Plug 'valloric/matchtagalways'        " Matching xml tag
 
-Plug 'christoomey/vim-tmux-navigator' " Navigate vim and tmux panes more easily
+" Plug 'christoomey/vim-tmux-navigator' " Navigate vim and tmux panes more easily
 
 " Git
 Plug 'tpope/vim-fugitive'             " Git utility
@@ -220,10 +219,10 @@ nnoremap <silent> <leader>b :call fzf#run({
 
 nnoremap <C-`> :term<CR>
 "For windows navigation
-" nnoremap <C-h> <C-w>h	
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h	
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Move to the previous buffer with 
 nnoremap <S-Tab>  :bp<CR>
