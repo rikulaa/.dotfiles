@@ -61,8 +61,8 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'             " Custom snippets
 
 " Ui
-Plug 'vim-airline/vim-airline'        " Cool statusbar and info
-Plug 'ap/vim-css-color'
+" Plug 'vim-airline/vim-airline'        " Cool statusbar and info
+"Plug 'ap/vim-css-color'
 
 " Themes
 Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
