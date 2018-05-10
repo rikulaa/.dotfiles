@@ -8,7 +8,7 @@ call plug#begin('~/.dotfiles/vim/bundle')
 " General usability
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-commentary'           " Comments
-Plug 'easymotion/vim-easymotion'
+" Pug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'             " Vim Surround plugin 
 
 Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
