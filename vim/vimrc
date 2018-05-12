@@ -77,6 +77,10 @@ call plug#end()            " required
 "============================================================================
 "General
 "============================================================================
+set nocompatible            " no need to support vi
+filetype plugin on
+filetype indent on
+set mouse=a                 " Use mouse
 set rtp+=~/.local/bin       " Use executables (fzf) from bin
 set rtp+=~/.dotfiles/vim/custom_snippets
 set path+=**                " Provide tab-completion for all file-related tasks
@@ -88,8 +92,7 @@ set scrolloff=8             " keep 8 lines of space above and below the cursor
 set splitright              " Split new windows to the right"
 set splitbelow              " Split horizontal new windows to the bottom"
 " set backupcopy=no          " Doesnt with webpack-dev-server without this (if backups not on)?
-set backupdir=~/.dotfiles/vim/backup/ " Move all swap files to this location"
-set directory=~/.dotfiles/vim/swp/
+set nobackup
 set noswapfile              " Dont use swapfiles"
 set hidden                  " Can change to another buffer without saving change"
 set updatetime=500          " Shows gitgutter signs faster 
