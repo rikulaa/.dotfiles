@@ -36,7 +36,7 @@ Plug 'junegunn/fzf'                   " fuzzy searc
 
 " Lint, autocomplete, etc
 Plug 'w0rp/ale'
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 " needs global tern executable
