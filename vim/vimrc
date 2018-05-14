@@ -408,6 +408,7 @@ function! ChangeTagName()
 endfunction
 nnoremap <leader>rt :call ChangeTagName()<cr>
 
+nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
 
 function! ToggleImportsOrientation()
     normal 0
