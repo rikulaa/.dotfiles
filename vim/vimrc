@@ -50,6 +50,12 @@ Plug 'roxma/LanguageServer-php-neovim', {'do': 'composer install && composer run
 
 Plug 'ludovicchabant/vim-gutentags'
 
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+
+
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'prabirshrestha/asyncomplete.vim'
@@ -471,6 +477,12 @@ let g:ale_linters = {
 \}
 
 let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/bundle/LanguageServer-php-neovim/vendor/bin/php-language-server.php'
+
+" let g:LanguageClient_serverCommands = {
+"     \ 'php': ['php-language-server'],
+"     \ 'javascript': ['javascript-typescript-stdio'],
+"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"     \ }
 
 " ======== Tags =========
 " ** Closetag **
