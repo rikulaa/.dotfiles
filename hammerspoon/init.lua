@@ -262,8 +262,5 @@ initWindowManager()
 initShortcuts()
 initVimMode()
 
--- Spoons
-hs.loadSpoon("Calendar")
-
 
 hs.alert.show("Config loaded")
