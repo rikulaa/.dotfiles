@@ -7,13 +7,17 @@ endsnippet
 snippet try
 try {
 	${2}
-} catch (${1}) {
+} catch (${1:\Exception $e}) {
 
 }
 endsnippet
 
 snippet this
-$this->${1} = ${2};
+$this->${1} = ${2:$1};
+endsnippet
+
+snippet $t
+$this->${1}
 endsnippet
 
 snippet if 
