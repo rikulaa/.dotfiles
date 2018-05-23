@@ -92,7 +92,8 @@ set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
-set backspace=2             " Allow deleting in insert mode set scrolloff=8             " keep 8 lines of space above and below the cursor
+set backspace=2             " Allow deleting in insert mode 
+set scrolloff=8             " keep 8 lines of space above and below the cursor
 set splitright              " Split new windows to the right"
 set splitbelow              " Split horizontal new windows to the bottom"
 " set backupcopy=no          " Doesnt with webpack-dev-server without this (if backups not on)?
