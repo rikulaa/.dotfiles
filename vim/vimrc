@@ -147,6 +147,66 @@ set smartcase               " If any character is UPPER-case, search case-sensit
 set hlsearch                " Highligth search 
 set incsearch				" Search as characters are entered
 
+
+"============================================================================
+" Custom Functions
+"============================================================================
+function! ToggleJSFunctionSyntax()
+    let currentLine=getline('.')
+
+    " Check if this is older syntax
+    if matchstr(currentLine, "function") == "function"
+
+        " Check if assigned function
+        if matchstr(currentLine, "=") == "="
+            " Check if var is used, and change it to const
+            if matchstr(currentLine, 'var') == "var"
+                normal 0ceconst
+            endif
+            " Change to arrow syntax
+            normal 0f=wdt(f)la=> 
+        else
+            " Not assigned to variable
+
+            let l:functionWordPosition = matchstrpos(currentLine, "function")
+            " execute '/\%'.line(".").'lfunction'
+            " execute cursor(matchstrpos(currentLine, "function"))
+            :call cursor(line("."), functionWordPosition[1] + 1)
+            normal ciwconst
+            normal f(i = 
+            normal f)a =>
+
+            let a:cursosPositionBeforeIndent = getpos(".")
+            normal ==
+            :call cursor(a:cursosPositionBeforeIndent[1], a:cursosPositionBeforeIndent[2])
+        endif
+    else
+        " Arrow function
+
+        " Check if assigned to variable, const fn = ()
+        " The assignment will be removed, just use: function() 
+        " TODO: better check
+        if matchstr(currentLine, " = ") == " = "
+            if matchstr(currentLine, 'const') == "const"  || matchstr(currentLine, 'let') == "let" 
+                 normal 0cefunction
+                 normal ==
+            endif
+
+            " normal 0cevar
+            " normal 0f(ifunction
+            normal f=hd3l
+            normal f)ldf>
+
+        else
+            " Not assigned to variable
+            normal 0f>F(ifunction
+            normal f)ldf>
+        endif
+
+    endif
+
+endfunction
+
 "============================================================================
 "Keybindings, custom mappings
 "============================================================================
