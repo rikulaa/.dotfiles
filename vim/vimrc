@@ -207,6 +207,17 @@ function! ToggleJSFunctionSyntax()
 
 endfunction
 
+" Adds inputted character to the end of the line without moving the cursor
+function! AppendCharacterToEndOfLine()
+    let a:cursor_pos_start = getpos(".")
+    let c = nr2char(getchar())
+    :execute "keepjumps normal! A".c
+
+    " Move cursor back to original position
+    call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
+
+endfunction
+
 "============================================================================
 "Keybindings, custom mappings
 "============================================================================
@@ -219,6 +230,8 @@ nnoremap <leader>P "+p
 
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
+
+nnoremap <silent><leader>a :call AppendCharacterToEndOfLine()<cr>
 
 " Save if changes
 " noremap <Leader>s :update<CR>	"quicksave
@@ -392,6 +405,9 @@ au BufEnter,BufNewFile,BufRead *.jsx noremap <leader>gd :TernDef<CR>
 au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 au BufEnter,BufNewFile,BufRead *.php noremap  <leader>gd :ALEGoToDefinition<CR>
+
+" Reload file if file changed
+au FocusGained,BufEnter * :silent! !
 
 command Run :!%
 au Filetype sh map <leader>r :Run<CR>
