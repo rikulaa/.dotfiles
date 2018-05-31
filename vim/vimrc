@@ -305,12 +305,19 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+
 " Move to the previous buffer with 
-nnoremap <S-Tab>  :bp<CR>
+nnoremap [b :bp<CR>
 " Move to the next buffer with 
-nnoremap <Tab>    :bn<CR>
+nnoremap ]b :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
+
+" " Move to the previous buffer with 
+" nnoremap <S-Tab>  :bp<CR>
+" " Move to the next buffer with 
+" nnoremap <Tab>    :bn<CR>
+
 command Bda :%bdelete
 
 function! DeleteAndCloseBuffer()
