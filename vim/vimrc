@@ -396,18 +396,25 @@ function! GoToDefinitionJS()
     end
 :endfunction
 
-" au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
-au BufEnter,BufNewFile,BufRead *.js noremap <leader>gd :TernDef<CR>
-au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
-au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
-" au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
-au BufEnter,BufNewFile,BufRead *.jsx noremap <leader>gd :TernDef<CR>
-au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
+augroup javascript
+    " au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
+    au BufEnter,BufNewFile,BufRead *.js noremap <leader>gd :TernDef<CR>
+    au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
+    au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
+    " au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
+    au BufEnter,BufNewFile,BufRead *.jsx noremap <leader>gd :TernDef<CR>
+    au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
+augroup end
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
-au BufEnter,BufNewFile,BufRead *.php noremap  <leader>gd :ALEGoToDefinition<CR>
+"
+augroup php
+    au BufEnter,BufNewFile,BufRead *.php noremap  <leader>gd :ALEGoToDefinition<CR>
+augroup end
 
-" Reload file if file changed
-au FocusGained,BufEnter * :silent! !
+augroup focusevents
+    " Reload file if file changed
+    au FocusGained,BufEnter * :silent! !
+augroup end
 
 command Run :!%
 au Filetype sh map <leader>r :Run<CR>
