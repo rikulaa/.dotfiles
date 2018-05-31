@@ -225,11 +225,11 @@ let mapleader="\<Space>"	" Use space as leader key
 
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
-vmap <leader>Y "*y
+vnoremap <leader>Y "*y
 nnoremap <leader>P "+p
 
-map <ScrollWheelUp> <C-Y>
-map <ScrollWheelDown> <C-E>
+" map <ScrollWheelUp> <C-Y>
+" map <ScrollWheelDown> <C-E>
 
 nnoremap <silent><leader>a :call AppendCharacterToEndOfLine()<cr>
 
@@ -244,7 +244,7 @@ function! ToggleNERDTree()
         :NERDTreeToggle
     endif
 endfunction
-nmap <leader>e :call ToggleNERDTree()<CR>
+nnoremap <leader>e :call ToggleNERDTree()<CR>
 
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
@@ -265,7 +265,7 @@ function! GrepFromFiles(selection)
 
 :endfunction
 nnoremap <leader>f :call GrepFromFiles("")<CR>
-vmap <leader>f y :call GrepFromFiles(@")<CR>
+vnoremap <leader>f y :call GrepFromFiles(@")<CR>
 
 " FZF
 " function! Fzf()
@@ -276,7 +276,7 @@ vmap <leader>f y :call GrepFromFiles(@")<CR>
 " nnoremap <leader>p :call Fzf()<CR>
 " nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e', 'options': '--ansi --color=dark --preview="cat $FILE {}"'})<CR>
 nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
-vmap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
+vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Open buffer with FZF
 " https://github.com/junegunn/fzf/wiki/Examples-(vim)
