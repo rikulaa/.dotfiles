@@ -48,7 +48,6 @@ Plug 'ternjs/tern_for_vim', {'for': 'javascript', 'do': 'npm install'}
 
 Plug 'roxma/LanguageServer-php-neovim', {'do': 'composer install && composer run-script parse-stubs'}
 
-Plug 'ludovicchabant/vim-gutentags'
 
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
@@ -651,9 +650,6 @@ let g:deoplete#sources#ternjs#filetypes = [
             \ '...'
             \ ]
 
-let g:gutentags_enabled=0
-let g:gutentags_cache_dir='~/src/_tags'
-let g:gutentags_exclude_project_root=[$HOME.'/.dotfiles']
 
 " ======== Snippets =========
 " ** UltiSnips **
