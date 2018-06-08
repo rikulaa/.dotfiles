@@ -22,3 +22,5 @@
     publish = "!f() { git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD); }; f"
 [core]
     excludesFile = ~/.dotfiles/git/gitignore_global
+[merge]
+    tool = vimdiff
