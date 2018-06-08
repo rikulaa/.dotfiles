@@ -190,9 +190,9 @@ function initShortcuts()
       hs.application.open("Visual Studio Code")
   end)
 
-  hs.hotkey.bind(mod, "f", function()
-    hs.application.open("Finder")
-  end)
+  -- hs.hotkey.bind(mod, "f", function()
+  --   hs.application.open("Finder")
+  -- end)
 
   hs.hotkey.bind(mod, "R", function()
     hs.reload()
