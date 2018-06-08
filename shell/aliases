@@ -183,6 +183,8 @@ function bm() {
     fi
 }
 
+alias browser='python -m webbrowser -t'
+
 
 # TMUX
 # Force tmux to open in 256 colour mode
