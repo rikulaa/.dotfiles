@@ -71,6 +71,13 @@ fi
 
 alias sizeof='du -sh'
 
+rm-fzf() {
+    for file in $(fzf --multi); do
+        echo "deleting $file"
+        rm $file
+    done
+}
+
 
 
 ## ======== OTHER ============
