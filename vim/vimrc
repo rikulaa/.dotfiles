@@ -425,6 +425,11 @@ augroup focusevents
     au FocusGained,BufEnter * :silent! !
 augroup end
 
+augroup makefile
+    au!
+    au BufEnter,BufNewFile,BufRead *.c nnoremap <leader>m :!make<CR>
+augroup end
+
 command Run :!%
 au Filetype sh map <leader>r :Run<CR>
 
