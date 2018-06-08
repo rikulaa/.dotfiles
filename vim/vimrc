@@ -582,7 +582,7 @@ let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/bundle/LanguageServer-
 
 " ======== Tags =========
 " ** Closetag **
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php, *.vue"
 
 " ** MatchTagAlways **
 let g:mta_filetypes = {
