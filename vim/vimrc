@@ -427,7 +427,7 @@ augroup end
 
 augroup makefile
     au!
-    au BufEnter,BufNewFile,BufRead *.c nnoremap <leader>m :!make<CR>
+    au BufEnter,BufNewFile,BufRead *.c nnoremap <leader>m :make<CR>
 augroup end
 
 command Run :!%
