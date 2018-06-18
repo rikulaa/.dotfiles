@@ -568,6 +568,7 @@ let g:airline#extensions#ale#enabled = 1
 
 let g:ale_fixers = {
 \'javascript': ['eslint'],
+\'c': ['clang-format']
 \}
 let g:ale_linters = {
 \'javascript': ['eslint'],
