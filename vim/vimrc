@@ -326,7 +326,6 @@ function! DeleteAndCloseBuffer()
 endfunction
 command Rm :call DeleteAndCloseBuffer()
 
-nnoremap <leader>l :nohlsearch<CR>	
 
 " git
 nnoremap <leader>G  :Gstatus<CR>
