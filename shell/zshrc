@@ -1,4 +1,111 @@
-# If you come from bash you might have to change your $PATH.
+
+# # Set up the prompt
+
+# autoload -U promptinit
+# promptinit
+# # prompt adam1
+# # prompt off
+
+# setopt histignorealldups sharehistory
+# setopt complete_aliases
+
+# # Do not beep
+# setopt nobeep
+
+# # Use emacs keybindings even if our EDITOR is set to vi
+# bindkey -e
+# # bindkey -v
+
+# # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+# HISTSIZE=1000
+# SAVEHIST=1000
+# HISTFILE=~/.zsh_history
+
+# # Use modern completion system
+# autoload -Uz compinit
+# compinit
+
+# # Shift-tab to reverse men u
+# bindkey '^[[Z' reverse-menu-complete
+
+
+# zstyle ':completion:*' menu select
+# zstyle ':completion:*' auto-description 'specify: %d'
+# # zstyle ':completion:*' completer _expand _complete _correct _approximate
+# # zstyle ':completion:*' group-name ''
+# # zstyle ':completion:*' menu select=2 eval "$(dircolors -b)"
+# # zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors ''
+# zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+# zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+# zstyle ':completion:*' use-compctl false
+# zstyle ':completion:*' verbose true
+
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+# zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# # # Complete . and .. special directories
+# zstyle ':completion:*' special-dirs true
+
+# default-backward-delete-word () {
+#   local WORDCHARS="*?_[]~=&;!#$%^(){}<>"
+#   zle backward-delete-word
+# }
+# zle -N default-backward-delete-word
+# bindkey '^W' default-backward-delete-word
+
+# # Expand command on !!
+# bindkey ' ' magic-space
+
+# autoload -U colors && colors
+
+# # Adds prompt
+# function precmd {
+#     # Add git to prompt
+#     is_git() { 
+#         git status >/dev/null 2>&1 
+#     }
+
+#     git_prompt=''
+#     if is_git; then
+
+#         git_status=$(git status -sb)
+
+#         git_dirty_files=$(echo $git_status | grep '[AMD??]' -c) 
+#         git_dirty=''
+#         if [[ $git_dirty_files > 0 ]]; then
+#             git_dirty='*'
+#         fi
+
+#         git_branch=" ($(git branch | sed -n 's/[*][a-zA-Z/]*//p' | cut -b 2- || ''))"
+
+#         git_ahead_amount=$(echo $git_status | grep 'ahead.[0-9]' -o | cut -b 7- )
+#         git_ahead=''
+#         if [[ $git_ahead_amount > 0 ]]; then
+#             # green
+#             git_ahead=' +${git_ahead_amount}'
+#         fi
+
+#         git_behind=''
+#         git_behind_amount=$(echo $git_status | grep 'behind.[0-9]' -o | cut -b 8-)
+#         if [[ $git_behind_amount > 0 ]]; then
+#             # red 
+#             git_behind='-${git_behind_amount}'
+
+#         fi
+
+
+#         git_prompt="%{$fg[red]%}"$git_branch"%{$fg[yellow]%}"$git_dirty"%{$reset_color%}"
+#         # git_prompt='$git_branch'$git_dirty$git_ahead$git_behind
+#     fi
+#     PROMPT="%B%{$fg[blue]%} %c%{$reset_color%}$git_prompt%b "
+#     # PROMPT="%B%c%{$reset_color%}$git_prompt%b "
+
+# }
+
+#
+#
+#COMPLETION_WAITING_DOTS If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
@@ -51,7 +158,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=()
+# plugins=()
 
 source $ZSH/oh-my-zsh.sh
 
