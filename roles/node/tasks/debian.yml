@@ -1,0 +1,32 @@
+---
+- name: Check if node is installed (Debian)
+  shell: dpkg-query -W 'nodejs' 
+  ignore_errors: true
+  register: node_stat
+
+- name: Download node-setup file (Debian)
+  get_url:
+    url: https://deb.nodesource.com/setup_10.x
+    dest: "{{role_path}}/files/node-setup"
+  when: node_stat is failed
+
+- name: Run node-setup (Debian)
+  become: true
+  script: "{{role_path}}/files/node-setup"
+  when: node_stat is failed
+
+- name: Remove node-setup script (Debian)
+  file: 
+    path: "{{role_path}}/files/node-setup"
+    state: absent
+  when: node_stat is failed
+
+- name: Install nodejs with apt (Debian)
+  become: true
+  apt:
+    name: nodejs
+    state: present
+  when: node_stat is failed
+
+
+

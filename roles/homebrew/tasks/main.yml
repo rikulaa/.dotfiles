@@ -1,0 +1,30 @@
+---
+- name: Check if Homebrew installed
+  stat:
+    path: /usr/local/bin/brew
+  register: homebrew_stat
+
+- name: Download Homebrew install script
+  get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/master/install
+    dest: "{{role_path}}/files/install"
+  when: homebrew_stat.stat.exists == false
+
+- name: Install Homebrew
+  command: "/usr/bin/ruby {{role_path}}/files/install"
+  when: homebrew_stat.stat.exists == false
+
+- name: Homebrew, tap bundle
+  homebrew_tap: tap=homebrew/bundle state=present
+  when: homebrew_stat.stat.exists == false
+
+- name: Homebrew, tap casks
+  homebrew_tap: tap=caskroom/casks state=present
+  when: homebrew_stat.stat.exists == false
+
+- name: Remove Homebrew install script
+  file:
+    path: "{{role_path}}/files/install"
+    state: absent
+  when: homebrew_stat.stat.exists == false
+

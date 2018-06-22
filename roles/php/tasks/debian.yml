@@ -1,0 +1,16 @@
+- name: Install php (Debian)
+  become: true
+  apt:
+    name: php
+    state: present
+
+- name: Check if composer installed (Debian)
+  stat:
+    path: "$HOME/.local/bin/composer"
+  register: composer_stat
+
+- name: Install composer (Debian)
+  script: "{{role_path}}/files/install-composer"
+  when: composer_stat.stat.exists == false
+
+

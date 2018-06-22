@@ -1,0 +1,20 @@
+- name: install kitty (Suse)
+  become: true
+  zypper:
+    name: kitty
+    state: present
+
+- name: Create directory for kitty config (Suse)
+  file:
+    path: "$HOME/.config/kitty/"
+    state: directory
+    mode: 0755
+
+
+- name: Link kitty.conf (Suse)
+  file:
+    src: "{{role_path}}/files/kitty.conf"
+    dest: "$HOME/.config/kitty/kitty.conf"
+    state: link
+    force: true
+

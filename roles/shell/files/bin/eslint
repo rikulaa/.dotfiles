@@ -1,0 +1,9 @@
+#!/bin/bash
+#place this script in your path, with filename "eslint"
+
+if [[ -f ./node_modules/eslint/bin/eslint.js  ]]; then
+  ./node_modules/eslint/bin/eslint.js $*
+else
+  echo "No eslint found in this folder!"
+  exit 1
+fi

@@ -1,0 +1,23 @@
+# This playbook is meant to provision a new computer.
+# Run with: ansible-playbook -i , provision.yml
+
+---
+- name: Setup local computer
+  hosts: localhost
+  gather_facts: yes
+  # connection: local
+  roles:
+    - { role: homebrew, when: ansible_os_family == "Darwin" }
+    - { role: shell }
+    - { role: fzf }
+    - { role: ripgrep }
+    - { role: tmux }
+    - { role: neovim }
+    - { role: vscode }
+    - { role: git }
+    - { role: php }
+    - { role: node }
+    - { role: kitty }
+    - { role: hammerspoon, when: ansible_os_family == "Darwin" }
+    - { role: programs }
+    - { role: osx, when: ansible_os_family == "Darwin" }

@@ -1,0 +1,265 @@
+# get local aliases (not under version control)
+if [ -f $HOME/.aliases ]; then
+    source $HOME/.aliases
+fi
+
+shell_config_dir=$HOME/.dotfiles/shell
+
+# for setting colors in ls
+if ls --color > /dev/null 2>&1; then
+    # gnu 
+    colorflag="--color"
+else
+    # osx
+    colorflag="-G"
+fi
+
+
+
+# ======== CONFIGURATIONS ============
+alias zshrc='$EDITOR $shell_config_dir/zshrc'
+alias bashrc='$EDITOR $shell_config_dir/bashrc'
+alias vimrc='$EDITOR $HOME/.vimrc'
+alias aliases='$EDITOR $shell_config_dir/aliases'
+alias aliases_local='$EDITOR $HOME/.aliases'
+alias gitconfig='$EDITOR $HOME/.dotfiles/git/gitconfig'
+alias dotfiles='cd ~/.dotfiles'
+alias dot='cd ~/.dotfiles'
+alias tmuxconf='$EDITOR $HOME/.dotfiles/tmux/tmux.conf'
+
+alias bin='cd ~/.local/bin'
+
+alias school='cd ~/src/school'
+alias work='cd ~/src/work'
+alias me='cd ~/src/me'
+
+
+# ======== FILE SYSTEM ============
+# extend cd to always list files when navigating
+function cd() {
+    builtin cd "$@" && ls -l $colorflag
+}
+
+# # move backwards more easily
+goBack() {
+    cd .. 
+}
+alias ..='cd ..'
+
+alias l="ls -al $colorflag"
+alias ls="ls $colorflag"
+
+tree() {
+    find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' 
+}
+
+alias vpn='cd /etc/openvpn/'
+
+alias www='cd /var/www/ && ls'
+
+# create delete folders
+alias rmd='rm -Rf'
+alias touchd='mkdir'
+
+alias dirs='dirs -v'
+
+# is not osx
+if [[ ! $(uname) =~ "Darwin" ]]; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+fi
+
+alias sizeof='du -sh'
+
+rm-fzf() {
+    for file in $(fzf --multi); do
+        echo "deleting $file"
+        rm $file
+    done
+}
+
+
+
+## ======== OTHER ============
+alias php-server='php -S localhost:8000' 
+
+
+if [ -x "$(command -v nvim)" ]; then
+    alias vim="nvim"
+    alias v='nvim'
+else
+    if [ -x "$(command -v vim)" ]; then
+        alias vim="vim"
+        alias v='vim'
+    else
+        alias vim="vi"
+        alias v='vi'
+    fi
+fi
+
+alias e='emacs'
+
+
+# ======== APPLICATIONS ============
+#
+
+# Bookmarks
+export BM_HOME=$HOME/.bookmarks
+
+function bookmark_navigate() {
+    target=$(bookmark_select)
+
+    if [[ -z "$target" ]]; then
+        echo "No bookmark selected" 
+    else
+        cd "$target"
+    fi
+}
+
+# Activate fzf selector with lines read from $BM_HOME
+function bookmark_select() {
+    multi="$1"
+    selection=$(cat $BM_HOME | fzf $multi --color)
+    selection=$(echo $selection | tr -d '\r')
+    if [ -z $selection ]; then
+        # user exited
+        echo ""
+    else
+        echo $selection
+    fi
+}
+
+# Add current directory to the bookmarks
+function bookmark_add() {
+    if [[ -z $(grep "^$(pwd)$" $BM_HOME) ]]; then
+        pwd >> $BM_HOME
+        echo "Added: " $(pwd)
+    else
+        echo "Directory already added in bookmarks!"
+    fi
+}
+
+function bookmark_delete() {
+    target=$(bookmark_select "--multi")
+
+    if [[ -z "$target" ]]; then
+        echo "No bookmark selected"
+    else
+        filtere=$(cat $BM_HOME)
+        for line in "$target"; do
+            # Do reverse grep (match everything !not selection)
+            filtered=$(grep -Fvx "$line" $BM_HOME)
+            echo "Deleted: $line"
+        done
+        echo "$filtered" > $BM_HOME
+    fi
+}
+
+# Bookmark
+function bm() {
+    if [[ -x $(command -v fzf) ]]; then
+        if [ -e "$BM_HOME" ]; then
+
+            if [[ -z $1 ]]; then
+                # no args provided go to bookmark select
+                bookmark_navigate
+            elif [[ $1 =~ 'add' ]]; then
+                bookmark_add
+            elif [[ $1 =~ 'delete' ]]; then
+                bookmark_delete
+            fi
+
+        else
+            echo "No .bookmarks file found at" $BM_HOME
+            echo "Do you wish to create one? (y/n)"
+            read user_input
+
+            if [[ $user_input =~ 'y' ]]; then
+                touch $BM_HOME
+            fi
+        fi
+    else 
+        echo "FZF not installed"
+    fi
+}
+
+alias browser='python -m webbrowser -t'
+
+
+# TMUX
+# Force tmux to open in 256 colour mode
+alias tmux='tmux -2'
+alias tmd='tmux detach'
+alias tmas='tmux attach'
+alias tmks='tmux kill-session'
+alias tmkp='tmux kill-pane'
+alias tmkw='tmux kill-window'
+
+# Create new sessions
+function tm() {
+    if [ -n "$1" ]; then
+        name=$1
+    else
+        name=$(basename "$PWD" | sed -E 's/\.//g')
+    fi
+
+    tmux has -t $name
+    has_session=$?
+
+    
+    if [ $has_session -eq 1 ]; then
+        tmux new-session -n vim -d -s $name 
+        tmux new-window -n terminal
+        tmux split-window 
+        tmux attach-session -d -t $name:vim
+
+    else
+        echo "Session with $name already exists!"
+        # # Create session without name
+        # tmux new-session -n vim -d 
+        # tmux new-window -n terminal
+        # tmux split-window 
+        # tmux attach-session -d -t :vim
+    fi
+}
+
+# tmux attach session
+function tma() {
+    # check if fzf is installed (allows to use interactive selector)
+    if [ -x "$(command -v fzf)" ]; then
+        # get sessions
+        sessions=$(tmux list-sessions -F '#{session_name}')
+        # get session count with wc
+        sessions_count=$(echo "{$sessions}" | wc -l)
+
+        # check if any sessions exists
+        if [  $sessions_count -gt 0 ]; then
+            # if only one session exists, attach to it immediatly
+            if [ $sessions_count -eq 1 ]; then
+                tmux attach
+            else
+                target_session=$(tmux list-sessions | fzf --reverse | sed 's/\([a-zA-z0-9]:\).*/\1/')
+                if [ -n "$target_session" ]; then
+                    tmux attach -t $target_session
+                fi
+            fi
+        fi
+    else
+        # fzf not found, use the default 'attach' command
+        tmux attach
+    fi
+}
+
+
+# DOCKER
+alias d-c='docker-compose'
+alias docker-stop-all='docker kill $(docker ps -q)'
+alias docker-rm-containers='docker rm $(docker ps -a -q)'
+alias docker-rm-images=' docker rmi $(docker images -q)'
+
+
+# REACT NATIVE 
+alias rn='react-native'
+
+# ANDROID-STUDIO
+alias react-native-android-emulator='/Users/rikulaa/Library/Android/sdk/tools/emulator -avd react-native -netdelay none -netspeed full'

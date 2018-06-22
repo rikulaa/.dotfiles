@@ -1,0 +1,16 @@
+#!/bin/bash
+
+fzf_dir=$HOME/.dotfiles/roles/fzf/files/fzf
+
+git clone --depth 1 https://github.com/junegunn/fzf.git $fzf_dir
+
+$fzf_dir/install --bin
+
+#  Create ~/.local/bin dir if it doesn't exist
+if [ ! -d $HOME/.local/bin ]; then
+    mkdir -p $HOME/.local/bin
+fi
+	
+cp $fzf_dir/bin/fzf $HOME/.local/bin/fzf
+
+rm -rf $fzf_dir

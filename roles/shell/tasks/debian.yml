@@ -1,0 +1,5 @@
+- name: Install zsh (Debian)
+  become: true
+  apt:  
+    name: zsh
+    state: present

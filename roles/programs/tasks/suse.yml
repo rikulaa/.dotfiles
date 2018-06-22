@@ -1,0 +1,11 @@
+- name: Install additional programs (Suse)
+  become: true
+  zypper:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - mplayer
+    - firefox
+    - htop
+    - tree
+    - ranger

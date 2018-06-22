@@ -1,0 +1,21 @@
+- name: install kitty (Debian)
+  become: true
+  ignore_errors: true
+  apt:
+    name: kitty
+    state: present
+ 
+- name: Create directory for kitty config (Debian)
+- file:
+    path: "$HOME/.config/kitty/"
+    state: directory
+    mode: 0755
+
+
+- name: Link kitty.conf (Debian)
+  file:
+    src: "{{role_path}}/files/kitty.conf"
+    dest: "$HOME/.config/kitty/kitty.conf"
+    force: true
+    state: link
+

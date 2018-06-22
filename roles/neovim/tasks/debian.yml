@@ -1,0 +1,15 @@
+- name: Add neovim repository (Debian)
+  become: true
+  apt_repository: 
+    repo: ppa:neovim-ppa/stable
+
+- name: Update cache (Debian)
+  become: true
+  apt:
+    update_cache: true
+
+- name: Install neovim (Debian)
+  become: true
+  apt:
+    name: neovim
+    state: present

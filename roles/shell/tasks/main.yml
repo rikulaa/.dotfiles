@@ -1,0 +1,36 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+  
+- import_tasks: darwin.yml
+  when: ansible_os_family == 'Darwin'
+
+- import_tasks: suse.yml
+  when: ansible_os_family == 'Suse'
+
+
+- name: Link shell files
+  file:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "$HOME/.{{item}}"
+    state: link
+    force: true
+  with_items: 
+    - bashrc
+    - bash_profile
+    - zshrc
+    - dircolors
+
+- name: Link bin files
+  file:
+    src: "{{role_path}}/files/bin/{{item}}"
+    dest: "$HOME/.local/bin/{{item}}"
+    state: link
+    force: true
+  with_items:
+    - cheat
+    - killer
+    - stamp
+    - notes
+
+
+

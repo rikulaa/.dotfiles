@@ -1,0 +1,8 @@
+- name: Check if fzf installed
+  stat:
+    path: "~/.local/bin/fzf"
+  register: stat_result
+
+- name: Install fzf
+  script: setup-fzf
+  when: stat_result.stat.exists == false

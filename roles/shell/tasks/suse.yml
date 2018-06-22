@@ -1,0 +1,6 @@
+- name: Install zsh (Suse)
+  become: true
+  zypper:
+    name: zsh
+    state: present
+

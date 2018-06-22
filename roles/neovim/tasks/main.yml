@@ -1,0 +1,26 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+  
+- import_tasks: darwin.yml
+  when: ansible_os_family == 'Darwin'
+
+- import_tasks: suse.yml
+  when: ansible_os_family == 'Suse'
+
+- name: Link .vimrc 
+  file:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+    force: true
+    state: link
+  with_items:
+    - { src: "{{role_path}}/files/vimrc", dest: "$HOME/.vimrc" }
+    - { src: "{{role_path}}/files/vimrc", dest: "$HOME/.config/nvim/init.vim" }
+
+# - name: Install neovim plugins
+#   command: "nvim +PlugInstall +qall"
+#   register: cmd
+
+#   # Print the shell task's stdout.
+# - debug: msg={{ cmd.stdout }}
+

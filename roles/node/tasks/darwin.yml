@@ -1,0 +1,6 @@
+- name: Install node (Darwin)
+  homebrew:
+    name: node
+    state: present
+
+

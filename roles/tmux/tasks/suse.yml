@@ -1,0 +1,6 @@
+- name: Install tmux (Suse)
+  become: true
+  zypper:  
+    name: tmux
+    state: present
+  when: ansible_os_family == 'Suse'

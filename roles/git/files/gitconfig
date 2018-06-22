@@ -1,0 +1,26 @@
+[user]
+	email = riku.laajala@gmail.com
+	name = Riku Laajala
+[credential]
+    helper = cache --timeout=3600
+[alias]
+    a = add 
+    A = add -A
+    cm = commit
+    cmp = git commit && git push
+    acm = !git add -A && git commit
+    cmp = "!f() { git commit; git push; }; f"
+    acmp = "!f() { git add -A; git commit; git push; }; f"
+    undo = reset HEAD~1 --mixed
+    co = checkout
+    cob = checkout -b
+    lg = log --pretty=format:'%C(red)%h%C(yellow)%d  %Creset%s %Cgreen(%cr) %C(bold blue) <%cn>' --decorate
+    st = status -sb
+    history = "!f() { git lg | fzf --ansi --color=dark --reverse --preview 'git show --color=always {+1}' --border  | cut -c 1-7; }; f"
+    h = "!f() { git lg | fzf --ansi --color=dark --reverse --preview 'git show  --color=always {+1}' --border  | cut -c 1-7; }; f"
+    reset-hard = "!f() { git_branch=$(git branch | sed -n 's/[*][a-zA-Z/]*//p' | cut -b 2- || ''); if [ ! -z "$(git remote | head -1)" ]; then git reset --hard origin/$git_branch; else echo "No remotes set"; fi; }; f"
+    publish = "!f() { git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD); }; f"
+[core]
+    excludesFile = ~/.dotfiles/roles/git/files/gitignore_global
+[merge]
+    tool = vimdiff

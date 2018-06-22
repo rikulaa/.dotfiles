@@ -1,0 +1,4 @@
+- name: Install zsh (Darwin)
+  homebrew:
+    name: zsh
+    state: present

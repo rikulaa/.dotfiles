@@ -1,0 +1,22 @@
+- name: Install additional homebrew programs  (Darwin)
+  homebrew:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - mplayer
+    - tig
+    - ranger
+
+
+- name: Install additional homebrew cask programs (Darwin)
+  homebrew_cask:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - firefox
+    - google-chrome
+    - keeweb
+    - harvest
+    - rambox
+    - usb-overdrive
+    - windscribe

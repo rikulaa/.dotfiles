@@ -1,0 +1,12 @@
+- name: Install kitty (Darwin)
+  homebrew_cask:
+    name: kitty
+    state: present
+
+- name: Link kitty.conf
+  file:
+    src: "{{role_path}}/files/kitty.conf"
+    dest: ~/Library/Preferences/kitty.conf
+    state: link
+    force: true
+

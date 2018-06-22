@@ -1,0 +1,21 @@
+
+- name: Add Microsoft apt signing key (Darwin)
+  become: true
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc    
+    keyring: /etc/apt/trusted.gpg.d/microsoft.gpg
+    state: present
+
+- name: Add vscode repo to sources.list (Darwin)
+  apt_repository: 
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+
+
+- name: Install vscode (Darwin)
+  become: true
+  apt:
+    name: code
+    state: present
+
+

@@ -1,0 +1,16 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+  
+- import_tasks: darwin.yml
+  when: ansible_os_family == 'Darwin'
+
+- import_tasks: suse.yml
+  when: ansible_os_family == 'Suse'
+
+
+- name: Link .tmux.conf
+  file:
+    src: "{{role_path}}/files/tmux.conf"
+    dest: "$HOME/.tmux.conf"
+    state: link
+    force: yes

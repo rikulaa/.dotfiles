@@ -1,0 +1,11 @@
+- name: Install additional programs (Debian)
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - mplayer
+    - firefox
+    - htop
+    - tree
+    - ranger

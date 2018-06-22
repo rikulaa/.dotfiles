@@ -1,0 +1,12 @@
+- name: Install hammerspoon
+  homebrew_cask:
+  name: hammerspoon
+  state: present
+
+- name: Link hammerspoon config
+  file: 
+    src: "{{role_path}}/files/hammerspoon"
+    dest: "$HOME/.hammerspoon"
+    state: link
+    force: true
+

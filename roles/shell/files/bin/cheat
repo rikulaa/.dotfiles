@@ -1,0 +1,21 @@
+#!/bin/sh
+
+cheatsheets_dir=$HOME/.dotfiles/cheatsheets
+
+if [ -x $(command -v fzf) ]; then
+    cd $cheatsheets_dir
+
+    canContinue=true
+
+    while $canContinue; do
+        current_cheatsheet=$(ls $cheatsheets_dir | fzf --ansi --color=dark  --preview="cat $FILE {}" --border --preview-window=right:90%)
+        if [ -z $current_cheatsheet ]; then
+            canContinue=false
+        else 
+            $EDITOR $current_cheatsheet
+        fi
+    done
+
+else
+    echo "FZF not found"
+fi

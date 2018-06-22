@@ -1,0 +1,6 @@
+- name: Link .gitconfig
+  file:
+    src: "{{role_path}}/files/gitconfig"
+    dest: "$HOME/.gitconfig"
+    state: link
+    force: true

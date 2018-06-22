@@ -1,0 +1,36 @@
+snippet foreach
+foreach (${1} as ${2}) {
+	${3}
+}
+endsnippet
+
+snippet try
+try {
+	${2}
+} catch (${1:\Exception $e}) {
+
+}
+endsnippet
+
+snippet this
+$this->${1} = ${2:$1};
+endsnippet
+
+snippet $t
+$this->${1}
+endsnippet
+
+snippet if 
+if (${1}) {
+	${2}
+}
+endsnippet
+
+snippet info
+\Log::info(${1})
+
+endsnippet
+
+snippet nexc
+throw new \Exception(${1});
+endsnippet

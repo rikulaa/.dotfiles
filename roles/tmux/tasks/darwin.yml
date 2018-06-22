@@ -1,0 +1,6 @@
+- name: Install tmux (Darwin)
+  become: true
+  homebrew:  
+    name: tmux
+    state: present
+

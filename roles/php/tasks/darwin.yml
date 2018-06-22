@@ -1,0 +1,4 @@
+- name: Install php and composer (Darwin)
+  homebrew:
+    name: php, composer
+    state: present
