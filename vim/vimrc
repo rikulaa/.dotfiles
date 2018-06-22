@@ -552,6 +552,48 @@ function! ToggleImportsOrientation()
 endfunction
 command ToggleImportsOrientation :call ToggleImportsOrientation()
 
+function! ToggleFuncParamOrientation()
+
+    normal 0
+
+    let l:isDefinedInSingle = search('(.*)', '', line('.'))
+
+
+    " All params on single line
+    if isDefinedInSingle
+        execute "normal 0f(a\<CR>"
+
+        let l:matches = searchpos(',', 'z', line("."))
+        while l:matches[1] > 0
+            execute "normal lxi\<CR>"
+            let l:matches = searchpos(',', 'z', line("."))
+        endwhile
+
+        execute "normal f)i\<CR>"
+    else
+        " Imports on multiple lines
+        let l:isMultiLineEnd = search(')', '', line('.'))
+        let l:isMultiLineStart = search('(', '', line('.'))
+
+        " Move to starting bracket
+        if isMultiLineStart
+            normal f(
+        elseif isMultiLineEnd
+            normal f)
+        endif
+
+        " Move everything to one line
+        normal va(J
+
+        " Trim whitespace before and after brackets
+
+        *s/(\s/(/g
+        " *s/\s)/)/g
+
+    endif
+endfunction
+command ToggleFuncParamOrientation :call ToggleFuncParamOrientation()
+
 "============================================================================
 " Additional plugin settings
 "============================================================================
