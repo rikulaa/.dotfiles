@@ -1,0 +1,7 @@
+#!/bin/bash
+programs="mplayer firefox"
+
+for program in $programs; do
+    sudo apt install $program -y
+done
+

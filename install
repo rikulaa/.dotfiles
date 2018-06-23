@@ -3,132 +3,54 @@
 # get this files directory (dotfiles directory)
 dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 setup_dir=$dotfiles_dir/setup
+config_dir=$HOME/.config
 
 #source  helpers
 . $dotfiles_dir/setup/helpers
 
-
-install_all() {
-    case "$(uname -sm)" in
-        Darwin\ *)
-            install_brew
-            install_shell
-            install_devenv
-            install_editor
-            install_desktop
-            install_programs
+# Get os name
+os_type() {
+    case `uname` in
+        Linux )
+            which yum > /dev/null && { echo centos; return; }
+            which zypper > /dev/null && { echo opensuse; return; }
+            which apt-get > /dev/null && { echo debian; return; }
+            which dnf > /dev/null && { echo fedora; return; }
             ;;
-        Linux\ *64)
-            install_shell
-            install_devenv
-            install_editor
-            install_programs
+        Darwin )
+            echo darwin && > /dev/null
+            return
+            ;;
+        * )
+            # Other systems
             ;;
     esac
 }
 
-install_shell() {
-    printf '===============================\n'
-    printf 'SHELL\n\n' 
+OS=$(os_type)
 
-    $setup_dir/setup-shell
-    $setup_dir/setup-fzf
-    $setup_dir/setup-ripgrep
-    $setup_dir/setup-tmux
-    $setup_dir/setup-git
-    $setup_dir/link-bin
 
-    printf '\nSHELL done!\n' 
-    printf '===============================\n\n'
+install_all() {
+    case $OS in
+        darwin )
+            . $setup_dir/darwin_setup
+            ;;
+        debian ) 
+            . $setup_dir/debian_setup
+            ;;
+        * )
+            echo "Supported os not found!"
+    esac
 }
 
-install_brew() {
-    if [[ "$(uname)" == "Darwin" ]]; then
-
-        printf '===============================\n'
-        printf 'HOMEBREW\n\n' 
-
-        $setup_dir/setup-brew
-
-        printf '\nHOMEBREW installed!\n' 
-        printf '===============================\n\n'
-    else
-        printf 'Brew setup only available in OSX!\n'
-    fi
-}
-
-install_editor() {
-    printf '===============================\n'
-    printf 'EDITORS\n\n' 
-
-    $setup_dir/setup-neovim
-    $setup_dir/setup-vscode
-
-    printf '\nEDITORS installed!\n' 
-    printf '===============================\n\n'
-}
-
-install_devenv() {
-    printf '===============================\n'
-    printf 'DEVELOPMENT ENVIRONMENT\n\n' 
-
-    $setup_dir/setup-devenv
-
-    printf '\nDEVELOPMENT ENVIRONMENT setup done!\n'
-    printf '===============================\n\n'
-}
-
-install_desktop() {
-    printf '===============================\n'
-    printf 'DESKTOP\n\n' 
-
-    $setup_dir/setup-hammerspoon
-
-    printf '\nDESKTOP done!\n' 
-    printf '==============================\n\n'
-}
-
-
-install_programs() {
-    printf '===============================\n'
-    printf 'PROGRAMS\n\n' 
-
-    $setup_dir/setup-programs
-
-    printf '\nPROGRAMS installed!\n' 
-    printf '===============================\n\n'
-}
 
 print_menu() {
     printf 'This script will help to bootstrap a new system.'
     printf '\n'
-    printf 'Use the options below to install specific parts'
-    printf '\n\n'
-
-    printf 'Example usage: install --$arg ...'
+    printf 'Use the option below to start installation'
     printf '\n\n'
 
     printf '%-15s  %-30s' ' --all' 'Setup whole environment' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --brew (OSX)' 'Setup Homebrew for OSX' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --shell' 'Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --editor' 'Setup editors (neovim, vscode)' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --devenv' 'Setup development environment (node)' 
-    printf '\n'
-
-
-    printf '%-15s  %-30s' ' --desktop' 'Setup specific desktop configuration (hammerspoon or ...)' 
-    printf '\n'
-
-
-    printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
     printf '\n'
 
     printf '\n\n'
@@ -142,24 +64,6 @@ else
         case "$arg" in
             --all)
                 install_all
-                ;;
-            --brew)
-                install_brew
-                ;;
-            --shell)
-                install_shell
-                ;;
-            --editor)
-                install_editor
-                ;;
-            --devenv)
-                install_devenv
-                ;;
-            --desktop) 
-                install_desktop
-                ;;
-            --programs)
-                install_programs
                 ;;
         esac
     done
