@@ -145,4 +145,5 @@ done
 nvim  +PlugInstall +qall
 
 # Change default shell to zsh
+sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
