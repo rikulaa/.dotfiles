@@ -8,7 +8,7 @@ sudo apt update
 
 for program in $programs; do
      if ! exists $program; then
-         sudo apt install $program -y
+         sudo apt install $program -y > /dev/null
      else
          printf "$program already installed\n"
      fi
@@ -16,13 +16,13 @@ done
 
 # vscode
 if ! exists code; then
-    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg > /dev/null
+    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' > /dev/null
 
-    sudo apt-get update
+    sudo apt-get update > /dev/null
     printf "Installing vscode \n"
-    sudo apt-get install code -y # or code-insiders
+    sudo apt-get install code -y > /dev/null # or code-insiders
 else 
     printf "vscode already installed\n"
 fi
@@ -34,20 +34,20 @@ if [[ -d $dotfiles_dir/tools/fzf ]]; then
     # Delete previous binaries
     cd $dotfiles_dir/tools/fzf/
     rm $dotfiles_dir/tools/fzf/bin/fzf
-    git pull
+    git pull > /dev/null
 else
     printf "Cloning FZF repository...\n"
-    git clone --depth 1 https://github.com/junegunn/fzf.git $dotfiles_dir/tools/fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git $dotfiles_dir/tools/fzf > /dev/null
 fi
 
-$dotfiles_dir/tools/fzf/install --bin
+$dotfiles_dir/tools/fzf/install --bin > /dev/null
 
 #  Create ~/.local/bin dir if it doesn't exist
 if [ ! -d $HOME/.local/bin ]; then
     mkdir -p $HOME/.local/bin
 fi
 
-cp -f $dotfiles_dir/tools/fzf/bin/fzf $HOME/.local/bin/fzf
+cp -f $dotfiles_dir/tools/fzf/bin/fzf $HOME/.local/bin/fzf > /dev/null
 
 
 # ripgrep
@@ -72,6 +72,7 @@ if [ -e $ripgrep_dir ] && [ -e $HOME/.local/bin/rg ]; then
     printf "Ripgrep already up to date\n"
     
 else
+    printf "Installing ripgrep\n"
     rm -rf $old_versions
     mkdir $ripgrep_dir
     cd $ripgrep_dir
@@ -80,7 +81,7 @@ else
     TAR_PACKAGE=ripgrep-$RIPGREP_LATEST_VERSION-x86_64-unknown-linux-musl.tar.gz
     EXTRACTED_FOLDER=ripgrep-$RIPGREP_LATEST_VERSION-x86_64-unknown-linux-musl
 
-    curl -OL $TARGET_URL
+    curl -OL $TARGET_URL > /dev/null
     # tar -xvf $TAR_PACKAGE
     # Extracting tar package, to -C 'direcotry' and stripping additional root folders
     mkdir -p $ripgrep_dir/rg && tar -xvf $TAR_PACKAGE -C rg --strip-components=1
@@ -90,7 +91,7 @@ else
     fi
 
     # Copy new binary
-    cp -f $ripgrep_dir/rg/rg $HOME/.local/bin/rg
+    cp -f $ripgrep_dir/rg/rg $HOME/.local/bin/rg > /dev/null
 
     # Remove tar file
     rm $TAR_PACKAGE
@@ -102,8 +103,8 @@ fi
 
 # nodejs
 if ! exists node; then
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - > /dev/null
+    sudo apt-get install -y nodejs > /dev/null
 else 
     printf "node already installed \n"
 fi
@@ -129,7 +130,7 @@ fi
 
 if ! pip3 list | grep neovim; then
     printf "Installing python neovim dependencies\n"
-    pip3 install neovim
+    pip3 install neovim > /dev/null
 else
     printf "neovim python depencies already installed!\n"
 fi
@@ -213,4 +214,4 @@ nvim  +PlugInstall +qall
 chsh -s $(which zsh)
 
 # Clean up unused programs
-sudo apt autoremove
+sudo apt autoremove > /dev/null
