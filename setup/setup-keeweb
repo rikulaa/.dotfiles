@@ -1,7 +1,0 @@
-#!/bin/bash
-
-cd $HOME/Documents/
-mkdir keeweb && cd keeweb && curl https://app.keeweb.info/ -o keeweb.html
-
-echo "Keeweb html found at $(pwd)"
-
