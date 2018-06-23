@@ -1,8 +1,8 @@
-- name: Remove dock delay
-  command: defaults write com.apple.dock autohide-delay -float 0; killall Dock
+#- name: Remove dock delay
+#  command: defaults write com.apple.dock autohide-delay -float 0; killall Dock
 
 # if you want to use default settings
 # defaults delete com.apple.dock autohide-delay; killall Dock
 
-- name: disable crash reporter
-  command: defaults write com.apple.CrashReporter DialogType none
+#- name: disable crash reporter
+#  command: defaults write com.apple.CrashReporter DialogType none

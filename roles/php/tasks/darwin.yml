@@ -1,4 +1,7 @@
 - name: Install php and composer (Darwin)
   homebrew:
-    name: php, composer
+    name: "{{ item }}"
     state: present
+  with_items:
+    - php
+    - composer

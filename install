@@ -2,137 +2,179 @@
 
 # get this files directory (dotfiles directory)
 dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-setup_dir=$dotfiles_dir/setup
+# setup_dir=$dotfiles_dir/setup
 
 #source  helpers
-. $dotfiles_dir/setup/helpers
+# . $dotfiles_dir/setup/helpers
+
+exists()
+{
+    command -v "$1" >/dev/null 2>&1
+}
 
 
-install_all() {
-    case "$(uname -sm)" in
-        Darwin\ *)
-            install_brew
-            install_shell
-            install_devenv
-            install_editor
-            install_desktop
-            install_programs
-            ;;
-        Linux\ *64)
-            install_shell
-            install_devenv
-            install_editor
-            install_programs
+# Get os name
+package_manager() {
+    case `uname` in
+        Linux )
+            which yum > /dev/null && { echo yum; return; }
+            which zypper > /dev/null && { echo zypper; return; }
+            which apt-get > /dev/null && { echo apt-get; return; }
+            which dnf > /dev/null && { echo dnf; return; }
             ;;
     esac
 }
 
-install_shell() {
-    printf '===============================\n'
-    printf 'SHELL\n\n' 
+PACKAGE_MANAGER=$(package_manager)
 
-    $setup_dir/setup-shell
-    $setup_dir/setup-fzf
-    $setup_dir/setup-ripgrep
-    $setup_dir/setup-tmux
-    $setup_dir/setup-git
-    $setup_dir/link-bin
 
-    printf '\nSHELL done!\n' 
-    printf '===============================\n\n'
-}
+install_all() {
 
-install_brew() {
-    if [[ "$(uname)" == "Darwin" ]]; then
+    # make sure ansible is installed
+    if ! exists ansible; then
+        case "$(uname -sm)" in
+            Darwin\ *)
 
-        printf '===============================\n'
-        printf 'HOMEBREW\n\n' 
+                # requirements for Homebrew
+                echo "Installing xcode..."
+                xcode-select --install | echo "xcode-installed"
 
-        $setup_dir/setup-brew
 
-        printf '\nHOMEBREW installed!\n' 
-        printf '===============================\n\n'
-    else
-        printf 'Brew setup only available in OSX!\n'
+                # Dont install if brew already exists
+                if ! exists brew; then
+                    echo "Installing brew..."
+                    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+                else 
+                    echo "Brew already installed!"
+                fi
+
+                if ! exists python; then
+                    brew install python
+                fi
+
+                pip install ansible
+
+
+                ;;
+            Linux\ *64)
+
+                sudo "$PACKAGE_MANAGER" install python python-pip
+                pip install ansible
+                ;;
+        esac
     fi
+
+    ansible-playbook -k $dotfiles_dir/playbook.yml
+
+
 }
 
-install_editor() {
-    printf '===============================\n'
-    printf 'EDITORS\n\n' 
+# install_shell() {
+#     printf '===============================\n'
+#     printf 'SHELL\n\n' 
 
-    $setup_dir/setup-neovim
-    $setup_dir/setup-vscode
+#     $setup_dir/setup-shell
+#     $setup_dir/setup-fzf
+#     $setup_dir/setup-ripgrep
+#     $setup_dir/setup-tmux
+#     $setup_dir/setup-git
+#     $setup_dir/link-bin
 
-    printf '\nEDITORS installed!\n' 
-    printf '===============================\n\n'
-}
+#     printf '\nSHELL done!\n' 
+#     printf '===============================\n\n'
+# }
 
-install_devenv() {
-    printf '===============================\n'
-    printf 'DEVELOPMENT ENVIRONMENT\n\n' 
+# install_brew() {
+#     if [[ "$(uname)" == "Darwin" ]]; then
 
-    $setup_dir/setup-devenv
+#         printf '===============================\n'
+#         printf 'HOMEBREW\n\n' 
 
-    printf '\nDEVELOPMENT ENVIRONMENT setup done!\n'
-    printf '===============================\n\n'
-}
+#         $setup_dir/setup-brew
 
-install_desktop() {
-    printf '===============================\n'
-    printf 'DESKTOP\n\n' 
+#         printf '\nHOMEBREW installed!\n' 
+#         printf '===============================\n\n'
+#     else
+#         printf 'Brew setup only available in OSX!\n'
+#     fi
+# }
 
-    $setup_dir/setup-hammerspoon
+# install_editor() {
+#     printf '===============================\n'
+#     printf 'EDITORS\n\n' 
 
-    printf '\nDESKTOP done!\n' 
-    printf '==============================\n\n'
-}
+#     $setup_dir/setup-neovim
+#     $setup_dir/setup-vscode
 
+#     printf '\nEDITORS installed!\n' 
+#     printf '===============================\n\n'
+# }
 
-install_programs() {
-    printf '===============================\n'
-    printf 'PROGRAMS\n\n' 
+# install_devenv() {
+#     printf '===============================\n'
+#     printf 'DEVELOPMENT ENVIRONMENT\n\n' 
 
-    $setup_dir/setup-programs
+#     $setup_dir/setup-devenv
 
-    printf '\nPROGRAMS installed!\n' 
-    printf '===============================\n\n'
-}
+#     printf '\nDEVELOPMENT ENVIRONMENT setup done!\n'
+#     printf '===============================\n\n'
+# }
 
-print_menu() {
-    printf 'This script will help to bootstrap a new system.'
-    printf '\n'
-    printf 'Use the options below to install specific parts'
-    printf '\n\n'
+# install_desktop() {
+#     printf '===============================\n'
+#     printf 'DESKTOP\n\n' 
 
-    printf 'Example usage: install --$arg ...'
-    printf '\n\n'
+#     $setup_dir/setup-hammerspoon
 
-    printf '%-15s  %-30s' ' --all' 'Setup whole environment' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --brew (OSX)' 'Setup Homebrew for OSX' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --shell' 'Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --editor' 'Setup editors (neovim, vscode)' 
-    printf '\n'
-
-    printf '%-15s  %-30s' ' --devenv' 'Setup development environment (node)' 
-    printf '\n'
+#     printf '\nDESKTOP done!\n' 
+#     printf '==============================\n\n'
+# }
 
 
-    printf '%-15s  %-30s' ' --desktop' 'Setup specific desktop configuration (hammerspoon or ...)' 
-    printf '\n'
+# install_programs() {
+#     printf '===============================\n'
+#     printf 'PROGRAMS\n\n' 
+
+#     $setup_dir/setup-programs
+
+#     printf '\nPROGRAMS installed!\n' 
+#     printf '===============================\n\n'
+# }
+
+# print_menu() {
+#     printf 'This script will help to bootstrap a new system.'
+#     printf '\n'
+#     printf 'Use the options below to install specific parts'
+#     printf '\n\n'
+
+#     printf 'Example usage: install --$arg ...'
+#     printf '\n\n'
+
+#     printf '%-15s  %-30s' ' --all' 'Setup whole environment' 
+#     printf '\n'
+
+#     printf '%-15s  %-30s' ' --brew (OSX)' 'Setup Homebrew for OSX' 
+#     printf '\n'
+
+#     printf '%-15s  %-30s' ' --shell' 'Setup basic shell environment (bashrc, rg, fzf, tmux, gitconfig)' 
+#     printf '\n'
+
+#     printf '%-15s  %-30s' ' --editor' 'Setup editors (neovim, vscode)' 
+#     printf '\n'
+
+#     printf '%-15s  %-30s' ' --devenv' 'Setup development environment (node)' 
+#     printf '\n'
 
 
-    printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
-    printf '\n'
+#     printf '%-15s  %-30s' ' --desktop' 'Setup specific desktop configuration (hammerspoon or ...)' 
+#     printf '\n'
 
-    printf '\n\n'
-} 
+
+#     printf '%-15s  %-30s' ' --programs' 'Install additional programs' 
+#     printf '\n'
+
+#     printf '\n\n'
+# } 
 
 # INIT
 if [ -z "$1" ]; then
@@ -143,24 +185,24 @@ else
             --all)
                 install_all
                 ;;
-            --brew)
-                install_brew
-                ;;
-            --shell)
-                install_shell
-                ;;
-            --editor)
-                install_editor
-                ;;
-            --devenv)
-                install_devenv
-                ;;
-            --desktop) 
-                install_desktop
-                ;;
-            --programs)
-                install_programs
-                ;;
+            # --brew)
+            #     install_brew
+            #     ;;
+            # --shell)
+            #     install_shell
+            #     ;;
+            # --editor)
+            #     install_editor
+            #     ;;
+            # --devenv)
+            #     install_devenv
+            #     ;;
+            # --desktop) 
+            #     install_desktop
+            #     ;;
+            # --programs)
+            #     install_programs
+            #     ;;
         esac
     done
 fi

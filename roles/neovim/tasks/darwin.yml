@@ -4,7 +4,6 @@
     state: present
 
 - name: Install neovim python dependences (Darwin)
-  become: true
   pip:
     name: neovim
     state: present

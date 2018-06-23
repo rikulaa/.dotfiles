@@ -1,7 +1,7 @@
 - name: Install hammerspoon
   homebrew_cask:
-  name: hammerspoon
-  state: present
+    name: hammerspoon
+    state: present
 
 - name: Link hammerspoon config
   file: 
