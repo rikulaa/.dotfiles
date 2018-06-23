@@ -13,3 +13,9 @@
   apt:
     name: neovim
     state: present
+
+- name: Install neovim python dependences (Debian)
+  become: true
+  pip:
+    name: neovim
+    state: present

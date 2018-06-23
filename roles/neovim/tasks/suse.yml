@@ -2,3 +2,9 @@
   zypper:
     name: neovim
     state: present
+
+- name: Install neovim python dependences (Suse)
+  become: true
+  pip:
+    name: neovim
+    state: present
