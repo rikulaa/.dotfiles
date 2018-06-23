@@ -2,13 +2,15 @@
 
 #####################
 # Install programs
-programs="zsh tmux neovim mplayer firefox php curl"
+programs="zsh tmux neovim mplayer kitty php curl python3 python3-pip firefox"
+
+sudo apt update
 
 for program in $programs; do
      if ! exists $program; then
          sudo apt install $program -y
      else
-         prinft "$program already installed"
+         printf "$program already installed\n"
      fi
 done
 
@@ -66,10 +68,11 @@ for version in $old_versions; do
     fi
 done
 
-if [ -e $ripgrep_dir ] && [ -h $HOME/.local/bin/rg ]; then
+if [ -e $ripgrep_dir ] && [ -e $HOME/.local/bin/rg ]; then
     printf "Ripgrep already up to date\n"
     
 else
+    rm -rf $old_versions
     mkdir $ripgrep_dir
     cd $ripgrep_dir
 
@@ -86,8 +89,8 @@ else
         mkdir -p $HOME/.local/bin
     fi
 
-    # Link new binary
-    ln -sf $ripgrep_dir/rg/rg $HOME/.local/bin/rg
+    # Copy new binary
+    cp -f $ripgrep_dir/rg/rg $HOME/.local/bin/rg
 
     # Remove tar file
     rm $TAR_PACKAGE
@@ -122,6 +125,13 @@ if ! exists composer; then
 
 else 
     printf "composer already installed \n"
+fi
+
+if ! pip3 list | grep neovim; then
+    printf "Installing python neovim dependencies\n"
+    pip3 install neovim
+else
+    printf "neovim python depencies already installed!\n"
 fi
 
 
@@ -171,6 +181,26 @@ ln -sf $dotfiles_dir/vim/tern-config $HOME/.tern-config
 printf "Linking gitconfig\n"
 ln -sf $dotfiles_dir/git/gitconfig $HOME/.gitconfig
 
+dotfiles_dir=$HOME/.dotfiles
+target_bin=$HOME/.local/bin
+
+echo "Checking if $target_bin exists..."
+if [[ -d $target_bin ]]; then
+    echo "$target_bin, exists!"
+else
+    echo "$target_bin not found, creating directory"
+    mkdir -p $target_bin
+fi
+
+# Link files to target bin
+echo "Linking bin"
+for file_path in $dotfiles_dir/bin/*; do
+    filename=$(basename $file_path)
+
+    # Make the actual link
+    ln -sf $file_path $target_bin
+done
+
 
 
 #####################
@@ -180,10 +210,7 @@ ln -sf $dotfiles_dir/git/gitconfig $HOME/.gitconfig
 nvim  +PlugInstall +qall
 
 # Change default shell to zsh
-if ! echo $SHELL > /dev/null ~= zsh > /dev/null; then
-    printf "Changing your default shell to zsh\n"
-    chsh -s $(which zsh)
-else
-    printf "zsh already default shell"
-fi
+chsh -s $(which zsh)
 
+# Clean up unused programs
+sudo apt autoremove

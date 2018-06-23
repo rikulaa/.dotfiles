@@ -116,6 +116,28 @@ fi
 ln -sf $dotfiles_dir/hammerspoon $HOME/.hammerspoon
 
 
+# bin files
+dotfiles_dir=$HOME/.dotfiles
+target_bin=$HOME/.local/bin
+
+echo "Checking if $target_bin exists..."
+if [[ -d $target_bin ]]; then
+    echo "$target_bin, exists!"
+else
+    echo "$target_bin not found, creating directory"
+    mkdir -p $target_bin
+fi
+
+# Link files to target bin
+echo "Linking bin"
+for file_path in $dotfiles_dir/bin/*; do
+    filename=$(basename $file_path)
+
+    # Make the actual link
+    ln -sf $file_path $target_bin
+done
+
+
 #####################
 # OTHER
 
@@ -123,9 +145,4 @@ ln -sf $dotfiles_dir/hammerspoon $HOME/.hammerspoon
 nvim  +PlugInstall +qall
 
 # Change default shell to zsh
-if ! echo $SHELL > /dev/null ~= zsh > /dev/null; then
-    printf "Changing your default shell to zsh\n"
-    chsh -s $(which zsh)
-else
-    printf "zsh already default shell"
-fi
+chsh -s $(which zsh)
