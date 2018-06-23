@@ -27,7 +27,7 @@ for tap in $taps; do
         printf "$tap already tapped! \n"
     else
         printf "Tapping $tap\n"
-        brew tap $tarp
+        brew tap $tarp > /dev/null
     fi
 done
 
@@ -36,7 +36,7 @@ for brew in $brews; do
         printf "$brew already installed \n"
     else
         printf "Installing $brew\n"
-        brew install $brew
+        brew install $brew > /dev/null
     fi
 done
 
@@ -48,12 +48,13 @@ for cask in $casks; do
         printf "$cask already installed \n"
     else 
         printf "Installing $cask\n"
-        brew cask install $cask
+        brew cask install $cask > /dev/null
     fi
 done
 
 # Install neovim dependencies
 if ! pip3 show neovim > /dev/null; then
+    pip3 install neovim > /dev/null
     printf "Installing python neovim dependencies\n"
 else
     printf "Python neovim dependencies already installed\n"
@@ -77,10 +78,10 @@ ln -sf $dotfiles_dir/shell/zshrc $HOME/.zshrc
 if [ -d $config_dir/oh-my-zsh ]; then
     printf "Updating oh-my-zsh...\n"
     cd $config_dir/oh-my-zsh 
-    git pull $config_dir/oh-my-zsh
+    git pull $config_dir/oh-my-zsh > /dev/null
 else 
     printf "Installing oh-my-zsh...\n"
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh > /dev/null
 fi
 
 # tmux
@@ -145,5 +146,10 @@ done
 nvim  +PlugInstall +qall
 
 # Change default shell to zsh
-sudo sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s $(which zsh)
+if [[ $(echo $SHELL) =~ .*zsh.* ]]; then
+    printf  "Changing default shell to zsh\n"
+    sudo sh -c "echo $(which zsh) >> /etc/shells"
+    chsh -s $(which zsh)
+else
+    printf "zsh already default shell\n"
+fi
