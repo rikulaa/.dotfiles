@@ -8,7 +8,8 @@ sudo apt update
 
 for program in $programs; do
      if ! exists $program; then
-         sudo apt install $program -y
+         printf "Installing $program\n"
+         sudo apt install $program -y >/dev/null
      else
          printf "$program already installed\n"
      fi
@@ -143,6 +144,9 @@ printf "Linking .bashrc, .bash_profile\n"
 ln -sf $dotfiles_dir/shell/bashrc $HOME/.bashrc
 ln -sf $dotfiles_dir/shell/bash_profile $HOME/.bash_profile
 ln -sf $dotfiles_dir/shell/dircolors $HOME/.dircolors
+
+# Source the file so all the programs are available in path
+. $dotfiles_dir/bashrc
 
 # zshrc
 printf "Linking .zshrc\n"
