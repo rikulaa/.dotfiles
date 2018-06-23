@@ -6,7 +6,7 @@
     state: present
  
 - name: Create directory for kitty config (Debian)
-- file:
+  file:
     path: "$HOME/.config/kitty/"
     state: directory
     mode: 0755
