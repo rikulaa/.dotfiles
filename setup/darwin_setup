@@ -19,7 +19,7 @@ fi
 # Install required programs via Homebrew
 taps=""
 brews="zsh fzf ripgrep tmux neovim python3 node php composer mplayer htop tree"
-casks="hammerspoon visual-studio-code firefox keeweb harvest rambox usb-overdrive windscribe slack"
+casks="kitty hammerspoon visual-studio-code firefox keeweb harvest rambox usb-overdrive windscribe slack"
 
 
 for tap in $taps; do
