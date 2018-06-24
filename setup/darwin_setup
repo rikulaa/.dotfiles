@@ -143,7 +143,7 @@ done
 # OTHER
 
 #Install vim plugins automatically
-nvim  +PlugInstall +qall
+bash -c "nvim  +PlugInstall +qall"
 
 # Change default shell to zsh
 if [[ $(echo $SHELL) =~ .*zsh.* ]]; then
