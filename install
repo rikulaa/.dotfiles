@@ -1,25 +1,23 @@
 #!/bin/bash
-
 # get this files directory (dotfiles directory)
-dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-setup_dir=$dotfiles_dir/setup
-config_dir=$HOME/.config
+DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #source  helpers
-. $dotfiles_dir/setup/helpers
+# . $DOTFILES_DIR/setup/helpers
+. $DOTFILES_DIR/setup/helpers/colors
 
-# Get os name
-os_type() {
+get_os_name() {
     case `uname` in
         Linux )
-            which yum > /dev/null && { echo centos; return; }
-            which zypper > /dev/null && { echo opensuse; return; }
-            which apt-get > /dev/null && { echo debian; return; }
-            which dnf > /dev/null && { echo fedora; return; }
+            $command_exists yum && { echo centos; return; }
+            $command_exists zypper  && { echo opensuse; return; }
+            $command_exists apt-get  && { echo debian; return; }
+            $command_exists dnf  && { echo fedora; return; }
+
+            # TODO check for distro name
             ;;
         Darwin )
-            echo darwin && > /dev/null
-            return
+            echo darwin && return
             ;;
         * )
             # Other systems
@@ -27,44 +25,70 @@ os_type() {
     esac
 }
 
-OS=$(os_type)
+
+# Variables
+export OS_NAME=$(get_os_name)
+export DOTFILES_DIR=$DOTFILES_DIR
+export HELPERS=$DOTFILES_DIR/setup/helpers
+export USER_BIN_DIR=$HOME/.local/bin
+export USER_CONFIG_DIR=$HOME/.config/
+export HELPERS=$DOTFILES_DIR/setup/helpers/
+
+# Function (files that can be referenced)
+export command_exists=$DOTFILES_DIR/setup/helpers/command_exists
+export get_current_dir=$DOTFILES_DIR/setup/helpers/get_current_dir
+
+# export DOTDIR=$HOME
+
+# Get os name
+
+roles="programs symlink vim other"
+
+for role in $roles; do
+    printf "############ ${YELLOW}$role${NORMAL} ################\n"
+
+    # Call individual role scripts
+    $DOTFILES_DIR/roles/$role/main.sh && printf "${GREEN}Role ${YELLOW}$role ${GREEN}success!\n" || printf "${RED}Failed!\n"
+
+    printf "${NORMAL}\n\n\n"
+
+    # printf "#######################################\n\n\n\n"
+done
 
 
-install_all() {
-    case $OS in
-        darwin )
-            . $setup_dir/darwin_setup
-            ;;
-        debian ) 
-            . $setup_dir/debian_setup
-            ;;
-        * )
-            echo "Supported os not found!"
-    esac
-}
+# install_all() {
+#     case `uname` in
+#         darwin )
+#             ;;
+#         debian ) 
+#             ;;
+#         * )
+#             echo "Supported os not found!"
+#     esac
+# }
 
 
-print_menu() {
-    printf 'This script will help to bootstrap a new system.'
-    printf '\n'
-    printf 'Use the option below to start installation'
-    printf '\n\n'
+# print_menu() {
+#     printf 'This script will help to bootstrap a new system.'
+#     printf '\n'
+#     printf 'Use the option below to start installation'
+#     printf '\n\n'
 
-    printf '%-15s  %-30s' ' --all' 'Setup whole environment' 
-    printf '\n'
+#     printf '%-15s  %-30s' ' --all' 'Setup whole environment' 
+#     printf '\n'
 
-    printf '\n\n'
-} 
+#     printf '\n\n'
+# } 
 
-# INIT
-if [ -z "$1" ]; then
-    print_menu
-else
-    for arg in "$@"; do
-        case "$arg" in
-            --all)
-                install_all
-                ;;
-        esac
-    done
-fi
+# # INIT
+# if [ -z "$1" ]; then
+#     print_menu
+# else
+#     for arg in "$@"; do
+#         case "$arg" in
+#             --all)
+#                 install_all
+#                 ;;
+#         esac
+#     done
+# fi
