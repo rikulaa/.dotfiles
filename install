@@ -9,10 +9,25 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 get_os_name() {
     case `uname` in
         Linux )
-            $command_exists yum && { echo centos; return; }
-            $command_exists zypper  && { echo opensuse; return; }
-            $command_exists apt-get  && { echo debian; return; }
-            $command_exists dnf  && { echo fedora; return; }
+            if $command_exists yum; then
+                echo centos
+                return
+            fi
+            
+            if $command_exists zypper; then
+                echo opensuse
+                return
+            fi
+
+            if $command_exists apt-get; then
+                echo debian
+                return
+            fi
+
+            if $command_exists dnf; then
+                echo fedora
+                return
+            fi
 
             # TODO check for distro name
             ;;
