@@ -328,7 +328,7 @@ command Rm :call DeleteAndCloseBuffer()
 
 
 " git
-nnoremap <leader>G  :Gstatus<CR>
+nnoremap <leader>G  :Magit<CR>
 
 " commands
 command Vimrc :e ~/.vimrc
