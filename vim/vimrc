@@ -129,6 +129,15 @@ set background=dark    " Setting dark mode
 set showcmd					" Show command at the bottom
 set sidescroll=0            " Faster scrolling
 
+" Custom statusline
+" filename (tail of the path), help buffer flag, modified flag,
+" function! GetGitBranch()
+"     let l:res = system("git rev-parse --abbrev-ref HEAD")
+"     return res
+" endfunction
+set statusline=%t
+" set statusline=%t\ %h%m%=%-10.(%y%)%{GetGitBranch()}
+
 "============================================================================
 " Spaces & tab 
 "============================================================================
