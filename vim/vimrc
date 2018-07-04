@@ -118,7 +118,7 @@ set nocursorline
 " set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
-" set t_ut=
+set t_ut=
 " set termguicolors           " Better colors in terminal, needs support from tmux also
 "
 " colorscheme codedark		" Do not set termguicolors with this one
@@ -421,7 +421,7 @@ augroup javascript
     au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
 
     " can help with vue syntax highlight breaking
-	" au FileType vue syntax sync fromstart
+	au FileType vue syntax sync fromstart
 augroup end
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 "
