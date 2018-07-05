@@ -272,8 +272,8 @@ function! GrepFromFiles(selection)
     endif
 
 :endfunction
-nnoremap <leader>f :call GrepFromFiles("")<CR>
-vnoremap <leader>f y :call GrepFromFiles(@")<CR>
+nnoremap <leader>f :silent call GrepFromFiles("")<CR>
+vnoremap <leader>f y :silent call GrepFromFiles(@")<CR>
 
 " FZF
 " function! Fzf()
