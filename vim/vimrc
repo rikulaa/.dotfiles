@@ -119,7 +119,7 @@ set nocursorline
 syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
-set termguicolors           " Better colors in terminal, needs support from tmux also
+" set termguicolors           " Better colors in terminal, needs support from tmux also
 "
 " colorscheme codedark		" Do not set termguicolors with this one
 " colorscheme onedark
