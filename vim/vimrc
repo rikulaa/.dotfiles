@@ -315,6 +315,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Move between tabs
+nnoremap ]t :tabn<CR>
+nnoremap [t :tabp<CR>
 
 " Move to the previous buffer with 
 nnoremap [b :bp<CR>
