@@ -427,7 +427,7 @@ augroup javascript
     au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
 
     " can help with vue syntax highlight breaking
-	au FileType vue syntax sync fromstart
+	" au FileType vue syntax sync fromstart
 augroup end
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 "
