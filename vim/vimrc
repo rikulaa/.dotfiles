@@ -233,6 +233,7 @@ endfunction
 "============================================================================
 let mapleader="\<Space>"	" Use space as leader key
 
+nnoremap <leader>w :w<CR>
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
 vnoremap <leader>Y "*y
