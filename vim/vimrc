@@ -137,7 +137,7 @@ set showcmd					" Show command at the bottom
 "     let l:res = system("git rev-parse --abbrev-ref HEAD")
 "     return res
 " endfunction
-set statusline=%t
+" set statusline=%t
 " set statusline=%t\ %h%m%=%-10.(%y%)%{GetGitBranch()}
 
 "============================================================================
