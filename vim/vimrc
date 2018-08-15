@@ -129,7 +129,7 @@ set t_ut=
 colorscheme gruvbox
 set background=dark    " Setting dark mode
 set showcmd					" Show command at the bottom
-set sidescroll=0            " Faster scrolling
+" set sidescroll=0            " Faster scrolling
 
 " Custom statusline
 " filename (tail of the path), help buffer flag, modified flag,
