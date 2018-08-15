@@ -10,7 +10,7 @@ Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-commentary'           " Comments
 " Pug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'             " Vim Surround plugin 
-"Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
+Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
 " Plug 'valloric/matchtagalways'        " Matching xml tag
 
@@ -658,7 +658,8 @@ let g:mta_filetypes = {
     \ 'javascript.jsx': 1,
     \ 'blade' : 1
     \}
-
+" Do dont jump to matching tag on another line
+let g:AutoPairsMultilineClose = 0
 
 " ======== Autocomplete =========
 " ** Deoplete **
