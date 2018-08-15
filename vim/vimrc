@@ -332,7 +332,7 @@ nnoremap <leader>q  :bd<CR>
 " " Move to the next buffer with 
 " nnoremap <Tab>    :bn<CR>
 
-command Bda :%bdelete
+command Bda silent! :%bdelete
 
 function! DeleteAndCloseBuffer()
     let l:message = "Delete file: " . expand('%')
