@@ -644,7 +644,7 @@ let g:ale_linters = {
 \}
 
 " Dont show error highlights on lines, causes vim to slow down on huge files
-let g:ale_set_highlights = 0 
+" let g:ale_set_highlights = 0 
 
 let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/bundle/LanguageServer-php-neovim/vendor/bin/php-language-server.php'
 
