@@ -31,6 +31,9 @@ snippet cl
 console.log(${1});
 ${2}
 endsnippet
+snippet cw
+console.warn(${1});
+endsnippet
 
 snippet im "import xyz from 'xyz'"
 import ${1} from '${2:$1}';
@@ -152,3 +155,50 @@ while (${1}) {
 ${2}
 }
 endsnippet
+
+snippet getproptypes
+static get propTypes() {
+	return {
+		${1}
+	};
+}
+endsnippet
+
+snippet try
+try {
+	${1}
+} catch (e) {
+
+}
+endsnippet
+
+snippet getinitialprops
+static async getInitialProps() {
+	return {
+		${1}
+	};
+}
+endsnippet
+
+snippet pfunc
+PropTypes.func
+endsnippet
+snippet pbool
+PropTypes.bool
+endsnippet
+snippet pstring
+PropTypes.string
+endsnippet
+snippet pshape
+PropTypes.shape({${1}})
+endsnippet
+snippet parray
+PropTypes.array
+endsnippet
+snippet parrayOf
+PropTypes.arrayOf(${1})
+endsnippet
+snippet preq
+.isRequired
+endsnippet
+
