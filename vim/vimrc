@@ -327,6 +327,10 @@ nnoremap ]b :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
 
+
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+" nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>. 
 " " Move to the previous buffer with 
 " nnoremap <S-Tab>  :bp<CR>
 " " Move to the next buffer with 
