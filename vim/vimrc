@@ -420,6 +420,11 @@ function! GoToDefinitionJS()
     end
 endfunction
 
+function! Lint()
+    :execute ":!php-cs-fixer fix %"
+endfunction
+command Lint :call Lint()
+
 augroup javascript
     au!
     " au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
