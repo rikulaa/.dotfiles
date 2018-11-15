@@ -26,6 +26,7 @@ alias gitconfig='$EDITOR $HOME/.dotfiles/git/gitconfig'
 alias dotfiles='cd ~/.dotfiles'
 alias dot='cd ~/.dotfiles'
 alias tmuxconf='$EDITOR $HOME/.dotfiles/tmux/tmux.conf'
+alias g='git'
 
 alias bin='cd ~/.local/bin'
 
