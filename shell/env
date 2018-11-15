@@ -22,4 +22,7 @@ export LANG=en_US.UTF-8
 # Cannot use kitty inside tmux if this not set
 # export TERM=screen-256color
 
+# for gruvbox 256 colour theme. Doesnt work it osx regular terminal but it break (unlike with truecolor)
+. $HOME/.dotfiles/vim/bundle/gruvbox/gruvbox_256palette_osx.sh
+
 export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
