@@ -13,6 +13,7 @@
     acmp = "!f() { git add -A; git commit; git push; }; f"
     undo = reset HEAD~1 --mixed
     co = checkout
+    coi = "!f() { git checkout $(git branch | fzf); }; f"
     cob = checkout -b
     lg = log --pretty=format:'%C(red)%h%C(yellow)%d  %Creset%s %Cgreen(%cr) %C(bold blue) <%cn>' --decorate
     st = status -sb
