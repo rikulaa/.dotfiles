@@ -188,6 +188,12 @@ function! ToggleJSFunctionSyntax()
 
 endfunction
 
+function! CommentJsx()
+    normal `>o */}
+    normal `<O{/*
+    normal f}x
+endfunction
+
 " Adds inputted character to the end of the line without moving the cursor
 function! AppendCharacterToEndOfLine()
     let a:cursor_pos_start = getpos(".")
@@ -656,6 +662,8 @@ function! ToggleFuncParamOrientation()
     endif
 endfunction
 command ToggleFuncParamOrientation :call ToggleFuncParamOrientation()
+
+command -range CommentJsx :call CommentJsx()
 
 "============================================================================
 " Additional plugin settings
