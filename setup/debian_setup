@@ -9,7 +9,7 @@ sudo apt update
 for program in $programs; do
      if ! exists $program; then
          printf "Installing $program\n"
-         sudo apt install $program -y >/dev/null
+         sudo apt install $program -y
      else
          printf "$program already installed\n"
      fi
