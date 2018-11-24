@@ -56,7 +56,6 @@ call plug#end()            " required
 set nocompatible            " no need to support vi
 filetype plugin indent on
 set mouse=a                 " Use mouse
-set rtp+=~/.local/bin       " Use executables (fzf) from bin
 set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 set encoding=utf-8
@@ -92,23 +91,10 @@ syntax enable				" Show syntax
 set t_Co=256                " Enable 256 colors
 set t_ut=
 " set termguicolors           " Better colors in terminal, needs support from tmux also
-"
-" colorscheme codedark		" Do not set termguicolors with this one
-" colorscheme onedark
-" colorscheme plain
+
 colorscheme gruvbox
 set background=dark    " Setting dark mode
 set showcmd					" Show command at the bottom
-" set sidescroll=0            " Faster scrolling
-
-" Custom statusline
-" filename (tail of the path), help buffer flag, modified flag,
-" function! GetGitBranch()
-"     let l:res = system("git rev-parse --abbrev-ref HEAD")
-"     return res
-" endfunction
-" set statusline=%t
-" set statusline=%t\ %h%m%=%-10.(%y%)%{GetGitBranch()}
 
 "============================================================================
 " Spaces & tab 
@@ -131,85 +117,10 @@ set incsearch				" Search as characters are entered
 "============================================================================
 " Custom Functions
 "============================================================================
-function! ToggleJSFunctionSyntax()
-    let currentLine=getline('.')
-
-    " Check if this is older syntax
-    if matchstr(currentLine, "function") == "function"
-
-        " Check if assigned function
-        if matchstr(currentLine, "=") == "="
-            " Check if var is used, and change it to const
-            if matchstr(currentLine, 'var') == "var"
-                normal 0ceconst
-            endif
-            " Change to arrow syntax
-            normal 0f=wdt(f)la=> 
-        else
-            " Not assigned to variable
-
-            let l:functionWordPosition = matchstrpos(currentLine, "function")
-            " execute '/\%'.line(".").'lfunction'
-            " execute cursor(matchstrpos(currentLine, "function"))
-            :call cursor(line("."), functionWordPosition[1] + 1)
-            normal ciwconst
-            normal f(i = 
-            normal f)a =>
-
-            let a:cursosPositionBeforeIndent = getpos(".")
-            normal ==
-            :call cursor(a:cursosPositionBeforeIndent[1], a:cursosPositionBeforeIndent[2])
-        endif
-    else
-        " Arrow function
-
-        " Check if assigned to variable, const fn = ()
-        " The assignment will be removed, just use: function() 
-        " TODO: better check
-        if matchstr(currentLine, " = ") == " = "
-            if matchstr(currentLine, 'const') == "const"  || matchstr(currentLine, 'let') == "let" 
-                 normal 0cefunction
-                 normal ==
-            endif
-
-            " normal 0cevar
-            " normal 0f(ifunction
-            normal f=hd3l
-            normal f)ldf>
-
-        else
-            " Not assigned to variable
-            normal 0f>F(ifunction
-            normal f)ldf>
-        endif
-
-    endif
-
-endfunction
-
-function! CommentJsx()
-    normal `>o */}
-    normal `<O{/*
-    normal f}x
-endfunction
-
-" Adds inputted character to the end of the line without moving the cursor
-function! AppendCharacterToEndOfLine()
-    let a:cursor_pos_start = getpos(".")
-    let c = nr2char(getchar())
-    :execute "keepjumps normal! A".c
-
-    " Move cursor back to original position
-    call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
-
-endfunction
-
-function! ShowDocumentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+function! DeleteAndCloseBuffer()
+    let l:message = "Delete file: " . expand('%')
+    let l:confirmation = confirm(message, "&Yes\n&No\n" )
+    if confirmation == 1 | call delete(expand('%')) | bd! | endif
 endfunction
 
 
@@ -246,11 +157,17 @@ nnoremap <leader>f :grep
 " Search the visual selection (as string literal)
 vnoremap <leader>f y :grep -F '<C-R>" '
 
-
 " Rename word
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
+" Rename tag
+nnoremap <leader>rt :call functions#ChangeTagName()<cr>
 
-" Plugins
+" Append character to the end of the line
+nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
+
+
+
+" Mappings for plugins
 nnoremap <leader>G  :Magit<CR>
 
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
@@ -261,9 +178,6 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 
 nmap <F2> <Plug>(coc-rename)
 nmap <silent> <leader>gd <Plug>(coc-definition)
-
-
-nnoremap <silent><leader>a :call AppendCharacterToEndOfLine()<cr>
 
 nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
 
@@ -293,11 +207,6 @@ nnoremap <silent> <leader>b :call fzf#run({
 \ })<CR>
 
 
-
-
-" Save if changes
-" noremap <Leader>s :update<CR>	"quicksave
-
 function! ToggleNERDTree()
     let l:isNERDTreeFocused = exists("b:NERDTree")
     if isNERDTreeFocused == 0 && bufexists(expand('%'))
@@ -309,307 +218,29 @@ endfunction
 nnoremap <leader>e :call ToggleNERDTree()<CR>
 
 
-" Grep from files (current pwd). Seachword is a string, no regex, which allows
-" to search for any kind of string inside project
-" function! Grep(searchword)
-"     let globs = "-g '!node_modules' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
-"     :execute "grep! -S --hidden ". globs . "-F " . '"' . a:searchword . '"'
-"     :execute "cw"
-" endfunction
-
-" function! GrepFromFiles(selection) 
-"     let name = input('Search for: ', a:selection)
-"     if name != ""
-"         :execute ":call Grep(name)"
-"     endif
-" :endfunction
-" nnoremap <leader>f :silent call GrepFromFiles("")<CR>
-" vnoremap <leader>f y :silent call GrepFromFiles(@")<CR>
-
-
-"here is a more exotic version of my original Kwbd script
-"delete the buffer; keep windows; create a scratch buffer if no buffers left
-" function s:Kwbd(kwbdStage)
-"   if(a:kwbdStage == 1)
-"     if(!buflisted(winbufnr(0)))
-"       bd!
-"       return
-"     endif
-"     let s:kwbdBufNum = bufnr("%")
-"     let s:kwbdWinNum = winnr()
-"     windo call s:Kwbd(2)
-"     execute s:kwbdWinNum . 'wincmd w'
-"     let s:buflistedLeft = 0
-"     let s:bufFinalJump = 0
-"     let l:nBufs = bufnr("$")
-"     let l:i = 1
-"     while(l:i <= l:nBufs)
-"       if(l:i != s:kwbdBufNum)
-"         if(buflisted(l:i))
-"           let s:buflistedLeft = s:buflistedLeft + 1
-"         else
-"           if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
-"             let s:bufFinalJump = l:i
-"           endif
-"         endif
-"       endif
-"       let l:i = l:i + 1
-"     endwhile
-"     if(!s:buflistedLeft)
-"       if(s:bufFinalJump)
-"         windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-"       else
-"         enew
-"         let l:newBuf = bufnr("%")
-"         windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-"       endif
-"       execute s:kwbdWinNum . 'wincmd w'
-"     endif
-"     if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-"       execute "bd! " . s:kwbdBufNum
-"     endif
-"     if(!s:buflistedLeft)
-"       set buflisted
-"       set bufhidden=delete
-"       set buftype=
-"       setlocal noswapfile
-"     endif
-"   else
-"     if(bufnr("%") == s:kwbdBufNum)
-"       let prevbufvar = bufnr("#")
-"       if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
-"         b #
-"       else
-"         bn
-"       endif
-"     endif
-"   endif
-" endfunction
-
-" command! Kwbd call s:Kwbd(1)
-" nnoremap <silent> <leader>q :<C-u>Kwbd<CR>
-
-" Create a mapping (e.g. in your .vimrc) like this:
-"nmap <C-W>! <Plug>Kwbd
-
-command Bda silent! :%bdelete
-
-function! DeleteAndCloseBuffer()
-    let l:message = "Delete file: " . expand('%')
-    let l:confirmation = confirm(message, "&Yes\n&No\n" )
-    if confirmation == 1 | call delete(expand('%')) | bd! | endif
-endfunction
-command Rm :call DeleteAndCloseBuffer()
-
-
-
-" commands
+"============================================================================
+" Commands
+"============================================================================
 command Vimrc :e ~/.vimrc
 command So :source %
 command Reload :source ~/.vimrc
 
+command Bda silent! :%bdelete
+command Rm :call DeleteAndCloseBuffer()
+
+" From autoload folder
+command ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
+command ToggleFuncParamOrientation :call javascript#ToggleFuncParamOrientation()
+command -range CommentJsx :call javascript#CommentJsx()
+
+" Git: stage current file
 command Ga :!git a %
-" au BufNewFile,BufRead .vimrc noremap <leader>f :source %
-"
-" Neovim terminal mapping
-" tnoremap <Esc> <C-\><C-n>
-" tnoremap <C-[> <C-\><C-n>
-
-
-
-function! Lint()
-    :execute ":!php-cs-fixer fix %"
-endfunction
-command Lint :call Lint()
-
-
-" Use K for show documentation in preview window
-command ShowDocumentation :call ShowDocumentation()<CR>
-
-augroup javascript
-    au!
-    au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
-    au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
-augroup end
-" au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
-"
 
 augroup focusevents
     au!
     " Reload file if file changed
     au FocusGained,BufEnter * :silent! !
 augroup end
-
-augroup makefile
-    au!
-    au BufEnter,BufNewFile,BufRead *.c nnoremap <leader>m :make<CR>
-augroup end
-
-command Run :!%
-au Filetype sh map <leader>r :Run<CR>
-
-" Run all test
-function! Test()
-    let currentFiletype = &filetype
-    if currentFiletype =~ 'javascript'
-       call OpenSplitTerminal('yarn test', 0, 30)
-    else
-        echo "No test environment configured"
-    endif
-endfunction
-command Test :call Test()
-
-" Test currentfile
-function! TestFile()
-    let filePath = expand('%:p')
-    let currentFiletype = &filetype
-
-    let currentFiletype = &filetype
-    if currentFiletype =~ 'javascript'
-       " execute ":!yarn test " . filePath
-       let command = 'yarn test ' . filePath
-       call OpenSplitTerminal(command, 0, 30)
-    else
-        echo "No test environment configured"
-    endif
-endfunction
-command TestFile :call TestFile()
-
-" args (command, inVertical, widthOrHeight)
-function! OpenSplitTerminal(commands, ...)
-    " Check if should open in vertical mode
-    let l:isVertical = get(a:, 1)
-    " If get optional heigh or width
-    let l:heightOrWidth = get(a:, 2, 15)
-
-    let l:openingCommand = isVertical ? 'vnew' : 'new'
-
-    execute ":" . heightOrWidth . openingCommand
-    call OpenTerminal(a:commands)
-    normal G
-
-    let l:windowDirection = isVertical ? 'h' : 'k'
-    execute ":wincmd " . windowDirection
-endfunction
-
-function! OpenTerminal(commands)
-    call termopen(a:commands)
-endfunction
-
-function! ChangeTagName()
-    let l:newName = input('Rename to: ')
-
-    " get decimal valu of the current character under cursos
-	" getline('.') returns the entire line that cursor is sitting on.
-	" col('.') returns the column number that the cursor is sitting
-	" on.
-	" The regular expression \%nc matches a specific given column
-	" where n is that column.
-	" The '.' regular expression matches exactly one
-	" character.
-
-	let dec = char2nr(matchstr(getline('.'), '\%' . col('.') . 'c.'))
-    if dec == 60 || dec == 47 
-        normal l
-    endif
-
-    if dec == 62 
-        normal h  
-    endif
-
-    let a:cursor_pos_start = getpos(".")
-
-    normal %l
-
-    execute 'normal! "_ciw'.newName
-    :call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
-    execute 'normal! "_ciw'.newName
-endfunction
-nnoremap <leader>rt :call ChangeTagName()<cr>
-
-
-function! ToggleImportsOrientation()
-    normal 0
-
-    let l:isSingleLineImport = search('{.*}', '', line('.'))
-   
-    " All import on single line
-    if isSingleLineImport
-        execute "normal 0f{a\<CR>"
-
-        let l:matches = searchpos(',', 'z', line("."))
-        while l:matches[1] > 0
-            execute "normal lxi\<CR>"
-            let l:matches = searchpos(',', 'z', line("."))
-        endwhile
-
-        execute "normal f}i\<CR>"
-    else
-        " Imports on multiple lines
-        let l:isMultiLineEnd = search('}', '', line('.'))
-        let l:isMultiLineStart = search('{', '', line('.'))
-
-        " Move to starting bracket
-        if isMultiLineStart
-            normal f{
-        elseif isMultiLineEnd
-            normal f}
-        endif
-
-        " Move everything to one line
-        normal va{J
-
-        " Trim whitespace before and after brackets
-        *s/{\s/{/g
-        *s/\s}/}/g
-
-    endif
-endfunction
-command ToggleImportsOrientation :call ToggleImportsOrientation()
-
-function! ToggleFuncParamOrientation()
-
-    normal 0
-
-    let l:isDefinedInSingle = search('(.*)', '', line('.'))
-
-
-    " All params on single line
-    if isDefinedInSingle
-        execute "normal 0f(a\<CR>"
-
-        let l:matches = searchpos(',', 'z', line("."))
-        while l:matches[1] > 0
-            execute "normal lxi\<CR>"
-            let l:matches = searchpos(',', 'z', line("."))
-        endwhile
-
-        execute "normal f)i\<CR>"
-    else
-        " Imports on multiple lines
-        let l:isMultiLineEnd = search(')', '', line('.'))
-        let l:isMultiLineStart = search('(', '', line('.'))
-
-        " Move to starting bracket
-        if isMultiLineStart
-            normal f(
-        elseif isMultiLineEnd
-            normal f)
-        endif
-
-        " Move everything to one line
-        normal va(J
-
-        " Trim whitespace before and after brackets
-
-        *s/(\s/(/g
-        " *s/\s)/)/g
-
-    endif
-endfunction
-command ToggleFuncParamOrientation :call ToggleFuncParamOrientation()
-
-command -range CommentJsx :call CommentJsx()
 
 "============================================================================
 " Additional plugin settings
@@ -638,15 +269,6 @@ let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/bundle/php-language-se
 " ** Closetag **
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php, *.vue"
 
-" ** MatchTagAlways **
-let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'jinja' : 1,
-    \ 'javascript.jsx': 1,
-    \ 'blade' : 1
-    \}
 " Do dont jump to matching tag on another line
 let g:AutoPairsMultilineClose = 0
 
