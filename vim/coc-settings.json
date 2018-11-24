@@ -1,0 +1,14 @@
+{
+    "tsserver.log": "verbose",
+    "coc.preferences.diagnostic.enable": false,
+
+
+    "languageserver": {
+        "phplang": {
+            "trace.server": "verbose",
+            "command": "php",
+            "args": ["/Users/rikulaa/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php"],
+            "filetypes": ["php"]
+        }
+    }
+}
