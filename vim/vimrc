@@ -34,8 +34,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 " Intellisense, code completion, goto definition
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-" To install php-language-server
-Plug '~/.dotfiles/vim/custom-bundle/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
+" To install php-language-server: cd ./plugin/php-language-server && composer install && composer run-script parse-stubs
 
 " Tests
 Plug 'janko-m/vim-test'
@@ -88,8 +87,7 @@ set noruler
 set nocursorline
 " set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
-set t_Co=256                " Enable 256 colors
-set t_ut=
+" set t_Co=256                " Enable 256 colors
 " set termguicolors           " Better colors in terminal, needs support from tmux also
 
 colorscheme gruvbox
@@ -236,6 +234,10 @@ command -range CommentJsx :call javascript#CommentJsx()
 " Git: stage current file
 command Ga :!git a %
 
+"============================================================================
+" Autcommands
+"============================================================================
+
 augroup focusevents
     au!
     " Reload file if file changed
@@ -263,7 +265,7 @@ let g:ale_linters = {
 " Dont show error highlights on lines, causes vim to slow down on huge files
 " let g:ale_set_highlights = 0 
 
-let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/bundle/php-language-server/vendor/bin/php-language-server.php'
+let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
 
 " ======== Tags =========
 " ** Closetag **
