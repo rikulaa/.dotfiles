@@ -652,8 +652,8 @@ let g:AutoPairsMultilineClose = 0
 
 " ======== Snippets =========
 " ** UltiSnips **
-let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/custom_snippets"
-let g:UltiSnipsSnippetDirectories=['custom_snippets']
+let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/custom-snippets"
+let g:UltiSnipsSnippetDirectories=['custom-snippets']
 
 " ======== UI =========
 " ** Nerdtree **
