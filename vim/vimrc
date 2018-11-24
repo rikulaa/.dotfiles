@@ -54,8 +54,7 @@ call plug#end()            " required
 "General
 "============================================================================
 set nocompatible            " no need to support vi
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 set mouse=a                 " Use mouse
 set rtp+=~/.local/bin       " Use executables (fzf) from bin
 set path+=**                " Provide tab-completion for all file-related tasks
@@ -205,6 +204,15 @@ function! AppendCharacterToEndOfLine()
 
 endfunction
 
+function! ShowDocumentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
 "============================================================================
 "Keybindings, custom mappings
 "============================================================================
@@ -216,54 +224,52 @@ nnoremap <leader>Y "*y
 vnoremap <leader>Y "*y
 nnoremap <leader>P "+p
 
-" map <ScrollWheelUp> <C-Y>
-" map <ScrollWheelDown> <C-E>
+"For windows navigation
+nnoremap <C-h> <C-w>h	
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-nnoremap <silent><leader>a :call AppendCharacterToEndOfLine()<cr>
+" Move between tabs
+nnoremap ]t :tabn<CR>
+nnoremap [t :tabp<CR>
 
-" Save if changes
-" noremap <Leader>s :update<CR>	"quicksave
+" Move to the previous buffer with 
+nnoremap [b :bp<CR>
+" Move to the next buffer with 
+nnoremap ]b :bn<CR>
+" Close buffer
+nnoremap <leader>q  :bd<CR>
 
-function! ToggleNERDTree()
-    let l:isNERDTreeFocused = exists("b:NERDTree")
-    if isNERDTreeFocused == 0 && bufexists(expand('%'))
-        :NERDTreeFind
-    else
-        :NERDTreeToggle
-    endif
-endfunction
-nnoremap <leader>e :call ToggleNERDTree()<CR>
+" Global search
+nnoremap <leader>f :grep 
+" Search the visual selection (as string literal)
+vnoremap <leader>f y :grep -F '<C-R>" '
+
+
+" Rename word
+nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
+
+" Plugins
+nnoremap <leader>G  :Magit<CR>
 
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
-" Grep from files (current pwd). Seachword is a string, no regex, which allows
-" to search for any kind of string inside project
-function! Grep(searchword)
-    let globs = "-g '!node_modules' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
-    :execute "grep! -S --hidden ". globs . "-F " . '"' . a:searchword . '"'
-    :execute "cw"
-endfunction
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
 
-function! GrepFromFiles(selection) 
-    let name = input('Search for: ', a:selection)
-    if name != ""
-        :execute ":call Grep(name)"
-    endif
+nmap <F2> <Plug>(coc-rename)
+nmap <silent> <leader>gd <Plug>(coc-definition)
 
-:endfunction
-nnoremap <leader>f :silent call GrepFromFiles("")<CR>
-vnoremap <leader>f y :silent call GrepFromFiles(@")<CR>
 
-" FZF
-" function! Fzf()
-"     " If pwd is git project, get only the files tracked by git, else use
-"     " ripgrep to fetch files
-"     call fzf#run({'source': 'git ls-files || rg --files . ', 'window': '30new','sink': 'e'})
-" endfunction
-" nnoremap <leader>p :call Fzf()<CR>
-" nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e', 'options': '--ansi --color=dark --preview="cat $FILE {}"'})<CR>
+nnoremap <silent><leader>a :call AppendCharacterToEndOfLine()<cr>
+
 nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
+
+function! SearchFilesByWord(word)
+    :execute ":FZF -q " . a:word
+endfunction
 vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Open buffer with FZF
@@ -286,32 +292,40 @@ nnoremap <silent> <leader>b :call fzf#run({
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
 
-nnoremap <C-`> :term<CR>
-"For windows navigation
-nnoremap <C-h> <C-w>h	
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Move between tabs
-nnoremap ]t :tabn<CR>
-nnoremap [t :tabp<CR>
-
-" Move to the previous buffer with 
-nnoremap [b :bp<CR>
-" Move to the next buffer with 
-nnoremap ]b :bn<CR>
-" Close buffer
-nnoremap <leader>q  :bd<CR>
 
 
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
-" nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>. 
-" " Move to the previous buffer with 
-" nnoremap <S-Tab>  :bp<CR>
-" " Move to the next buffer with 
-" nnoremap <Tab>    :bn<CR>
+
+" Save if changes
+" noremap <Leader>s :update<CR>	"quicksave
+
+function! ToggleNERDTree()
+    let l:isNERDTreeFocused = exists("b:NERDTree")
+    if isNERDTreeFocused == 0 && bufexists(expand('%'))
+        :NERDTreeFind
+    else
+        :NERDTreeToggle
+    endif
+endfunction
+nnoremap <leader>e :call ToggleNERDTree()<CR>
+
+
+" Grep from files (current pwd). Seachword is a string, no regex, which allows
+" to search for any kind of string inside project
+" function! Grep(searchword)
+"     let globs = "-g '!node_modules' -g '!.git/' -g '!*.lock' -g '!vendor/' -g '!storage/debugbar' -g '!_ide_helper.php' "
+"     :execute "grep! -S --hidden ". globs . "-F " . '"' . a:searchword . '"'
+"     :execute "cw"
+" endfunction
+
+" function! GrepFromFiles(selection) 
+"     let name = input('Search for: ', a:selection)
+"     if name != ""
+"         :execute ":call Grep(name)"
+"     endif
+" :endfunction
+" nnoremap <leader>f :silent call GrepFromFiles("")<CR>
+" vnoremap <leader>f y :silent call GrepFromFiles(@")<CR>
+
 
 "here is a more exotic version of my original Kwbd script
 "delete the buffer; keep windows; create a scratch buffer if no buffers left
@@ -388,8 +402,6 @@ endfunction
 command Rm :call DeleteAndCloseBuffer()
 
 
-" git
-nnoremap <leader>G  :Magit<CR>
 
 " commands
 command Vimrc :e ~/.vimrc
@@ -403,89 +415,24 @@ command Ga :!git a %
 " tnoremap <Esc> <C-\><C-n>
 " tnoremap <C-[> <C-\><C-n>
 
-function! SearchFilesByWord(word)
-    :execute ":FZF -q " . a:word
-endfunction
 
-function! GoToDefaultExport()
-    let result = search('export default', '', '')
-endfunction
-
-function! GoToDefinitionJS()
-    let startingLine=getline('.')
-    let word = expand("<cword>")
-
-    if matchstr(startingLine, '^import') != 'import'
-        :normal gD
-        :set hls
-    end
-
-    let currentLine=getline('.')
-    let importLine = '[import]*' .'[' . word . ']*[from]'
-    let splitted = split(currentLine, "'")
-    echo splitted
-
-    let targetFilePath = get(splitted, -1 - 1)
-    " let targetFilePath = splitted[-1 - 1]
-
-    " try to jump to definition only if file not npm module
-    if matchstr(targetFilePath, "^\.") == '.'
-        if splitted[0] =~ importLine
-            " try to open file with gf
-            try 
-                :execute "normal /;/\<CR>"
-                :normal 3hgf
-                call GoToDefaultExport()
-            catch
-                " try to open file with :e <filename>*
-                try
-                    let currentFolder =  expand('%:p:h') 
-                    :execute ":e " . currentFolder . '/' . targetFilePath . '*'
-                    call GoToDefaultExport()
-                catch
-                    :normal `` 
-                endtry
-            finally
-
-            endtry
-        else
-        end
-    " else
-        " try
-        "     " try to open module from node_modules (works only if vim started
-        "     " from project root)
-        "     :execute ":e ./node_modules/" . targetFilePath . '*'
-        " catch
-        "     :normal `` 
-        " endtry
-
-    end
-endfunction
 
 function! Lint()
     :execute ":!php-cs-fixer fix %"
 endfunction
 command Lint :call Lint()
 
+
+" Use K for show documentation in preview window
+command ShowDocumentation :call ShowDocumentation()<CR>
+
 augroup javascript
     au!
-    " au BufNewFile,BufRead *.js noremap gd *:call GoToDefinitionJS()<CR>
-    au BufEnter,BufNewFile,BufRead *.js noremap <leader>gd :TernDef<CR>
     au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>t :call TestFile()<CR>
     au BufEnter,BufNewFile,BufRead *.test.js noremap <leader>T :call Test()<CR>
-    " au BufNewFile,BufRead *.jsx noremap gd :call GoToDefinitionJS()<CR>
-    au BufEnter,BufNewFile,BufRead *.jsx noremap <leader>gd :TernDef<CR>
-    au BufEnter,BufNewFile,BufRead *.vue noremap  <leader>gd :call GoToDefinitionJS()<CR>
-
-    " can help with vue syntax highlight breaking
-	" au FileType vue syntax sync fromstart
 augroup end
 " au BufNewFile,BufRead *.vue noremap  gd :TernDef<CR>
 "
-augroup php
-    au!
-    au BufEnter,BufNewFile,BufRead *.php noremap  <leader>gd :ALEGoToDefinition<CR>
-augroup end
 
 augroup focusevents
     au!
@@ -580,7 +527,6 @@ function! ChangeTagName()
 endfunction
 nnoremap <leader>rt :call ChangeTagName()<cr>
 
-nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
 
 function! ToggleImportsOrientation()
     normal 0
