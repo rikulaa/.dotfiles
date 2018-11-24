@@ -1,6 +1,7 @@
 "============================================================================
 " Plugs
 "============================================================================
+" {{{ 
 " load all plugins from under .dotfiles
 set rtp+=~/.dotfiles/vim
 call plug#begin('~/.dotfiles/vim/bundle')
@@ -48,10 +49,12 @@ Plug 'morhetz/gruvbox'
 
 
 call plug#end()            " required
+" }}}
 
 "============================================================================
 "General
 "============================================================================
+" {{{
 set nocompatible            " no need to support vi
 filetype plugin indent on
 set mouse=a                 " Use mouse
@@ -76,10 +79,12 @@ set ttyfast                   "Smoother scrolling"
 set lazyredraw              " "Smootherrrr.??
 set noeol                   " no new line at the end
 set binary                  " No new line at the end
+" }}}
 
 "============================================================================
 " UI
 "============================================================================
+" {{{
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 " set ruler
@@ -93,38 +98,44 @@ syntax enable				" Show syntax
 colorscheme gruvbox
 set background=dark    " Setting dark mode
 set showcmd					" Show command at the bottom
+" }}}
 
 "============================================================================
 " Spaces & tab 
 "============================================================================
+" {{{
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4			" When indenting with >
 set expandtab				" When tabbing, insert (four) spaces
+" }}}
 
 "============================================================================
 "Searching
 "============================================================================
+" {{{
 set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
 set hlsearch                " Highligth search 
 set incsearch				" Search as characters are entered
-
+" }}}
 
 "============================================================================
 " Custom Functions
 "============================================================================
+" {{{
 function! DeleteAndCloseBuffer()
     let l:message = "Delete file: " . expand('%')
     let l:confirmation = confirm(message, "&Yes\n&No\n" )
     if confirmation == 1 | call delete(expand('%')) | bd! | endif
 endfunction
-
+" }}}
 
 "============================================================================
 "Keybindings, custom mappings
 "============================================================================
+" {{{
 let mapleader="\<Space>"	" Use space as leader key
 
 nnoremap <leader>w :w<CR>
@@ -214,11 +225,13 @@ function! ToggleNERDTree()
     endif
 endfunction
 nnoremap <leader>e :call ToggleNERDTree()<CR>
+" }}}
 
 
 "============================================================================
 " Commands
 "============================================================================
+" {{{
 command Vimrc :e ~/.vimrc
 command So :source %
 command Reload :source ~/.vimrc
@@ -233,21 +246,24 @@ command -range CommentJsx :call javascript#CommentJsx()
 
 " Git: stage current file
 command Ga :!git a %
+" }}}
+
 
 "============================================================================
 " Autcommands
 "============================================================================
-
+" {{{
 augroup focusevents
     au!
     " Reload file if file changed
     au FocusGained,BufEnter * :silent! !
 augroup end
+" }}} 
 
 "============================================================================
 " Additional plugin settings
 "============================================================================
-
+" {{{
 " ======== Git =========
 " Gitgutter
 let g:gitgutter_terminal_reports_focus=0
@@ -283,3 +299,4 @@ let g:UltiSnipsSnippetDirectories=['custom-snippets']
 " ** Nerdtree **
 " Fixing the weird symbols instead of folders on some systems
 let g:NERDTreeDirArrows=0
+" }}}
