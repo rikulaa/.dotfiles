@@ -232,9 +232,9 @@ nnoremap <leader>e :call ToggleNERDTree()<CR>
 " Commands
 "============================================================================
 " {{{
-command Vimrc :e ~/.vimrc
+command Vimrc :e $HOME/.dotfiles/vim/vimrc
 command So :source %
-command Reload :source ~/.vimrc
+command Reload :source $HOME/.dotfiles/vim/vimrc
 
 command Bda silent! :%bdelete
 command Rm :call DeleteAndCloseBuffer()

@@ -4,6 +4,7 @@ if [ -f $HOME/.aliases ]; then
 fi
 
 shell_config_dir=$HOME/.dotfiles/shell
+DOTFILES_DIR=$HOME/.dotfiles
 
 # for setting colors in ls
 if ls --color > /dev/null 2>&1; then
@@ -17,15 +18,15 @@ fi
 
 
 # ======== CONFIGURATIONS ============
-alias zshrc='$EDITOR $shell_config_dir/zshrc'
-alias bashrc='$EDITOR $shell_config_dir/bashrc'
-alias vimrc='$EDITOR $HOME/.vimrc'
-alias aliases='$EDITOR $shell_config_dir/aliases'
+alias zshrc='$EDITOR $DOTFILES_DIR/shell/zshrc'
+alias bashrc='$EDITOR $DOTFILES_DIR/shell/bashrc'
+alias vimrc='$EDITOR $DOTFILES_DIR/vim/vimrc'
+alias aliases='$EDITOR $DOTFILES_DIR/shell/aliases'
 alias aliases_local='$EDITOR $HOME/.aliases'
-alias gitconfig='$EDITOR $HOME/.dotfiles/git/gitconfig'
-alias dotfiles='cd ~/.dotfiles'
-alias dot='cd ~/.dotfiles'
-alias tmuxconf='$EDITOR $HOME/.dotfiles/tmux/tmux.conf'
+alias gitconfig='$EDITOR $DOTFILES_DIR/git/gitconfig'
+alias dotfiles='cd $DOTFILES_DIR'
+alias dot='cd $DOTFILES_DIR'
+alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
 alias g='git'
 
 alias bin='cd ~/.local/bin'
