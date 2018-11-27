@@ -3,6 +3,7 @@
 #Plugin EXCEPT Vundle
 vim/bundle/*
 vim/backup/*
+vim/sessions/*
 vim/swp/
 !vim/bundle/Vundle.vim
 .DS_STORE
