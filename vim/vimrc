@@ -140,6 +140,11 @@ command -range CommentJsx :call javascript#CommentJsx()
 
 " Git: stage current file
 command Ga :!git a %
+
+" Better grep
+" - Don't show confirmation after search
+" - Open quickfix window immediately
+command! -nargs=* -complete=file Grep execute "silent grep! <args>" | copen 42
 "}}}
 
 "============================================================================
@@ -183,9 +188,11 @@ nnoremap ]b :bn<CR>
 nnoremap <leader>q  :bd<CR>
 
 " Global search
-nnoremap <leader>f :grep 
+" :grep! (with !) won't open the first match, silent won't show the
+" confirmation
+nnoremap <leader>f :Grep 
 " Search the visual selection (as string literal)
-vnoremap <leader>f y :grep -F '<C-R>" '
+vnoremap <leader>f y :Grep -F '<C-R>"' 
 
 " Rename word
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
