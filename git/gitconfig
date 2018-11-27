@@ -23,14 +23,14 @@
     clean-all="!f() { git checkout . && git clean -f; }; f"
     publish = "!f() { git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD); }; f"
 
+    wip = !git add -A && git commit -m "wip"
+
     # list files which have changed since REVIEW_BASE
     # (REVIEW_BASE defaults to 'master' in my zshrc)
-    # files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
-    files = !git diff --name-only $(git merge-base HEAD master)
-    stat = !git diff --stat $(git merge-base HEAD master)
+    files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
 
-    # review = !vim -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
-    review = !vim -p $(git files) +\"tabdo Gdiff master\" +\"let g:gitgutter_diff_base = master\"
+    review = !$EDITOR -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 [core]
     excludesFile = ~/.dotfiles/git/gitignore_global
 [merge]
