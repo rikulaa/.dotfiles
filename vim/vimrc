@@ -120,6 +120,27 @@ set smartcase               " If any character is UPPER-case, search case-sensit
 set hlsearch                " Highligth search 
 set incsearch				" Search as characters are entered
 " }}}
+"
+"
+"============================================================================
+" Commands
+"============================================================================
+" {{{
+command Vimrc :e $HOME/.dotfiles/vim/vimrc
+command So :source %
+command Reload :source $HOME/.dotfiles/vim/vimrc
+
+command Bda silent! :%bdelete
+command Rm :call DeleteAndCloseBuffer()
+
+" From autoload folder
+command ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
+command ToggleFuncParamOrientation :call javascript#ToggleFuncParamOrientation()
+command -range CommentJsx :call javascript#CommentJsx()
+
+" Git: stage current file
+command Ga :!git a %
+"}}}
 
 "============================================================================
 " Custom Functions
