@@ -34,8 +34,20 @@ Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 
 " Intellisense, code completion, goto definition
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " To install php-language-server: cd ./plugin/php-language-server && composer install && composer run-script parse-stubs
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+
+" To install typescript server
+Plug 'rikulaa/LanguageServer-typescript-neovim/', {'do': 'npm install'}
+" Vue
+Plug 'rikulaa/LanguageServer-vue-neovim', {'do': 'npm install'}
+
 
 " Tests
 Plug 'janko-m/vim-test'
@@ -213,8 +225,12 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
 
-nmap <F2> <Plug>(coc-rename)
-nmap <silent> <leader>gd <Plug>(coc-definition)
+" nmap <F2> <Plug>(coc-rename)
+" nmap <silent> <leader>gd <Plug>(coc-definition)
+"
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nmap <F2> :call LanguageClient_textDocument_rename()<CR>
+nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 
 nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
 
@@ -244,15 +260,27 @@ nnoremap <silent> <leader>b :call fzf#run({
 \ })<CR>
 
 
-function! ToggleNERDTree()
-    let l:isNERDTreeFocused = exists("b:NERDTree")
-    if isNERDTreeFocused == 0 && bufexists(expand('%'))
-        :NERDTreeFind
+" function! ToggleNERDTree()
+"     let l:isNERDTreeFocused = exists("b:NERDTree")
+"     if isNERDTreeFocused == 0 && bufexists(expand('%'))
+"         :NERDTreeFind
+"     else
+"         :NERDTreeToggle
+"     endif
+" endfunction
+" nnoremap <leader>e :call ToggleNERDTree()<CR>
+"
+
+function! ToggleFileExplorer()
+    if &ft ==# "netrw"
+        " Netrw is already open
+        :Rexplore
     else
-        :NERDTreeToggle
+        :Explore
     endif
 endfunction
-nnoremap <leader>e :call ToggleNERDTree()<CR>
+" Toggle Netrw with <leader>e
+nnoremap <leader>e :call ToggleFileExplorer()<CR>
 " }}}
 
 
@@ -292,6 +320,10 @@ augroup end
 " Additional plugin settings
 "============================================================================
 " {{{
+"
+" Use LanguageClient for autocompletion source (c-x c-o)
+set completefunc=LanguageClient#complete
+"
 " ======== Git =========
 " Gitgutter
 let g:gitgutter_terminal_reports_focus=0
@@ -311,6 +343,8 @@ let g:ale_linters = {
 
 let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
 
+let g:LanguageClient_diagnosticsList = "Location"
+let g:LanguageClient_diagnosticsEnable = 0
 " ======== Tags =========
 " ** Closetag **
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php, *.vue"
