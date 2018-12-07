@@ -311,7 +311,8 @@ let g:gitgutter_terminal_reports_focus=0
 " ======== Linting =========
 let g:ale_fixers = {
 \'javascript': ['eslint'],
-\'c': ['clang-format']
+\'c': ['clang-format'],
+\'php': ['php_cs_fixer']
 \}
 let g:ale_linters = {
 \'javascript': ['eslint'],
