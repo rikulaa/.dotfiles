@@ -145,7 +145,7 @@ snippet esl
 endsnippet
 
 snippet for
-for (var i = ${1}; i < ${2}; i++) {
+for (let i = ${1}; i < ${2}; i++) {
 ${3}
 }
 endsnippet
@@ -200,6 +200,12 @@ PropTypes.arrayOf(${1})
 endsnippet
 snippet preq
 .isRequired
+endsnippet
+snippet pnode
+PropTypes.node
+endsnippet
+snippet poneoftype
+PropTypes.oneOfType
 endsnippet
 
 
