@@ -9,3 +9,6 @@
 tags
 
 .php_cs.cache
+
+# Snippets (makefile)
+.snippets
