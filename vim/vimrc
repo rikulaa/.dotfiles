@@ -138,20 +138,20 @@ set incsearch				" Search as characters are entered
 " Commands
 "============================================================================
 " {{{
-command Vimrc :e $HOME/.dotfiles/vim/vimrc
-command So :source %
-command Reload :source $HOME/.dotfiles/vim/vimrc
+command! Vimrc :e $HOME/.dotfiles/vim/vimrc
+command! So :source %
+command! Reload :source $HOME/.dotfiles/vim/vimrc
 
-command Bda silent! :%bdelete
-command Rm :call DeleteAndCloseBuffer()
+command! Bda silent! :%bdelete
+command! Rm :call DeleteAndCloseBuffer()
 
 " From autoload folder
-command ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
-command ToggleFuncParamOrientation :call javascript#ToggleFuncParamOrientation()
-command -range CommentJsx :call javascript#CommentJsx()
+command! ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
+command! ToggleFuncParamOrientation :call javascript#ToggleFuncParamOrientation()
+command! -range CommentJsx :call javascript#CommentJsx()
 
 " Git: stage current file
-command Ga :!git a %
+command! Ga :!git a %
 
 " Better grep
 " - Don't show confirmation after search
@@ -283,26 +283,6 @@ endfunction
 nnoremap <leader>e :call ToggleFileExplorer()<CR>
 " }}}
 
-
-"============================================================================
-" Commands
-"============================================================================
-" {{{
-command Vimrc :e $HOME/.dotfiles/vim/vimrc
-command So :source %
-command Reload :source $HOME/.dotfiles/vim/vimrc
-
-command Bda silent! :%bdelete
-command Rm :call DeleteAndCloseBuffer()
-
-" From autoload folder
-command ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
-command ToggleFuncParamOrientation :call javascript#ToggleFuncParamOrientation()
-command -range CommentJsx :call javascript#CommentJsx()
-
-" Git: stage current file
-command Ga :!git a %
-" }}}
 
 
 "============================================================================
