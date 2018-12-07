@@ -156,7 +156,7 @@ command Ga :!git a %
 " Better grep
 " - Don't show confirmation after search
 " - Open quickfix window immediately
-command! -nargs=* -complete=file Grep execute "silent grep! <args>" | copen 42
+command! -nargs=* -complete=file Grep execute "silent grep! <args>" | copen
 "}}}
 
 "============================================================================
