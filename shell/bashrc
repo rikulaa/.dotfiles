@@ -206,6 +206,11 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
+# Source git completion
+if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    . /usr/local/etc/bash_completion.d/git-completion.bash
+fi
+
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
