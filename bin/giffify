@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if ! [ -d giffify_output_temp ]; then
+	mkdir ./giffify_output_temp
+fi
+
+ffmpeg -i $1 -vf scale=320:-1 -r 10 giffify_output_temp/ffout%3d.png && convert -delay 8 -loop 0 giffify_output_temp/ffout*.png animation.gif
+
+rm -rf ./giffify_output_temp
