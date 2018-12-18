@@ -211,6 +211,8 @@ vnoremap <leader>f y :Grep -F '<C-R>"'
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
 " Rename tag
 nnoremap <leader>rt :call functions#ChangeTagName()<cr>
+" Rename last search
+nnoremap <leader>rs :%s//
 
 " Append character to the end of the line
 nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
