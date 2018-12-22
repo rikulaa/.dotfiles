@@ -1,0 +1,4 @@
+shell_dir=$HOME/.dotfiles/shell
+
+source $shell_dir/env
+
