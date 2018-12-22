@@ -12,10 +12,10 @@ config_dir=$HOME/.config
 os_type() {
     case `uname` in
         Linux )
+            which dnf > /dev/null && { echo fedora; return; }
             which yum > /dev/null && { echo centos; return; }
             which zypper > /dev/null && { echo opensuse; return; }
             which apt-get > /dev/null && { echo debian; return; }
-            which dnf > /dev/null && { echo fedora; return; }
             ;;
         Darwin )
             echo darwin && > /dev/null
@@ -38,6 +38,9 @@ install_all() {
         debian ) 
             . $setup_dir/debian_setup
             ;;
+        fedora )
+            . $setup_dir/fedora_setup
+            ;;	
         * )
             echo "Supported os not found!"
     esac
