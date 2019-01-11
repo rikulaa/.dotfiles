@@ -28,7 +28,4 @@ export REVIEW_BASE=master
 # for gruvbox 256 colour theme. Doesnt work it osx regular terminal but it break (unlike with truecolor)
 . $HOME/.dotfiles/vim/bundle/gruvbox/gruvbox_256palette_osx.sh
 
-export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-
-# For 'local' (use base) python packages
-export PYTHONUSERBASE=$HOME/.local
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$HOME/Library/Python/3.6/bin/"
