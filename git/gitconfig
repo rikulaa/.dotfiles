@@ -31,6 +31,7 @@
     stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
 
     review = !$EDITOR -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+    current-branch=!git rev-parse --abbrev-ref HEAD
 [core]
     excludesFile = ~/.dotfiles/git/gitignore_global
 [merge]
