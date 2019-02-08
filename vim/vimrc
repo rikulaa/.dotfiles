@@ -200,6 +200,10 @@ nnoremap ]b :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
 
+" Move between quickfix elements
+nnoremap ]q :cprev<CR>
+nnoremap [q :cnext<CR>
+
 " Global search
 " :grep! (with !) won't open the first match, silent won't show the
 " confirmation
