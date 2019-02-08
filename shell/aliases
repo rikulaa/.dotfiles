@@ -27,6 +27,8 @@ alias gitconfig='$EDITOR $DOTFILES_DIR/git/gitconfig'
 alias dotfiles='cd $DOTFILES_DIR'
 alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
+# For zhs
+compdef g='git'
 alias g='git'
 
 alias bin='cd ~/.local/bin'
@@ -70,6 +72,14 @@ if [[ ! $(uname) =~ "Darwin" ]]; then
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
 fi
+
+copy() {
+    if [ -n "$1" ]; then
+        echo $1 | pbcopy
+    else
+        echo "Nothing to copy"
+    fi
+}
 
 alias sizeof='du -sh'
 
