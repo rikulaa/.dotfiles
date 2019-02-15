@@ -193,6 +193,9 @@ source $shell_dir/env
 
 if [ -f $shell_dir/aliases ]; then
     . $shell_dir/aliases
+    
+    # compdef is only for zsh
+    compdef g='git'
 fi
 
 

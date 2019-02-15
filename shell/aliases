@@ -28,7 +28,6 @@ alias dotfiles='cd $DOTFILES_DIR'
 alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
 # For zhs
-compdef g='git'
 alias g='git'
 
 alias bin='cd ~/.local/bin'
