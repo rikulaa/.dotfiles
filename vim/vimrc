@@ -92,6 +92,17 @@ set ttyfast                   "Smoother scrolling"
 set lazyredraw              " "Smootherrrr.??
 set noeol                   " no new line at the end
 set binary                  " No new line at the end
+
+" Affects the visual representation of what happens after you hit <C-x><C-o>
+" https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
+" https://neovim.io/doc/user/options.html#'completeopt'
+"
+" This will show the popup menu even if there's only one match (menuone),
+" prevent automatic selection (noselect) and prevent automatic text injection
+" into the current line (noinsert).
+"
+" Copied from https://jacky.wtf/weblog/language-client-and-neovim/
+set completeopt=noinsert,menuone,noselect
 " }}}
 
 "============================================================================
