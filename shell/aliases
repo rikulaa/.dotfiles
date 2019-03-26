@@ -221,7 +221,7 @@ function tm() {
     if [ $has_session -eq 1 ]; then
         tmux new-session -n vim -d -s $name 
         tmux new-window -n terminal
-        tmux split-window 
+        tmux split-window -h
         tmux attach-session -d -t $name:vim
 
     else
