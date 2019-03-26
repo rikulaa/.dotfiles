@@ -8,23 +8,21 @@ let ${1} = ${2};
 endsnippet
 
 snippet action
-export const ${1} = ns('$1');
-export const ${2} = (${3}) => fsa($1${4:});
+export const ${1} = type('$1');
+export const ${2} = action($1, ${4:});
 endsnippet
 
 snippet sagawatch
 function* $4(${5}) {
-  try {
-	${6}
-  }
-  catch (e) {
-    console.warn(e);
-  }
 }
 
 function* ${1}() {
   yield ${2}(${3}, ${4});
 }
+endsnippet
+
+snippet sagafork
+
 endsnippet
 
 snippet cl
@@ -37,6 +35,10 @@ endsnippet
 
 snippet im "import xyz from 'xyz'"
 import ${1} from '${2:$1}';
+endsnippet
+
+snippet imp "import PropTypes from 'prop-types'"
+import PropTypes from 'prop-types';
 endsnippet
 
 # React
@@ -106,9 +108,9 @@ state = {
 endsnippet
 
 snippet pt
-static propTypes = {
-	${1}: React.PropTypes.${2:type},
-}
+${1}.propTypes = {
+	${2}
+};
 endsnippet
 
 snippet rcc
@@ -206,6 +208,9 @@ PropTypes.node
 endsnippet
 snippet poneoftype
 PropTypes.oneOfType
+endsnippet
+snippet pnumber
+PropTypes.number
 endsnippet
 
 
