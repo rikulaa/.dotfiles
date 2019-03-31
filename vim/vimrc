@@ -286,18 +286,6 @@ nnoremap <silent> <leader>b :call fzf#run({
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
 
-
-" function! ToggleNERDTree()
-"     let l:isNERDTreeFocused = exists("b:NERDTree")
-"     if isNERDTreeFocused == 0 && bufexists(expand('%'))
-"         :NERDTreeFind
-"     else
-"         :NERDTreeToggle
-"     endif
-" endfunction
-" nnoremap <leader>e :call ToggleNERDTree()<CR>
-"
-
 function! ToggleFileExplorer()
     if &ft ==# "netrw"
         " Netrw is already open
