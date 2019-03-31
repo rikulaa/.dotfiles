@@ -156,6 +156,7 @@ command! Reload :source $HOME/.dotfiles/vim/vimrc
 
 command! Bda silent! :%bdelete
 command! Rm :call DeleteAndCloseBuffer()
+command! -nargs=1 -complete=file Mv silent :call MoveBuffer(<q-args>)
 
 " From autoload folder
 command! ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
@@ -179,6 +180,14 @@ function! DeleteAndCloseBuffer()
     let l:message = "Delete file: " . expand('%')
     let l:confirmation = confirm(message, "&Yes\n&No\n" )
     if confirmation == 1 | call delete(expand('%')) | bd! | endif
+endfunction
+
+" Move buffer to {newPath}
+function! MoveBuffer(newPath)
+    let l:originalPath = expand('%')
+    :execute "!mv ".originalPath." ".a:newPath
+    :execute ":e ".a:newPath
+    :execute ":bd ".l:originalPath
 endfunction
 " }}}
 
