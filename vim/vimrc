@@ -189,6 +189,10 @@ function! MoveBuffer(newPath)
     :execute ":e ".a:newPath
     :execute ":bd ".l:originalPath
 endfunction
+
+function! StripTrailingWhitespace()
+    %s/\s\+$//ge
+endfunction
 " }}}
 
 "============================================================================
