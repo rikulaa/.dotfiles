@@ -244,10 +244,13 @@ nnoremap <leader>rs :%s//
 " Append character to the end of the line
 nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
 
-
+nnoremap <Leader>l :ALEFix<CR>
 
 " Mappings for plugins
 nnoremap <leader>G  :Magit<CR>
+nmap <leader>ghp <Plug>GitGutterPreviewHunk
+nmap <leader>ghs <Plug>GitGutterStageHunk
+nmap <Leader>ghu <Plug>GitGutterUndoHunk
 
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
