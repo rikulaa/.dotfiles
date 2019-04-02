@@ -329,23 +329,26 @@ let g:gitgutter_terminal_reports_focus=0
 
 " ======== Linting =========
 let g:ale_fixers = {
-\'javascript': ['eslint'],
-\'c': ['clang-format'],
-\'php': ['php_cs_fixer']
-\}
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \'javascript': ['eslint'],
+            \'c': ['clang-format'],
+            \ 'php': ['phpcbf', 'php_cs_fixer'],
+            \}
 let g:ale_linters = {
-\'javascript': ['eslint'],
-\'php': ['langserver'],
-\}
+            \'javascript': ['eslint'],
+            \ 'php': ['php', 'phpcs', 'phpmd', 'phpstan', 'langserver'],
+            \}
 
 " Dont use autoompletion from ale
-" let g:ale_completion_enabled = 0
+let g:ale_completion_enabled = 0
 
 " " Dont show error highlights on lines, causes vim to slow down on huge files
-let g:ale_set_highlights = 0 
+let g:ale_set_highlights = 0
 
-" let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
+let g:ale_php_phpstan_executable='./vendor/bin/phpstan'
+let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
 
+" Don't use language client for linting
 " let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_diagnosticsEnable = 0
 " ======== Tags =========
