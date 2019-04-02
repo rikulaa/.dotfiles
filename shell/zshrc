@@ -98,7 +98,16 @@ function precmd {
         git_prompt="%{$fg[red]%}"$git_branch"%{$fg[yellow]%}"$git_dirty"%{$reset_color%}"
         # git_prompt='$git_branch'$git_dirty$git_ahead$git_behind
     fi
-    PROMPT="%B%{$fg[blue]%} %c%{$reset_color%}$git_prompt%b "
+
+    # Background processes
+    backgound_jobs_prompt=''
+    for job in $(jobs); do
+        job_name=$(echo $job | grep -o '^\[\d]')
+        if [[ $job_name > 0 ]]; then
+            backgound_jobs_prompt=" %{$fg[green]%}"$job_name"%{$reset_color%}"
+        fi
+    done 
+    PROMPT="%B%{$fg[blue]%} %c%{$reset_color%}$git_prompt%b$backgound_jobs_prompt "
     # PROMPT="%B%c%{$reset_color%}$git_prompt%b "
 
 }
