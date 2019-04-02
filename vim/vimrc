@@ -88,7 +88,6 @@ set timeout                 " Reduce timeout caused by pressin Esc"
 set timeoutlen=3000
 set ttimeout
 set ttimeoutlen=50
-set ttyfast                   "Smoother scrolling"
 set lazyredraw              " "Smootherrrr.??
 set noeol                   " no new line at the end
 set binary                  " No new line at the end
