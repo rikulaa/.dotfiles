@@ -214,7 +214,7 @@ vnoremap <leader>Y "*y
 nnoremap <leader>P "+p
 
 "For windows navigation
-nnoremap <C-h> <C-w>h	
+nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
@@ -223,9 +223,9 @@ nnoremap <C-l> <C-w>l
 nnoremap ]t :tabn<CR>
 nnoremap [t :tabp<CR>
 
-" Move to the previous buffer with 
+" Move to the previous buffer with
 nnoremap [b :bp<CR>
-" Move to the next buffer with 
+" Move to the next buffer with
 nnoremap ]b :bn<CR>
 " Close buffer
 nnoremap <leader>q  :bd<CR>
