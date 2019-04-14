@@ -341,8 +341,17 @@ augroup focusevents
     " Reload file if file changed
     au FocusGained,BufEnter * :silent! !
 augroup end
-" }}} 
-
+" }}}
+"
+augroup dirty_cc_plus_tab_remap
+    autocmd!
+    " autocmd CmdWinEnter : nnoremap <tab> <c-f>
+    autocmd CmdWinEnter * cmap <c-c> <c-c><c-c>
+    autocmd CmdWinEnter * noremap <c-c> <c-c><c-c>
+    autocmd CmdWinLeave * cmap <c-c> <c-c>
+    autocmd CmdWinLeave * noremap <c-c> <c-c>
+augroup END
+" cmap <c-c> <c-c><c-c>
 "============================================================================
 " Additional plugin settings
 "============================================================================
