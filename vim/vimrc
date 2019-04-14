@@ -70,12 +70,12 @@ call plug#end()            " required
 set nocompatible            " no need to support vi
 filetype plugin indent on
 " Use mouse in normal, visual and insert mode(allows terminal selection while command mode)
-set mouse=nvi                 
+set mouse=nvi
 set path+=.,**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
-set backspace=2             " Allow deleting in insert mode 
+set backspace=2             " Allow deleting in insert mode
 set scrolloff=8             " keep 8 lines of space above and below the cursor
 set splitright              " Split new windows to the right"
 set splitbelow              " Split horizontal new windows to the bottom"
@@ -83,7 +83,7 @@ set splitbelow              " Split horizontal new windows to the bottom"
 set nobackup
 set noswapfile              " Dont use swapfiles"
 set hidden                  " Can change to another buffer without saving change"
-set updatetime=500          " Shows gitgutter signs faster 
+set updatetime=500          " Shows gitgutter signs faster
 set timeout                 " Reduce timeout caused by pressin Esc"
 set timeoutlen=3000
 set ttimeout
@@ -124,7 +124,7 @@ set showcmd					" Show command at the bottom
 " }}}
 
 "============================================================================
-" Spaces & tab 
+" Spaces & tab
 "============================================================================
 " {{{
 set tabstop=4
@@ -140,7 +140,7 @@ set expandtab				" When tabbing, insert (four) spaces
 set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
-set hlsearch                " Highligth search 
+set hlsearch                " Highligth search
 set incsearch				" Search as characters are entered
 " }}}
 "
