@@ -82,11 +82,33 @@ case "$TERM" in
 esac
 
 
+# Colors
+color_reset='\[\033[0m\]'
+sky_blue='\[\033[34m\]'
+light_sky_blue='\[\033[1;34m\]'
+
+blue='\[\033[36m\]'
+light_blue='\[\033[1;36m\]'
+
+red='\[\033[31m\]'
+light_red='\[\033[1;31m\]'
+
+green='\[\033[32m\]'
+light_green='\[\033[1;32m\]'
+
+purple='\[\033[35m\]'
+light_purple='\[\033[1;35m\]'
+
+white='\[\033[0m\]'
+
 function prompt_command {
     # uncomment for a colored prompt, if the terminal has the capability; turned
     # off by default to not distract the user: the focus in a terminal window
     # should be on the output of commands, not on the prompt
     force_color_prompt=yes
+
+    # Background processes
+    BACKGROUND_JOBS_PROMPT=$( [ -z "$(jobs | tail -1)" ] && echo '' || echo " $green[\j]$color_reset")
 
     if [ -n "$force_color_prompt" ]; then
         if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -104,7 +126,7 @@ function prompt_command {
         git status >/dev/null 2>&1 
     }
 
-    git_prompt=''
+    GIT_PROMPT=''
     if is_git; then
 
         git_status=$(git status -sb)
@@ -121,29 +143,24 @@ function prompt_command {
         git_ahead=''
         if [[ $git_ahead_amount > 0 ]]; then
             # green
-            git_ahead=' \[\033[32m\]+${git_ahead_amount}'
+            git_ahead=" $green+$git_ahead_amount"
         fi
 
         git_behind=''
         git_behind_amount=$(echo $git_status | grep 'behind.[0-9]' -o | cut -b 8-)
         if [[ $git_behind_amount > 0 ]]; then
             # red 
-            git_behind='\[\033[31m\]-${git_behind_amount}'
+            git_behind="$red-$git_behind_amount"
             
         fi
 
-
-        # git_prompt='\[\033[01;31m\]$git_branch'$git_dirty
-        git_prompt='\[\033[31m\]$git_branch'$git_dirty$git_ahead$git_behind
+        GIT_PROMPT="$red$git_branch$git_dirty$git_ahead$git_behind$color_reset"
     fi
 
     if [ "$color_prompt" = yes ]; then
-        # >
-        PS1='> \[\033[34m\]$(basename $(pwd))'$git_prompt'\[\033[00m\] '
-        # PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w'$git_prompt'\[\033[00m\] '
+        PS1="$light_sky_blue\W$color_reset$GIT_PROMPT$BACKGROUND_JOBS_PROMPT "
     else
         PS1='\u@\h:\w'
-        # PS1='\u@\h:\w\$ '
     fi
 }
 PROMPT_COMMAND=prompt_command
@@ -225,3 +242,5 @@ fi
 
 #disabling ctr-s behavior in terminal
 stty -ixon
+
+
