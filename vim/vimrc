@@ -376,4 +376,14 @@ let g:UltiSnipsSnippetDirectories=['custom-snippets']
 " ** Nerdtree **
 " Fixing the weird symbols instead of folders on some systems
 let g:NERDTreeDirArrows=0
+
+let g:carbon_now_sh_options =
+\ { 'ln': 'false',
+\   'l': 'graphql',
+\   't': 'material',
+\   'wt': 'sharp',
+\   'ds': 'true',
+\   'wm': 'false',
+\   'wa': 'false,',
+\ 'fm': 'Source Code Pro' }
 " }}}
