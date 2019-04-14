@@ -156,6 +156,7 @@ command! Reload :source $HOME/.dotfiles/vim/vimrc
 command! Bda silent! :%bdelete
 command! Rm :call DeleteAndCloseBuffer()
 command! -nargs=1 -complete=file Mv silent :call MoveBuffer(<q-args>)
+command! -nargs=1 -complete=file Cp silent :call CopyBuffer(<q-args>)
 
 " From autoload folder
 command! ToggleImportsOrientation :call javascript#ToggleImportsOrientation()
@@ -189,6 +190,12 @@ function! MoveBuffer(newPath)
     :execute ":bd ".l:originalPath
 endfunction
 
+" Copy buffer to {newPath}
+function! CopyBuffer(newPath)
+    let l:originalPath = expand('%')
+    :execute "!cp ".originalPath." ".a:newPath
+    :execute ":e ".a:newPath
+endfunction
 function! StripTrailingWhitespace()
     %s/\s\+$//ge
 endfunction
