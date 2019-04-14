@@ -173,9 +173,10 @@ end
 function initShortcuts()
   -- open terminal
   hs.hotkey.bind(mod, "return", function()
-      -- local iterm = hs.application.get('iTerm')
-      hs.application.open('Kitty')
-      hs.application.get('Kitty')
+      local iterm = hs.application.get('iTerm')
+      hs.application.open('iTerm')
+      -- hs.application.open('Kitty')
+      -- hs.application.get('Kitty')
       local menu = hs.application.getMenuItems()
       hs.alert.show(menu)
   end)
