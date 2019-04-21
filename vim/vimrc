@@ -147,7 +147,9 @@ set incsearch				" Search as characters are entered
 " Commands
 "============================================================================
 " {{{
-command! Vimrc :e $HOME/.dotfiles/vim/vimrc
+command! Vimrc :e $MYVIMRC
+command! Reload :source $MYVIMRC
+
 command! So :source %
 command! Reload :source $HOME/.dotfiles/vim/vimrc
 
