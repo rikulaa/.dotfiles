@@ -40,3 +40,28 @@ function! functions#AppendCharacterToEndOfLine()
     call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
 
 endfunction
+
+" File system helpers
+function! functions#DeleteAndCloseBuffer()
+    let l:message = "Delete file: " . expand('%')
+    let l:confirmation = confirm(message, "&Yes\n&No\n" )
+    if confirmation == 1 | call delete(expand('%')) | bd! | endif
+endfunction
+
+" Move buffer to {newPath}
+function! functions#MoveBuffer(newPath)
+    let l:originalPath = expand('%')
+    :execute "!mv ".originalPath." ".a:newPath
+    :execute ":e ".a:newPath
+    :execute ":bd ".l:originalPath
+endfunction
+
+" Copy buffer to {newPath}
+function! functions#CopyBuffer(newPath)
+    let l:originalPath = expand('%')
+    :execute "!cp ".originalPath." ".a:newPath
+    :execute ":e ".a:newPath
+endfunction
+function! StripTrailingWhitespace()
+    %s/\s\+$//ge
+endfunction
