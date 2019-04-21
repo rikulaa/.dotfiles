@@ -151,7 +151,6 @@ command! Vimrc :e $MYVIMRC
 command! Reload :source $MYVIMRC
 
 command! So :source %
-command! Reload :source $HOME/.dotfiles/vim/vimrc
 
 command! Bdall silent! :%bdelete
 command! Rm :call functions#DeleteAndCloseBuffer()
@@ -176,29 +175,6 @@ command! -nargs=* -complete=file Grep execute "silent grep! <args>" | copen
 " Custom Functions
 "============================================================================
 " {{{
-function! DeleteAndCloseBuffer()
-    let l:message = "Delete file: " . expand('%')
-    let l:confirmation = confirm(message, "&Yes\n&No\n" )
-    if confirmation == 1 | call delete(expand('%')) | bd! | endif
-endfunction
-
-" Move buffer to {newPath}
-function! MoveBuffer(newPath)
-    let l:originalPath = expand('%')
-    :execute "!mv ".originalPath." ".a:newPath
-    :execute ":e ".a:newPath
-    :execute ":bd ".l:originalPath
-endfunction
-
-" Copy buffer to {newPath}
-function! CopyBuffer(newPath)
-    let l:originalPath = expand('%')
-    :execute "!cp ".originalPath." ".a:newPath
-    :execute ":e ".a:newPath
-endfunction
-function! StripTrailingWhitespace()
-    %s/\s\+$//ge
-endfunction
 " }}}
 
 "============================================================================
@@ -207,7 +183,10 @@ endfunction
 " {{{
 let mapleader="\<Space>"	" Use space as leader key
 
+" Buffers
 nnoremap <leader>w :w<CR>
+nnoremap <leader>q :bd<CR>
+
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
 vnoremap <leader>Y "*y
@@ -219,27 +198,59 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Move between tabs
+" Navigation (between tabs)
 nnoremap ]t :tabn<CR>
 nnoremap [t :tabp<CR>
-
-" Move to the previous buffer with
+" Navigation (between buffer)
 nnoremap [b :bp<CR>
-" Move to the next buffer with
 nnoremap ]b :bn<CR>
-" Close buffer
-nnoremap <leader>q  :bd<CR>
-
-" Move between quickfix elements
+" Navigation (between quickfix items)
 nnoremap ]q :cprev<CR>
 nnoremap [q :cnext<CR>
 
-" Global search
-" :grep! (with !) won't open the first match, silent won't show the
-" confirmation
+" Navigation (buffers)
+" Open buffer with FZF
+" https://github.com/junegunn/fzf/wiki/Examples-(vim)
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <leader>b :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+" Navigation (file explorer)
+function! ToggleFileExplorer()
+    if &ft ==# "netrw"
+        " Netrw is already open
+        :Rexplore
+    else
+        :Explore
+    endif
+endfunction
+nnoremap <leader>e :call ToggleFileExplorer()<CR>
+
+" Global search (patterns)
 nnoremap <leader>f :Grep 
 " Search the visual selection (as string literal)
 vnoremap <leader>f y :Grep -F '<C-R>"' 
+
+" Global serach (files)
+nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
+function! SearchFilesByWord(word)
+    :execute ":FZF -q " . a:word
+endfunction
+vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Rename word
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
@@ -262,51 +273,14 @@ nmap <Leader>ghu <Plug>GitGutterUndoHunk
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
+" Navigate between errors
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
-
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nmap <F2> :call LanguageClient_textDocument_rename()<CR>
 nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 
-nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
-
-function! SearchFilesByWord(word)
-    :execute ":FZF -q " . a:word
-endfunction
-vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
-
-" Open buffer with FZF
-" https://github.com/junegunn/fzf/wiki/Examples-(vim)
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <leader>b :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
-
-function! ToggleFileExplorer()
-    if &ft ==# "netrw"
-        " Netrw is already open
-        :Rexplore
-    else
-        :Explore
-    endif
-endfunction
-" Toggle Netrw with <leader>e
-nnoremap <leader>e :call ToggleFileExplorer()<CR>
 " }}}
 
 " https://www.reddit.com/r/vim/comments/6h0dy7/which_autoclosing_plugin_do_you_use/
