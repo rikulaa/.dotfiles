@@ -269,10 +269,6 @@ alias docker-stop-all='docker kill $(docker ps -q)'
 alias docker-rm-containers='docker rm $(docker ps -a -q)'
 alias docker-rm-images=' docker rmi $(docker images -q)'
 
-# Tags for php (using universal-ctags)
-alias phptags='ctags -R --exclude=node_modules --exclude=build --language=php --php-kinds=cfit'
-
-
 # REACT NATIVE 
 alias rn='react-native'
 
