@@ -98,6 +98,7 @@ alias php-server='php -S localhost:8000'
 if [ -x "$(command -v nvim)" ]; then
     alias vim="nvim"
     alias v='nvim'
+    alias vimdiff='nvim -d'
 else
     if [ -x "$(command -v vim)" ]; then
         alias vim="vim"
