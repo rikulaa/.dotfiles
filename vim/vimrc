@@ -153,7 +153,7 @@ command! Vimrc :e $HOME/.dotfiles/vim/vimrc
 command! So :source %
 command! Reload :source $HOME/.dotfiles/vim/vimrc
 
-command! Bda silent! :%bdelete
+command! Bdall silent! :%bdelete
 command! Rm :call DeleteAndCloseBuffer()
 command! -nargs=1 -complete=file Mv silent :call MoveBuffer(<q-args>)
 command! -nargs=1 -complete=file Cp silent :call CopyBuffer(<q-args>)
