@@ -6,8 +6,8 @@ endsnippet
 
 snippet try
 try {
-	${2}
-} catch (${1:\Exception $e}) {
+	${1}
+} catch (\Exception $e}) {
 
 }
 endsnippet
@@ -17,7 +17,7 @@ $this->${1} = $${2:$1};
 endsnippet
 
 snippet $t
-$this->${1}
+$this->${1} = ${2}
 endsnippet
 
 snippet if 
@@ -52,4 +52,41 @@ endsnippet
 
 snippet php
 <?php
+endsnippet
+
+snippet appends
+/**
+ * The accessors to append to the model's array form.
+ *
+ * @var array
+ */
+protected $appends = [${1}];
+endsnippet
+
+snippet publicfn
+public function ${1}(${2})
+{
+	${3}
+}
+endsnippet
+snippet privatefn
+private function ${1}(${2})
+{
+	${3}
+}
+
+endsnippet
+
+snippet publicstaticfn
+public static function ${1}(${2})
+{
+	${3}
+}
+endsnippet
+
+snippet privatestaticfn
+private static function ${1}(${2})
+{
+	${3}
+}
 endsnippet
