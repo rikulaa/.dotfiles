@@ -110,12 +110,10 @@ set completeopt=noinsert,menuone,noselect
 " {{{
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
-" set ruler
 set noruler
 set nocursorline
 " set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
-" set t_Co=256                " Enable 256 colors
 " set termguicolors           " Better colors in terminal, needs support from tmux also
 
 colorscheme gruvbox
@@ -265,9 +263,7 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
 
-" nmap <F2> <Plug>(coc-rename)
-" nmap <silent> <leader>gd <Plug>(coc-definition)
-"
+
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nmap <F2> :call LanguageClient_textDocument_rename()<CR>
 nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
