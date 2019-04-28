@@ -3,11 +3,8 @@ if exists("b:javascript_ftplugin")
     finish
 endif
 
-augroup jssetup
-    au!
-    au FileType javascript compiler eslint
-    au FileType javascript setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
-augroup end
+compiler jest
+setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
 
 " Add node_modules to path
 setlocal path+=node_modules
