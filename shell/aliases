@@ -20,7 +20,7 @@ fi
 # ======== CONFIGURATIONS ============
 alias zshrc='$EDITOR $DOTFILES_DIR/shell/zshrc'
 alias bashrc='$EDITOR $DOTFILES_DIR/shell/bashrc'
-alias vimrc='$EDITOR $DOTFILES_DIR/vim/vimrc'
+alias vimrc='$EDITOR $DOTFILES_DIR/vim/init.vim'
 alias aliases='$EDITOR $DOTFILES_DIR/shell/aliases'
 alias aliases_local='$EDITOR $HOME/.aliases'
 alias gitconfig='$EDITOR $DOTFILES_DIR/git/gitconfig'
