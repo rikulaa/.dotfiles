@@ -9,12 +9,16 @@ augroup jssetup
     au FileType javascript setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
 augroup end
 
-set define=^\s*\\(const\\|\s*let\\)
+" Add node_modules to path
+setlocal path+=node_modules
+setlocal define=^\s*\\(const\\\|let\\\|var\\)
+ 
+setlocal suffixesadd=.js,.json,.jsx
 
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2			" When indenting with >
-set expandtab				" When tabbing, insert (four) spaces
+setlocal tabstop=2
+setlocal softtabstop=2
+setlocal shiftwidth=2			" When indenting with >
+setlocal expandtab				" When tabbing, insert (four) spaces
 
 let b:javascript_ftplugin = 1
 
