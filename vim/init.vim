@@ -242,7 +242,7 @@ nnoremap <leader>e :call ToggleFileExplorer()<CR>
 " Global search (patterns)
 nnoremap <leader>f :Grep 
 " Search the visual selection (as string literal)
-vnoremap <leader>f y :Grep -F '<C-R>"' 
+vnoremap <leader>f y :Grep -F \"<C-R>"\"
 
 " Global serach (files)
 nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
