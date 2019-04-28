@@ -116,8 +116,8 @@ syntax enable				" Show syntax
 " set termguicolors           " Better colors in terminal, needs support from tmux also
 
 colorscheme gruvbox
-" set background=dark    " Setting dark mode
-set background=light    " Setting dark mode
+set background=dark    " Setting dark mode
+" set background=light    " Setting dark mode
 set showcmd					" Show command at the bottom
 " }}}
 
