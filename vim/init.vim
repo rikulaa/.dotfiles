@@ -70,7 +70,7 @@ set nocompatible            " no need to support vi
 filetype plugin indent on
 " Use mouse in normal, visual and insert mode(allows terminal selection while command mode)
 set mouse=nvi
-set path+=.,**                " Provide tab-completion for all file-related tasks
+set path+=**                " Provide tab-completion for all file-related tasks
 set autoread                " Reload files changed outside vim
 set encoding=utf-8
 set nowrap                  " Disable text wrapping"
