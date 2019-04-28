@@ -3,7 +3,6 @@
 "============================================================================
 " {{{
 " load all plugins from under .dotfiles
-set rtp+=~/.dotfiles/vim
 call plug#begin('~/.dotfiles/vim/bundle')
 
 " General usability
@@ -117,7 +116,8 @@ syntax enable				" Show syntax
 " set termguicolors           " Better colors in terminal, needs support from tmux also
 
 colorscheme gruvbox
-set background=dark    " Setting dark mode
+" set background=dark    " Setting dark mode
+set background=light    " Setting dark mode
 set showcmd					" Show command at the bottom
 " }}}
 
@@ -339,7 +339,7 @@ let g:gitgutter_terminal_reports_focus=0
 " ======== Linting =========
 let g:ale_fixers = {
             \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \'javascript': ['eslint'],
+            \'javascript': ['eslint', 'prettier'],
             \'c': ['clang-format'],
             \ 'php': ['phpcbf', 'php_cs_fixer'],
             \}
@@ -360,6 +360,9 @@ let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-se
 " Don't use language client for linting
 " let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_diagnosticsEnable = 0
+
+" Comment arrow functions also
+let g:jsdoc_enable_es6 = 1
 " ======== Tags =========
 " ** Closetag **
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php, *.vue"
@@ -387,3 +390,34 @@ let g:carbon_now_sh_options =
 \   'wa': 'false,',
 \ 'fm': 'Source Code Pro' }
 " }}}
+"
+"
+"
+fun! CompleteMonths(findstart, base)
+    if a:findstart
+        " locate the start of the word
+        let line = getline('.')
+        let start = col('.') - 1
+        while start > 0 && line[start - 1] =~ '\a'
+            let start -= 1
+        endwhile
+        return start
+    else
+        echo getftype(expand('%'))	
+        " find months matching with "a:base"
+        let res = []
+        for m in split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec")
+            if m =~ '^' . a:base
+                call add(res, m)
+            endif
+        endfor
+        return res
+    endif
+endfun
+
+fun! Gft()
+    execute ":grep 'snippet'" . g:UltiSnipsSnippetsDir . '/'. &ft . '.snippets'
+    for d in getqflist()
+       echo bufname(d.bufnr) ':' d.lnum '=' d.text
+    endfor
+endfun
