@@ -204,8 +204,8 @@ nnoremap [t :tabp<CR>
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 " Navigation (between quickfix items)
-nnoremap ]q :cprev<CR>
-nnoremap [q :cnext<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprev<CR>
 
 " Navigation (buffers)
 " Open buffer with FZF
