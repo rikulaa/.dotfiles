@@ -8,7 +8,12 @@ setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
 
 " Add node_modules to path
 setlocal path+=node_modules
-setlocal define=^\s*\\(const\\\|let\\\|var\\)
+" Vim will treat these as macros
+" setlocal define=^\s*\\(const\\\|let\\\|function\\\|class\\\|var\\)
+setlocal define=\\(const\\\|let\\\|function\\\|class\\\|var\\)
+" The 'import' statemets
+" set include=from
+setlocal include=^\\s*[^\/]\\+\\(from\\\|require(['\"]\\)
  
 setlocal suffixesadd=.js,.json,.jsx
 
