@@ -55,6 +55,7 @@ Plug 'SirVer/ultisnips'
 " Themes
 Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Other
 Plug 'kristijanhusak/vim-carbon-now-sh'     " Create images from code snippets
