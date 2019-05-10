@@ -264,6 +264,21 @@ nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
 
 nnoremap <Leader>l :ALEFix<CR>
 
+" Do not lose selection when indenting with '<' or '>' (visual mode)
+xnoremap <  <gv
+xnoremap >  >gv
+
+" Readline mode mappings (insert and command mode)
+" Jump to beginning of line
+inoremap <C-A> <C-O>^
+cnoremap <C-A> <Home>
+" Make sure the original behaviour for <C-A> is still available
+cnoremap <C-X><C-A> <C-A>
+" Jump to end of line
+inoremap <C-E> <C-O>$
+cnoremap <C-E> <End>
+
+
 " Mappings for plugins
 nnoremap <leader>G  :Magit<CR>
 nmap <leader>ghp <Plug>GitGutterPreviewHunk
