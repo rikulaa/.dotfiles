@@ -12,3 +12,6 @@ tags
 
 # Snippets (makefile)
 .snippets
+
+# VIM stuff
+.projections.json
