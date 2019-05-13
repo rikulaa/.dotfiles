@@ -135,7 +135,9 @@ set expandtab				" When tabbing, insert (four) spaces
 "Searching
 "============================================================================
 " {{{
-set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
+if executable('rg')
+    set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
+endif
 set ignorecase              " When typing smallcase, search is case-insensitive"
 set smartcase               " If any character is UPPER-case, search case-sensitive"
 set hlsearch                " Highligth search
