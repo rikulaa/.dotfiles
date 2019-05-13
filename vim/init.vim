@@ -278,13 +278,6 @@ cnoremap <C-X><C-A> <C-A>
 inoremap <C-E> <C-O>$
 cnoremap <C-E> <End>
 
-
-" Mappings for plugins
-nnoremap <leader>G  :Magit<CR>
-nmap <leader>ghp <Plug>GitGutterPreviewHunk
-nmap <leader>ghs <Plug>GitGutterStageHunk
-nmap <Leader>ghu <Plug>GitGutterUndoHunk
-
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
@@ -296,6 +289,18 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nmap <F2> :call LanguageClient_textDocument_rename()<CR>
 nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 
+let __GetHunkActions = {
+            \'s': {'title': "stage", 'command': 'GitGutterStageHunk' },
+            \'u': {'title': "undo", 'command': 'GitGutterUndoHunk' },
+            \}
+let __GitActions = {
+            \'d': {'title': "diff", 'command': 'Gdiff' },
+            \'b': {'title': "blame", 'command': 'Gblame' },
+            \'h': {'title': "hunk actions", 'function': function('prompter#Show', [ __GetHunkActions ]) },
+            \'m': {'title': "magit", 'command': 'Magit' },
+            \}
+
+nnoremap <silent> <leader>G  :call prompter#Show(__GitActions)<CR>
 " }}}
 
 " https://www.reddit.com/r/vim/comments/6h0dy7/which_autoclosing_plugin_do_you_use/
