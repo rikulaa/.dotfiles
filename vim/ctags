@@ -100,6 +100,8 @@
 --regex-javascript=/^[ \t]*let[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*new/\1/V,Variable,Variables/b
 --regex-javascript=/^[ \t]*const[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*new/\1/V,Variable,Variables/b
 
+--regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+
 --exclude=min
 --exclude=vendor
 --exclude=\*.min.\*
@@ -110,7 +112,6 @@
 --exclude=node_modules
 --exclude=bower_components
 --exclude=test
---exclude=tests
 --exclude=dist
 --exclude=resources/public/js/compiled/out/**
 --exclude=**public/build/**
