@@ -17,6 +17,7 @@
     cob = checkout -b
     lg = log --pretty=format:'%C(red)%h%C(yellow)%d  %Creset%s %Cgreen(%cr) %C(bold blue) <%cn>' --decorate
     st = status -sb
+    d = diff
     history = "!f() { git lg | fzf --ansi --color=dark --reverse --preview 'git show --color=always {+1}' --border  | cut -c 1-7; }; f"
     h = "!f() { git lg | fzf --ansi --color=dark --reverse --preview 'git show  --color=always {+1}' --border  | cut -c 1-7; }; f"
     reset-hard = "!f() { git_branch=$(git branch | sed -n 's/[*][a-zA-Z/]*//p' | cut -b 2- || ''); if [ ! -z "$(git remote | head -1)" ]; then git reset --hard origin/$git_branch; else echo "No remotes set"; fi; }; f"
