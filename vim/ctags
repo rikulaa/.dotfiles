@@ -197,5 +197,7 @@
 --exclude=*bundle.*
 --exclude=_ide_helper.php
 --exclude=*debugbar
+--exclude=*.md
+--exclude=storage/framework/*
 
 --sort=no
