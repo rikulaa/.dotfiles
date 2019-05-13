@@ -93,3 +93,11 @@ private static function ${1}(${2})
 	${3}
 }
 endsnippet
+
+snippet DB::transaction
+DB::transaction(
+		function () use (${1}) {
+		${2}
+		}
+		);
+endsnippet
