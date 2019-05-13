@@ -10,37 +10,35 @@ function! prompter#GetInput()
 endfunction
 
 function! prompter#Show(actions)
-    " Close any existing preview windows
-    " pclose
-    redraw
-    set previewheight=5
-
-    let l:promptText = " Choose action"
-
     function! GetChoice(key, val)
         let l:title = get(a:val, 'title')
         return "(" . strcharpart(title, 0, 1) . ")" . strcharpart(title, 1)
     endfunc
-
-    let l:tmpfile = tempname()
-
-    let l:choices = "&" . join(map(values(a:actions), function("GetChoice")), "\n&") . "\n"
-
-    " Output the options to tmp file and open it on preview
-    execute "silent !echo " . shellescape(join(map(values(a:actions), function("GetChoice")), "\t")) " > " . tmpfile
+    
+    execute "10new"
+    let w:scratch = 1
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    call setline(1, split(join(map(values(a:actions), function("GetChoice")), "\t"), "\n"))
     redraw
-    execute "silent pedit " . tmpfile
-    redraw
-
-    " Get input from user
     let l:choice = call('prompter#GetInput', [])
     let l:targetAction = get(a:actions, nr2char(choice), {})
 
+    execute "wincmd k"
+
+    " Close the scratch window
+    for win in range(1, winnr('$'))
+        if getwinvar(win, 'scratch')
+            execute win . 'windo close'
+        endif
+    endfor
+
+    " Run the action
     if (has_key(targetAction, 'function'))
         call targetAction['function']()
     elseif (has_key(targetAction, 'command'))
         let l:output = execute(targetAction['command'])
     endif
+endfunction
 
     " Close the preview window, delete and unload the tmp buffer
     pclose
