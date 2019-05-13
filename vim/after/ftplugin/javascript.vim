@@ -24,3 +24,12 @@ setlocal expandtab				" When tabbing, insert (four) spaces
 
 let b:javascript_ftplugin = 1
 
+function! JsSortUse()
+    %sort /\/[A-z]/ r
+endfunction
+
+let __IncludeActions = {
+            \'s': {'title': "sort imports", '': function('JsSortUse', []) },
+            \}
+
+nnoremap <silent> <leader>L  :call prompter#Show(__IncludeActions)<CR>
