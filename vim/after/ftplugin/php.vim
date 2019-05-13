@@ -6,3 +6,7 @@ let __IncludeActions = {
             \}
 
 nnoremap <silent> <leader>L  :call prompter#Show(__IncludeActions)<CR>
+
+" https://gist.github.com/romainl/f2d0727bdb9bde063531cd237f47775f
+" Tell Vim to look for a specific tags file (standard library, reference implementation, etc.) in addition to the standard ones define above:
+setlocal tags+=vendor/tags
