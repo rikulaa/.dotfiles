@@ -29,6 +29,9 @@ Plug 'leafgarland/typescript-vim'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'jwalton512/vim-blade', {'for': 'blade'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'vim-scripts/PDV--phpDocumentor-for-Vim'
+
 Plug 'jparise/vim-graphql'
 
 " Languages (autocomplete, goto definition)
