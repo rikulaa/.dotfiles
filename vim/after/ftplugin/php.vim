@@ -1,7 +1,12 @@
 setlocal formatprg=./vendor/bin/php-cs-fixer\ fix 
 
+function! __PhpInsertUse()
+    call PhpInsertUse()
+    call PhpSortUse()
+endfunction
+
 let __IncludeActions = {
-            \'a': {'title': "add import", 'function': function('PhpInsertUse', []) },
+            \'a': {'title': "add import", 'function': function('__PhpInsertUse', []) },
             \'s': {'title': "sort imports", 'function': function('PhpSortUse', []) },
             \}
 
