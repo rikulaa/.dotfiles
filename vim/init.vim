@@ -436,7 +436,7 @@ fun! CompleteMonths(findstart, base)
         endwhile
         return start
     else
-        echo getftype(expand('%'))	
+        echo getftype(expand('%'))
         " find months matching with "a:base"
         let res = []
         for m in split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec")
