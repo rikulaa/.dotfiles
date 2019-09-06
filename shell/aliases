@@ -243,14 +243,9 @@ function tma() {
 
         # check if any sessions exists
         if [  $sessions_count -gt 0 ]; then
-            # if only one session exists, attach to it immediatly
-            if [ $sessions_count -eq 1 ]; then
-                tmux attach
-            else
-                target_session=$(tmux list-sessions | fzf --reverse | sed 's/\([a-zA-z0-9]:\).*/\1/')
-                if [ -n "$target_session" ]; then
-                    tmux attach -t $target_session
-                fi
+            target_session=$(tmux list-sessions | fzf --reverse | sed 's/\([a-zA-z0-9]:\).*/\1/')
+            if [ -n "$target_session" ]; then
+                tmux attach -t $target_session
             fi
         fi
     else
