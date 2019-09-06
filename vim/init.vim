@@ -300,6 +300,8 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nmap <F2> :call LanguageClient_textDocument_rename()<CR>
 nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 
+vnoremap <leader>a :EasyAlign<CR>
+
 let __GetHunkActions = {
             \'s': {'title': "stage", 'command': 'GitGutterStageHunk' },
             \'u': {'title': "undo", 'command': 'GitGutterUndoHunk' },
