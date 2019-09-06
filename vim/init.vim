@@ -84,6 +84,7 @@ set scrolloff=8             " keep 8 lines of space above and below the cursor
 set splitright              " Split new windows to the right"
 set splitbelow              " Split horizontal new windows to the bottom"
 " set backupcopy=no          " Doesnt with webpack-dev-server without this (if backups not on)?
+set undofile
 set nobackup
 set noswapfile              " Dont use swapfiles"
 set hidden                  " Can change to another buffer without saving change"
