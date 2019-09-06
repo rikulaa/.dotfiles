@@ -1,3 +1,5 @@
+extends common
+
 snippet const
 const ${1} = ${2};
 endsnippet
@@ -47,10 +49,6 @@ endsnippet
 
 # React
 snippet ir
-import React from 'react';
-endsnippet
-
-snippet irc
 import React, {Component} from 'react';
 endsnippet
 
@@ -118,7 +116,7 @@ ${1}.propTypes = {
 endsnippet
 
 snippet rcc
-class ${1:ClassName} extends React.Component {
+class ${1:ClassName} extends Component {
 	render() {
 		return (
 			${0:<div />}
@@ -213,8 +211,14 @@ endsnippet
 snippet poneoftype
 PropTypes.oneOfType
 endsnippet
+snippet poneof
+PropTypes.oneOf
+endsnippet
 snippet pnumber
 PropTypes.number
+endsnippet
+snippet pisr
+isRequired
 endsnippet
 
 
