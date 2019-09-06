@@ -8,6 +8,8 @@ call plug#begin('~/.dotfiles/vim/bundle')
 " General usability
 Plug 'tpope/vim-commentary'           " Comments
 Plug 'tpope/vim-surround'             " Vim Surround plugin
+Plug 'junegunn/vim-easy-align'
+
 " Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
 Plug 'junegunn/fzf'                   " fuzzy searc
