@@ -176,6 +176,9 @@ command! Ga :!git a %
 " - Don't show confirmation after search
 " - Open quickfix window immediately
 command! -nargs=* -complete=file Grep execute "silent grep! <args>" | copen
+
+" Command for resyncing screen
+command! ResyncScreen :syntax sync fromstart<cr>:redraw!<cr>
 "}}}
 
 "============================================================================
