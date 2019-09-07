@@ -361,9 +361,6 @@ augroup END
 "============================================================================
 " {{{
 "
-" Use LanguageClient for autocompletion source (c-x c-o)
-set completefunc=LanguageClient#complete
-"
 " ======== Git =========
 " Gitgutter
 let g:gitgutter_terminal_reports_focus=0
