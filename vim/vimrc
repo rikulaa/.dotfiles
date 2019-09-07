@@ -263,7 +263,7 @@ endfunction
 vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
 " Rename word
-nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>rw :%s/\<<C-r><C-w>\>//gc<left><left><left>
 " Rename tag
 nnoremap <leader>rt :call functions#ChangeTagName()<cr>
 " Rename last search
