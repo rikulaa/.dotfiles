@@ -436,11 +436,9 @@ fun! CompleteSnippet(findstart, base)
         endwhile
         return start
     else 
-        let filepath = g:UltiSnipsSnippetsDir.'/'. &ft .'.snippets'
-        let haystack = systemlist("grep " . shellescape('^snippet') . " " . filepath . " | sed -e " . shellescape('s/^snippet //g'))
+        let haystack = UltiSnips#SnippetsInCurrentScope(1)
         let res = []
-        echo haystack
-        for m in haystack
+        for m in keys(haystack)
             echo m
             if m =~ '^' . a:base
                 call add(res, m)
