@@ -422,7 +422,8 @@ let g:carbon_now_sh_options =
 "
 "
 "
-fun! CompleteMonths(findstart, base)
+" Use 'completefunc' to complete snippets for specific filetype
+fun! CompleteSnippet(findstart, base)
     if a:findstart
         " locate the start of the word
         let line = getline('.')
@@ -431,11 +432,13 @@ fun! CompleteMonths(findstart, base)
             let start -= 1
         endwhile
         return start
-    else
-        echo getftype(expand('%'))
-        " find months matching with "a:base"
+    else 
+        let filepath = g:UltiSnipsSnippetsDir.'/'. &ft .'.snippets'
+        let haystack = systemlist("grep " . shellescape('^snippet') . " " . filepath . " | sed -e " . shellescape('s/^snippet //g'))
         let res = []
-        for m in split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec")
+        echo haystack
+        for m in haystack
+            echo m
             if m =~ '^' . a:base
                 call add(res, m)
             endif
@@ -443,13 +446,7 @@ fun! CompleteMonths(findstart, base)
         return res
     endif
 endfun
-
-fun! Gft()
-    execute ":grep 'snippet'" . g:UltiSnipsSnippetsDir . '/'. &ft . '.snippets'
-    for d in getqflist()
-       echo bufname(d.bufnr) ':' d.lnum '=' d.text
-    endfor
-endfun
+set completefunc=CompleteSnippet
 
 
 " Movement in insert mode
