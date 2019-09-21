@@ -10,6 +10,7 @@ Plug 'tpope/vim-commentary'           " Comments
 Plug 'tpope/vim-surround'             " Vim Surround plugin
 Plug 'tpope/vim-projectionist'
 Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-abolish'            " For converting name cases
 
 " Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
