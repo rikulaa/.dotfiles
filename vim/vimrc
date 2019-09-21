@@ -399,6 +399,10 @@ let g:jsdoc_enable_es6 = 1
 " ======== Tags =========
 " ** Closetag **
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php, *.vue"
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
 
 " Do dont jump to matching tag on another line
 let g:AutoPairsMultilineClose = 0
