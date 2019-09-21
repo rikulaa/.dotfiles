@@ -103,3 +103,16 @@ DB::transaction(
 		}
 		);
 endsnippet
+
+snippet transformerinclude
+
+public function include${1}(${2} ${3})
+{
+	${4} = $3->$4;
+	return $4 ? $this->${5}($4, new ${6}) : null;
+}
+endsnippet
+
+snippet jenc
+json_encode(${1})
+endsnippet
