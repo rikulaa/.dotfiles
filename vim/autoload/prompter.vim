@@ -1,12 +1,7 @@
 function! prompter#Show(actions, ...)
-    let l:cols = get(a:, 1, 1)
-    let l:colCount = 0
-
     echo "Choose option \n\n"
     for key in keys(a:actions)
-        let l:breakLine = (l:colCount + 1) % l:cols == 0 ? "\n" : "\t"
-        echon "(" | echohl Typedef | echon key | echohl None | echon "): " . a:actions[key]['title'] . l:breakLine
-        let l:colCount += 1
+        echon "(" | echohl Typedef | echon key | echohl None | echon "): " . a:actions[key]['title'] . "\n"
     endfor
     echo "\n"
 
