@@ -6,7 +6,6 @@ function! prompter#Show(actions, ...)
     echo "\n"
 
     let l:input = nr2char(getchar())
-
     redraw!
 
     if (has_key(a:actions, input))
@@ -15,6 +14,8 @@ function! prompter#Show(actions, ...)
             call choice['function']()
         elseif (has_key(choice , 'command'))
             execute(choice['command'])
+        elseif (has_key(choice, 'menu'))
+            call prompter#Show(choice['menu'])
         endif
     endif
 endfunction
