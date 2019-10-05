@@ -306,18 +306,19 @@ nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 
 vnoremap <leader>a :EasyAlign<CR>
 
-let __GetHunkActions = {
+
+let g:hunk_actions = {
             \'s': {'title': "stage", 'command': 'GitGutterStageHunk' },
-            \'u': {'title': "undo", 'command': 'GitGutterUndoHunk' },
+            \'u': {'title': "undo", 'command': 'GitGutterUndoHunk' }
             \}
-let __GitActions = {
+let g:git_actions = {
             \'d': {'title': "diff", 'command': 'Gdiff' },
             \'b': {'title': "blame", 'command': 'Gblame' },
-            \'h': {'title': "hunk actions", 'function': function('prompter#Show', [ __GetHunkActions ]) },
             \'m': {'title': "magit", 'command': 'Magit' },
+            \'h': {'title': "hunk", 'menu': g:hunk_actions },
             \}
 
-nnoremap <silent> <leader>G  :call prompter#Show(__GitActions)<CR>
+nnoremap <silent> <leader>G  :call prompter#Show(g:git_actions)<CR>
 " }}}
 
 " https://www.reddit.com/r/vim/comments/6h0dy7/which_autoclosing_plugin_do_you_use/
