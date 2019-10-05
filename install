@@ -4,6 +4,7 @@
 dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 setup_dir=$dotfiles_dir/setup
 config_dir=$HOME/.config
+cache_dir=$HOME/.cache
 
 #source  helpers
 . $dotfiles_dir/setup/helpers

@@ -73,6 +73,10 @@ ln -sf $dotfiles_dir/shell/dircolors $HOME/.dircolors
 # zshrc
 printf "Linking .zshrc\n"
 ln -sf $dotfiles_dir/shell/zshrc $HOME/.zshrc
+# zs saves history inside .cache
+if [ -d $cache_dir/zsh ]; then
+    mkdir -p $cache_dir/zsh
+fi
 
 # Install oh-my-zsh, if it exists just do git pull
 if [ -d $config_dir/oh-my-zsh ]; then
