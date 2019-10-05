@@ -1,30 +1,25 @@
-function! prompter#Show(actions)
-    function! GetChoice(key, val)
-        let l:title = get(a:val, 'title')
-        return "(" . strcharpart(title, 0, 1) . ")" . strcharpart(title, 1)
-    endfunc
-    
-    execute "10new"
-    let w:scratch = 1
-    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-    call setline(1, split(join(map(values(a:actions), function("GetChoice")), "\t"), "\n"))
-    redraw
-    let l:choice = getchar()
-    let l:targetAction = get(a:actions, nr2char(choice), {})
+function! prompter#Show(actions, ...)
+    let l:cols = get(a:, 1, 1)
+    let l:colCount = 0
 
-    execute "wincmd k"
-
-    " Close the scratch window
-    for win in range(1, winnr('$'))
-        if getwinvar(win, 'scratch')
-            execute win . 'windo close'
-        endif
+    echo "Choose option \n\n"
+    for key in keys(a:actions)
+        let l:breakLine = (l:colCount + 1) % l:cols == 0 ? "\n" : "\t"
+        echon "(" | echohl Typedef | echon key | echohl None | echon "): " . a:actions[key]['title'] . l:breakLine
+        let l:colCount += 1
     endfor
+    echo "\n"
 
-    " Run the action
-    if (has_key(targetAction, 'function'))
-        call targetAction['function']()
-    elseif (has_key(targetAction, 'command'))
-        let l:output = execute(targetAction['command'])
+    let l:input = nr2char(getchar())
+
+    redraw!
+
+    if (has_key(a:actions, input))
+        let l:choice = a:actions[input]
+        if (has_key(choice, 'function'))
+            call choice['function']()
+        elseif (has_key(choice , 'command'))
+            execute(choice['command'])
+        endif
     endif
 endfunction
