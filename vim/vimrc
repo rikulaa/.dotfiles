@@ -69,9 +69,6 @@ Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 
-" Other
-Plug 'kristijanhusak/vim-carbon-now-sh'     " Create images from code snippets
-
 call plug#end()            " required
 " }}}
 
@@ -424,18 +421,6 @@ let g:UltiSnipsSnippetDirectories=['custom-snippets']
 " Fixing the weird symbols instead of folders on some systems
 let g:NERDTreeDirArrows=0
 
-let g:carbon_now_sh_options =
-\ { 'ln': 'false',
-\   'l': 'graphql',
-\   't': 'material',
-\   'wt': 'sharp',
-\   'ds': 'true',
-\   'wm': 'false',
-\   'wa': 'false,',
-\ 'fm': 'Source Code Pro' }
-" }}}
-"
-"
 "
 " Use 'completefunc' to complete snippets for specific filetype
 fun! CompleteSnippet(findstart, base)
