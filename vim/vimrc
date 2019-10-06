@@ -28,7 +28,7 @@ Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mxw/vim-jsx', {'for': 'javascript'}
 Plug 'alampros/vim-styled-jsx'
-Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim' " Syntax for ts
 Plug 'heavenshell/vim-jsdoc'
 Plug 'jwalton512/vim-blade', {'for': 'blade'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
@@ -39,27 +39,30 @@ Plug 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Plug 'jparise/vim-graphql'
 
 " Languages (autocomplete, goto definition)
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-Plug 'rikulaa/LanguageServer-typescript-neovim/', {'do': 'npm install'}
-Plug 'rikulaa/LanguageServer-vue-neovim', {'do': 'npm install'}
+if (has('nvim') || has('job'))
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }
+    Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+    Plug 'rikulaa/LanguageServer-typescript-neovim/', {'do': 'npm install'}
+    Plug 'rikulaa/LanguageServer-vue-neovim', {'do': 'npm install'}
+endif
 
 " Linting
-Plug 'w0rp/ale'
-Plug 'editorconfig/editorconfig-vim'
+if (has('nvim') || v:version > 800)
+    Plug 'w0rp/ale'
+endif
 
-" Intellisense, code completion, goto definition
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-" To install php-language-server: cd ./plugin/php-language-server && composer install && composer run-script parse-stubs
+Plug 'editorconfig/editorconfig-vim'
 
 " Tests
 Plug 'janko-m/vim-test'
 
 " Snippets
-Plug 'SirVer/ultisnips'
+if (has("python") && (has('nvim') || v:version > 704))
+    Plug 'SirVer/ultisnips'
+endif
 
 " Themes
 Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
