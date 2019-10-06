@@ -1,8 +1,8 @@
-function! prompter#RenderLine(row, l)
+function! menu#RenderLine(row, l)
     call append(a:row, a:l)
 endfunction
 
-function! prompter#Show(actions)
+function! menu#Show(actions)
     " Create the window
     let l:height = len(keys(a:actions)) + 3
     execute "belowright" . height . "new MENU"
@@ -22,7 +22,7 @@ function! prompter#Show(actions)
     let l:index = 0
     for key in keys(a:actions)
         let l:output = "(" . key . ") " . a:actions[key]['title'] .  "\t"
-        call prompter#RenderLine(lineoffset, output)
+        call menu#RenderLine(lineoffset, output)
         let l:lineoffset += 1
     endfo
     redraw!
@@ -49,11 +49,12 @@ function! prompter#Show(actions)
     if (has_key(a:actions, input))
         let l:selection = a:actions[input]
         if (has_key(selection, 'function'))
-            call selection['function']()
+            let l:Fn = selection['function']
+            call Fn()
         elseif (has_key(selection, 'command'))
             execute selection['command']
         elseif (has_key(selection, 'menu'))
-            call prompter#Show(selection['menu'])
+            call menu#Show(selection['menu'])
         endif
     endif
 endfunction
