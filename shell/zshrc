@@ -57,6 +57,11 @@ bindkey '^W' default-backward-delete-word
 # Expand command on !!
 bindkey ' ' magic-space
 
+# c-x to open current line in $EDITOR
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 autoload -U colors && colors
 
 # Adds prompt
