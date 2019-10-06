@@ -51,7 +51,7 @@ function! prompter#Show(actions)
         if (has_key(selection, 'function'))
             call selection['function']()
         elseif (has_key(selection, 'command'))
-            let l:output = execute(selection['command'])
+            execute selection['command']
         elseif (has_key(selection, 'menu'))
             call prompter#Show(selection['menu'])
         endif
