@@ -302,9 +302,6 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nmap <F2> :call LanguageClient_textDocument_rename()<CR>
-nmap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 
 vnoremap <leader>a :EasyAlign<CR>
 
@@ -369,14 +366,6 @@ augroup focusevents
 augroup end
 " }}}
 "
-augroup dirty_cc_plus_tab_remap
-    autocmd!
-    " autocmd CmdWinEnter : nnoremap <tab> <c-f>
-    autocmd CmdWinEnter * cmap <c-c> <c-c><c-c>
-    autocmd CmdWinEnter * noremap <c-c> <c-c><c-c>
-    autocmd CmdWinLeave * cmap <c-c> <c-c>
-    autocmd CmdWinLeave * noremap <c-c> <c-c>
-augroup END
 " cmap <c-c> <c-c><c-c>
 "============================================================================
 " Additional plugin settings
