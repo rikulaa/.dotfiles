@@ -62,6 +62,13 @@ function! functions#CopyBuffer(newPath)
     :execute "!cp ".originalPath." ".a:newPath
     :execute ":e ".a:newPath
 endfunction
-function! StripTrailingWhitespace()
-    %s/\s\+$//ge
+
+function! functions#StripTrailingWhitespace()
+    if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<CR>
+        normal `z
+    endif
 endfunction
