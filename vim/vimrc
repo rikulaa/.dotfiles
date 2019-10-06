@@ -320,6 +320,18 @@ let g:git_actions = {
             \}
 
 nnoremap <silent> <leader>v  :call menu#Show(g:git_actions)<CR>
+
+fun! GetTypeHoverAction(word)
+    if has_key(g:LanguageClient_serverCommands, &filetype)
+        call LanguageClient#textDocument_hover()
+    else
+        execute "Man " . a:word
+    endif
+
+
+endfunction
+" Open man pages (or documentation)
+nnoremap <silent> K :call GetTypeHoverAction("<C-R><C-W>")<CR>
 " }}}
 
 " https://www.reddit.com/r/vim/comments/6h0dy7/which_autoclosing_plugin_do_you_use/
