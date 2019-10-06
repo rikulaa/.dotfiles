@@ -267,6 +267,8 @@ function! SearchFilesByWord(word)
 endfunction
 vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
+"Substitue (go substitute)
+nnoremap <Leader>gs :%s//g<Left><Left>
 " Rename word
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>//gc<left><left><left>
 " Rename tag
