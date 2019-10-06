@@ -8,6 +8,9 @@ function! prompter#Show(actions)
     execute "belowright" . height . "new MENU"
     let w:menu = 1
     setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    " Match any character between brackets (wich have single space character
+    " after the closing bracket '(*) '
+	execute 'match Type /\w\((\)\@!\()\s\)\@=/'
 
     call append(0, "Choose option...")
     call append(1, "")
