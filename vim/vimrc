@@ -314,6 +314,7 @@ let g:git_actions = {
             \'b': {'title': "blame", 'command': 'Gblame' },
             \'m': {'title': "magit", 'command': 'Magit' },
             \'h': {'title': "hunk", 'menu': g:hunk_actions },
+            \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'command': '!git push' }, 'P': {'title': "publish", 'command': '!git publish' }, } },
             \}
 
 nnoremap <silent> <leader>v  :call menu#Show(g:git_actions)<CR>
