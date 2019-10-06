@@ -388,9 +388,10 @@ let g:ale_linters = {
 let g:ale_completion_enabled = 0
 
 " " Dont show error highlights on lines, causes vim to slow down on huge files
-let g:ale_set_highlights = 0
+" let g:ale_set_highlights = 0
 
-let g:ale_php_phpstan_executable='./vendor/bin/phpstan'
+let g:ale_php_phpstan_executable=$PWD.'/vendor/bin/phpstan'
+let g:ale_php_phpstan_level = 7
 let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
 
 " Don't use language client for linting
