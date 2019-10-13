@@ -416,9 +416,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx, *.js, *.blade.php, *.v
 "
 let g:closetag_emptyTags_caseSensitive = 1
 
-" Do dont jump to matching tag on another line
-let g:AutoPairsMultilineClose = 0
-
 " ======== Snippets =========
 " ** UltiSnips **
 let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/custom-snippets"
