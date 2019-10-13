@@ -12,6 +12,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'            " For converting name cases
 Plug 'Raimondi/delimitMate'
+Plug 'rikulaa/vim-yamenu'
 
 " Plug 'jiangmiao/auto-pairs'           " Autoclose brackets
 Plug 'alvan/vim-closetag'             " Close HTML, XML tags
