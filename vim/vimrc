@@ -267,14 +267,15 @@ function! SearchFilesByWord(word)
 endfunction
 vnoremap <leader>p :call SearchFilesByWord("<C-r><C-w>")<CR>
 
-"Substitue (go substitute)
-nnoremap <Leader>gs :%s//g<Left><Left>
+"Substitue (rename anythign)
+nnoremap <Leader>ra :%s//g<Left><Left>
 " Rename word
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>//gc<left><left><left>
 " Rename tag
 nnoremap <leader>rt :call functions#ChangeTagName()<cr>
 " Rename last search
 nnoremap <leader>rs :%s//
+vnoremap <leader>rs :s///g<Left><Left>
 
 " Append character to the end of the line
 nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
