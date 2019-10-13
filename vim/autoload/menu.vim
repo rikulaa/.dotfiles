@@ -48,13 +48,10 @@ function! menu#Show(actions)
     " Run the action if we can find the corresponding entry for the input
     if (has_key(a:actions, input))
         let l:selection = a:actions[input]
-        if (has_key(selection, 'function'))
-            let l:Fn = selection['function']
-            call Fn()
-        elseif (has_key(selection, 'command'))
-            execute selection['command']
-        elseif (has_key(selection, 'menu'))
+        if (has_key(selection, 'menu'))
             call menu#Show(selection['menu'])
+        elseif (has_key(selection, 'execute'))
+            execute selection['execute']
         endif
     endif
 endfunction

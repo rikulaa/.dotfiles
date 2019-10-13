@@ -307,16 +307,16 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 vnoremap <leader>a :EasyAlign<CR>
 
 let g:hunk_actions = {
-            \'s': {'title': "stage", 'command': 'GitGutterStageHunk' },
-            \'u': {'title': "undo", 'command': 'GitGutterUndoHunk' }
+            \'s': {'title': "stage", 'execute': 'GitGutterStageHunk' },
+            \'u': {'title': "undo", 'execute': 'GitGutterUndoHunk' }
             \}
 let g:git_actions = {
-            \'d': {'title': "diff", 'command': 'Gdiff' },
-            \'b': {'title': "blame", 'command': 'Gblame' },
-            \'m': {'title': "magit", 'command': 'Magit' },
-            \'s': {'title': "Status", 'command': '!git status' },
+            \'d': {'title': "diff", 'execute': 'Gdiff' },
+            \'b': {'title': "blame", 'execute': 'Gblame' },
+            \'m': {'title': "magit", 'execute': 'Magit' },
+            \'s': {'title': "Status", 'execute': '!git status' },
             \'h': {'title': "hunk", 'menu': g:hunk_actions },
-            \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'command': '!git push' }, 'P': {'title': "publish", 'command': '!git publish' }, } },
+            \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'execute': '!git push' }, 'P': {'title': "publish", 'execute': '!git publish' }, } },
             \}
 
 nnoremap <silent> <leader>v  :call menu#Show(g:git_actions)<CR>
