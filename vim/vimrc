@@ -319,7 +319,7 @@ let g:git_actions = {
             \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'execute': '!git push' }, 'P': {'title': "publish", 'execute': '!git publish' }, } },
             \}
 
-nnoremap <silent> <leader>v  :call menu#Show(g:git_actions)<CR>
+nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
 
 " Open man pages (or documentation)
 fun! GetTypeHoverAction(word)

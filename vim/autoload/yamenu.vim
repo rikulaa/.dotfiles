@@ -1,8 +1,8 @@
-function! menu#RenderLine(row, l)
+function! yamenu#RenderLine(row, l)
     call append(a:row, a:l)
 endfunction
 
-function! menu#Show(actions)
+function! yamenu#Show(actions)
     " Create the window
     let l:height = len(keys(a:actions)) + 3
     execute "belowright" . height . "new MENU"
@@ -22,7 +22,7 @@ function! menu#Show(actions)
     let l:index = 0
     for key in keys(a:actions)
         let l:output = "(" . key . ") " . a:actions[key]['title'] .  "\t"
-        call menu#RenderLine(lineoffset, output)
+        call yamenu#RenderLine(lineoffset, output)
         let l:lineoffset += 1
     endfo
     redraw!
@@ -49,7 +49,7 @@ function! menu#Show(actions)
     if (has_key(a:actions, input))
         let l:selection = a:actions[input]
         if (has_key(selection, 'menu'))
-            call menu#Show(selection['menu'])
+            call yamenu#Show(selection['menu'])
         elseif (has_key(selection, 'execute'))
             execute selection['execute']
         endif
