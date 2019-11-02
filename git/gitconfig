@@ -39,6 +39,7 @@
     # https://stackoverflow.com/a/5373319
     # Delete local tags, fetch new tags from remote
     sync-local-tags = !git tag -l | xargs git tag -d && git fetch --tags
+    vu = "!f() { git branch -D feature/version-update; git checkout -b feature/version-update; }; f"
 [core]
     excludesFile = ~/.dotfiles/git/gitignore_global
 [merge]
