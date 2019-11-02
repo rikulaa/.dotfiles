@@ -35,6 +35,10 @@
 
     review = !$EDITOR -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
     current-branch=!git rev-parse --abbrev-ref HEAD
+
+    # https://stackoverflow.com/a/5373319
+    # Delete local tags, fetch new tags from remote
+    sync-local-tags = !git tag -l | xargs git tag -d && git fetch --tags
 [core]
     excludesFile = ~/.dotfiles/git/gitignore_global
 [merge]
