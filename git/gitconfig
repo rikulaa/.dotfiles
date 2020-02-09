@@ -6,11 +6,13 @@
 [alias]
     a = add 
     A = add -A
+    adder ="!f() { git add $(git status --short | awk '{ print $2 }' | fzf --multi); }; f"
     cm = commit
     cmp = git commit && git push
     acm = !git add -A && git commit
     cmp = "!f() { git commit; git push; }; f"
     acmp = "!f() { git add -A; git commit; git push; }; f"
+    amend = commit --amend --no-edit
     undo = reset HEAD~1 --mixed
     co = checkout
     coi = "!f() { git checkout $(git branch | fzf); }; f"
