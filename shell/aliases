@@ -27,6 +27,7 @@ alias gitconfig='$EDITOR $DOTFILES_DIR/git/gitconfig'
 alias dotfiles='cd $DOTFILES_DIR'
 alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
+alias playground='cd ~/src/me/playground'
 # For zhs
 alias g='git'
 
@@ -36,6 +37,7 @@ alias school='cd ~/src/school'
 alias work='cd ~/src/work'
 alias me='cd ~/src/me'
 
+alias todo='$EDITOR $HOME/Documents/todo.adoc'
 
 # ======== FILE SYSTEM ============
 # extend cd to always list files when navigating
