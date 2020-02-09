@@ -1,0 +1,28 @@
+function h {
+    if ! [ -x "$(command -v fzf)" ]; then
+        echo 'Error: FZF is not installed.' >&2
+        exit 1
+    fi
+
+    history | awk '{ print $2 }' | fzf
+
+}
+
+function ttouch() {
+    mkdir -p "$(dirname "$1")" && touch "$1" ;
+}
+
+
+function goto {
+    if ! [ -x "$(command -v fzf)" ]; then
+        echo 'Error: FZF is not installed.' >&2
+        exit 1
+    fi
+
+    location=$(find . -type d | fzf)
+    echo $location
+    
+    if [[ -x $location ]]; then
+        cd $location
+    fi
+}
