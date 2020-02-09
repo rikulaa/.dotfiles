@@ -127,8 +127,12 @@ syntax enable				" Show syntax
 
 colorscheme gruvbox
 " colorscheme PaperColor
-set background=dark    " Setting dark mode
-" set background=light    " Setting dark mode
+let iterm_profile = $ITERM_PROFILE
+if iterm_profile == "Light"
+    set background=light        " Set light background explicitely
+else
+    set background=dark
+endif
 set showcmd					" Show command at the bottom
 " }}}
 
