@@ -483,3 +483,11 @@ set completefunc=CompleteSnippet
 " inoremap <C-^> <C-o><C-^>
 "
 command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
+
+" https://github.com/gruvbox-community/gruvbox/issues/126
+let g:gruvbox_invert_selection = 0
+if (&background == 'dark')
+  hi Visual cterm=NONE ctermfg=NONE ctermbg=237 guibg=#3a3a3a
+else
+  hi Visual cterm=NONE ctermfg=NONE ctermbg=223 guibg=#ffd7af
+endif
