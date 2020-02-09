@@ -6,8 +6,8 @@ function! __PhpInsertUse()
 endfunction
 
 let __IncludeActions = {
-            \'a': {'title': "add import", 'function': function('__PhpInsertUse', []) },
-            \'s': {'title': "sort imports", 'function': function('PhpSortUse', []) },
+            \'a': {'title': "add import", 'execute': 'call __PhpInsertUse()' },
+            \'s': {'title': "sort imports", 'execute': 'call PhpSortUse()' },
             \}
 
 nnoremap <silent> <leader>L  :call yamenu#Show(__IncludeActions)<CR>
@@ -34,3 +34,5 @@ endfunction
 " command! -range PhpJsonToAssocativeArray substitute(@*,"{","[","g")
 command! -range JsonToAssocArray <line1>,<line2>call JsonToAssocArray()
 command! -range AssocArrayToJson <line1>,<line2>call AssocArrayToJson()
+
+" autocmd FileType php setlocal omnifunc=phpactor#Complete
