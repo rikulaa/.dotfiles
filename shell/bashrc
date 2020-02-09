@@ -214,6 +214,7 @@ shell_dir=$HOME/.dotfiles/shell
 
 . $shell_dir/env
 . $shell_dir/aliases
+. $shell_dir/functions
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
