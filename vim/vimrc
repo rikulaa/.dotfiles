@@ -327,6 +327,9 @@ nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
 
 nnoremap <Leader>l :ALEFix<CR>
 
+" Quickly make the current file
+nnoremap <Leader>m :silent make %<CR>
+
 " Do not lose selection when indenting with '<' or '>' (visual mode)
 xnoremap <  <gv
 xnoremap >  >gv
