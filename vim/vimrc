@@ -296,7 +296,8 @@ nnoremap <leader>e :call ToggleFileExplorer()<CR>
 
 " Current file search (patterns)
 nnoremap <leader>/ :Grep  %<Left><Left>
-vnoremap <leader>/ y :Grep -F \"<C-R>"\"
+
+vnoremap <leader>/ y :Grep -F <C-R>" %
 " Global search (patterns)
 nnoremap <leader>f :Grep 
 " Search the visual selection (as string literal)
