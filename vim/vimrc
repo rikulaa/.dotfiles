@@ -207,6 +207,13 @@ command! -nargs=* -complete=file FGrep execute "silent grep! -F " .<q-args> | co
 
 " Command for resyncing screen
 command! ResyncScreen :syntax sync fromstart<cr>:redraw!<cr>
+
+" Command for quickly checking up cheatsheets
+command! -nargs=1 -bang -complete=customlist,EditCheatsheetComplete
+            \ Cheat 15split<bang> <args>
+function! EditCheatsheetComplete(A,L,P)
+    return split(globpath('~/.dotfiles/cheatsheets/', a:A.'*'), "\n")
+endfun
 "}}}
 
 "============================================================================
