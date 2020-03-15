@@ -263,6 +263,11 @@ alias d-c='docker-compose'
 alias docker-stop-all='docker kill $(docker ps -q)'
 alias docker-rm-containers='docker rm $(docker ps -a -q)'
 alias docker-rm-images=' docker rmi $(docker images -q)'
+function dockerps() {
+    item=$(docker ps | sed 1d | fzf)
+    echo $item | awk '{ print $1 }'
+}
+alias docker-restart='docker restart $(dockerps)'
 
 # REACT NATIVE 
 alias rn='react-native'
