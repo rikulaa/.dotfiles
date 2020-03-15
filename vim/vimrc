@@ -475,12 +475,6 @@ let delimitMate_matchpairs = "(:),[:],{:}"
 let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/custom-snippets"
 let g:UltiSnipsSnippetDirectories=['custom-snippets']
 
-" ======== UI =========
-" ** Nerdtree **
-" Fixing the weird symbols instead of folders on some systems
-let g:NERDTreeDirArrows=0
-
-"
 " Use 'completefunc' to complete snippets for specific filetype
 fun! CompleteSnippet(findstart, base)
     if a:findstart
