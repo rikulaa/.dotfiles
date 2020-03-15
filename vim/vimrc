@@ -123,7 +123,7 @@ set noruler
 set nocursorline
 " set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
-" set termguicolors           " Better colors in terminal, needs support from tmux also
+set termguicolors           " Better colors in terminal, needs support from tmux also
 
 colorscheme gruvbox
 " colorscheme PaperColor
