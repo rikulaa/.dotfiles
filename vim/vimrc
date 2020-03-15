@@ -253,6 +253,13 @@ nnoremap ]b :bn<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
 
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Search with current selection
+xnoremap * y/<C-R>"<CR>
+
 " Navigation (buffers)
 " Open buffer with FZF
 " https://github.com/junegunn/fzf/wiki/Examples-(vim)
