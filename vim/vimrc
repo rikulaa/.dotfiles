@@ -35,6 +35,8 @@ Plug 'StanAngeloff/php.vim', {'for': 'php'}
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'vim-scripts/PDV--phpDocumentor-for-Vim'
+Plug 'tpope/vim-liquid'
+Plug 'tpope/vim-markdown'
 
 Plug 'jparise/vim-graphql'
 
