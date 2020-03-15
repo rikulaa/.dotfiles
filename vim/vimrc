@@ -343,6 +343,12 @@ cnoremap <C-X><C-A> <C-A>
 " Jump to end of line
 inoremap <C-E> <C-O>$
 cnoremap <C-E> <End>
+" Move one word backward, forward
+cnoremap <M-b> <C-Left>
+cnoremap <M-f> <C-Right>
+" Move one character backward, forward
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
 
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
