@@ -469,6 +469,7 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx,*.js,*.blade.php,*.vue,
 "
 let g:closetag_emptyTags_caseSensitive = 1
 
+let delimitMate_matchpairs = "(:),[:],{:}"
 " ======== Snippets =========
 " ** UltiSnips **
 let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/custom-snippets"
