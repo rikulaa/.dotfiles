@@ -201,7 +201,9 @@ command! Ga :!git a %
 " Better grep
 " - Don't show confirmation after search
 " - Open quickfix window immediately
-command! -nargs=* -complete=file Grep execute "silent grep! <args>" | copen
+command! -nargs=* -complete=file Grep execute "silent grep! " . <q-args> | copen
+" FGrep is uses to search for fixed strings
+command! -nargs=* -complete=file FGrep execute "silent grep! -F " .<q-args> | copen
 
 " Command for resyncing screen
 command! ResyncScreen :syntax sync fromstart<cr>:redraw!<cr>
@@ -282,7 +284,12 @@ vnoremap <leader>/ y :Grep -F \"<C-R>"\"
 " Global search (patterns)
 nnoremap <leader>f :Grep 
 " Search the visual selection (as string literal)
-vnoremap <leader>f y :Grep -F \"<C-R>"\"
+function! StringLiteralSearch(str)
+    let _str ='"'.substitute(substitute(a:str, '"', '\\"', 'g' ), "\n", "", 'g').'"'
+    execute ":FGrep " . _str
+endfunction
+vnoremap <leader>f y :call StringLiteralSearch(getreg('"'))
+" vnoremap <leader>f y :FGrep "<C-R>""
 
 " Global serach (files)
 nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
