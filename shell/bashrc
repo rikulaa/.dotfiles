@@ -245,3 +245,5 @@ fi
 stty -ixon
 
 
+# Set the terminal theme
+. ~/.local/bin/refresh_theme.sh

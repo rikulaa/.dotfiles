@@ -207,3 +207,6 @@ fi
 # . $shell_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Highlighting
 # . $shell_dir/zsh/zsh-syntax-highlightning/zsh-syntax-highlighting.zsh
+
+# Set the terminal theme
+. ~/.local/bin/refresh_theme.sh
