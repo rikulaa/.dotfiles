@@ -1,0 +1,18 @@
+extends common
+
+snippet if
+{% if %} ${1} {% endif %}
+endsnippet
+
+
+snippet assign
+{%- assign ${1} -%}
+endsnippet
+
+snippet schema
+{% schema %}
+{
+	"name": ${1}
+}
+{% endschema %}
+endsnippet
