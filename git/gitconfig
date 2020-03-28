@@ -46,3 +46,6 @@
     excludesFile = ~/.dotfiles/git/gitignore_global
 [merge]
     tool = vimdiff
+
+[includeIf "gitdir:~/src/work/"]
+    path = ~/src/work/.gitconfig-work
