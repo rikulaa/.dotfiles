@@ -1,8 +1,6 @@
 compiler jest
 setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
 
-" Add node_modules to path
-setlocal path+=node_modules
 " Vim will treat these as macros
 " setlocal define=^\s*\\(const\\\|let\\\|function\\\|class\\\|var\\)
 setlocal define=\\(const\\\|let\\\|function\\\|class\\\|var\\)

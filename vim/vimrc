@@ -100,6 +100,8 @@ set timeoutlen=3000
 set ttimeout
 set ttimeoutlen=50
 set lazyredraw              " "Smootherrrr.??
+set path+=**           " Allows 'fuzzy' searching of files
+set wildignore+=*/node_modules/*,*/vendor/* " 'find' and 'edit' will slow down if not excluding these
 " set noeol                   " no new line at the end
 " set binary                  " No new line at the end
 
@@ -187,6 +189,7 @@ endfunction
 "============================================================================
 " {{{
 command! Vimrc :e $MYVIMRC
+command! Eft :execute 'e ~/.config/nvim/after/ftplugin/'.&filetype.'.vim'
 command! Reload :source $MYVIMRC
 
 command! So :source %
