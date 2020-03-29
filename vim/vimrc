@@ -99,7 +99,7 @@ set timeout                 " Reduce timeout caused by pressin Esc"
 set timeoutlen=3000
 set ttimeout
 set ttimeoutlen=50
-set lazyredraw              " "Smootherrrr.??
+set lazyredraw              " E.g do not draw screen between macros, makes them run faster
 set path+=**           " Allows 'fuzzy' searching of files
 set wildignore+=*/node_modules/*,*/vendor/* " 'find' and 'edit' will slow down if not excluding these
 " set noeol                   " no new line at the end
