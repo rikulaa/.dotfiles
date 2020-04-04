@@ -62,7 +62,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'janko-m/vim-test'
 
 " Snippets
-if (has("python") && (has('nvim') || v:version > 704))
+if ((has("python") || has("python3")) && (has('nvim') || v:version > 704))
     Plug 'SirVer/ultisnips'
 endif
 
