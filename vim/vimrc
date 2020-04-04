@@ -197,6 +197,9 @@ command! Rm :call functions#DeleteAndCloseBuffer()
 command! -nargs=1 -complete=file Mv silent :call functions#MoveBuffer(<q-args>)
 command! -nargs=1 -complete=file Cp silent :call functions#CopyBuffer(<q-args>)
 
+" Format json by piping it into jq
+command! -range JsonFormat silent :'<,'>!jq
+
 
 " Git: stage current file
 command! Ga :!git a %
