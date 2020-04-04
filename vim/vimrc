@@ -383,15 +383,19 @@ let g:git_actions = {
 
 nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
 
-" Open man pages (or documentation)
+" Open man pages, documentation or web search
 fun! GetTypeHoverAction(word)
-    if (&filetype == 'vim')
-        execute "h " . a:word
-    elseif has_key(g:LanguageClient_serverCommands, &filetype)
-        call LanguageClient#textDocument_hover()
-    else
-        execute "Man " . a:word
-    endif
+    try
+        if (&filetype == 'vim')
+            execute "h " . a:word
+        elseif has_key(g:LanguageClient_serverCommands, &filetype)
+            silent call LanguageClient#textDocument_hover()
+        else
+            silent execute "Man " . a:word
+        endif
+    catch
+        call websearch#Search(a:word)
+    endtry
 endfunction
 nnoremap <silent> K :call GetTypeHoverAction("<C-R><C-W>")<CR>
 
