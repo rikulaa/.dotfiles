@@ -1,7 +1,7 @@
-extends common
+extends common, html
 
 snippet if
-{% if %} ${1} {% endif %}
+{% if ${1} %} ${2} {% endif %}
 endsnippet
 
 
@@ -15,4 +15,18 @@ snippet schema
 	"name": ${1}
 }
 {% endschema %}
+endsnippet
+
+snippet comment
+{% comment %} ${1} {% endcomment %}
+endsnippet
+
+snippet for
+{% for ${1} %}
+${2}
+{% endfor %}
+endsnippet
+
+snippet render
+{% render ${1} %}
 endsnippet
