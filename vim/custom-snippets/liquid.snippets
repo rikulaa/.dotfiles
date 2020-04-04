@@ -9,14 +9,6 @@ snippet assign
 {%- assign ${1} -%}
 endsnippet
 
-snippet schema
-{% schema %}
-{
-	"name": ${1}
-}
-{% endschema %}
-endsnippet
-
 snippet comment
 {% comment %} ${1} {% endcomment %}
 endsnippet
@@ -29,4 +21,29 @@ endsnippet
 
 snippet render
 {% render ${1} %}
+endsnippet
+
+snippet schema
+{% schema %}
+{
+	"name": {
+		"en": "${1}",
+		"fi": "${2}"
+	},
+	"settings": [],
+	"presets": []
+}
+{% endschema %}
+endsnippet
+
+snippet schema:object
+{
+	"type": "${1}",
+	"id": "${2}",
+	"label": {
+		"en": "${3}",
+		"fi": "${4}"
+	}
+}
+
 endsnippet
