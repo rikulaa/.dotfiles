@@ -383,7 +383,9 @@ nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
 
 " Open man pages (or documentation)
 fun! GetTypeHoverAction(word)
-    if has_key(g:LanguageClient_serverCommands, &filetype)
+    if (&filetype == 'vim')
+        execute "h " . a:word
+    elseif has_key(g:LanguageClient_serverCommands, &filetype)
         call LanguageClient#textDocument_hover()
     else
         execute "Man " . a:word
