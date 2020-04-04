@@ -38,7 +38,7 @@ function bookmark_list() {
 }
 
 function bookmark_delete() {
-    target=$(bookmark_select "--multi")
+    target=$(bookmark_select)
 
     if [[ -z "$target" ]]; then
         echo "No bookmark selected"
