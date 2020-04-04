@@ -125,12 +125,10 @@ set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set noruler
 set nocursorline
-" set relativenumber          " For relative line numbering
 syntax enable				" Show syntax
 set termguicolors           " Better colors in terminal, needs support from tmux also
 
 colorscheme gruvbox
-" colorscheme PaperColor
 let iterm_profile = $ITERM_PROFILE
 if iterm_profile == "Light"
     set background=light        " Set light background explicitely
