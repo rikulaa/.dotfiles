@@ -324,8 +324,8 @@ nnoremap <Leader>ra :%s//g<Left><Left>
 nnoremap <Leader>rw :%s/\<<C-r><C-w>\>//gc<left><left><left>
 " Rename tag
 nnoremap <leader>rt :call functions#ChangeTagName()<cr>
-" Rename last search
-nnoremap <leader>rs :%s//
+"Rename last search
+nnoremap <leader>rs :%s///g<Left><Left>
 vnoremap <leader>rs :s///g<Left><Left>
 
 " Append character to the end of the line
