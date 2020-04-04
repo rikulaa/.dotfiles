@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if [[ $(uname -s) =~ "Darwin" ]]; then
-    open "https://$1"
-else
-    xdg-open "https://$1"
-fi
