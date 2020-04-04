@@ -215,6 +215,7 @@ shell_dir=$HOME/.dotfiles/shell
 . $shell_dir/env
 . $shell_dir/aliases
 . $shell_dir/functions
+. $shell_dir/plugins/bookmarks
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -228,6 +229,7 @@ fi
 if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
     . /usr/local/etc/bash_completion.d/git-completion.bash
 fi
+
 
 
 # enable programmable completion features (you don't need to enable
