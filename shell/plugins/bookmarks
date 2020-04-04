@@ -1,5 +1,7 @@
 # Bookmarks
+
 export BM_HOME=$HOME/.bookmarks
+export BM_SELECT_PRG='fzf --color --multi'
 
 function bookmark_navigate() {
     target=$(bookmark_select)
@@ -13,9 +15,7 @@ function bookmark_navigate() {
 
 # Activate fzf selector with lines read from $BM_HOME
 function bookmark_select() {
-    multi="$1"
-    selection=$(cat $BM_HOME | fzf $multi --color)
-    selection=$(echo $selection | tr -d '\r')
+    selection=$(cat $BM_HOME | eval $BM_SELECT_PRG)
     if [ -z $selection ]; then
         # user exited
         echo ""
