@@ -7,7 +7,7 @@
     a = add 
     A = add -A
     adder ="!f() { git add $(git status --short | awk '{ print $2 }' | fzf --multi); }; f"
-    cm = commit
+    cm = commit -v
     cmp = git commit && git push
     acm = !git add -A && git commit
     cmp = "!f() { git commit; git push; }; f"
