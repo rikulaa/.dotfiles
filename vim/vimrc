@@ -434,6 +434,13 @@ augroup focusevents
 augroup end
 " }}}
 "
+" Open quickfix immediately after [l]grep has succeeded
+augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost grep cwindow
+    autocmd QuickFixCmdPost lgrep lwindow
+augroup END
+"
 " cmap <c-c> <c-c><c-c>
 "============================================================================
 " Additional plugin settings
