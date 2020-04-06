@@ -265,6 +265,10 @@ vnoremap K :m '<-2<CR>gv=gv
 " Search with current selection
 xnoremap * y/<C-R>"<CR>
 
+" Center the screen after when going through search results
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+
 " Navigation (buffers)
 " Open buffer with FZF
 " https://github.com/junegunn/fzf/wiki/Examples-(vim)
