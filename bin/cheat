@@ -2,8 +2,8 @@
 
 cheatsheets_dir=$HOME/.dotfiles/cheatsheets
 
-if [ -x $(command -v fzf) ]; then
-    cd $cheatsheets_dir
+if [ -x "$(command -v fzf)" ]; then
+    cd "$cheatsheets_dir" || exit
 
     canContinue=true
 
