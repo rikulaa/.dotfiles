@@ -37,6 +37,7 @@ alias school='cd ~/src/school'
 alias work='cd ~/src/work'
 alias me='cd ~/src/me'
 alias docs='cd ~/Documents'
+alias notes='cd ~/Documents/notes/'
 
 alias todo='$EDITOR $HOME/Documents/todo.adoc'
 
