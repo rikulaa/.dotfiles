@@ -9,12 +9,11 @@ snippet elsif
 {% elsif ${1} %}
 endsnippet
 
-
-snippet assign
+snippet as
 {%- assign ${1} -%}
 endsnippet
 
-snippet comment
+snippet com
 {% comment %} ${1} {% endcomment %}
 endsnippet
 
@@ -24,11 +23,11 @@ ${2}
 {% endfor %}
 endsnippet
 
-snippet render
+snippet ren
 {% render ${1} %}
 endsnippet
 
-snippet schema
+snippet sc
 {% schema %}
 {
 	"name": {
@@ -41,7 +40,7 @@ snippet schema
 {% endschema %}
 endsnippet
 
-snippet schema:object
+snippet sc:o
 {
 	"type": "${1}",
 	"id": "${2}",
@@ -53,7 +52,7 @@ snippet schema:object
 
 endsnippet
 
-snippet capture
+snippet ca
 {% capture ${1} %}
 ${2}
 {% endcapture %}
