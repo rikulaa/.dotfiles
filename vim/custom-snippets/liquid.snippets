@@ -1,7 +1,12 @@
 extends common, html
 
 snippet if
-{% if ${1} %} ${2} {% endif %}
+{% if ${1} %}
+	${2}
+{% endif %}
+endsnippet
+snippet elsif
+{% elsif ${1} %}
 endsnippet
 
 
@@ -45,5 +50,12 @@ snippet schema:object
 		"fi": "${4}"
 	}
 }
+
+endsnippet
+
+snippet capture
+{% capture ${1} %}
+${2}
+{% endcapture %}
 
 endsnippet
