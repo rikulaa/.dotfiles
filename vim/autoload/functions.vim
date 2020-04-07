@@ -32,12 +32,12 @@ endfunction
 
 " Adds inputted character to the end of the line without moving the cursor
 function! functions#AppendCharacterToEndOfLine()
-    let a:cursor_pos_start = getpos(".")
+    let l:cursor_pos_start = getcurpos()
     let c = nr2char(getchar())
     :execute "keepjumps normal! A".c
 
     " Move cursor back to original position
-    call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
+    call cursor(cursor_pos_start[1], cursor_pos_start[2])
 
 endfunction
 
