@@ -405,6 +405,11 @@ let g:git_actions = {
 
 nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
 
+let g:open_actions = {
+            \'v': {'title': "Open vimrc", 'execute': ':Vimrc' },
+            \}
+nnoremap <silent> <leader>o  :call yamenu#Show(g:open_actions)<CR>
+
 " Open man pages, documentation or web search
 fun! GetTypeHoverAction(word)
     try
