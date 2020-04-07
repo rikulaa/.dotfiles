@@ -14,31 +14,20 @@ Plug 'tpope/vim-abolish'            " For converting name cases
 Plug 'Raimondi/delimitMate'
 Plug 'rikulaa/vim-yamenu'
 
-Plug 'alvan/vim-closetag'             " Close HTML, XML tags
-Plug 'junegunn/fzf'                   " fuzzy searc
+" Close HTML, XML tags
+Plug 'alvan/vim-closetag'
+
+" Fuzzy file search
+if (executable('fzf'))
+    Plug 'junegunn/fzf'
+endif
 
 " Git
-Plug 'tpope/vim-fugitive'             " Git utility
-Plug 'airblade/vim-gitgutter'         " Show git diffs on sidebar
-Plug 'jreybert/vimagit'
-
-" Languages (syntax)
-Plug 'posva/vim-vue', {'for': 'vue'}
-" Plug 'othree/html5.vim', {'for': 'html'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'mxw/vim-jsx', {'for': 'javascript'}
-Plug 'alampros/vim-styled-jsx'
-Plug 'leafgarland/typescript-vim' " Syntax for ts
-Plug 'heavenshell/vim-jsdoc'
-Plug 'jwalton512/vim-blade', {'for': 'blade'}
-Plug 'StanAngeloff/php.vim', {'for': 'php'}
-Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
-Plug 'arnaud-lb/vim-php-namespace'
-Plug 'vim-scripts/PDV--phpDocumentor-for-Vim'
-Plug 'tpope/vim-liquid'
-Plug 'tpope/vim-markdown'
-
-Plug 'jparise/vim-graphql'
+if (executable('git'))
+    Plug 'tpope/vim-fugitive'             " Git utility
+    Plug 'airblade/vim-gitgutter'         " Show git diffs on sidebar
+    Plug 'jreybert/vimagit'
+endif
 
 " Languages (autocomplete, goto definition)
 if (has('nvim') || has('job'))
@@ -46,10 +35,43 @@ if (has('nvim') || has('job'))
                 \ 'branch': 'next',
                 \ 'do': 'bash install.sh',
                 \ }
-    Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-    Plug 'rikulaa/LanguageServer-typescript-neovim/', {'do': 'npm install'}
-    Plug 'rikulaa/LanguageServer-vue-neovim', {'do': 'npm install'}
+    " Install PHP language server only if PHP is available
+    if (executable('php'))
+        Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+    endif
+
+    " Install Js language servers only if node is available
+    if (executable('node'))
+        Plug 'rikulaa/LanguageServer-typescript-neovim/', {'do': 'npm install'}
+        Plug 'rikulaa/LanguageServer-vue-neovim', {'do': 'npm install'}
+    endif
 endif
+
+" Languages (syntax etc)
+" JS
+Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'mxw/vim-jsx', {'for': 'javascript'}
+Plug 'alampros/vim-styled-jsx'
+Plug 'leafgarland/typescript-vim' " Syntax for ts
+Plug 'heavenshell/vim-jsdoc'
+
+" Liquid
+Plug 'tpope/vim-liquid'
+
+" PHP
+Plug 'jwalton512/vim-blade', {'for': 'blade'}
+Plug 'StanAngeloff/php.vim', {'for': 'php'}
+if  (executable('php'))
+    " PHP and composer is required
+    Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
+endif
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'vim-scripts/PDV--phpDocumentor-for-Vim'
+
+" Other
+Plug 'tpope/vim-markdown'
+Plug 'jparise/vim-graphql'
 
 " Linting
 if (has('nvim') || v:version > 800)
