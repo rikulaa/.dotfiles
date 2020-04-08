@@ -1,5 +1,8 @@
 setlocal suffixesadd=.liquid
 
+" Configure 'path' for Shopify projects
+set path+=assets/**,config/**,layout/**,locales/**,scripts/**,sections/**,snippets/**,styles/**,templates/**,src/**
+
 function! ValidateLiquidSchema()
     /{%\s\?schema\s\?%}
     silent normal j"zya{
