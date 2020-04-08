@@ -1,3 +1,7 @@
+" Search
+
+" to find 'patt' preceded by 'something'
+/\(something\)\zspatt
 
 " Variables
 
