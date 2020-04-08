@@ -193,6 +193,8 @@ command! Vimrc :e $MYVIMRC
 command! Eft :execute 'e ~/.config/nvim/after/ftplugin/'.&filetype.'.vim'
 command! Reload :source $MYVIMRC
 
+command! -nargs=? Web :call websearch#Search(<q-args>)
+
 command! So :source %
 
 command! Bdall silent! :%bdelete
@@ -389,6 +391,7 @@ nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
 
 let g:open_actions = {
             \'v': {'title': "Open vimrc", 'execute': ':Vimrc' },
+            \'w': {'title': "Websearch: ", 'execute': "Web" },
             \}
 nnoremap <silent> <leader>o  :call yamenu#Show(g:open_actions)<CR>
 
