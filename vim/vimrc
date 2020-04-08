@@ -263,6 +263,10 @@ nnoremap ]b :bn<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
 
+" Navigate between errors
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
