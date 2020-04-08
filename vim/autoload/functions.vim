@@ -20,12 +20,12 @@ function! functions#ChangeTagName()
         normal h  
     endif
 
-    let a:cursor_pos_start = getpos(".")
+    let l:cursor_pos_start = getpos(".")
 
     normal %l
 
     execute 'normal! "_ciw'.newName
-    :call cursor(a:cursor_pos_start[1], a:cursor_pos_start[2])
+    :call cursor(cursor_pos_start[1], cursor_pos_start[2])
     execute 'normal! "_ciw'.newName
 endfunction
 
@@ -34,7 +34,7 @@ endfunction
 function! functions#AppendCharacterToEndOfLine()
     let l:cursor_pos_start = getcurpos()
     let c = nr2char(getchar())
-    :execute "keepjumps normal! A".c
+    execute "keepjumps normal! A".c
 
     " Move cursor back to original position
     call cursor(cursor_pos_start[1], cursor_pos_start[2])
@@ -51,9 +51,9 @@ endfunction
 " Move buffer to {newPath}
 function! functions#MoveBuffer(newPath)
     let l:originalPath = expand('%')
-    :execute "!mv ".originalPath." ".a:newPath
-    :execute ":e ".a:newPath
-    :execute ":bd ".l:originalPath
+    execute "!mv ".originalPath." ".a:newPath
+    execute ":e ".a:newPath
+    execute ":bd ".l:originalPath
 endfunction
 
 " Copy buffer to {newPath}
