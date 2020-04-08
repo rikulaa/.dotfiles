@@ -370,11 +370,6 @@ let g:UltiSnips#ExpandSnippet="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" Navigate between errors
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
-
-
 vnoremap <leader>a :EasyAlign<CR>
 
 let g:hunk_actions = {
