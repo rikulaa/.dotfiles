@@ -53,8 +53,15 @@ snippet sc:o
 endsnippet
 
 snippet ca
-{% capture ${1} %}
+{%- capture ${1} -%}
 ${2}
-{% endcapture %}
+{%- endcapture -%}
+
+endsnippet
+
+snippet un
+{%- unless ${1} -%}
+${2}
+{%- endunless -%}
 
 endsnippet
