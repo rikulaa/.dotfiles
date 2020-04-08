@@ -1,7 +1,18 @@
+" Your problem with Vim is that you don't grok vi.
+" https://gist.github.com/nifl/1178878
+"
 " Search
 
 " to find 'patt' preceded by 'something'
 /\(something\)\zspatt
+
+" "& Is replaced with the entire text matched by the search pattern when used in a replacement string.
+" This is useful when you want to avoid retyping text: :
+:%s/Yazstremski/&, Carl/
+" The replacement will say Yazstremski, Carl.
+" The & can also replace a variable pattern (as specified by a regular expression).
+" For example, to surround each line from 1 to 10 with parentheses, type:
+:1,10s/.*/(&)/ docstore.mik.ua/orelly/unix3/vi/ch06_03.htm
 
 " Variables
 
