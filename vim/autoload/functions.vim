@@ -1,6 +1,10 @@
 " Changes tag name
 function! functions#ChangeTagName()
     let l:newName = input('Rename to: ')
+    if strlen(newName) == 0
+        echo "No name given!"
+        return
+    endif
 
     " get decimal valu of the current character under cursos
 	" getline('.') returns the entire line that cursor is sitting on.
