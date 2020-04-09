@@ -156,9 +156,6 @@ else
     set background=dark
 endif
 set showcmd					" Show command at the bottom
-" netrw
-" Do not show the banner on top
-let g:netrw_banner=0
 " }}}
 
 "============================================================================
