@@ -122,6 +122,7 @@ set timeoutlen=3000
 set ttimeout
 set ttimeoutlen=50
 set lazyredraw              " E.g do not draw screen between macros, makes them run faster
+set spelllang=en
 " set noeol                   " no new line at the end
 " set binary                  " No new line at the end
 
@@ -452,6 +453,12 @@ augroup quickfix
     autocmd!
     autocmd QuickFixCmdPost grep cwindow
     autocmd QuickFixCmdPost lgrep lwindow
+augroup END
+
+" Use spellcheck for certain filestypes
+augroup spellcheck
+    au!
+    au Filetype markdown,asciidoc,text,gitcommit setlocal spell
 augroup END
 "
 " cmap <c-c> <c-c><c-c>
