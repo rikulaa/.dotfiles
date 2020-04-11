@@ -6,12 +6,9 @@ function initWindowManager()
   -- gap size
   local gaps = 5
   function setGrid() 
-    -- hs.grid.setGrid("8x4", hs.screen.primaryScreen())
     hs.grid.setGrid("6x6", hs.screen.primaryScreen())
     local external = hs.screen.primaryScreen():next()
-    hs.alert.show(external)
     if external then
-      -- hs.grid.setGrid("6x6", external)
       hs.grid.setGrid("6x6", external)
     end
   end
