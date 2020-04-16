@@ -1,0 +1,29 @@
+= Git cheatsheet
+
+== Add second remote, pull from it
+
+    git remote add something git://host.example.com/path/to/repo.git
+    git checkout master
+    git pull something master
+
+== Pull without adding remote
+
+    git pull git://host.example.com/path/to/repo.git
+
+== How to add a changed file to an older (not last) commit in Git 
+
+Use `git rebase`. Specifically:
+
+. Use git stash to store the changes you want to add.  
+. Use `git rebase -i HEAD~10` (or however many commits back you want to see).  
+. Mark the commit in question (a0865...) for edit by changing the word pick at the start of the line into edit. Don't delete the other lines as that would delete the commits. 
+. Save the rebase file, and git will drop back to the shell and wait for you to fix that commit.
+. Pop the stash by using git stash pop
+. Add your file with `git add <file>.`
+. Amend the commit with `git commit --amend --no-edit`.
+. Do a `git rebase --continue` which will rewrite the rest of your commits against the new one.
+. Repeat from step 2 onwards if you have marked more than one commit for edit.
+
+If you are using vim then you will have to hit the Insert key to edit, then Esc and type in :wq to save the file, quit the editor, and apply the changes. Alternatively, you can configure a user-friendly git commit editor with git config --global core.editor "nano".
+
+https://stackoverflow.com/questions/2719579/how-to-add-a-changed-file-to-an-older-not-last-commit-in-git[link]
