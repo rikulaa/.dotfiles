@@ -38,6 +38,7 @@ alias work='cd ~/src/work'
 alias me='cd ~/src/me'
 alias docs='cd ~/Documents'
 alias notes='cd ~/Documents/notes/'
+alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
 
 alias todo='$EDITOR $HOME/Documents/todo.adoc'
 
