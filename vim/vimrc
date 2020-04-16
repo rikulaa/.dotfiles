@@ -189,6 +189,7 @@ set incsearch				" Search as characters are entered
 " {{{
 command! Vimrc :e $MYVIMRC
 command! Eft :execute 'e ~/.config/nvim/after/ftplugin/'.&filetype.'.vim'
+command! Esy :execute 'e ~/.config/nvim/after/syntax/'.&filetype.'.vim'
 command! Reload :source $MYVIMRC
 
 command! -nargs=? Web :call websearch#Search(<q-args>)
