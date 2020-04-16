@@ -1,0 +1,5 @@
+#!/bin/sh
+# Outputs the date in ISO-format
+# https://fi.wikipedia.org/wiki/ISO_8601 
+
+date "+%Y-%m-%d"
