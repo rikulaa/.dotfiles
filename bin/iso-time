@@ -1,0 +1,5 @@
+#!/bin/sh
+# Output the time (hour, minutes, date) in ISO-format
+# See: https://fi.wikipedia.org/wiki/ISO_8601
+
+date "+%H:%M:%S"
