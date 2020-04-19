@@ -35,49 +35,42 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-# Adds prompt
-function precmd {
-    # Add git to prompt
-    is_git() { 
+# Configure prompt
+precmd() {
+    # If there is atleast one job, show the jobs prompt
+    JOBS_PROMPT="%F{yellow}%1(j.{%j} .)%f"
+
+    # Use custom git prompt
+    # ZSH has also support for 'vcs_info' but I couldn't get it to display the information the way I wanted
+    GIT_PROMPT=''
+    is_git_directory() { 
         git status >/dev/null 2>&1 
     }
+    if is_git_directory; then
+        GIT_BRANCH=$(git branch | sed '/^ /d' | sed 's/\* //')
+        GIT_PROMPT=" %F{red}($GIT_BRANCH)%f"
 
-    GIT_PROMPT=''
-    if is_git; then
-
-        git_status=$(git status -sb)
-
-        git_dirty_files=$(echo $git_status | grep '[AMD??]' -c) 
-        git_dirty=''
-        if [[ $git_dirty_files > 0 ]]; then
-            git_dirty="%{$fg[yellow]%}*"
+        is_dirty=$(git status --porcelain | wc -l) 
+        if [[ $is_dirty -gt  "0" ]]; then
+            GIT_PROMPT=${GIT_PROMPT}"%F{yellow}*%f"
         fi
 
-        git_branch="%{$fg[red]%} ($(git branch | sed -n 's/[*][a-zA-Z/]*//p' | cut -b 2- || ''))"
-
-        git_ahead_amount=$(echo $git_status | grep 'ahead.[0-9]' -o | cut -b 7- )
-        git_ahead=''
-        if [[ $git_ahead_amount > 0 ]]; then
-            # green
-            git_ahead="%{$fg[green]%} +$git_ahead_amount"
+        git_ahead_count=$(git status -sb | head -1 | grep -o 'ahead\s\d' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
+        git_behind_count=$(git status -sb | head -1 | grep -o 'behind\s\d' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
+        if [  -n "$git_ahead_count" ] || [ -n "$git_behind_count"  ]; then
+            GIT_PROMPT="$GIT_PROMPT ["
+            if [  -n "$git_ahead_count" ]; then
+                GIT_PROMPT=$GIT_PROMPT"%F{green}+$git_ahead_count%f"
+            fi
+            if [ -n "$git_behind_count"  ]; then
+                GIT_PROMPT=$GIT_PROMPT"%F{red}-$git_behind_count%f"
+            fi
+            GIT_PROMPT="$GIT_PROMPT]"
         fi
-
-        git_behind=''
-        git_behind_amount=$(echo $git_status | grep 'behind.[0-9]' -o | cut -b 8-)
-        if [[ $git_behind_amount > 0 ]]; then
-            # red 
-            git_behind="%{$fg[red]%} -$git_behind_amount"
-
-        fi
-        GIT_PROMPT="$git_branch$git_dirty$git_ahead$git_behind%{$reset_color%}"
     fi
 
-    # Background processes
-    BACKGROUND_JOBS_PROMPT=$( [ -z "$(jobs | tail -1)" ] && echo '' || echo " %{$fg[yellow]%}{%j}%{$reset_color%}")
-    PROMPT="%B%{$fg[blue]%} %c%{$reset_color%}$GIT_PROMPT%b$BACKGROUND_JOBS_PROMPT "
-
+    PS1="$JOBS_PROMPT%F{blue}%c%f$GIT_PROMPT "
 }
-
 
 # Source custom aliases, functions, ...etc
 shell_dir=$HOME/.dotfiles/shell
