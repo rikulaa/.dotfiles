@@ -1,3 +1,6 @@
+# Enable colors
+autoload -U colors && colors
+
 setopt histignorealldups sharehistory
 setopt complete_aliases
 
@@ -17,28 +20,12 @@ HISTFILE=$HOME/.cache/zsh/history
 autoload -Uz compinit
 compinit
 
-# Shift-tab to reverse men u
-bindkey '^[[Z' reverse-menu-complete
-
 # Better settings for completion menu
 zstyle ':completion:*' menu select
-zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-# # Complete . and .. special directories
-zstyle ':completion:*' special-dirs true
 
-default-backward-delete-word () {
-  local WORDCHARS="*?_[]~=&;!#$%^(){}<>"
-  zle backward-delete-word
-}
-zle -N default-backward-delete-word
-bindkey '^W' default-backward-delete-word
+# Shift-tab to reverse men u
+bindkey '^[[Z' reverse-menu-complete
 
 # Expand command on !!
 bindkey ' ' magic-space
@@ -47,8 +34,6 @@ bindkey ' ' magic-space
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
-
-autoload -U colors && colors
 
 # Adds prompt
 function precmd {
