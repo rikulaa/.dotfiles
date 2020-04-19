@@ -24,7 +24,7 @@ compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ''
 
-# Shift-tab to reverse men u
+# Shift-tab to reverse the menu
 bindkey '^[[Z' reverse-menu-complete
 
 # Expand command on !!
@@ -34,6 +34,17 @@ bindkey ' ' magic-space
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+
+# Can delete paths by directory
+# By default will delete the whole path when pressing ^W
+#
+# Now, e.g /foo/bar => /foo
+default-backward-delete-word () {
+  local WORDCHARS="*?_[]~=&;!#$%^(){}<>"
+  zle backward-delete-word
+}
+zle -N default-backward-delete-word
+bindkey '^W' default-backward-delete-word
 
 # Configure prompt
 precmd() {
