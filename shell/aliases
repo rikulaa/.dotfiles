@@ -20,11 +20,9 @@ alias playground='cd ~/src/me/playground'
 
 alias g='git'
 # Use completion for git aliases (in zsh)
-case $SHELL in
-    */zsh)
+if [ -n "$ZSH_VERSION" ]; then
         compdef g='git'
-        ;;
-esac        
+fi 
 alias bin='cd ~/.local/bin'
 
 alias school='cd ~/src/school'
