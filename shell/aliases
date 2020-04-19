@@ -144,11 +144,6 @@ tm() {
 
     else
         echo "Session with $name already exists!"
-        # # Create session without name
-        # tmux new-session -n vim -d 
-        # tmux new-window -n terminal
-        # tmux split-window 
-        # tmux attach-session -d -t :vim
     fi
 }
 
