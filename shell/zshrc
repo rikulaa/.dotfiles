@@ -49,7 +49,8 @@ bindkey '^W' default-backward-delete-word
 # Configure prompt
 precmd() {
     # If there is atleast one job, show the jobs prompt
-    JOBS_PROMPT="%F{yellow}%1(j.{%j} .)%f"
+    JOBS_PROMPT="%F{yellow}%1(j. {%j}.)%f"
+    SUDO_PROMPT="%(!.%F{red}# %f.)"
 
     # Use custom git prompt
     # ZSH has also support for 'vcs_info' but I couldn't get it to display the information the way I wanted
@@ -80,7 +81,7 @@ precmd() {
         fi
     fi
 
-    PS1="$JOBS_PROMPT%F{blue}%c%f$GIT_PROMPT "
+    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT "
 }
 
 # Source custom aliases, functions, ...etc
