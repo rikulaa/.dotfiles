@@ -1,23 +1,12 @@
 # get local aliases (not under version control)
-if [ -f $HOME/.aliases ]; then
-    source $HOME/.aliases
+if [ -f "$HOME/.aliases" ]; then
+    # shellcheck source=$HOME/.aliases
+    . "$HOME/.aliases"
 fi
-
-shell_config_dir=$HOME/.dotfiles/shell
-DOTFILES_DIR=$HOME/.dotfiles
-
-# for setting colors in ls
-if ls --color > /dev/null 2>&1; then
-    # gnu 
-    colorflag="--color"
-else
-    # osx
-    colorflag="-G"
-fi
-
-
 
 # ======== CONFIGURATIONS ============
+DOTFILES_DIR=$HOME/.dotfiles
+
 alias zshrc='$EDITOR $DOTFILES_DIR/shell/zshrc'
 alias bashrc='$EDITOR $DOTFILES_DIR/shell/bashrc'
 alias vimrc='$EDITOR $DOTFILES_DIR/vim/vimrc'
@@ -28,9 +17,14 @@ alias dotfiles='cd $DOTFILES_DIR'
 alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
 alias playground='cd ~/src/me/playground'
-# For zhs
-alias g='git'
 
+alias g='git'
+# Use completion for git aliases (in zsh)
+case $SHELL in
+    */zsh)
+        compdef g='git'
+        ;;
+esac        
 alias bin='cd ~/.local/bin'
 
 alias school='cd ~/src/school'
@@ -43,8 +37,18 @@ alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
 alias todo='$EDITOR $HOME/Documents/todo.adoc'
 
 # ======== FILE SYSTEM ============
+
+# for setting colors in ls
+if ls --color > /dev/null 2>&1; then
+    # gnu 
+    colorflag="--color"
+else
+    # osx
+    colorflag="-G"
+fi
+
 # extend cd to always list files when navigating
-function cd() {
+cd() {
     builtin cd "$@" && ls -l $colorflag
 }
 
@@ -71,30 +75,24 @@ alias touchd='mkdir'
 
 alias dirs='dirs -v'
 
-# is not osx
-if [[ ! $(uname) =~ "Darwin" ]]; then
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -selection clipboard -o'
-fi
-
-copy() {
-    if [ -n "$1" ]; then
-        echo $1 | pbcopy
-    else
-        echo "Nothing to copy"
-    fi
-}
+# Use 'pbcopy' command for accessing clipboard
+case $(uname) in
+    Darwin)
+        ;;
+    *)
+        alias pbcopy='xclip -selection clipboard'
+        alias pbpaste='xclip -selection clipboard -o'
+        ;;
+esac
 
 alias sizeof='du -sh'
 
-rm-fzf() {
+rm_fzf() {
     for file in $(fzf --multi); do
         echo "deleting $file"
-        rm $file
+        rm "$file"
     done
 }
-
-
 
 ## ======== OTHER ============
 alias php-server='php -S localhost:8000' 
@@ -129,22 +127,22 @@ alias tmkp='tmux kill-pane'
 alias tmkw='tmux kill-window'
 
 # Create new sessions
-function tm() {
+tm() {
     if [ -n "$1" ]; then
         name=$1
     else
         name=$(basename "$PWD" | sed -E 's/\.//g')
     fi
 
-    tmux has -t $name
+    tmux has -t "$name"
     has_session=$?
 
     
     if [ $has_session -eq 1 ]; then
-        tmux new-session -n vim -d -s $name 
+        tmux new-session -n vim -d -s "$name"
         tmux new-window -n terminal
         tmux split-window -h
-        tmux attach-session -d -t $name:vim
+        tmux attach-session -d -t "$name:vim"
 
     else
         echo "Session with $name already exists!"
@@ -157,7 +155,7 @@ function tm() {
 }
 
 # tmux attach session
-function tma() {
+tma() {
     # check if fzf is installed (allows to use interactive selector)
     if [ -x "$(command -v fzf)" ]; then
         # get sessions
@@ -166,10 +164,10 @@ function tma() {
         sessions_count=$(echo "{$sessions}" | wc -l)
 
         # check if any sessions exists
-        if [  $sessions_count -gt 0 ]; then
+        if [  "$sessions_count" -gt 0 ]; then
             target_session=$(tmux list-sessions | fzf --reverse | sed 's/\([a-zA-z0-9]:\).*/\1/')
             if [ -n "$target_session" ]; then
-                tmux attach -t $target_session
+                tmux attach -t "$target_session"
             fi
         fi
     else
@@ -184,9 +182,9 @@ alias d-c='docker-compose'
 alias docker-stop-all='docker kill $(docker ps -q)'
 alias docker-rm-containers='docker rm $(docker ps -a -q)'
 alias docker-rm-images=' docker rmi $(docker images -q)'
-function dockerps() {
+dockerps() {
     item=$(docker ps | sed 1d | fzf)
-    echo $item | awk '{ print $1 }'
+    echo "$item" | awk '{ print $1 }'
 }
 alias docker-restart='docker restart $(dockerps)'
 
