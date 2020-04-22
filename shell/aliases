@@ -16,6 +16,7 @@ alias gitconfig='$EDITOR $DOTFILES_DIR/git/gitconfig'
 alias dotfiles='cd $DOTFILES_DIR'
 alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
+alias dotenv='$EDITOR $DOTFILES_DIR/shell/env'
 alias playground='cd ~/src/me/playground'
 
 alias g='git'
@@ -57,7 +58,7 @@ goBack() {
 alias ..='cd ..'
 
 alias l="ls -al $colorflag"
-alias ls="ls $colorflag"
+alias ls="ls -1 $colorflag"
 
 tree() {
     find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' 
