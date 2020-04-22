@@ -461,6 +461,11 @@ augroup spellcheck
     au!
     au Filetype markdown,asciidoc,text,gitcommit setlocal spell
 augroup END
+
+augroup snippetsft
+    au!
+    autocmd BufEnter .snippets setlocal ft=make
+augroup END
 "
 " cmap <c-c> <c-c><c-c>
 "============================================================================
