@@ -2,8 +2,7 @@
 " Plugs
 "============================================================================
 " {{{
-" load all plugins from under .dotfiles
-call plug#begin('~/.dotfiles/vim/bundle')
+call plug#begin('$HOME/.config/nvim/bundle')
 
 " General usability
 Plug 'tpope/vim-commentary'           " Comments
