@@ -11,6 +11,9 @@ endsnippet
 snippet else
 {% else %}
 endsnippet
+snippet endi
+{% endif %}
+endsnippet
 
 snippet as
 {%- assign ${1} -%}
@@ -75,4 +78,10 @@ endsnippet
 
 snippet sec
 {% section '${1}' %}
+endsnippet
+
+snippet cap
+{%- capture ${1} -%}
+${2}
+{%- endcapture -%}
 endsnippet
