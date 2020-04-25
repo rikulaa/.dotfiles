@@ -1,0 +1,16 @@
+#!/bin/sh
+# Simple shell script to run a web search for given input
+
+case $(uname) in
+    "Darwin")
+        CMD="open"
+        ;;
+    *)
+        CMD="xdg-open"
+        ;;
+esac    
+
+# Don't do anything if no arguments provided
+if [ -n "$1" ]; then
+    exec $CMD "https://duckduckgo.com?q=$*"
+fi
