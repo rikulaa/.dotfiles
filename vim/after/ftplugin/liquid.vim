@@ -18,7 +18,7 @@ let __IncludeActions = {
             \'v': {'title': "Validate schema", 'execute': 'call ValidateLiquidSchema()' },
             \}
 
-nnoremap <silent> <leader>L  :call yamenu#Show(__IncludeActions)<CR>
+nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
 
 " To search pattern for split single lined 'render' or 'include' into multiline
 " pattern explanation

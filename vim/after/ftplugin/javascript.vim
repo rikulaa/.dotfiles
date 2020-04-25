@@ -23,7 +23,7 @@ let __IncludeActions = {
             \'s': {'title': "sort imports", '': function('JsSortUse', []) },
             \}
 
-nnoremap <silent> <leader>L  :call yamenu#Show(__IncludeActions)<CR>
+nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
 
 " Toggles between:
 "
