@@ -4,6 +4,9 @@
 # get default editor
 if [ -x "$(command -v nvim)" ]; then
     VIM_EDITOR='nvim'
+    # Use nvim as man pager
+    export MANPAGER='nvim +Man!'
+    export MANWIDTH=999
 else
     if [ -x "$(command -v vim)" ]; then
         VIM_EDITOR='vim'
