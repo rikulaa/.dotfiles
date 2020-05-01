@@ -156,6 +156,8 @@ else
     set background=dark
 endif
 set showcmd					" Show command at the bottom
+
+set statusline=%f\ %h\ %r\ %=%y
 " }}}
 
 "============================================================================
