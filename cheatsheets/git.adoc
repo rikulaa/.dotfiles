@@ -10,6 +10,30 @@
 
     git pull git://host.example.com/path/to/repo.git
 
+== Change repository
+
+List repositories
+
+    git remote -v
+
+Rename old repo
+
+    git remote rename origin old-origin
+
+Add new origin
+
+    git remote add origin git@gitlab.meiko.fi:common/components.git
+
+OR Change the 'origin' repository
+
+    git remote set-url origin git@new-repo.git
+
+Push changes
+
+    git push -u origin --all
+    git push -u origin --tags
+
+
 == How to add a changed file to an older (not last) commit in Git 
 
 Use `git rebase`. Specifically:

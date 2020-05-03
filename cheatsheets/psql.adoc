@@ -1,0 +1,27 @@
+.Login
+
+[code, sh]
+----
+psql -d DATABASE -U user -W password
+----
+
+.List databases
+
+[code, sh]
+----
+\l # \list
+----
+
+.Change databases
+
+[code, sh]
+----
+\c # \connect
+----
+
+.List tables
+
+[code, sh]
+----
+\dt
+----

@@ -292,3 +292,11 @@ echo expand("%:r")    " path/file
 echo expand("%:e")    " txt
 
 
+" Fix unknown function in `autoload`
+ 
+" The functions defined in files inside autoload-folder must match the file name.
+" For example, `autoload/functions.vim` must contain functions which are prefixed with `function#`
+" e.g `functions#some_function()`.
+ 
+" The autoload folder can also have subfolders. The function names must match the same way in there as well.
+
