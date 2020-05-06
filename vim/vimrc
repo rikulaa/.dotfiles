@@ -157,7 +157,6 @@ else
 endif
 set showcmd					" Show command at the bottom
 
-set statusline=%f\ %h\ %r\ %=%y
 " }}}
 
 "============================================================================
