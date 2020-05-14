@@ -429,6 +429,12 @@ augroup snippetsft
     au!
     autocmd BufEnter .snippets setlocal ft=make
 augroup END
+
+augroup noteshook
+    autocmd!
+    " Create commit message with the following format: "Updated <filename>"
+    autocmd BufWritePost **/Documents/notes/* silent !notes-commit.sh "Update %:t"
+augroup END
 "
 " cmap <c-c> <c-c><c-c>
 "============================================================================
