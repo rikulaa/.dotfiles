@@ -51,3 +51,7 @@ Use `git rebase`. Specifically:
 If you are using vim then you will have to hit the Insert key to edit, then Esc and type in :wq to save the file, quit the editor, and apply the changes. Alternatively, you can configure a user-friendly git commit editor with git config --global core.editor "nano".
 
 https://stackoverflow.com/questions/2719579/how-to-add-a-changed-file-to-an-older-not-last-commit-in-git[link]
+
+== Sync deleted branches from remote
+
+    git remote prune <remote-name>
