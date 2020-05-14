@@ -326,7 +326,8 @@ vnoremap <leader>ss :s///g<Left><Left>
 " Append character to the end of the line
 nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
 
-nnoremap <Leader>l :ALEFix<CR>
+" This needs to configured for each language OR reduce the timeout
+" nnoremap <Leader>lf :ALEFix<CR>
 
 " Quickly make the current file
 nnoremap <Leader>m :silent make %<CR>
