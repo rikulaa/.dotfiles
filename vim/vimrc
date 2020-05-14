@@ -236,9 +236,12 @@ endfun
 let mapleader="\<Space>"	" Use space as leader key
 
 nnoremap <leader>; :
+" Windows
+nnoremap <leader>w <C-W>
+" nnoremap <leader>w :write<CR>
 
 " Buffers
-nnoremap <leader>w :w<CR>
+" nnoremap <leader>w :w<CR>
 nnoremap <leader>q :bd<CR>
 
 "Easier copy and paste from system clipboard
