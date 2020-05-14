@@ -12,6 +12,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'            " For converting name cases
 Plug 'Raimondi/delimitMate'
 Plug 'rikulaa/vim-yamenu'
+Plug 'chrisbra/csv.vim'
 
 " Close HTML, XML tags
 Plug 'alvan/vim-closetag'
@@ -249,6 +250,32 @@ nnoremap <leader>q :bd<CR>
 " Write buffer
 " Acronym: Buffer -> Write
 nnoremap <leader>bw :w<CR>
+" Navigation (buffers)
+" Open buffer with FZF
+" https://github.com/junegunn/fzf/wiki/Examples-(vim)
+function! s:buflist()
+    redir => ls
+    silent ls
+    redir END
+    return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <leader>bl :call fzf#run({
+            \   'source':  reverse(<sid>buflist()),
+            \   'sink':    function('<sid>bufopen'),
+            \   'options': '+m',
+            \   'down':    len(<sid>buflist()) + 2
+            \ })<CR>
+nnoremap <silent> <leader>, :call fzf#run({
+            \   'source':  reverse(<sid>buflist()),
+            \   'sink':    function('<sid>bufopen'),
+            \   'options': '+m',
+            \   'down':    len(<sid>buflist()) + 2
+            \ })<CR>
 
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
@@ -508,7 +535,7 @@ fun! CompleteSnippet(findstart, base)
             let start -= 1
         endwhile
         return start
-    else 
+    else
         let haystack = UltiSnips#SnippetsInCurrentScope(1)
         let res = []
         for m in keys(haystack)
@@ -531,6 +558,8 @@ set completefunc=CompleteSnippet
 " inoremap <C-^> <C-o><C-^>
 "
 command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
+
+let g:magit_default_fold_level = 0
 
 " https://github.com/gruvbox-community/gruvbox/issues/126
 let g:gruvbox_invert_selection = 0
