@@ -263,6 +263,9 @@ nnoremap ]b :bn<CR>
 " Navigation (between quickfix items)
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
+" Navigation (between arglist items)
+nnoremap ]a :next<CR>
+nnoremap [a :prev<CR>
 
 " Navigate between errors
 nmap <silent> [e <Plug>(ale_previous_wrap)
