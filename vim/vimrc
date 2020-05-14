@@ -240,6 +240,9 @@ nnoremap <leader>; :
 nnoremap <leader>w <C-W>
 " nnoremap <leader>w :write<CR>
 
+" Remove search highlihgt
+nmap <Esc> :noh<CR>
+
 " Buffers
 " nnoremap <leader>w :w<CR>
 nnoremap <leader>q :bd<CR>
