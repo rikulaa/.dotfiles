@@ -246,6 +246,9 @@ nmap <Esc> :noh<CR>
 " Buffers
 " nnoremap <leader>w :w<CR>
 nnoremap <leader>q :bd<CR>
+" Write buffer
+" Acronym: Buffer -> Write
+nnoremap <leader>bw :w<CR>
 
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
