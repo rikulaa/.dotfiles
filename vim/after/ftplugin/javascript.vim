@@ -21,6 +21,7 @@ endfunction
 
 let __IncludeActions = {
             \'s': {'title': "sort imports", '': function('JsSortUse', []) },
+            \'f': {'title': "Fix", 'execute': 'ALEFix' },
             \}
 
 nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
