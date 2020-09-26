@@ -102,3 +102,6 @@ fi
 
 # Set the terminal theme
 . ~/.local/bin/refresh_theme.sh
+
+# Expand aliases when using non-interactive shell
+setopt aliases
