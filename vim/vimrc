@@ -247,9 +247,10 @@ nmap <Esc> :noh<CR>
 " Buffers
 " nnoremap <leader>w :w<CR>
 nnoremap <leader>q :bd<CR>
-" Write buffer
-" Acronym: Buffer -> Write
+" Write buffer|file
+" Acronym: Buffer|file -> Write
 nnoremap <leader>bw :w<CR>
+nnoremap <leader>fw :w<CR>
 " Navigation (buffers)
 " Open buffer with FZF
 " https://github.com/junegunn/fzf/wiki/Examples-(vim)
