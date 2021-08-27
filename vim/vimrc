@@ -620,3 +620,10 @@ for _, lsp in ipairs(servers) do
   }
 end
 EOF
+" }}}
+"
+"
+" TODO: Convert to init.lua ?
+" TODO: Lua snip plugin?
+" TODO: telescope?
+
