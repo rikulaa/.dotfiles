@@ -318,8 +318,8 @@ endfunction
 vnoremap <leader>/ y :call StringLiteralSearch(getreg('"'))
 
 " Global serach (files)
-nnoremap <leader>p :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
-nnoremap <leader>. :call fzf#run({'source': 'rg --files . ', 'window': '30new','sink': 'e'})<CR>
+nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files .'}))<CR>
+nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files .'}))<CR>
 function! SearchFilesByWord(word)
     :execute ":FZF -q " . a:word
 endfunction
