@@ -7,10 +7,12 @@ call plug#begin('$HOME/.config/nvim/bundle')
 " General usability
 Plug 'tpope/vim-commentary'           " Comments
 Plug 'tpope/vim-surround'             " Vim Surround plugin
-Plug 'tpope/vim-projectionist'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'            " For converting name cases
-Plug 'Raimondi/delimitMate'
+
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'jiangmiao/auto-pairs'
 Plug 'rikulaa/vim-yamenu'
 Plug 'chrisbra/csv.vim'
 
@@ -29,32 +31,16 @@ if (executable('git'))
     Plug 'jreybert/vimagit'
 endif
 
-" Languages (autocomplete, goto definition)
-if (has('nvim') || has('job'))
-    Plug 'autozimu/LanguageClient-neovim', {
-                \ 'branch': 'next',
-                \ 'do': 'bash install.sh',
-                \ }
-    " Install PHP language server only if PHP is available
-    if (executable('php'))
-        Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-    endif
-
-    " Install Js language servers only if node is available
-    if (executable('node'))
-        Plug 'rikulaa/LanguageServer-typescript-neovim/', {'do': 'npm install'}
-        Plug 'rikulaa/LanguageServer-vue-neovim', {'do': 'npm install'}
-    endif
-endif
-
 " Languages (syntax etc)
 " JS
 Plug 'posva/vim-vue', {'for': 'vue'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'mxw/vim-jsx', {'for': 'javascript'}
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'alampros/vim-styled-jsx'
 Plug 'leafgarland/typescript-vim' " Syntax for ts
 Plug 'heavenshell/vim-jsdoc'
+Plug 'leafOfTree/vim-vue-plugin'
+
 
 " Liquid
 Plug 'tpope/vim-liquid'
@@ -62,12 +48,12 @@ Plug 'tpope/vim-liquid'
 " PHP
 Plug 'jwalton512/vim-blade', {'for': 'blade'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
-if  (executable('php'))
-    " PHP and composer is required
-    Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
-endif
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'vim-scripts/PDV--phpDocumentor-for-Vim'
+Plug 'lumiliet/vim-twig'
+
+" Elixir
+Plug 'elixir-editors/vim-elixir'
 
 " Other
 Plug 'tpope/vim-markdown'
@@ -92,6 +78,7 @@ endif
 Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'endel/vim-github-colorscheme'
 
 call plug#end()            " required
 " }}}
@@ -270,12 +257,6 @@ function! s:bufopen(e)
     execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <leader>bl :call fzf#run({
-            \   'source':  reverse(<sid>buflist()),
-            \   'sink':    function('<sid>bufopen'),
-            \   'options': '+m',
-            \   'down':    len(<sid>buflist()) + 2
-            \ })<CR>
 nnoremap <silent> <leader>, :call fzf#run({
             \   'source':  reverse(<sid>buflist()),
             \   'sink':    function('<sid>bufopen'),
@@ -327,8 +308,6 @@ function! ToggleFileExplorer()
 endfunction
 nnoremap <leader>e :call ToggleFileExplorer()<CR>
 
-" Current file search (patterns)
-nnoremap <leader>/ :silent grep  %<Left><Left>
 " Global search (patterns)
 nnoremap <leader>/ :silent grep 
 " Search the visual selection (as string literal)
@@ -391,6 +370,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 vnoremap <leader>a :EasyAlign<CR>
+nnoremap <leader>! :!
 
 let g:hunk_actions = {
             \'s': {'title': "stage", 'execute': 'GitGutterStageHunk' },
@@ -418,8 +398,8 @@ fun! GetTypeHoverAction(word)
     try
         if (&filetype == 'vim')
             execute "h " . a:word
-        elseif has_key(g:LanguageClient_serverCommands, &filetype)
-            silent call LanguageClient#textDocument_hover()
+        " elseif has_key(g:LanguageClient_serverCommands, &filetype)
+        "     silent call LanguageClient#textDocument_hover()
         else
             silent execute "Man " . a:word
         endif
@@ -429,11 +409,6 @@ fun! GetTypeHoverAction(word)
 endfunction
 nnoremap <silent> K :call GetTypeHoverAction("<C-R><C-W>")<CR>
 
-" Language client mappings
-nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <buffer> <silent> <leader>rd :call LanguageClient#textDocument_rename()<CR>
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <leader>gd :call LanguageClient_textDocument_definition()<CR>
 " }}}
 
 "============================================================================
@@ -476,6 +451,14 @@ augroup END
 " Additional plugin settings
 "============================================================================
 " {{{
+" 
+
+"Default : 1
+"
+"When you press the key for the closing pair (e.g. `)`) it jumps past it.
+"If set to 1, then it'll jump to the next line, if there is only whitespace.
+"If set to 0, then it'll only jump to a closing pair on the same line.
+let g:AutoPairsMultilineClose = 0
 "
 " ======== Git =========
 " Gitgutter
@@ -487,10 +470,12 @@ let g:ale_fixers = {
             \'javascript': ['eslint', 'prettier'],
             \'c': ['clang-format'],
             \ 'php': ['phpcbf', 'php_cs_fixer'],
+            \ 'python': ['pylint'],
             \}
 let g:ale_linters = {
             \'javascript': ['eslint'],
             \ 'php': ['php', 'phpcs', 'phpmd', 'phpstan', 'langserver'],
+            \ 'python': ['pylint'],
             \}
 
 " Dont use autoompletion from ale
@@ -503,15 +488,11 @@ let g:ale_php_phpstan_executable=$PWD.'/vendor/bin/phpstan'
 let g:ale_php_phpstan_level = 7
 let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
 
-" Don't use language client for linting
-" let g:LanguageClient_diagnosticsList = "Location"
-let g:LanguageClient_diagnosticsEnable = 0
-
 " Comment arrow functions also
 let g:jsdoc_enable_es6 = 1
 " ======== Tags =========
 " ** Closetag **
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx,*.js,*.blade.php,*.vue,*.liquid"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.jsx,*.js,*.blade.php,*.vue,*.liquid,*.html.leex"
 " integer value [0|1]
 " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
 "
@@ -547,14 +528,6 @@ fun! CompleteSnippet(findstart, base)
 endfun
 set completefunc=CompleteSnippet
 
-
-" Movement in insert mode
-" inoremap <C-h> <C-o>h
-" inoremap <C-l> <C-o>a
-" inoremap <C-j> <C-o>j
-" inoremap <C-k> <C-o>k
-" inoremap <C-^> <C-o><C-^>
-"
 command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
 
 let g:magit_default_fold_level = 0
@@ -566,3 +539,83 @@ if (&background == 'dark')
 else
   hi Visual cterm=NONE ctermfg=NONE ctermbg=223 guibg=#ffd7af
 endif
+
+"============================================================================
+" LSP
+"============================================================================
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+-- tsserver https://github.com/typescript-language-server/typescript-language-server
+-- Python: https://github.com/python-lsp/python-lsp-server
+-- php (intelephense): https://intelephense.com/
+local servers = { 'pylsp', 'tsserver', 'intelephense', 'vuels' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    handlers = {
+      ["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+          -- Disable virtual_text
+          virtual_text = false
+        }
+      ),
+    }
+  }
+  -- elixr-ls: https://github.com/elixir-lsp/elixir-ls
+  nvim_lsp.elixirls.setup{
+      on_attach = on_attach,
+      cmd = { '/Users/rikulaa/.local/bin/elixir-ls/language_server.sh' },
+      flags = {
+        debounce_text_changes = 150,
+      },
+      handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(
+          vim.lsp.diagnostic.on_publish_diagnostics, {
+            -- Disable virtual_text
+            virtual_text = false
+          }
+        ),
+      }
+  }
+end
+EOF
