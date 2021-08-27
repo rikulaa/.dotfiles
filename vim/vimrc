@@ -260,12 +260,10 @@ function! s:bufopen(e)
     execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <leader>, :call fzf#run({
+nnoremap <silent> <leader>, :call fzf#run(fzf#wrap({
             \   'source':  reverse(<sid>buflist()),
             \   'sink':    function('<sid>bufopen'),
-            \   'options': '+m',
-            \   'down':    len(<sid>buflist()) + 2
-            \ })<CR>
+            \ }))<CR>
 
 "Easier copy and paste from system clipboard
 nnoremap <leader>Y "*y
