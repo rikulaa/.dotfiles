@@ -194,6 +194,9 @@ command! -range FormatJson silent :'<,'>!jq
 " Git: stage current file
 command! Ga :!git a %
 
+command! Foldopen normal zR
+command! Foldclose normal zM
+
 " Better grep (https://noahfrederick.com/log/vim-streamlining-grep
 " - Don't show confirmation after search by using silent
 " - Open quickfix window immediately
