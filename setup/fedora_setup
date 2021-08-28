@@ -18,25 +18,6 @@ for program in $programs; do
      fi
 done
 
-## vscode
-#if ! exists code; then
-    #curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-    #sudo mv microsoft.gpg /etc/dnf/trusted.gpg.d/microsoft.gpg
-    #sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/dnf/sources.list.d/vscode.list'
-#
-    #sudo dnf-get update
-    #printf "Installing vscode \n"
-    #sudo dnf-get install code -y # or code-insiders
-#else 
-    #printf "vscode already installed\n"
-#fi
-
-#
-#  Create ~/.local/bin dir if it doesn't exist
-if [ ! -d $HOME/.local/bin ]; then
-    mkdir -p $HOME/.local/bin
-fi
-
 #####################
 # Development dependencies
 
@@ -46,71 +27,6 @@ if ! pip3 list | grep neovim; then
 else
     printf "neovim python depencies already installed!\n"
 fi
-
-
-#####################
-# SYMLINKS
-
-# bashrc
-printf "Linking .bashrc, .bash_profile\n"
-ln -sf $dotfiles_dir/shell/bashrc $HOME/.bashrc
-ln -sf $dotfiles_dir/shell/bash_profile $HOME/.bash_profile
-ln -sf $dotfiles_dir/shell/dircolors $HOME/.dircolors
-
-# zshrc
-printf "Linking .zshrc\n"
-ln -sf $dotfiles_dir/shell/zshrc $HOME/.zshrc
-
-# Install oh-my-zsh, if it exists just do git pull
-#if [ -d $config_dir/oh-my-zsh ]; then
-    #printf "Updating oh-my-zsh...\n"
-    #cd $config_dir/oh-my-zsh 
-    #git pull $config_dir/oh-my-zsh
-#else 
-    #printf "Installing oh-my-zsh...\n"
-    #git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh
-#fi
-
-# tmux
-echo "Linking tmux.conf"
-ln -sf $dotfiles_dir/tmux/tmux.conf $HOME/.tmux.conf
-
-# vim
-printf "Linking vimrc\n"
-
-if [ ! -d $config_dir/nvim ]; then
-    mkdir -p $config_dir/nvim
-fi
-ln -sf $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
-ln -sf $dotfiles_dir/vim/vimrc $HOME/.vimrc
-
-printf "Linking ctags\n"
-ln -sf $dotfiles_dir/vim/ctags $HOME/.ctags
-
-# git
-printf "Linking gitconfig\n"
-ln -sf $dotfiles_dir/git/gitconfig $HOME/.gitconfig
-
-dotfiles_dir=$HOME/.dotfiles
-target_bin=$HOME/.local/bin
-
-echo "Checking if $target_bin exists..."
-if [[ -d $target_bin ]]; then
-    echo "$target_bin, exists!"
-else
-    echo "$target_bin not found, creating directory"
-    mkdir -p $target_bin
-fi
-
-# Link files to target bin
-echo "Linking bin"
-for file_path in $dotfiles_dir/bin/*; do
-    filename=$(basename $file_path)
-
-    # Make the actual link
-    ln -sf $file_path $target_bin
-done
-
 
 
 #####################

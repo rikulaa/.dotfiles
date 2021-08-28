@@ -19,7 +19,7 @@ fi
 # Install required programs via Homebrew
 taps=""
 brews="zsh fzf ripgrep tmux neovim python3 node php composer mplayer htop tree"
-casks="kitty hammerspoon visual-studio-code firefox keeweb harvest rambox usb-overdrive windscribe slack"
+casks="hammerspoon visual-studio-code firefox keeweb harvest rambox usb-overdrive windscribe slack"
 
 
 for tap in $taps; do
@@ -60,84 +60,6 @@ else
     printf "Python neovim dependencies already installed\n"
 fi
 
-
-#####################
-# SYMLINKS
-
-# bashrc
-printf "Linking .bashrc, .bash_profile\n"
-ln -sf $dotfiles_dir/shell/bashrc $HOME/.bashrc
-ln -sf $dotfiles_dir/shell/bash_profile $HOME/.bash_profile
-ln -sf $dotfiles_dir/shell/dircolors $HOME/.dircolors
-
-# zshrc
-printf "Linking .zshrc\n"
-ln -sf $dotfiles_dir/shell/zshrc $HOME/.zshrc
-# zs saves history inside .cache
-if [ -d $cache_dir/zsh ]; then
-    mkdir -p $cache_dir/zsh
-fi
-
-# Install oh-my-zsh, if it exists just do git pull
-if [ -d $config_dir/oh-my-zsh ]; then
-    printf "Updating oh-my-zsh...\n"
-    cd $config_dir/oh-my-zsh 
-    git pull $config_dir/oh-my-zsh
-else 
-    printf "Installing oh-my-zsh...\n"
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.config/oh-my-zsh > /dev/null
-fi
-
-# tmux
-echo "Linking tmux.conf"
-ln -sf $dotfiles_dir/tmux/tmux.conf $HOME/.tmux.conf
-
-# vim
-printf "Linking vimrc\n"
-
-if [ ! -d $config_dir/nvim ]; then
-    mkdir -p $config_dir/nvim
-fi
-ln -sf $dotfiles_dir/vim/vimrc $HOME/.config/nvim/init.vim
-ln -sf $dotfiles_dir/vim/vimrc $HOME/.vimrc
-
-printf "Linking ctags\n"
-ln -sf $dotfiles_dir/vim/ctags $HOME/.ctags
-
-
-# git
-printf "Linking gitconfig\n"
-ln -sf $dotfiles_dir/git/gitconfig $HOME/.gitconfig
-
-
-
-printf "Linking hammerspoon config\n"
-if [ -d $HOME/.hammerspoon ] || [ -h $HOME/.hammerspoon ]; then
-    rm -rf $HOME/.hammerspoon
-fi
-ln -sf $dotfiles_dir/hammerspoon $HOME/.hammerspoon
-
-
-# bin files
-dotfiles_dir=$HOME/.dotfiles
-target_bin=$HOME/.local/bin
-
-echo "Checking if $target_bin exists..."
-if [[ -d $target_bin ]]; then
-    echo "$target_bin, exists!"
-else
-    echo "$target_bin not found, creating directory"
-    mkdir -p $target_bin
-fi
-
-# Link files to target bin
-echo "Linking bin"
-for file_path in $dotfiles_dir/bin/*; do
-    filename=$(basename $file_path)
-
-    # Make the actual link
-    ln -sf $file_path $target_bin
-done
 
 
 #####################
