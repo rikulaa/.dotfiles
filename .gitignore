@@ -1,12 +1,12 @@
 #ignore
 
 #Plugin EXCEPT Vundle
-vim/bundle/*
-vim/backup/*
-vim/sessions/*
-vim/swp/
-!vim/bundle/Vundle.vim
+nvim/**/bundle/*
+nvim/**/backup/*
+nvim/**/sessions/*
+nvim/**/swp/
 .DS_STORE
+.netrwhist
 
 tools/fzf
 tools/neovim*
