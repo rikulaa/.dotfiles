@@ -14,7 +14,7 @@ alias aliases='$EDITOR $DOTFILES_DIR/shell/aliases'
 alias aliases_local='$EDITOR $HOME/.aliases'
 alias gitconfig='$EDITOR $DOTFILES_DIR/git/gitconfig'
 alias dotfiles='cd $DOTFILES_DIR'
-alias dot='cd $DOTFILES_DIR'
+# alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $DOTFILES_DIR/tmux/tmux.conf'
 alias dotenv='$EDITOR $DOTFILES_DIR/shell/env'
 alias playground='cd ~/src/me/playground'
@@ -33,7 +33,10 @@ alias docs='cd ~/Documents'
 alias notes='cd ~/Documents/notes/'
 alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
 
-alias todo='$EDITOR $HOME/Documents/todo.adoc'
+todo() {
+    today=$(date "+%Y-%m-%d")
+    $EDITOR $HOME/Documents/todos/$today.adoc
+}
 
 # ======== FILE SYSTEM ============
 
