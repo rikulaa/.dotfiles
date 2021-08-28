@@ -47,6 +47,10 @@ snippet cw
 console.warn(${1});
 endsnippet
 
+snippet req
+const ${1} = require('${2}');
+endsnippet
+
 snippet im "import xyz from 'xyz'"
 import ${1} from '${2:$1}';
 endsnippet
@@ -139,6 +143,27 @@ class ${1:ClassName} extends Component {
 		);
 	}
 }
+endsnippet
+
+snippet rcf
+import React from 'react';
+
+const ${1} = (${2}) => {
+	return (
+		${3}
+	);
+}
+export default $1;
+endsnippet
+
+snippet ue
+useEffect(() => {
+	${2}
+}, [${1}]);
+endsnippet
+
+snippet us
+const [${1}, ${2}] = useState(${3});
 endsnippet
 
 
@@ -255,6 +280,10 @@ snippet doc
  */
 endsnippet
 
+snippet mex
+module.exports${1} = ${2}
+
+endsnippet
 snippet ex
 export 
 endsnippet
@@ -279,4 +308,16 @@ if (${1}) {
 	${2}
 }
 
+endsnippet
+
+snippet map
+${1}.map((${2}) => ${3});
+endsnippet
+
+snippet red
+${1}.reduce((acc, cur) => ${2});
+endsnippet
+
+snippet t
+t('$1')
 endsnippet
