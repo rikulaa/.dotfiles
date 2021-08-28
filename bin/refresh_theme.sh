@@ -6,6 +6,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
         if [[ "$1" ]]; then
             val=$1
         else
+            # val="Dark"
             val=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
             if [[ -z  $val ]]; then
                 val="Light"
