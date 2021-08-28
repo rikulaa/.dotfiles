@@ -227,6 +227,8 @@ endfun
 " {{{
 let mapleader="\<Space>"	" Use space as leader key
 
+nnoremap <silent> Q <nop>
+
 " Jumplist mutations. Set the previous context marker before jumping more
 " than 5 lines
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count :  "") . 'k'
