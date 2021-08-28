@@ -172,9 +172,8 @@ shopt -s cdspell 2> /dev/null
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 shell_dir=$HOME/.dotfiles/shell
 
-. $shell_dir/env
-. $shell_dir/aliases
-. $shell_dir/functions
+# . $shell_dir/env
+. $XDG_CONFIG_HOME/aliases
 . $shell_dir/plugins/bookmarks
 
 # Source git completion

@@ -87,12 +87,10 @@ precmd() {
 # Source custom aliases, functions, ...etc
 shell_dir=$HOME/.dotfiles/shell
 
-source $shell_dir/env
-source $shell_dir/functions
 source $shell_dir/plugins/bookmarks
 
-if [ -f $shell_dir/aliases ]; then
-    . $shell_dir/aliases
+if [ -f $XDG_CONFIG_HOME/aliases ]; then
+    . $XDG_CONFIG_HOME/aliases
 fi
 
 # Autosuggestions

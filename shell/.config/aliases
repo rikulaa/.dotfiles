@@ -7,14 +7,13 @@ fi
 # ======== CONFIGURATIONS ============
 DOTFILES_DIR=$HOME/.dotfiles
 
-alias zshrc='$EDITOR $HOME/.zshrc'
+alias zshrc='$EDITOR $ZDOTDIR/.zshrc'
 alias bashrc='$EDITOR $HOME/.bashrc'
-alias vimrc='$EDITOR $HOME/.config/nvim/init.vim'
-alias aliases='$EDITOR $DOTFILES_DIR/shell/aliases'
+alias vimrc='$EDITOR $XDG_CONFIG_HOME/nvim/init.vim'
+alias aliases='$EDITOR $XDG_CONFIG_HOME/aliases'
 alias aliases_local='$EDITOR $HOME/.aliases'
-alias gitconfig='$EDITOR $HOME/.config/git/config'
+alias gitconfig='$EDITOR $XDG_CONFIG_HOME/git/config'
 alias dotfiles='cd $DOTFILES_DIR'
-# alias dot='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $HOME/.tmux.conf'
 alias dotenv='$EDITOR $DOTFILES_DIR/shell/env'
 alias playground='cd ~/src/me/playground'
@@ -192,3 +191,34 @@ alias rn='react-native'
 alias react-native-android-emulator='/Users/rikulaa/Library/Android/sdk/tools/emulator -avd react-native -netdelay none -netspeed full'
 
 alias snip='make -f .snippets'
+
+## Functions
+h() {
+    if ! [ -x "$(command -v fzf)" ]; then
+        echo 'Error: FZF is not installed.' >&2
+        exit 1
+    fi
+
+    # Strip numbers and dates before the actual command (for both zsh and bash)
+    # Strip all the whitespace from the beginning
+    eval "$(history | sed 's/[0-9]\{1,\}[-]\{0,1\}[:]\{0,2\}//g' | sed 's/^[ ]*//g' | fzf)"
+}
+
+ttouch() {
+    mkdir -p "$(dirname "$1")" && touch "$1" ;
+}
+
+
+goto() {
+    if ! [ -x "$(command -v fzf)" ]; then
+        echo 'Error: FZF is not installed.' >&2
+        exit 1
+    fi
+
+    location=$(find . -type d | fzf)
+    echo "$location"
+    
+    if [ -x $location ]; then
+        cd $location
+    fi
+}

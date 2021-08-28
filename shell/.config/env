@@ -1,5 +1,10 @@
 #!/bin/sh
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Do not use history file for 'less'
+export LESSHISTFILE="/dev/null"
 
 # get default editor
 if [ -x "$(command -v nvim)" ]; then
@@ -14,13 +19,14 @@ else
         VIM_EDITOR='vi'
     fi
 fi
-
 export EDITOR=$VIM_EDITOR 
 
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ANDROID_HOME="$HOME/Library/Android/sdk/"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$HOME/Library/Python/3.6/bin/:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
 
 # For diffing
 export REVIEW_BASE=master
@@ -34,10 +40,4 @@ export REVIEW_BASE=master
 # Source asdf
 . $(brew --prefix asdf)/asdf.sh
 
-
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$HOME/Library/Python/3.6/bin/:/Applications/Postgres.app/Contents/Versions/latest/bin"
-
 export TASKRC="$HOME/.config/task/.taskrc"
-
-# Do not use history file for 'less'
-export LESSHISTFILE="/dev/null"
