@@ -1,5 +1,6 @@
 compiler jest
-setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
+" setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
+setlocal formatprg=npx\ prettier\ --parser\ typescript
 
 " Vim will treat these as macros
 " setlocal define=^\s*\\(const\\\|let\\\|function\\\|class\\\|var\\)
@@ -22,9 +23,16 @@ endfunction
 let __IncludeActions = {
             \'s': {'title': "sort imports", '': function('JsSortUse', []) },
             \'f': {'title': "Fix", 'execute': 'ALEFix' },
+            \'R': {'title': "Open REPL", 'execute': 'Repl' },
             \}
 
 nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
+
+let __IncludeVisualActions = {
+            \'s': {'title': "Send to REPL", 'execute': ":ReplSend" },
+            \}
+
+vnoremap <silent> <leader>l  :call yamenu#Show(__IncludeVisualActions)<CR>
 
 " Toggles between:
 "
