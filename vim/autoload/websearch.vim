@@ -10,7 +10,8 @@ function! websearch#Search(searchword)
     endif
     " Just search the web if no other option
     let options = ['Choose search engine:', 'https://duckduckgo.com?q=', 'https://google.com/search?q=']
-    let selectedEngine = inputlist(options)
+    " let selectedEngine = inputlist(options)
+    let selectedEngine = 1
 
     if (has('macunix'))
         let cmd = 'open'
