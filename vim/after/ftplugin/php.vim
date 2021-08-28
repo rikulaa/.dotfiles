@@ -35,4 +35,8 @@ endfunction
 command! -range JsonToAssocArray <line1>,<line2>call JsonToAssocArray()
 command! -range AssocArrayToJson <line1>,<line2>call AssocArrayToJson()
 
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4			" When indenting with >
+
 " autocmd FileType php setlocal omnifunc=phpactor#Complete
