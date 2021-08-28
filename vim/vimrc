@@ -360,10 +360,14 @@ cnoremap <C-X><C-A> <C-A>
 inoremap <C-E> <C-O>$
 cnoremap <C-E> <End>
 " Move one word backward, forward
+inoremap <M-b> <C-Left>
 cnoremap <M-b> <C-Left>
+inoremap <M-f> <C-Right>
 cnoremap <M-f> <C-Right>
 " Move one character backward, forward
+inoremap <C-b> <Left>
 cnoremap <C-b> <Left>
+inoremap <C-f> <Right>
 cnoremap <C-f> <Right>
 
 let g:UltiSnips#ExpandSnippet="<tab>"
