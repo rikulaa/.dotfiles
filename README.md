@@ -2,7 +2,10 @@
 These are my personal configs for bash, zsh, tmux, git, hammerspoon and vim
 
 ## Installation
-Dependencies: git, curl
+Dependencies: git, brew, stow
+
+1. Run stow to symlink wanted configs
+2. Run setup script
 
 See 'setup'-folder for installation scripts. 
 On osx setup-brew must be run first.
