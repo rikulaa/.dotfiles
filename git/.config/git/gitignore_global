@@ -15,3 +15,5 @@ tags
 
 # VIM stuff
 .projections.json
+
+env.js

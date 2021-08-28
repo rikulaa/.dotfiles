@@ -49,7 +49,7 @@
     #  Lists out contributors
     contributors = !git shortlog -s HEAD | grep -v $(git config --get user.email) | cut -f 2-3 | sed -e 's/^/- /'
 [core]
-    excludesFile = ~/.dotfiles/git/gitignore_global
+    excludesFile = ~/.config/git/gitignore_global
 [merge]
     tool = vimdiff
 [mergetool "vimdiff"]
@@ -58,4 +58,4 @@
 [includeIf "gitdir:~/src/work/"]
     path = ~/src/work/.gitconfig-work
 [commit]
-    template = ~/.dotfiles/git/commitmsg
+    template = ~/.config/git/commitmsg
