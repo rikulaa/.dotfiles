@@ -29,7 +29,7 @@ export REVIEW_BASE=master
 # export TERM=screen-256color
 
 # for gruvbox 256 colour theme. Doesnt work it osx regular terminal but it break (unlike with truecolor)
-. $HOME/.dotfiles/vim/bundle/gruvbox/gruvbox_256palette_osx.sh
+. $HOME/.config/nvim/bundle/gruvbox/gruvbox_256palette_osx.sh
 
 # Source asdf
 . $(brew --prefix asdf)/asdf.sh
