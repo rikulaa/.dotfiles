@@ -1,0 +1,116 @@
+extends common, html
+
+snippet if
+{% if ${1} %}
+	${2}
+{% endif %}
+endsnippet
+snippet unless
+{% unless ${1} %}
+	${2}
+{% endunless %}
+endsnippet
+snippet elsif
+{% elsif ${1} %}
+endsnippet
+snippet else
+{% else %}
+endsnippet
+snippet endi
+{% endif %}
+endsnippet
+
+snippet as
+{%- assign ${1} -%}
+endsnippet
+
+snippet com
+{% comment %} ${1} {% endcomment %}
+endsnippet
+
+snippet for
+{% for ${1} %}
+${2}
+{% endfor %}
+endsnippet
+
+snippet endf
+{% endfor %}
+endsnippet
+
+snippet ren
+{% render ${1} %}
+endsnippet
+
+snippet sc
+{% schema %}
+{
+	"name": {
+		"en": "${1}",
+		"fi": "${2}"
+	},
+	"settings": [],
+	"presets": []
+}
+{% endschema %}
+endsnippet
+
+snippet sc:o
+{
+	"type": "${1}",
+	"id": "${2}",
+	"label": {
+		"en": "${3}",
+		"fi": "${4}"
+	}
+}
+
+endsnippet
+
+snippet ca
+{%- capture ${1} -%}
+${2}
+{%- endcapture -%}
+
+endsnippet
+
+snippet un
+{%- unless ${1} -%}
+${2}
+{%- endunless -%}
+
+endsnippet
+
+snippet br
+{% break %}
+endsnippet
+
+snippet sec
+{% section '${1}' %}
+endsnippet
+
+snippet cap
+{%- capture ${1} -%}
+${2}
+{%- endcapture -%}
+endsnippet
+
+snippet liq
+{%- liquid 
+${1}
+%-}
+endsnippet
+
+snippet loc
+"locales": {
+	"en": {
+
+	},
+	"fi": {
+
+	},
+	"de": {
+
+	}
+},
+endsnippet

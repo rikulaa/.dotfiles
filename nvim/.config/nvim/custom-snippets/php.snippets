@@ -1,0 +1,118 @@
+extends common
+
+snippet foreach
+foreach (${1} as ${2}) {
+	${3}
+}
+endsnippet
+
+snippet try
+try {
+	${1}
+} catch (\Exception $e) {
+
+}
+endsnippet
+
+snippet this
+$this->${1} = $${2:$1};
+endsnippet
+
+snippet $t
+$this->${1} = ${2}
+endsnippet
+
+snippet if 
+if (${1}) {
+	${2}
+}
+endsnippet
+
+snippet info
+\Log::info(${1})
+
+endsnippet
+
+snippet nexc
+throw new \Exception(${1});
+endsnippet
+
+snippet doc
+/**
+ * ${1}
+ *
+ * @return ${2}
+ */
+endsnippet
+snippet @prop
+@property
+endsnippet
+
+snippet con
+public function __construct()
+{
+	${1}
+}
+endsnippet
+
+snippet php
+<?php
+endsnippet
+
+snippet appends
+/**
+ * The accessors to append to the model's array form.
+ *
+ * @var array
+ */
+protected $appends = [${1}];
+endsnippet
+
+snippet pubf
+public function ${1}(${2})
+{
+	${3}
+}
+endsnippet
+snippet prif
+private function ${1}(${2})
+{
+	${3}
+}
+
+endsnippet
+
+snippet pubsf
+public static function ${1}(${2})
+{
+	${3}
+}
+endsnippet
+
+snippet privst
+private static function ${1}(${2})
+{
+	${3}
+}
+endsnippet
+
+snippet DB::transaction
+DB::transaction(
+		function () use (${1}) {
+		${2}
+		}
+		);
+endsnippet
+
+snippet transformerinclude
+
+public function include${1}(${2} ${3})
+{
+	${4} = $3->$4;
+	return $4 ? $this->${5}($4, new ${6}) : null;
+}
+endsnippet
+
+snippet jenc
+json_encode(${1})
+endsnippet

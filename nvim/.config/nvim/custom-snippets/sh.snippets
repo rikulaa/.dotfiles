@@ -1,0 +1,24 @@
+extends common
+
+snippet !
+#!/bin/sh
+endsnippet
+
+snippet case
+case word in
+    pattern)
+        ;;
+esac
+endsnippet
+
+snippet if
+if [ ${1} ]; then
+	${2}...
+fi
+endsnippet
+
+snippet for
+for ${1:arg} in ${2:args}; do
+	$3
+done
+endsnippet
