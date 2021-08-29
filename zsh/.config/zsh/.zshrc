@@ -85,10 +85,7 @@ precmd() {
 }
 
 source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
-
-if [ -f $XDG_CONFIG_HOME/aliases ]; then
-    . $XDG_CONFIG_HOME/aliases
-fi
+source $XDG_CONFIG_HOME/aliases
 
 # Autosuggestions
 # . $shell_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
