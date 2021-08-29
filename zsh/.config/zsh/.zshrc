@@ -84,10 +84,7 @@ precmd() {
     PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT "
 }
 
-# Source custom aliases, functions, ...etc
-shell_dir=$HOME/.dotfiles/shell
-
-source $shell_dir/plugins/bookmarks
+source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
 
 if [ -f $XDG_CONFIG_HOME/aliases ]; then
     . $XDG_CONFIG_HOME/aliases
