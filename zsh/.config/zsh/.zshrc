@@ -84,6 +84,7 @@ precmd() {
     PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT "
 }
 
+source $XDG_CONFIG_HOME/env
 source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
 source $XDG_CONFIG_HOME/aliases
 
