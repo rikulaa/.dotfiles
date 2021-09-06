@@ -316,10 +316,10 @@ nnoremap <leader>e :call ToggleFileExplorer()<CR>
 nnoremap <leader>/ :silent grep 
 " Search the visual selection (as string literal)
 function! StringLiteralSearch(str)
-    let _str ='"'.substitute(substitute(a:str, '"', '\\"', 'g' ), "\n", "", 'g').'"'
-    execute ":silent grep " . _str
+    let _str = escape(fnameescape(substitute(a:str, '\n', '', '')), '|()')
+    execute ":silent grep -F " . _str
 endfunction
-vnoremap <leader>/ y :call StringLiteralSearch(getreg('"'))
+vnoremap <leader>/ y :call StringLiteralSearch(@")
 
 " Global serach (files)
 nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>
