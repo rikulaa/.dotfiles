@@ -91,7 +91,9 @@ source $XDG_CONFIG_HOME/aliases
 # Autosuggestions
 # . $shell_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Highlighting
-# . $shell_dir/zsh/zsh-syntax-highlightning/zsh-syntax-highlighting.zsh
+if [ -f "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Set the terminal theme
 . ~/.local/bin/refresh_theme.sh
