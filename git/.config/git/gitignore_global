@@ -17,3 +17,5 @@ tags
 .projections.json
 
 env.js
+
+pylint.sh
