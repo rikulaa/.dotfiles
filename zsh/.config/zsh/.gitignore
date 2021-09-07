@@ -1,1 +1,4 @@
 zsh
+.zcompdump
+.zcompcache/
+.zsh_history
