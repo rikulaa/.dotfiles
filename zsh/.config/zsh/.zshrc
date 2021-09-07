@@ -52,6 +52,12 @@ precmd() {
     JOBS_PROMPT="%F{yellow}%1(j. {%j}.)%f"
     SUDO_PROMPT="%(!.%F{red}# %f.)"
 
+    VENV_PROMPT=""
+    if [ -n "${VIRTUAL_ENV+1}" ]; then
+        VENV_PROMPT=" (venv)"
+    fi
+
+
     # Use custom git prompt
     # ZSH has also support for 'vcs_info' but I couldn't get it to display the information the way I wanted
     GIT_PROMPT=''
