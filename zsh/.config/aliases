@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # get local aliases (not under version control)
 if [ -f "$HOME/.aliases" ]; then
     # shellcheck source=$HOME/.aliases
@@ -15,7 +17,7 @@ alias aliases_local='$EDITOR $HOME/.aliases'
 alias gitconfig='$EDITOR $XDG_CONFIG_HOME/git/config'
 alias dotfiles='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $HOME/.tmux.conf'
-alias dotenv='$EDITOR $DOTFILES_DIR/shell/env'
+alias dotenv='$EDITOR $XDG_CONFIG_HOME/env'
 alias playground='cd ~/src/me/playground'
 
 alias g='git'
@@ -36,6 +38,11 @@ todo() {
     today=$(date "+%Y-%m-%d")
     $EDITOR $HOME/Documents/todos/$today.adoc
 }
+
+# Use bat instead of cat if possible
+if command -v bat > /dev/null; then
+    alias cat='bat --paging=never'
+fi
 
 # ======== FILE SYSTEM ============
 
