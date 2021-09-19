@@ -1,0 +1,11 @@
+#!/bin/sh
+
+ROOT_DIR="${PNOTES_PATH:-$HOME/Documents/pnotes}"
+
+ID=$(pwd | sed 's/\//\::/g')
+FILENAME="$ROOT_DIR/$ID.adoc"
+if [ ! -e "$FILENAME" ]; then
+    touch "$FILENAME"
+fi
+
+$EDITOR "$FILENAME"
