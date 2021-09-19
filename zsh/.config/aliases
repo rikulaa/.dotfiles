@@ -33,6 +33,7 @@ alias me='cd ~/src/me'
 alias docs='cd ~/Documents'
 alias notes='cd ~/Documents/notes/'
 alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
+alias devd='open https://devdocs.io/'
 
 todo() {
     today=$(date "+%Y-%m-%d")
@@ -83,11 +84,11 @@ alias touchd='mkdir'
 
 alias dirs='dirs -v'
 
-# Use 'pbcopy' command for accessing clipboard
 case $(uname) in
     Darwin)
         ;;
     *)
+        # Use 'pbcopy' command for accessing clipboard (as it's used on osx)
         alias pbcopy='xclip -selection clipboard'
         alias pbpaste='xclip -selection clipboard -o'
         ;;
