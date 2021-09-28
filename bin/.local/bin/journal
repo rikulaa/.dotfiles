@@ -1,0 +1,4 @@
+#!/bin/sh
+
+today=$(date "+%Y-%m-%d")
+$EDITOR "$HOME/Documents/journal/$today.adoc"
