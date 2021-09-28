@@ -453,7 +453,14 @@ augroup noteshook
     " Create commit message with the following format: "Updated <filename>"
     autocmd BufWritePost **/Documents/notes/* silent !notes-commit.sh "Update %:t"
 augroup END
-"
+
+augroup journalhook
+    autocmd!
+    " There is no finnish spell file!
+    autocmd BufEnter **/Documents/journal/* setlocal nospell
+    " Add current date and time to the start of the document
+    autocmd BufNewFile **/Documents/journal/* exe "-1 read !iso-date" | exe "normal I= \<esc>o\<cr>" | exe "-1 read !iso-time" | exe "normal IKello \<esc>2j" | startinsert
+augroup END
 " cmap <c-c> <c-c><c-c>
 "============================================================================
 " Additional plugin settings
