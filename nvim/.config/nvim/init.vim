@@ -370,6 +370,9 @@ cnoremap <C-X><C-A> <C-A>
 " Jump to end of line
 inoremap <C-E> <C-O>$
 cnoremap <C-E> <End>
+" Kill rest of the line
+inoremap <C-K> <C-O>d$
+" cnorem
 " Move one word backward, forward
 inoremap <M-b> <C-Left>
 cnoremap <M-b> <C-Left>
