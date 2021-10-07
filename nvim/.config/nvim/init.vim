@@ -282,6 +282,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Navigation (between tabs)
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprev<CR>
 " Navigation (between quickfix items)
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
