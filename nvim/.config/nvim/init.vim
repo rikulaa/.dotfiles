@@ -250,6 +250,7 @@ nnoremap <leader>q :bd<CR>
 " Write buffer|file
 " Acronym: Buffer|file -> Write
 nnoremap <leader>bw :w<CR>
+nnoremap <leader>bd :bd<CR>
 nnoremap <leader>fw :w<CR>
 " Navigation (buffers)
 " Open buffer with FZF
