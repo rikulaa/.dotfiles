@@ -293,8 +293,10 @@ nnoremap ]a :next<CR>
 nnoremap [a :prev<CR>
 
 " Navigate between errors
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
+nmap <silent> [e :lua vim.lsp.diagnostic.goto_prev()<CR>
+nmap <silent> ]e :lua vim.lsp.diagnostic.goto_next()<CR>
+nmap <silent> gE :lua vim.lsp.diagnostic.goto_prev()<CR>
+nmap <silent> ge :lua vim.lsp.diagnostic.goto_next()<CR>
 
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
