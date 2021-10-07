@@ -236,6 +236,8 @@ nnoremap <expr> j (v:count > 5 ? "m'" . v:count :  "") . 'j'
 
 nnoremap <leader>; :
 vnoremap <leader>; :
+" Make Y behave like rest of the gang
+nnoremap Y y$
 " Windows
 nnoremap <leader>w <C-W>
 
