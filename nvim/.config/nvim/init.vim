@@ -363,6 +363,63 @@ function! StringLiteralSearch(str)
 endfunction
 vnoremap <leader>/ y :call StringLiteralSearch(@")
 
+" WIP SaveVisualRegionEdit START
+function! SaveVisualRegionEdit() abort
+    normal ggyG
+    let @" = substitute(@", "^\n", "", "g")
+    let @" = substitute(@", "\n$", "", "g")
+    " let @" = substitute(@", "^\s", "", "g")
+    execute ":bd"
+    normal gv"0p
+endfunction
+
+function! EditVisualRegion(str) abort
+    " Define the size of the floating window
+    let windowWidth = nvim_win_get_width(0)
+    let width = l:windowWidth - (l:windowWidth / 4)
+    let windowHeight = nvim_win_get_height(0)
+    let height = l:windowHeight - (l:windowHeight / 4)
+
+    " Create the scratch buffer displayed in the floating window
+    let buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(buf, 0, -1, v:true, split(a:str, "\n"))
+    call nvim_buf_set_option(buf, 'ft', &ft)
+
+    " Get the current UI
+    let ui = nvim_list_uis()[0]
+
+    " Create the floating window
+    let opts = {'relative': 'win',
+                \ 'width': width,
+                \ 'height': height,
+                \ 'col': (l:windowWidth/2) - (width/2),
+                \ 'row': (l:windowHeight/2) - (height/2),
+                \ 'anchor': 'NW',
+                \ 'style': 'minimal',
+                \ 'border': 'solid',
+                \ }
+    let win = nvim_open_win(buf, 1, opts)
+endfunction
+vnoremap <leader>se y :call EditVisualRegion(@")<CR>
+" WIP SaveVisualRegionEdit END
+
+function! SmartUnJoin()
+    let match = searchpos("\[({ )}\]", "z", line("."))
+    let col = l:match[1]
+    if l:col != 0
+        let char = getline(".")[l:col - 1]
+        if char == " "
+            normal xi
+        elseif index(["(", "{"], char) != -1
+            normal a
+        else
+            normal i
+        endif
+        normal w==
+    endif
+endfunction
+nnoremap <leader>k :call SmartUnJoin()<CR>
+
 " Global serach (files)
 nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>
 nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>
