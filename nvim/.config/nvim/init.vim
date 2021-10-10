@@ -82,6 +82,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'endel/vim-github-colorscheme'
 
 call plug#end()            " required
+packadd cfilter
 " }}}
 
 "============================================================================
