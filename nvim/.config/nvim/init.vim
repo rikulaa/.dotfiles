@@ -106,7 +106,7 @@ set noswapfile              " Dont use swapfiles"
 set hidden                  " Can change to another buffer without saving change"
 set updatetime=500          " Shows gitgutter signs faster
 set timeout                 " Reduce timeout caused by pressin Esc"
-set timeoutlen=3000
+set timeoutlen=1000
 set ttimeout
 set ttimeoutlen=50
 set lazyredraw              " E.g do not draw screen between macros, makes them run faster
@@ -139,10 +139,13 @@ set nocursorline
 syntax enable				" Show syntax
 set termguicolors           " Better colors in terminal, needs support from tmux also
 
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme nord
 let iterm_profile = $ITERM_PROFILE
 if iterm_profile == "Light"
     set background=light        " Set light background explicitely
+    " Just override the as well (so it won't look horrible)
+    colorscheme gruvbox
 else
     set background=dark
 endif
@@ -192,9 +195,13 @@ command! Rm :call functions#DeleteAndCloseBuffer()
 command! -nargs=1 -complete=file Mv silent :call functions#MoveBuffer(<q-args>)
 command! -nargs=1 -complete=file Cp silent :call functions#CopyBuffer(<q-args>)
 
-" Format json by piping it into jq
-command! -range FormatJson silent :'<,'>!jq
-
+command CopyPath let @+ = expand('%:p')
+command CP CopyPath
+command CopyName let @+ = expand('%')
+command CN CopyName
+command CopyNameBase let @+ = expand('%:r')
+command CNB CopyNameBase
+command CopyDir let @+ = expand('%:h')
 
 " Git: stage current file
 command! Ga :!git a %
@@ -205,8 +212,8 @@ command! Foldclose normal zM
 " Better grep (https://noahfrederick.com/log/vim-streamlining-grep
 " - Don't show confirmation after search by using silent
 " - Open quickfix window immediately
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
+cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep!'  : 'grep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep!' : 'lgrep'
 
 " Command for resyncing screen
 command! ResyncScreen :syntax sync fromstart<cr>:redraw!<cr>
@@ -217,6 +224,29 @@ command! -nargs=1 -bang -complete=customlist,EditCheatsheetComplete
 function! EditCheatsheetComplete(A,L,P)
     return split(globpath('~/.dotfiles/cheatsheets/', a:A.'*'), "\n")
 endfun
+
+command! MacroRepeatNormal :call macrorepeat#MacroRepeatNormal()
+command! -range MacroRepeatVisual :call macrorepeat#MacroRepeatVisual()
+
+function! Repl(cmd)
+    execute 'vsplit term://'.a:cmd
+    :SendHere
+    normal G
+    wincmd p
+endfunction
+
+command! -nargs=? Repl :call Repl(<q-args>)
+
+iabbrev date@ <Esc>:let @+ = strftime("%Y-%m-%d")"<cr>"+pa
+iabbrev time@ <Esc>:let @+ = strftime("%T")"<cr>"+pa
+iabbrev time@ <Esc>:read !iso-time<cr>kJA
+iabbrev pwd@ <Esc>:read !pwd<cr>kJA
+iabbrev pwd@ <Esc>:read !pwd<cr>kJA
+iabbrev file@ <Esc>:CopyName<CR>"+pA
+iabbrev directory@ <Esc>:CopyDir<CR>"+pA
+
+iabbrev :smiley: 😄
+
 "}}}
 
 "============================================================================
@@ -325,7 +355,7 @@ endfunction
 nnoremap <leader>e :call ToggleFileExplorer()<CR>
 
 " Global search (patterns)
-nnoremap <leader>/ :silent grep 
+nnoremap <leader>/ :silent grep! 
 " Search the visual selection (as string literal)
 function! StringLiteralSearch(str)
     let _str = escape(fnameescape(substitute(a:str, '\n', '', '')), '|()')
@@ -351,6 +381,21 @@ nnoremap <leader>st :call functions#ChangeTagName()<cr>
 "Rename last search
 nnoremap <leader>ss :%s///g<Left><Left>
 vnoremap <leader>ss :s///g<Left><Left>
+" Substitute visual block
+nnoremap <Leader>sv :%s/\%V\%V//g<Left><Left><Left><Left><Left><Left>
+vnoremap <Leader>sv :s/\%V\%V//g<Left><Left><Left><Left><Left><Left>
+
+fun! CountMatches(range)
+	let prev_view_user = winsaveview()
+	let curr_search = @/
+	let vrange = a:range !=# '%' ? '\%V' : ''
+	" note that this doesn't work if the search was performed using a different separator than "/". that should be avoided though.
+	exe a:range.'s/'.vrange.curr_search.'//n'
+	call winrestview(prev_view_user)
+endf
+nnoremap <leader>n :<c-u>call CountMatches('%')<cr>
+vnoremap <leader>n :<c-u>call CountMatches("'<,'>")<cr>
+command! CountMatches :call CountMatches('%')<cr>
 
 " Append character to the end of the line
 nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
@@ -458,24 +503,44 @@ augroup spellcheck
     au Filetype markdown,asciidoc,text,gitcommit setlocal spell
 augroup END
 
+" Git commits
+augroup gitcommits
+    au!
+    au Filetype gitcommit start
+augroup END
+
 augroup snippetsft
     au!
     autocmd BufEnter .snippets setlocal ft=make
 augroup END
 
+augroup yanking
+    au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+augroup END
+
 augroup noteshook
     autocmd!
     " Create commit message with the following format: "Updated <filename>"
-    autocmd BufWritePost **/Documents/notes/* silent !notes-commit.sh "Update %:t"
+    autocmd BufWritePost **/Documents/notes/* silent !file-commit.sh $HOME/Documents/notes "Update %:t"
 augroup END
 
 augroup journalhook
     autocmd!
     " There is no finnish spell file!
-    autocmd BufEnter **/Documents/journal/* setlocal nospell
+    autocmd BufEnter **/journal/* setlocal nospell
     " Add current date and time to the start of the document
-    autocmd BufNewFile **/Documents/journal/* exe "-1 read !iso-date" | exe "normal I= \<esc>o\<cr>" | exe "-1 read !iso-time" | exe "normal IKello \<esc>2j" | startinsert
+    autocmd BufNewFile **/journal/* exe "-1 read !iso-date" | exe "normal I= \<esc>o\<cr>" | exe "-1 read !iso-time" | exe "normal IKello \<esc>2j" | startinsert
+    " Create commit message with the following format: "Updated <filename>"
+    autocmd BufWritePost **/journal/* silent !file-commit.sh $HOME/Dropbox/personal/journal "Update %:t"
 augroup END
+
+" disable US TrackChange python calls. they are costly (add delay when typing, an order of magnitude more than anything else) and don't seem essential
+fun! ClearUsAu()
+	augroup UltiSnips_AutoTrigger
+		au!
+	augroup END
+endf
+au VimEnter * call ClearUsAu()
 " cmap <c-c> <c-c><c-c>
 "============================================================================
 " Additional plugin settings
