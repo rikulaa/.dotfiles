@@ -22,6 +22,9 @@
     remote-open = "!f() { open $(git remote -v | grep 'origin' | head -1 | awk '{ print $2 }'); }; f"
     modified-files="!f() { git status -sb | tail -n +2 | awk '{ print $2 }'; }; f"
 
+    # Taken from this great blog post: https://blog.filippo.io/git-fixup-amending-an-older-commit
+    fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
+
     wip = !git add -A && git commit -m "wip"
     save = stash -u
     restore = stash pop
