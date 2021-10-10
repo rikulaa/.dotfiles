@@ -111,6 +111,10 @@ set ttimeout
 set ttimeoutlen=50
 set lazyredraw              " E.g do not draw screen between macros, makes them run faster
 set spelllang=en
+set foldmethod=manual
+if (has('nvim'))
+    set inccommand=split
+endif
 
 " Affects the visual representation of what happens after you hit <C-x><C-o>
 " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
