@@ -1,5 +1,5 @@
 "============================================================================
-" Plugs
+" Plugs START
 "============================================================================
 " {{{
 call plug#begin('$HOME/.config/nvim/bundle')
@@ -9,9 +9,19 @@ Plug 'tpope/vim-commentary'           " Comments
 Plug 'tpope/vim-surround'             " Vim Surround plugin
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'            " For converting name cases
-
 Plug 'neovim/nvim-lspconfig'
+Plug 'sosmo/vim-macrorepeat'
+Plug 'nvim-lua/plenary.nvim' " For null-ls
+Plug 'jose-elias-alvarez/null-ls.nvim', { 'branch': 'main' }
+" Plug 'folke/which-key.nvim'
+Plug 'stevearc/aerial.nvim'
+Plug 'mtikekar/nvim-send-to-term'
+Plug 'kevinhwang91/nvim-bqf', { 'branch': 'main' }
+Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
 
+" Plug 'Raimondi/delimitMate'
 " Plug 'jiangmiao/auto-pairs'
 Plug 'rikulaa/vim-yamenu'
 Plug 'chrisbra/csv.vim'
@@ -34,8 +44,8 @@ endif
 " Languages (syntax etc)
 " JS
 Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'alampros/vim-styled-jsx'
 Plug 'leafgarland/typescript-vim' " Syntax for ts
 Plug 'heavenshell/vim-jsdoc'
@@ -60,10 +70,6 @@ Plug 'tpope/vim-markdown'
 Plug 'jparise/vim-graphql'
 Plug 'tpope/vim-dadbod'
 
-" Linting
-if (has('nvim') || v:version > 800)
-    Plug 'w0rp/ale'
-endif
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -80,13 +86,18 @@ Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'endel/vim-github-colorscheme'
+Plug 'arcticicestudio/nord-vim'
+Plug 'https://gitlab.com/gi1242/vim-emoji-ab'
 
 call plug#end()            " required
 packadd cfilter
 " }}}
+"============================================================================
+" Plugs END
+"============================================================================
 
 "============================================================================
-"General
+"General START
 "============================================================================
 " {{{
 set nocompatible            " no need to support vi
@@ -127,12 +138,8 @@ endif
 "
 " Copied from https://jacky.wtf/weblog/language-client-and-neovim/
 set completeopt=noinsert,menuone,noselect
-" }}}
 
-"============================================================================
-" UI
-"============================================================================
-" {{{
+" UI settings
 set number					" For line numbering
 set wildmenu                " Display all matching files when we tab complete
 set noruler
@@ -152,22 +159,13 @@ else
 endif
 set showcmd					" Show command at the bottom
 
-" }}}
-
-"============================================================================
-" Spaces & tab
-"============================================================================
-" {{{
+" Tabs
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4			" When indenting with >
 set expandtab				" When tabbing, insert (four) spaces
-" }}}
 
-"============================================================================
-"Searching
-"============================================================================
-" {{{
+" Searching
 if executable('rg')
     set grepprg=rg\ --vimgrep    " Use ripgrep instad of grep"
 endif
@@ -176,10 +174,13 @@ set smartcase               " If any character is UPPER-case, search case-sensit
 set hlsearch                " Highligth search
 set incsearch				" Search as characters are entered
 " }}}
-"
-"
 "============================================================================
-" Commands
+"General END
+"============================================================================
+
+
+"============================================================================
+" Commands START
 "============================================================================
 " {{{
 command! Vimrc :e $MYVIMRC
@@ -249,15 +250,12 @@ iabbrev directory@ <Esc>:CopyDir<CR>"+pA
 iabbrev :smiley: 😄
 
 "}}}
+"============================================================================
+" Commands END
+"============================================================================
 
 "============================================================================
-" Custom Functions
-"============================================================================
-" {{{
-" }}}
-
-"============================================================================
-"Keybindings, custom mappings
+"Keybindings, custom mappings START
 "============================================================================
 " {{{
 let mapleader="\<Space>"	" Use space as leader key
@@ -359,9 +357,9 @@ nnoremap <leader>e :call ToggleFileExplorer()<CR>
 nnoremap <leader>/ :silent grep! 
 " Search the visual selection (as string literal)
 function! StringLiteralSearch(str)
-    let _str = escape(fnameescape(substitute(a:str, '\n', '', '')), '|()')
-    execute ":silent grep -F " . _str
-endfunction
+    let _str = substitute(escape(a:str, " \t*?[{`$\\%#'\"|!<("), "\n", "$'\\\\n'", "g")
+    execute ":silent grep! -F " . _str
+endf
 vnoremap <leader>/ y :call StringLiteralSearch(@")
 
 " WIP SaveVisualRegionEdit START
@@ -458,9 +456,6 @@ command! CountMatches :call CountMatches('%')<cr>
 " Append character to the end of the line
 nnoremap <silent><leader>a :call functions#AppendCharacterToEndOfLine()<cr>
 
-" This needs to configured for each language OR reduce the timeout
-" nnoremap <Leader>lf :ALEFix<CR>
-
 " Quickly make the current file
 nnoremap <Leader>m :silent make %<CR>
 
@@ -505,8 +500,8 @@ let g:hunk_actions = {
 let g:git_actions = {
             \'d': {'title': "diff", 'execute': 'Gdiff' },
             \'b': {'title': "blame", 'execute': 'Gblame' },
-            \'m': {'title': "magit", 'execute': 'Magit' },
-            \'s': {'title': "Status", 'execute': '!git status' },
+            \'m': {'title': "magit", 'execute': 'Gstatus' },
+            \'s': {'title': "Status", 'execute': 'Gstatus' },
             \'h': {'title': "hunk", 'menu': g:hunk_actions },
             \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'execute': '!git push' }, 'P': {'title': "publish", 'execute': '!git publish' }, } },
             \}
@@ -535,18 +530,39 @@ fun! GetTypeHoverAction(word)
 endfunction
 nnoremap <silent> K :call GetTypeHoverAction("<C-R><C-W>")<CR>
 
+" let g:send_disable_mapping = 1
+nmap <leader>rss <Plug>SendLine
+nmap <leader>rs <Plug>Send
+vmap <leader>rs <Plug>Send
+nmap <leader>rS s$
+
+fun! Run()
+    new | e term://
+    :startinsert
+endfunction
+
 " }}}
+"============================================================================
+"Keybindings, custom mappings END
+"============================================================================
+
 
 "============================================================================
-" Autcommands
+" Autcommands START
 "============================================================================
 " {{{
+"
+augroup BgHighlight
+  autocmd!
+  " autocmd WinEnter * set cul
+  " autocmd WinLeave * set nocul
+augroup END
+
 augroup focusevents
     au!
     " Reload file if file changed
     au FocusGained,BufEnter * :silent! !
 augroup end
-" }}}
 "
 " Open quickfix immediately after [l]grep has succeeded
 augroup quickfix
@@ -599,9 +615,14 @@ fun! ClearUsAu()
 	augroup END
 endf
 au VimEnter * call ClearUsAu()
-" cmap <c-c> <c-c><c-c>
+" }}}
 "============================================================================
-" Additional plugin settings
+" Autcommands END
+"============================================================================
+
+
+"============================================================================
+" Additional plugin settings START
 "============================================================================
 " {{{
 " 
@@ -616,30 +637,6 @@ let g:AutoPairsMultilineClose = 0
 " ======== Git =========
 " Gitgutter
 let g:gitgutter_terminal_reports_focus=0
-
-" ======== Linting =========
-let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \'javascript': ['eslint', 'prettier'],
-            \'c': ['clang-format'],
-            \ 'php': ['phpcbf', 'php_cs_fixer'],
-            \ 'python': ['pylint'],
-            \}
-let g:ale_linters = {
-            \'javascript': ['eslint'],
-            \ 'php': ['php', 'phpcs', 'phpmd', 'phpstan', 'langserver'],
-            \ 'python': ['pylint'],
-            \}
-
-" Dont use autoompletion from ale
-let g:ale_completion_enabled = 0
-
-" " Dont show error highlights on lines, causes vim to slow down on huge files
-" let g:ale_set_highlights = 0
-
-let g:ale_php_phpstan_executable=$PWD.'/vendor/bin/phpstan'
-let g:ale_php_phpstan_level = 7
-let g:ale_php_langserver_executable=$HOME.'/.dotfiles/vim/plugin/php-language-server/vendor/bin/php-language-server.php'
 
 " Comment arrow functions also
 let g:jsdoc_enable_es6 = 1
@@ -693,18 +690,62 @@ else
   hi Visual cterm=NONE ctermfg=NONE ctermbg=223 guibg=#ffd7af
 endif
 " }}}
+"============================================================================
+" Additional plugin settings END
+"============================================================================
 
 "============================================================================
-" LSP
+" LSP START
 "============================================================================
 "{{{
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
+local aerial = require('aerial')
+local null_ls = require('null-ls')
+local cmp = require'cmp'
+
+null_ls.config({
+    -- you must define at least one source for the plugin to work
+    sources = {
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.diagnostics.shellcheck,
+        --null_ls.builtins.formatting.mix,
+        null_ls.builtins.diagnostics.pylint
+    }
+})
+---- Completion setup
+cmp.setup({
+    --completion = {
+    --autocomplete = false
+    --},
+    snippet = {
+        expand = function(args)
+
+            -- For `luasnip` user.
+            -- require('luasnip').lsp_expand(args.body)
+
+            -- For `ultisnips` user.
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    mapping = {
+        --['<Tab>'] = cmp.mapping.complete(),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        -- For ultisnips user.
+        { name = 'ultisnips' },
+        { name = 'buffer' },
+    }
+})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  -- attach aerial
+  aerial.on_attach(client)
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -718,20 +759,17 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
   --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
 
 end
 
@@ -740,21 +778,14 @@ end
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
-local servers = { 'pylsp', 'tsserver', 'intelephense', 'vuels' }
+local servers = { 'pylsp', 'tsserver', 'intelephense', 'vuels', 'null-ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     },
-    handlers = {
-      ["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-          -- Disable virtual_text
-          virtual_text = false
-        }
-      ),
-    }
+   capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
   -- elixr-ls: https://github.com/elixir-lsp/elixir-ls
   nvim_lsp.elixirls.setup{
@@ -763,17 +794,22 @@ for _, lsp in ipairs(servers) do
       flags = {
         debounce_text_changes = 150,
       },
-      handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics, {
-            -- Disable virtual_text
-            virtual_text = false
-          }
-        ),
-      }
   }
 end
+
+local severities = {
+  error = vim.lsp.protocol.DiagnosticSeverity.Error,
+  warning = vim.lsp.protocol.DiagnosticSeverity.Warning,
+  refactor = vim.lsp.protocol.DiagnosticSeverity.Information,
+  convention = vim.lsp.protocol.DiagnosticSeverity.Hint,
+}
 EOF
+
+"============================================================================
+" LSP END
+"============================================================================
+
+
 " }}}
 "
 "
@@ -781,3 +817,52 @@ EOF
 " TODO: Lua snip plugin?
 " TODO: telescope?
 
+""
+"===========
+" Local 
+"==========
+let f = getcwd()."/init.vim"
+if filereadable(f)
+    let trusted_file_path = stdpath("cache") . "/" . "trusted_init_files"
+    let is_allowed_to_source = 0
+    try
+        let trusted_files = readfile(trusted_file_path)
+        let idx = index(trusted_files, f)
+        let is_allowed_to_source = idx != 1 ? 1 : 0
+    catch
+    endtry
+
+    if (!is_allowed_to_source)
+        let can_source = input("Local init.vim found, allow to read from it, y(es), n(o) ? ")
+    endif
+
+    if (is_allowed_to_source || match("yes", can_source) == 0)
+        " Save the choice
+        if (!is_allowed_to_source)
+            call writefile([f], trusted_file_path, "a")
+        endif
+        execute "source " f
+    endif
+endif
+
+" inoremap ( ()<left>
+" inoremap (<Space> (<Space><Space>)<Left><Left>
+inoremap (<CR> (<CR>)<ESC>O<ESC>cc
+" inoremap [ []<left>
+" inoremap [<Space> [<Space><Space>]<Left><Left>
+inoremap [<CR> [<CR>]<ESC>O<ESC>cc
+" inoremap { {}<left>
+" inoremap {<Space> {<Space><Space>}<Left><Left>
+inoremap {<CR> {<CR>}<ESC>O<ESC>cc
+
+" function IsBetweenBraces()
+"     return strpart(getline('.'), col('.')-1, 1) == ")" ? "\<cr>\<esc>\O" : "\<cr>"
+" endfunction
+" inoremap <expr> <cr> IsBetweenBraces()
+
+" inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+" inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+" inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+" inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+" inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+" inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
