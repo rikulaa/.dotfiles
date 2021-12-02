@@ -7,7 +7,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ANDROID_HOME="$HOME/Library/Android/sdk/"
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$HOME/Library/Python/3.6/bin/:/Applications/Postgres.app/Contents/Versions/latest/bin"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$HOME/Library/Python/3.6/bin/:/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local/anaconda3/bin"
+export JOURNAL_PATH="$HOME/Dropbox/personal/journal"
 
 
 # Do not use history file for 'less'

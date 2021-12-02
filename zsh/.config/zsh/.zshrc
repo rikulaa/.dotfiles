@@ -57,6 +57,11 @@ precmd() {
         VENV_PROMPT=" (venv)"
     fi
 
+    # Slow as hell
+    NODE_PROMPT=""
+    if [ -e "package.json"  ]; then
+        NODE_PROMPT=" %F{green}(◉: $(node -v))%F"
+    fi
 
     # Use custom git prompt
     # ZSH has also support for 'vcs_info' but I couldn't get it to display the information the way I wanted
@@ -66,15 +71,15 @@ precmd() {
     }
     if is_git_directory; then
         GIT_BRANCH=$(git branch | sed '/^ /d' | sed 's/\* //')
-        GIT_PROMPT=" %F{red}($GIT_BRANCH)%f"
+        GIT_PROMPT=" on %F{red}($GIT_BRANCH)%f"
 
         is_dirty=$(git status --porcelain | wc -l) 
         if [[ $is_dirty -gt  "0" ]]; then
             GIT_PROMPT=${GIT_PROMPT}"%F{yellow}*%f"
         fi
 
-        git_ahead_count=$(git status -sb | head -1 | grep -o 'ahead\s\d' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
-        git_behind_count=$(git status -sb | head -1 | grep -o 'behind\s\d' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
+        git_ahead_count=$(git status -sb | head -1 | grep -o 'ahead\s\d\+' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
+        git_behind_count=$(git status -sb | head -1 | grep -o 'behind\s\d\+' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
         if [  -n "$git_ahead_count" ] || [ -n "$git_behind_count"  ]; then
             GIT_PROMPT="$GIT_PROMPT ["
             if [  -n "$git_ahead_count" ]; then
@@ -87,7 +92,8 @@ precmd() {
         fi
     fi
 
-    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT "
+    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT$VENV_PROMPT$NODE_PROMPT"$'\n'"%F{blue}λ%F "
+    # RPS1=""
 }
 
 source $XDG_CONFIG_HOME/env
