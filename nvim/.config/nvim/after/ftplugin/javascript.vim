@@ -1,4 +1,5 @@
-compiler jest
+" au BufWritePost,BufEnter,InsertLeave <buffer> lua require('lint').try_lint('eslint')
+" compiler jest
 " setlocal formatprg=prettier.sh\ --stdin\ --parser\ typescript
 setlocal formatprg=npx\ prettier\ --parser\ typescript
 
