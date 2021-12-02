@@ -1,0 +1,4 @@
+#!/bin/sh
+
+FILENAME="$(basename -- "$1")"
+jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv' >> "$FILENAME".csv < "$1"

@@ -1,0 +1,2 @@
+#!/bin/sh
+$EDITOR "$HOME/Documents/todos/todo.adoc"
