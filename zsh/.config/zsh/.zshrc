@@ -112,3 +112,6 @@ fi
 
 # Expand aliases when using non-interactive shell
 setopt aliases
+
+# Use direnv
+eval "$(direnv hook zsh)"
