@@ -59,9 +59,9 @@ precmd() {
 
     # Slow as hell
     NODE_PROMPT=""
-    if [ -e "package.json"  ]; then
-        NODE_PROMPT=" %F{green}(◉: $(node -v))%F"
-    fi
+    # if [ -e "package.json"  ]; then
+    #     NODE_PROMPT=" %F{green}(◉: $(node -v))%F"
+    # fi
 
     # Use custom git prompt
     # ZSH has also support for 'vcs_info' but I couldn't get it to display the information the way I wanted
@@ -92,7 +92,7 @@ precmd() {
         fi
     fi
 
-    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT$VENV_PROMPT$NODE_PROMPT"$'\n'"%F{blue}λ%F "
+    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT$VENV_PROMPT$NODE_PROMPT"$'\n'"%F{blue}λ%F %F{reset_color}"
     # RPS1=""
 }
 
