@@ -107,6 +107,18 @@
         "options": {
           "full_name": "scroll-reverser"
         }
+      },
+      "docker": {
+        "version": "4.3.0,71786",
+        "options": {
+          "full_name": "docker"
+        }
+      },
+      "vagrant": {
+        "version": "2.2.19",
+        "options": {
+          "full_name": "vagrant"
+        }
       }
     }
   },
@@ -115,7 +127,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "3.3.7",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "931d202f42129e1b68187382a79d35cb7658c874",
+        "Homebrew/homebrew-core": "99edd278eae2912dff627a01e34a7582ba0bd26b",
         "CLT": "12.4.0.0.1.1610135815",
         "Xcode": "12.4",
         "macOS": "10.15.7"
