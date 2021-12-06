@@ -1,0 +1,125 @@
+{
+  "entries": {
+    "tap": {
+      "homebrew/cask-fonts": {
+        "revision": "a600a5bfccaa52862c471ad2e725c21b16aebfc3"
+      }
+    },
+    "cask": {
+      "1password": {
+        "version": "7.9.1",
+        "options": {
+          "full_name": "1password"
+        }
+      },
+      "discord": {
+        "version": "0.0.264",
+        "options": {
+          "full_name": "discord"
+        }
+      },
+      "dropbox": {
+        "version": "136.4.4345",
+        "options": {
+          "full_name": "dropbox"
+        }
+      },
+      "firefox": {
+        "version": "94.0.2",
+        "options": {
+          "full_name": "firefox"
+        }
+      },
+      "font-iosevka": {
+        "version": "11.2.0",
+        "options": {
+          "full_name": "font-iosevka"
+        }
+      },
+      "google-chrome": {
+        "version": "96.0.4664.55",
+        "options": {
+          "full_name": "google-chrome"
+        }
+      },
+      "hammerspoon": {
+        "version": "0.9.91",
+        "options": {
+          "full_name": "hammerspoon"
+        }
+      },
+      "harvest": {
+        "version": "2.2,203",
+        "options": {
+          "full_name": "harvest"
+        }
+      },
+      "karabiner-elements": {
+        "version": "13.7.0",
+        "options": {
+          "full_name": "karabiner-elements"
+        }
+      },
+      "keeweb": {
+        "version": "1.18.7",
+        "options": {
+          "full_name": "keeweb"
+        }
+      },
+      "signal": {
+        "version": "5.25.0",
+        "options": {
+          "full_name": "signal"
+        }
+      },
+      "slack": {
+        "version": "4.22.0",
+        "options": {
+          "full_name": "slack"
+        }
+      },
+      "spotify": {
+        "version": "1.1.73.517,bef50fdb,23",
+        "options": {
+          "full_name": "spotify"
+        }
+      },
+      "tableplus": {
+        "version": "4.5.0,396",
+        "options": {
+          "full_name": "tableplus"
+        }
+      },
+      "virtualbox": {
+        "version": "6.1.30,148432",
+        "options": {
+          "full_name": "virtualbox"
+        }
+      },
+      "visual-studio-code": {
+        "version": "1.62.3",
+        "options": {
+          "full_name": "visual-studio-code"
+        }
+      },
+      "scroll-reverser": {
+        "version": "1.8.1,10490",
+        "options": {
+          "full_name": "scroll-reverser"
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "3.3.7",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "931d202f42129e1b68187382a79d35cb7658c874",
+        "CLT": "12.4.0.0.1.1610135815",
+        "Xcode": "12.4",
+        "macOS": "10.15.7"
+      }
+    }
+  }
+}
