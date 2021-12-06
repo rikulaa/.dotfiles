@@ -6,9 +6,8 @@ export LANG=en_US.UTF-8
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export ANDROID_HOME="$HOME/Library/Android/sdk/"
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$HOME/Library/Python/3.6/bin/:/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local/anaconda3/bin"
-export JOURNAL_PATH="$HOME/Dropbox/personal/journal"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin"
+export JOURNAL_PATH="$HOME/Documents/Dropbox/personal/journal"
 
 
 # Do not use history file for 'less'
@@ -37,9 +36,9 @@ export REVIEW_BASE=master
 # export TERM=screen-256color
 
 # for gruvbox 256 colour theme. Doesnt work it osx regular terminal but it break (unlike with truecolor)
-. $HOME/.config/nvim/bundle/gruvbox/gruvbox_256palette_osx.sh
+# . $HOME/.config/nvim/bundle/gruvbox/gruvbox_256palette_osx.sh
 
 # Source asdf
-. $(brew --prefix asdf)/asdf.sh
+# . $(brew --prefix asdf)/asdf.sh
 
 export TASKRC="$HOME/.config/task/.taskrc"
