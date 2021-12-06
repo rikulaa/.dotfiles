@@ -254,8 +254,8 @@ end
 
 
 initWindowManager()
-initShortcuts()
-initVimMode()
+-- initShortcuts()
+-- initVimMode()
 
 
 hs.alert.show("Config loaded")
