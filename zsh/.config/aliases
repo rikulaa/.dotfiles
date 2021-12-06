@@ -18,7 +18,7 @@ alias gitconfig='$EDITOR $XDG_CONFIG_HOME/git/config'
 alias dotfiles='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $HOME/.tmux.conf'
 alias dotenv='$EDITOR $XDG_CONFIG_HOME/env'
-alias playground='cd ~/src/me/playground'
+alias playground='cd ~/projects/me/playground'
 
 alias g='git'
 # Use completion for git aliases (in zsh)
@@ -27,14 +27,15 @@ if [ -n "$ZSH_VERSION" ]; then
 fi 
 alias bin='cd ~/.local/bin'
 
-alias school='cd ~/src/school'
-alias work='cd ~/src/work'
-alias me='cd ~/src/me'
+alias school='cd ~/projects/school'
+alias work='cd ~/projects/work'
+alias me='cd ~/projects/me'
 alias docs='cd ~/Documents'
 alias notes='cd ~/Documents/notes/'
 alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
 alias devd='open https://devdocs.io/'
 
+alias nixinfo='nix-shell -p nix-info --run "nix-info -m"'
 todo() {
     today=$(date "+%Y-%m-%d")
     $EDITOR $HOME/Documents/todos/$today.adoc
