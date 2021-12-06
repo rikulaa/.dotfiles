@@ -23,6 +23,7 @@ compinit
 # Better settings for completion menu
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # Shift-tab to reverse the menu
 bindkey '^[[Z' reverse-menu-complete
