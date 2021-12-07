@@ -792,7 +792,8 @@ for _, lsp in ipairs(servers) do
   -- elixr-ls: https://github.com/elixir-lsp/elixir-ls
   nvim_lsp.elixirls.setup{
       on_attach = on_attach,
-      cmd = { '/Users/rikulaa/.local/bin/elixir-ls/language_server.sh' },
+      -- cmd = { '/Users/rikulaa/.local/bin/elixir-ls/language_server.sh' },
+      cmd = { 'elixir-ls' },
       flags = {
         debounce_text_changes = 150,
       },
