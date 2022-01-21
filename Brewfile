@@ -1,5 +1,6 @@
 tap 'homebrew/cask-fonts'
 
+brew 'fish'
 cask '1password'
 cask 'discord'
 cask 'dropbox'
@@ -19,3 +20,5 @@ cask 'visual-studio-code'
 cask 'scroll-reverser'
 cask 'docker'
 cask 'vagrant'
+cask 'postman'
+cask 'devkinsta'
