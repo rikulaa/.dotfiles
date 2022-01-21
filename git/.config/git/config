@@ -25,7 +25,7 @@
     # Taken from this great blog post: https://blog.filippo.io/git-fixup-amending-an-older-commit
     fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 
-    wip = !git add -A && git commit -m "wip"
+    wip = !git add -A && git commit --no-verify -m "wip"
     save = stash -u
     restore = stash pop
 
