@@ -1,0 +1,2 @@
+#!/bin/sh 
+node -pe 'JSON.parse(process.argv[1])' $1
