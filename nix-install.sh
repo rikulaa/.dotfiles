@@ -1,3 +1,2 @@
 #!/bin/sh
-
-nix-env -i neovim tmux direnv
+nix-env -i direnv fzf jq neovim ripgrep stow tmux wget
