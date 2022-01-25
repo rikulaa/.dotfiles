@@ -23,6 +23,13 @@ See 'setup'-folder for installation scripts.
 On osx setup-brew must be run first.
 Running the installation scripts nukes your previous configuration.
 
+### Terminal
+
+#### Iterm2
+
+Change font to `Iosevak medium extended`
+Download nord colorscheme from `https://raw.githubusercontent.com/arcticicestudio/nord-iterm2/develop/src/xml/Nord.itermcolors` and import it
+
 Add [Iosevka](https://github.com/be5invis/Iosevka) as font
 
 ## VS-Code
