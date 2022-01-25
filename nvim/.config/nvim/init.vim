@@ -705,42 +705,6 @@ lua << EOF
 local nvim_lsp = require('lspconfig')
 local aerial = require('aerial')
 local null_ls = require('null-ls')
---local cmp = require'cmp'
-
-null_ls.config({
-    -- you must define at least one source for the plugin to work
-    sources = {
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.diagnostics.shellcheck,
-        --null_ls.builtins.formatting.mix,
-        null_ls.builtins.diagnostics.pylint
-    }
-})
----- Completion setup
--- cmp.setup({
-    -- completion = {
-    -- autocomplete = false
-    -- },
-    -- snippet = {
-        -- expand = function(args)
--- 
-            -- -- For `luasnip` user.
-            -- -- require('luasnip').lsp_expand(args.body)
--- 
-            -- -- For `ultisnips` user.
-            -- vim.fn["UltiSnips#Anon"](args.body)
-        -- end,
-    -- },
-    -- mapping = {
-        -- --['<Tab>'] = cmp.mapping.complete(),
-    -- },
-    -- sources = {
-        -- { name = 'nvim_lsp' },
-        -- -- For ultisnips user.
-        -- { name = 'ultisnips' },
-        -- { name = 'buffer' },
-    -- }
--- })
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -780,14 +744,13 @@ end
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
-local servers = { 'pylsp', 'tsserver','vuels', 'null-ls' }
+local servers = { 'pylsp', 'tsserver','vuels' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     },
-   -- capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
 
@@ -879,7 +842,6 @@ nvim_lsp.intelephense.setup({
         };
     },
     capabilities = capabilities,
-    on_attach = on_attach
 });
 
 local severities = {
@@ -888,6 +850,18 @@ local severities = {
   refactor = vim.lsp.protocol.DiagnosticSeverity.Information,
   convention = vim.lsp.protocol.DiagnosticSeverity.Hint,
 }
+
+-- Setup null-ls
+null_ls.setup({
+     -- you must define at least one source for the plugin to work
+    sources = {
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.formatting.mix,
+        null_ls.builtins.diagnostics.pylint
+    },
+    on_attach = on_attach
+})
 
 --require'nvim-treesitter.configs'.setup {
   --ensure_installed = { 'javascript' }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
