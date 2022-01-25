@@ -502,8 +502,8 @@ let g:hunk_actions = {
 let g:git_actions = {
             \'d': {'title': "diff", 'execute': 'Gdiff' },
             \'b': {'title': "blame", 'execute': 'Gblame' },
-            \'m': {'title': "magit", 'execute': 'Gstatus' },
-            \'s': {'title': "Status", 'execute': 'Gstatus' },
+            \'m': {'title': "magit", 'execute': 'Git' },
+            \'s': {'title': "Status", 'execute': 'Git' },
             \'h': {'title': "hunk", 'menu': g:hunk_actions },
             \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'execute': '!git push' }, 'P': {'title': "publish", 'execute': '!git publish' }, } },
             \}
@@ -780,7 +780,7 @@ end
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
-local servers = { 'pylsp', 'tsserver', 'intelephense', 'vuels', 'null-ls' }
+local servers = { 'pylsp', 'tsserver','vuels', 'null-ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -789,16 +789,98 @@ for _, lsp in ipairs(servers) do
     },
    -- capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
-  -- elixr-ls: https://github.com/elixir-lsp/elixir-ls
-  nvim_lsp.elixirls.setup{
-      on_attach = on_attach,
-      -- cmd = { '/Users/rikulaa/.local/bin/elixir-ls/language_server.sh' },
-      cmd = { 'elixir-ls' },
-      flags = {
-        debounce_text_changes = 150,
-      },
-  }
 end
+
+-- elixr-ls: https://github.com/elixir-lsp/elixir-ls
+nvim_lsp.elixirls.setup{
+  on_attach = on_attach,
+  -- cmd = { '/Users/rikulaa/.local/bin/elixir-ls/language_server.sh' },
+  cmd = { 'elixir-ls' },
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
+
+-- Setup php for wordpress also
+-- https://github.com/Mte90/dotfiles/blob/master/.config/nvim/lua/plugin/lsp.lua
+-- INSTALL THESE AS WELL composer global require php-stubs/wordpress-globals php-stubs/wordpress-stubs php-stubs/woocommerce-stubs php-stubs/acf-pro-stubs wpsyntex/polylang-stubs php-stubs/genesis-stubs php-stubs/wp-cli-stubs
+nvim_lsp.intelephense.setup({
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+    settings = {
+        intelephense = {
+            stubs = { 
+                "bcmath",
+                "bz2",
+                "calendar",
+                "Core",
+                "curl",
+                "date",
+                "dba",
+                "dom",
+                "enchant",
+                "fileinfo",
+                "filter",
+                "ftp",
+                "gd",
+                "gettext",
+                "hash",
+                "iconv",
+                "imap",
+                "intl",
+                "json",
+                "ldap",
+                "libxml",
+                "mbstring",
+                "mcrypt",
+                "mysql",
+                "mysqli",
+                "password",
+                "pcntl",
+                "pcre",
+                "PDO",
+                "pdo_mysql",
+                "Phar",
+                "readline",
+                "recode",
+                "Reflection",
+                "regex",
+                "session",
+                "SimpleXML",
+                "soap",
+                "sockets",
+                "sodium",
+                "SPL",
+                "standard",
+                "superglobals",
+                "sysvsem",
+                "sysvshm",
+                "tokenizer",
+                "xml",
+                "xdebug",
+                "xmlreader",
+                "xmlwriter",
+                "yaml",
+                "zip",
+                "zlib",
+                "wordpress",
+                "woocommerce",
+                "acf-pro",
+                "wordpress-globals",
+                "wp-cli",
+                "genesis",
+                "polylang"
+            },
+            files = {
+                maxSize = 5000000;
+            };
+        };
+    },
+    capabilities = capabilities,
+    on_attach = on_attach
+});
 
 local severities = {
   error = vim.lsp.protocol.DiagnosticSeverity.Error,
