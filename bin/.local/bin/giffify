@@ -1,4 +1,5 @@
 #!/bin/sh
+# Needs ffmpeg and imagemagick
 
 if ! [ -d giffify_output_temp ]; then
 	mkdir ./giffify_output_temp
