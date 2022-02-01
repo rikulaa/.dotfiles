@@ -19,5 +19,3 @@ tags
 env.js
 
 pylint.sh
-
-vendor
