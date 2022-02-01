@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-fonts": {
-        "revision": "25e63dfd72905c8ce156a7af6940e2bd18662c13"
+        "revision": "79db65c83e5291253faec46751c05fcb4c614265"
       }
     },
     "cask": {
@@ -25,7 +25,7 @@
         }
       },
       "firefox": {
-        "version": "96.0.2",
+        "version": "96.0.3",
         "options": {
           "full_name": "firefox"
         }
@@ -67,7 +67,7 @@
         }
       },
       "signal": {
-        "version": "5.29.0",
+        "version": "5.29.1",
         "options": {
           "full_name": "signal"
         }
@@ -121,7 +121,7 @@
         }
       },
       "postman": {
-        "version": "9.10.0",
+        "version": "9.11.0",
         "options": {
           "full_name": "postman"
         }
@@ -154,6 +154,18 @@
         "version": "2.02.10",
         "options": {
           "full_name": "windscribe"
+        }
+      },
+      "drawio": {
+        "version": "16.5.1",
+        "options": {
+          "full_name": "drawio"
+        }
+      },
+      "telegram": {
+        "version": "8.4.1,225774",
+        "options": {
+          "full_name": "telegram"
         }
       }
     },
@@ -209,7 +221,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "3.3.12",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "f74b664b4602d7acd55b959fedc71131957c177d",
+        "Homebrew/homebrew-core": "6afbe08ff008e295caf8f6fe8ca8fd735c0c18be",
         "CLT": "12.0.0.32.29",
         "Xcode": "12.4",
         "macOS": "10.15.7"
