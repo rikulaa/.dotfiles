@@ -51,6 +51,7 @@ Plug 'alampros/vim-styled-jsx'
 Plug 'leafgarland/typescript-vim' " Syntax for ts
 Plug 'heavenshell/vim-jsdoc'
 Plug 'leafOfTree/vim-vue-plugin'
+Plug 'LnL7/vim-nix'
 
 
 " Liquid
