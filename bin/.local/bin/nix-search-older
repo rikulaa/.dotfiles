@@ -1,0 +1,15 @@
+#!/bin/sh
+
+case $(uname) in
+    "Darwin")
+        CMD="open"
+        ;;
+    *)
+        CMD="xdg-open"
+        ;;
+esac    
+
+# Don't do anything if no arguments provided
+if [ -n "$1" ]; then
+    exec $CMD "https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable&package=$*"
+fi
