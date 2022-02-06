@@ -11,7 +11,8 @@ download_nix_install_script() {
     curl -L https://nixos.org/nix/install > $NIX_SCRIPT_NAME && chmod +x $NIX_SCRIPT_NAME
 }
 
-(printf "Checking pre-requisites...\n" && which curl && printf "\n") || (printf "'curl' is not found, exiting..." && exit)
+printf "Checking pre-requisites (curl). Will exit if not found...\n"
+which curl || exit
 
 printf "===========================\n\n"
 
