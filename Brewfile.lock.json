@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-fonts": {
-        "revision": "79db65c83e5291253faec46751c05fcb4c614265"
+        "revision": "33bc123b7b3e8e5a8365f5b02027f6649af19de3"
       }
     },
     "cask": {
@@ -19,7 +19,7 @@
         }
       },
       "dropbox": {
-        "version": "140.4.1951",
+        "version": "141.4.3299",
         "options": {
           "full_name": "dropbox"
         }
@@ -31,13 +31,13 @@
         }
       },
       "font-iosevka": {
-        "version": "11.2.7",
+        "version": "11.3.0",
         "options": {
           "full_name": "font-iosevka"
         }
       },
       "google-chrome": {
-        "version": "97.0.4692.99",
+        "version": "98.0.4758.80",
         "options": {
           "full_name": "google-chrome"
         }
@@ -67,7 +67,7 @@
         }
       },
       "signal": {
-        "version": "5.29.1",
+        "version": "5.30.0",
         "options": {
           "full_name": "signal"
         }
@@ -79,7 +79,7 @@
         }
       },
       "spotify": {
-        "version": "1.1.77.643,3c4c6fc6,21",
+        "version": "1.1.78.765,5ea20b00,16",
         "options": {
           "full_name": "spotify"
         }
@@ -97,7 +97,7 @@
         }
       },
       "visual-studio-code": {
-        "version": "1.63.2",
+        "version": "1.64.0",
         "options": {
           "full_name": "visual-studio-code"
         }
@@ -121,7 +121,7 @@
         }
       },
       "postman": {
-        "version": "9.11.0",
+        "version": "9.12.2",
         "options": {
           "full_name": "postman"
         }
@@ -133,13 +133,13 @@
         }
       },
       "stats": {
-        "version": "2.7.1",
+        "version": "2.7.2",
         "options": {
           "full_name": "stats"
         }
       },
       "local": {
-        "version": "6.2.0,5679",
+        "version": "6.2.1,5711",
         "options": {
           "full_name": "local"
         }
@@ -151,7 +151,7 @@
         }
       },
       "windscribe": {
-        "version": "2.02.10",
+        "version": "2.3.16",
         "options": {
           "full_name": "windscribe"
         }
@@ -163,7 +163,7 @@
         }
       },
       "telegram": {
-        "version": "8.4.1,225774",
+        "version": "8.5,226936",
         "options": {
           "full_name": "telegram"
         }
@@ -219,9 +219,9 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "3.3.12",
+        "HOMEBREW_VERSION": "3.3.13",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "6afbe08ff008e295caf8f6fe8ca8fd735c0c18be",
+        "Homebrew/homebrew-core": "f85778864f98173ba8b561db114d41f02119bab3",
         "CLT": "12.0.0.32.29",
         "Xcode": "12.4",
         "macOS": "10.15.7"
