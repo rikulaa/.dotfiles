@@ -1,12 +1,9 @@
 #!/bin/sh
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.config/composer/vendor/bin"
 export JOURNAL_PATH="$HOME/Documents/Dropbox/personal/journal"
 
 

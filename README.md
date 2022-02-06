@@ -12,16 +12,17 @@ sh <(curl -L https://nixos.org/nix/install)
 brew bundle
 ```
 
+NOTE: in linux, you might need to do the following: https://github.com/NixOS/nixpkgs/issues/38991#issuecomment-496332104
+```
+export LOCALE_ARCHIVE_2_11="$(nix-build --no-out-link "<nixpkgs>" -A glibcLocales)/lib/locale/locale-archive"
+export LOCALE_ARCHIVE_2_27="$(nix-build --no-out-link "<nixpkgs>" -A glibcLocales)/lib/locale/locale-archive"
+export LOCALE_ARCHIVE="/usr/bin/locale"
+```
+
 1. Run stow to symlink wanted configs. E.g `stow nvim git shell hammerspoon bin ...`.
 ```sh
 stow nvim git shell hammerspoon bin git tmux zsh karabiner
 ```
-
-2. Run setup script (NOTE: install language runtimes with ASDF)
-
-See 'setup'-folder for installation scripts. 
-On osx setup-brew must be run first.
-Running the installation scripts nukes your previous configuration.
 
 ### Terminal
 
