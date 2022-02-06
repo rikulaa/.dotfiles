@@ -9,3 +9,11 @@ catch
 	" do nothing
     echom "Cannot start typescript-language-server"
 endtry
+
+if expand('%:ph') =~ 'procaravan/search-agent' 
+    augroup formathook
+        autocmd!
+        " Format the buffer
+        autocmd BufWritePost *.ts silent !yarn f %
+    augroup END
+endif
