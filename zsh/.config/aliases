@@ -27,9 +27,9 @@ if [ -n "$ZSH_VERSION" ]; then
 fi 
 alias bin='cd ~/.local/bin'
 
-alias school='cd ~/projects/school'
-alias work='cd ~/projects/work'
-alias me='cd ~/projects/me'
+alias school='cd ~/src/school'
+alias work='cd ~/src/work'
+alias me='cd ~/src/me'
 alias docs='cd ~/Documents'
 alias notes='cd ~/Documents/notes/'
 alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
@@ -189,9 +189,15 @@ alias docker-rm-containers='docker rm $(docker ps -a -q)'
 alias docker-rm-images=' docker rmi $(docker images -q)'
 dockerps() {
     item=$(docker ps | sed 1d | fzf)
-    echo "$item" | awk '{ print $1 }'
+    echo "$item"
+}
+dockerps_name() {
+    docker ps | awk '{ print $NF }' | tail -n +2 | fzf
 }
 alias docker-restart='docker restart $(dockerps)'
+docker_exec() {
+    docker exec -it $(dockerps_name) "$@"
+}
 
 # REACT NATIVE 
 alias rn='react-native'
