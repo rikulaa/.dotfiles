@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case $(uname) in
+    "Darwin")
+        CMD="open"
+        ;;
+    *)
+        CMD="xdg-open"
+        ;;
+esac    
+
+exec $CMD "https://status.nixos.org/"
