@@ -33,6 +33,7 @@ else
 
     # Download and run
     download_nix_install_script && $NIX_SCRIPT_NAME --daemon
+    rm $NIX_SCRIPT_NAME
 fi
 
 
