@@ -2,9 +2,9 @@
 These are my personal configs for bash, zsh, tmux, git, hammerspoon and vim
 
 ## Installation
-Dependencies: git, curl
+Dependencies: git, curl, make*
 
-1. Install pre-requisites with `.bin/initialize.sh` or by running `make initialize` (if you have make installed)
+1. Install pre-requisites with `.bin/initialize.sh` or by running `make initialize` (if you have make installed)*
 2. Start new shell (and install e.g `make`)
 3. Run `make install`
 
