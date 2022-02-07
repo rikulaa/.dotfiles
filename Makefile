@@ -1,13 +1,10 @@
 .DEFAULT: help
-.PHONY: help initialize brew-bundle nix-programs link-configs unlink-configs install-vim-plugins change-login-shell
+.PHONY: help brew-bundle nix-programs link-configs unlink-configs install-vim-plugins change-login-shell
 
 UNAME = $(shell uname)
 
 help:           ## Show this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
-
-initialize: ## Install pre-requisites for new machines
-	./.bin/initialize.sh
 
 # OSX has different steps
 ifeq ($(UNAME),Darwin)
