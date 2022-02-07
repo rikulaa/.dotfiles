@@ -48,5 +48,10 @@ change-login-shell:
 gnome-settings: ## Better defaults to gnome-shell
 	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'RIGHT'
 	gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+
+flatpak:
+	sudo apt install flatpak -y
+	sudo apt install gnome-software-plugin-flatpak -y
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	
 
