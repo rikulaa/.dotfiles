@@ -1,5 +1,5 @@
 .DEFAULT: help
-.PHONY: help brew-bundle nix-programs link-configs unlink-configs install-vim-plugins change-login-shell
+.PHONY: help brew-bundle nix-programs link-configs unlink-configs install-vim-plugins change-login-shell gnome-settings
 
 UNAME = $(shell uname)
 
@@ -45,4 +45,13 @@ change-login-shell:
 	sudo sh -c "echo $(shell which zsh) >> /etc/shells"
 	chsh -s $(shell which zsh)
 
+gnome-settings: ## Better defaults to gnome-shell
+	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'RIGHT'
+	gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+
+flatpak:
+	sudo apt install flatpak -y
+	sudo apt install gnome-software-plugin-flatpak -y
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	
 
