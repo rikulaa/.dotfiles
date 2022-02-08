@@ -133,7 +133,7 @@
         }
       },
       "stats": {
-        "version": "2.7.2",
+        "version": "2.7.3",
         "options": {
           "full_name": "stats"
         }
@@ -221,7 +221,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "3.3.13",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "f85778864f98173ba8b561db114d41f02119bab3",
+        "Homebrew/homebrew-core": "beac0e28196c0a8fb93b467ff2ad81a5197e83c1",
         "CLT": "12.0.0.32.29",
         "Xcode": "12.4",
         "macOS": "10.15.7"
