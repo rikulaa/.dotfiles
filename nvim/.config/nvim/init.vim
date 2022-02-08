@@ -422,6 +422,10 @@ function! SmartUnJoin()
 endfunction
 nnoremap <leader>k :call SmartUnJoin()<CR>
 
+function! WrapText(line, wrapping_pattern)
+    execute "s/" . trim(a:line) . "/" . a:wrapping_pattern . "/g"
+endfunction
+
 " Global serach (files)
 nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>
 nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>

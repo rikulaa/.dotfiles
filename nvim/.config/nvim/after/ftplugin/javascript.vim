@@ -28,6 +28,8 @@ let __IncludeActions = {
             \}
 
 nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
+nnoremap <silent> <leader>ll :call WrapText("<C-R><C-L>", "console.log(&)")<CR>
+vnoremap <leader>ll y :call WrapText(@", "console.log(&)")<CR>
 
 let __IncludeVisualActions = {
             \'s': {'title': "Send to REPL", 'execute': ":ReplSend" },
