@@ -17,6 +17,9 @@ which curl || exit
 printf "===========================\n\n"
 
 if [ "$PLATFORM" = "Darwin" ]; then
+    printf "Installing xcode cli-tools...\n"
+    xcode-select --install
+    printf "\n"
     # Setup homebrew
     printf "Installing Homebrew...\n"
     (printf "Checking if Homebrew installed already installed...: " && which brew && echo "Homebrew already installed!") || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
