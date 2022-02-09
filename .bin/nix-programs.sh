@@ -7,6 +7,7 @@ nix-env -i -r \
     jq \
     ripgrep \
     shellcheck \
+    asciidoctor \
     tmux \
     wget \
     imagemagick \
