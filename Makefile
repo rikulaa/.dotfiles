@@ -1,5 +1,5 @@
 .DEFAULT: help
-.PHONY: help brew-bundle nix-programs link-configs unlink-configs install-vim-plugins change-login-shell gnome-settings
+.PHONY: help brew-bundle nix-programs link-configs unlink-configs install-vim-plugins change-login-shell gnome-settings osx-defaults
 
 UNAME = $(shell uname)
 
@@ -8,9 +8,9 @@ help:           ## Show this help.
 
 # OSX has different steps
 ifeq ($(UNAME),Darwin)
-INSTALL_STEPS = nix-programs brew-bundle link-configs install-vim-plugins change-login-shell
+INSTALL_STEPS = nix-programs brew-bundle link-configs install-vim-plugins change-login-shell osx-defaults
 else
-INSTALL_STEPS = nix-programs link-configs install-vim-plugins change-login-shell
+INSTALL_STEPS = nix-programs link-configs install-vim-plugins change-login-shell gnome-settings
 endif
 
 install: | $(INSTALL_STEPS) ## Setup new machine
@@ -44,6 +44,14 @@ change-login-shell:
 	$(info Changing default shell to zsh)
 	sudo sh -c "echo $(shell which zsh) >> /etc/shells"
 	chsh -s $(shell which zsh)
+
+osx-defaults:
+	defaults write -g InitialKeyRepeat -int 25
+	defaults write -g KeyRepeat -int 2
+	defaults write com.apple.dock orientation -string right # Dock to the right
+	defaults write com.apple.dock magnification -bool false
+	defaults write com.apple.dock autohide -int 1
+	defaults write com.apple.dock autohide-delay -int 0
 
 gnome-settings: ## Better defaults to gnome-shell
 	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'RIGHT'
