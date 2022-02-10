@@ -21,6 +21,12 @@ brew-bundle:
 nix-programs:
 	./.bin/nix-programs.sh
 
+apt-programs: apt-docker
+apt-docker:
+	sudo apt install docker.io docker-compose -y
+	$(info Add current user to docker group, RE-LOGIN for changes to take effect)
+	sudo usermod -aG docker ${USER}
+
 # OSX has a bit more configurations
 ifeq ($(UNAME),Darwin)
 CONFIG_DIRS = bin nvim zsh git tmux hammerspoon karabiner
