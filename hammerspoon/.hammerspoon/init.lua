@@ -179,17 +179,17 @@ function initShortcuts()
   -- end)
 
   -- open editor
-  hs.hotkey.bind(mod, "C", function()
-      hs.application.open("Visual Studio Code")
-  end)
+  -- hs.hotkey.bind(mod, "C", function()
+  --     hs.application.open("Visual Studio Code")
+  -- end)
 
   -- hs.hotkey.bind(mod, "f", function()
   --   hs.application.open("Finder")
   -- end)
 
-  hs.hotkey.bind(mod, "R", function()
-    hs.reload()
-  end)
+  -- hs.hotkey.bind(mod, "R", function()
+  --   hs.reload()
+  -- end)
 end
 
 
@@ -254,7 +254,7 @@ end
 
 
 initWindowManager()
--- initShortcuts()
+initShortcuts()
 -- initVimMode()
 
 
