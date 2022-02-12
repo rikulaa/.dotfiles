@@ -493,6 +493,11 @@ cnoremap <C-b> <Left>
 inoremap <C-f> <Right>
 cnoremap <C-f> <Right>
 
+" inoremap <C-h> <Left>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-l> <Right>
+
 let g:UltiSnips#ExpandSnippet="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
