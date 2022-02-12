@@ -1,8 +1,9 @@
 # Enable colors
 autoload -U colors && colors
 
-setopt histignorealldups sharehistory
 setopt complete_aliases
+# Expand aliases when using non-interactive shell
+setopt aliases
 
 # Do not beep
 setopt nobeep
@@ -15,6 +16,13 @@ bindkey -e
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=$HOME/.cache/zsh/history
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 # Use modern completion system
 autoload -Uz compinit
@@ -47,49 +55,34 @@ default-backward-delete-word () {
 zle -N default-backward-delete-word
 bindkey '^W' default-backward-delete-word
 
+# Version control info prompt
+setopt PROMPT_SUBST
+autoload -Uz vcs_info 
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' check-for-staged-changes true
+zstyle ':vcs_info:*' formats       \
+    ' on %F{red}(%b)%f%F{yellow}%u%c%f '
+zstyle ':vcs_info:*' actionformats       \
+    ' on %F{red}(%b|%a)%f%F{yellow}%u%c%f '
+zstyle ':vcs_info:*' stagedstr       \
+    '%F{green}*%f'
+zstyle ':vcs_info:*' unstagedstr       \
+    '%F{yellow}*%f'
+
+
 # Configure prompt
 precmd() {
+    # Load vcs_info
+    vcs_info
     # If there is atleast one job, show the jobs prompt
     JOBS_PROMPT="%F{yellow}%1(j. {%j}.)%f"
     SUDO_PROMPT="%(!.%F{red}# %f.)"
 
     VENV_PROMPT=""
     if [ -n "${VIRTUAL_ENV+1}" ]; then VENV_PROMPT=" (venv)" fi # Slow as hell
-    NODE_PROMPT=""
-    # if [ -e "package.json"  ]; then
-    #     NODE_PROMPT=" %F{green}(◉: $(node -v))%F"
-    # fi
 
-    # Use custom git prompt
-    # ZSH has also support for 'vcs_info' but I couldn't get it to display the information the way I wanted
-    GIT_PROMPT=''
-    is_git_directory() { 
-        git status >/dev/null 2>&1 
-    }
-    if is_git_directory; then
-        GIT_BRANCH=$(git branch | sed '/^ /d' | sed 's/\* //')
-        GIT_PROMPT=" on %F{red}($GIT_BRANCH)%f"
-
-        is_dirty=$(git status --porcelain | wc -l) 
-        if [[ $is_dirty -gt  "0" ]]; then
-            GIT_PROMPT=${GIT_PROMPT}"%F{yellow}*%f"
-        fi
-
-        git_ahead_count=$(git status -sb | head -1 | grep -o 'ahead\s\d\+' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
-        git_behind_count=$(git status -sb | head -1 | grep -o 'behind\s\d\+' | sed 's/[a-z]\{0,\}[ ]\{0,\}//g')
-        if [  -n "$git_ahead_count" ] || [ -n "$git_behind_count"  ]; then
-            GIT_PROMPT="$GIT_PROMPT ["
-            if [  -n "$git_ahead_count" ]; then
-                GIT_PROMPT=$GIT_PROMPT"%F{green}+$git_ahead_count%f"
-            fi
-            if [ -n "$git_behind_count"  ]; then
-                GIT_PROMPT=$GIT_PROMPT"%F{red}-$git_behind_count%f"
-            fi
-            GIT_PROMPT="$GIT_PROMPT]"
-        fi
-    fi
-
-    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT$GIT_PROMPT$VENV_PROMPT$NODE_PROMPT"$'\n'"%F{blue}λ%F %F{reset_color}"
+    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT${vcs_info_msg_0_}$VENV_PROMPT$NODE_PROMPT"$'\n'"%F{blue}λ%F %F{reset_color}"
     # RPS1=""
 }
 
@@ -113,8 +106,6 @@ fi
 # Set the terminal theme
 . ~/.local/bin/refresh_theme.sh
 
-# Expand aliases when using non-interactive shell
-setopt aliases
 
 # Use direnv
 eval "$(direnv hook zsh)"
