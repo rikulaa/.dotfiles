@@ -39,10 +39,7 @@ alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
 alias devd='open https://devdocs.io/'
 
 alias nixinfo='nix-shell -p nix-info --run "nix-info -m"'
-todo() {
-    today=$(date "+%Y-%m-%d")
-    $EDITOR $HOME/Documents/todos/$today.adoc
-}
+alias todo='$EDITOR $HOME/Documents/todos/index.adoc'
 
 # Use bat instead of cat if possible
 if command -v bat > /dev/null; then
