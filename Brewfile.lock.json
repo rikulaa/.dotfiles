@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-fonts": {
-        "revision": "33bc123b7b3e8e5a8365f5b02027f6649af19de3"
+        "revision": "2b4ae5416b96b42471665a36b510e5a48920b23c"
       }
     },
     "cask": {
@@ -13,37 +13,37 @@
         }
       },
       "discord": {
-        "version": "0.0.264",
+        "version": "0.0.265",
         "options": {
           "full_name": "discord"
         }
       },
       "dropbox": {
-        "version": "141.4.3299",
+        "version": "143.4.4161",
         "options": {
           "full_name": "dropbox"
         }
       },
       "firefox": {
-        "version": "96.0.3",
+        "version": "97.0.1",
         "options": {
           "full_name": "firefox"
         }
       },
       "font-iosevka": {
-        "version": "11.3.0",
+        "version": "15.0.1",
         "options": {
           "full_name": "font-iosevka"
         }
       },
       "google-chrome": {
-        "version": "98.0.4758.80",
+        "version": "99.0.4844.51",
         "options": {
           "full_name": "google-chrome"
         }
       },
       "hammerspoon": {
-        "version": "0.9.93",
+        "version": "0.9.94",
         "options": {
           "full_name": "hammerspoon"
         }
@@ -67,7 +67,7 @@
         }
       },
       "signal": {
-        "version": "5.30.0",
+        "version": "5.34.0",
         "options": {
           "full_name": "signal"
         }
@@ -79,13 +79,13 @@
         }
       },
       "spotify": {
-        "version": "1.1.78.765,5ea20b00,16",
+        "version": "1.1.80.699,c3dac750,9",
         "options": {
           "full_name": "spotify"
         }
       },
       "tableplus": {
-        "version": "4.5.2,402",
+        "version": "4.6.0,406",
         "options": {
           "full_name": "tableplus"
         }
@@ -97,7 +97,7 @@
         }
       },
       "visual-studio-code": {
-        "version": "1.64.0",
+        "version": "1.64.2",
         "options": {
           "full_name": "visual-studio-code"
         }
@@ -109,7 +109,7 @@
         }
       },
       "docker": {
-        "version": "4.4.2,73305",
+        "version": "4.5.0,74594",
         "options": {
           "full_name": "docker"
         }
@@ -121,7 +121,7 @@
         }
       },
       "postman": {
-        "version": "9.12.2",
+        "version": "9.14.0",
         "options": {
           "full_name": "postman"
         }
@@ -133,13 +133,13 @@
         }
       },
       "stats": {
-        "version": "2.7.3",
+        "version": "2.7.5",
         "options": {
           "full_name": "stats"
         }
       },
       "local": {
-        "version": "6.2.1,5711",
+        "version": "6.3.0,5756",
         "options": {
           "full_name": "local"
         }
@@ -219,9 +219,9 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "3.3.13",
+        "HOMEBREW_VERSION": "3.4.0",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "beac0e28196c0a8fb93b467ff2ad81a5197e83c1",
+        "Homebrew/homebrew-core": "ae2a5343abb05f4a38ccdb7aeacb7bdb8dcd9b80",
         "CLT": "12.0.0.32.29",
         "Xcode": "12.4",
         "macOS": "10.15.7"
