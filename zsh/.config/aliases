@@ -19,6 +19,9 @@ alias dotfiles='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $HOME/.tmux.conf'
 alias dotenv='$EDITOR $XDG_CONFIG_HOME/env'
 alias playground='cd ~/src/me/playground'
+alias vi='$EDITOR'
+
+alias sshconfig='$EDITOR ~/.ssh/config'
 
 alias g='git'
 # Use completion for git aliases (in zsh)
