@@ -6,16 +6,10 @@ UNAME = $(shell uname)
 help:           ## Show this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make <target>\033[36m\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-# OSX has different steps
-ifeq ($(UNAME),Darwin)
-INSTALL_STEPS = nix-programs brew-bundle link-configs install-vim-plugins change-login-shell osx-defaults
-else
-INSTALL_STEPS = nix-programs link-configs install-vim-plugins change-login-shell gnome-settings
-endif
+install: | $(UNAME)-install ## Setup new machine
 
-install: | $(INSTALL_STEPS) ## Setup new machine
-
-##: ## 
+Darwin-install: nix-programs brew-bundle link-configs install-vim-plugins change-login-shell osx-defaults
+Linux-install: nix-programs link-configs install-vim-plugins change-login-shell gnome-settings
 
 brew-bundle: ## Install brew programs
 	brew bundle
