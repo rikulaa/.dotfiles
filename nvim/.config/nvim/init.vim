@@ -348,8 +348,7 @@ nnoremap <silent> N Nzz
 " Navigation (file explorer)
 function! ToggleFileExplorer()
     if &ft ==# "netrw"
-        " Netrw is already open
-        :Rexplore
+        :bd
     else
         :Explore
     endif
