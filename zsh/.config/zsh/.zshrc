@@ -101,6 +101,13 @@ source $XDG_CONFIG_HOME/env
 source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
 source $XDG_CONFIG_HOME/aliases
 
+# Source named directories
+# https://unix.stackexchange.com/questions/7011/how-to-loop-over-the-lines-of-a-file
+if [ -e $NAMED_DIRECTORIES_CONFIG ]; then
+    while IFS='' read -r LINE || [ -n "${LINE}" ]; do
+        hash -d $(echo $LINE | cut -d '=' -f 1)=$(echo $LINE | cut -d '=' -f 2)
+    done <  $NAMED_DIRECTORIES_CONFIG
+fi
 # Autosuggestions
 # . $shell_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Highlighting

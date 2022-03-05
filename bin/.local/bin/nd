@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+    echo "$@" >> "$NAMED_DIRECTORIES_CONFIG"
+fi
+

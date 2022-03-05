@@ -5,6 +5,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/sbin:/usr/local/bin:$HOME/.config/composer/vendor/bin"
 export JOURNAL_PATH="$HOME/Documents/Dropbox/personal/journal"
+export NAMED_DIRECTORIES_CONFIG="$HOME/.config/named-directories"
 
 
 # Do not use history file for 'less'
