@@ -115,9 +115,5 @@ if [ -f "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlig
     source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# Set the terminal theme
-. ~/.local/bin/refresh_theme.sh
-
-
 # Use direnv
 eval "$(direnv hook zsh)"
