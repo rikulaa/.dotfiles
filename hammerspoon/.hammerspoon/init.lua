@@ -1,6 +1,7 @@
 -- local mod = {"cmd", "alt", "ctrl"};
 local mod = {"alt"};
 local mod2 = {"alt", "shift"}
+local cmd = {"cmd"}
 
 function initWindowManager()
   -- gap size
@@ -169,7 +170,7 @@ end
 -- SHORTCUTS
 function initShortcuts()
   -- open terminal
-  hs.hotkey.bind(mod, "return", function()
+  hs.hotkey.bind(cmd, "return", function()
       hs.application.open('iTerm')
   end)
 
@@ -183,13 +184,13 @@ function initShortcuts()
   --     hs.application.open("Visual Studio Code")
   -- end)
 
-  -- hs.hotkey.bind(mod, "f", function()
-  --   hs.application.open("Finder")
-  -- end)
+  hs.hotkey.bind(mod2, "F", function()
+    hs.application.open("Finder")
+  end)
 
-  -- hs.hotkey.bind(mod, "R", function()
-  --   hs.reload()
-  -- end)
+  hs.hotkey.bind(mod2, "R", function()
+    hs.reload()
+  end)
 end
 
 
