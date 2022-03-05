@@ -149,15 +149,44 @@ set nocursorline
 syntax enable				" Show syntax
 set termguicolors           " Better colors in terminal, needs support from tmux also
 
-" colorscheme gruvbox
-colorscheme nord
-let iterm_profile = $ITERM_PROFILE
-if iterm_profile == "Light"
-    set background=light        " Set light background explicitely
-    " Just override the as well (so it won't look horrible)
-    colorscheme gruvbox
+function! SyncOsxColorscheme(timer)
+    let s:chosen_osx_theme = ""
+
+    function! s:OnEvent(job_id, data, event) dict
+        if a:event == 'stdout'
+            let s:chosen_osx_theme = tolower(trim(s:chosen_osx_theme . join(a:data)))
+        else
+            if s:chosen_osx_theme == "dark"
+                set background=dark
+                colorscheme nord
+            else
+                set background=light
+                colorscheme gruvbox
+                " colorscheme solarized8
+            endif
+        endif
+    endfunction
+
+    call jobstart('defaults read -g AppleInterfaceStyle 2>/dev/null', {'on_stdout': function('s:OnEvent'), 'on_exit': function('s:OnEvent')})
+endfunction
+
+" Update colorscheme automatically (based on system preference, only for oxs)
+if has('mac')
+    let OSX_INITIAL_THEME = tolower(trim(system("defaults read -g AppleInterfaceStyle 2>/dev/null")))
+    if tolower(OSX_INITIAL_THEME) == "dark"
+        set background=dark
+        colorscheme nord
+    else
+        set background=light
+        colorscheme gruvbox
+    endif
+    " Every 3s, we are doing this via job (async) so that the ui won't flicker
+    " (cursor starts to flicker with the timer in in case we are just calling 'system')
+    call timer_start(3000, "SyncOsxColorscheme", {"repeat": -1})
 else
+    " For everybody else, just use dark theme by default
     set background=dark
+    colorscheme nord
 endif
 set showcmd					" Show command at the bottom
 
