@@ -957,24 +957,3 @@ if filereadable(f)
     endif
 endif
 
-" inoremap ( ()<left>
-" inoremap (<Space> (<Space><Space>)<Left><Left>
-inoremap (<CR> (<CR>)<ESC>O<ESC>cc
-" inoremap [ []<left>
-" inoremap [<Space> [<Space><Space>]<Left><Left>
-inoremap [<CR> [<CR>]<ESC>O<ESC>cc
-" inoremap { {}<left>
-" inoremap {<Space> {<Space><Space>}<Left><Left>
-inoremap {<CR> {<CR>}<ESC>O<ESC>cc
-
-" function IsBetweenBraces()
-"     return strpart(getline('.'), col('.')-1, 1) == ")" ? "\<cr>\<esc>\O" : "\<cr>"
-" endfunction
-" inoremap <expr> <cr> IsBetweenBraces()
-
-" inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-" inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-" inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
-" inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-" inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
-" inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
