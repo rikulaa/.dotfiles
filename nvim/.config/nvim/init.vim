@@ -10,20 +10,15 @@ Plug 'tpope/vim-surround'             " Vim Surround plugin
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'            " For converting name cases
 Plug 'neovim/nvim-lspconfig'
-Plug 'sosmo/vim-macrorepeat'
 Plug 'nvim-lua/plenary.nvim' " For null-ls
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'branch': 'main' }
-" Plug 'folke/which-key.nvim'
-Plug 'stevearc/aerial.nvim'
 Plug 'mtikekar/nvim-send-to-term'
-Plug 'kevinhwang91/nvim-bqf', { 'branch': 'main' }
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-" Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-" Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-" Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+Plug 'kwkarlwang/bufjump.nvim'
 
-" Plug 'Raimondi/delimitMate'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+
 Plug 'rikulaa/vim-yamenu'
 Plug 'chrisbra/csv.vim'
 
@@ -47,7 +42,7 @@ endif
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
-Plug 'alampros/vim-styled-jsx'
+Plug 'alampros/vim-styled-jsx' " NOT USED ?
 Plug 'leafgarland/typescript-vim' " Syntax for ts
 Plug 'heavenshell/vim-jsdoc'
 Plug 'leafOfTree/vim-vue-plugin'
@@ -70,13 +65,8 @@ Plug 'elixir-editors/vim-elixir'
 " Other
 Plug 'tpope/vim-markdown'
 Plug 'jparise/vim-graphql'
-Plug 'tpope/vim-dadbod'
-
 
 Plug 'editorconfig/editorconfig-vim'
-
-" Tests
-Plug 'janko-m/vim-test'
 
 " Snippets
 if (has("python3") && (has('nvim') || v:version > 704))
@@ -86,10 +76,7 @@ endif
 " Themes
 Plug 'tomasiser/vim-code-dark'        "Theme based on visual studio code
 Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'endel/vim-github-colorscheme'
 Plug 'arcticicestudio/nord-vim'
-Plug 'https://gitlab.com/gi1242/vim-emoji-ab'
 
 call plug#end()            " required
 packadd cfilter
@@ -129,6 +116,8 @@ set foldmethod=manual
 if (has('nvim'))
     set inccommand=split
 endif
+" Do not fold when typing: https://stackoverflow.com/a/23032068
+set formatoptions-=t
 
 " Affects the visual representation of what happens after you hit <C-x><C-o>
 " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -246,8 +235,8 @@ command! Foldclose normal zM
 " Better grep (https://noahfrederick.com/log/vim-streamlining-grep
 " - Don't show confirmation after search by using silent
 " - Open quickfix window immediately
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep!'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep!' : 'lgrep'
+cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'tabnew \| silent grep!'  : 'grep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'tabnew \| silent lgrep!' : 'lgrep'
 
 " Command for resyncing screen
 command! ResyncScreen :syntax sync fromstart<cr>:redraw!<cr>
@@ -298,6 +287,9 @@ nnoremap <silent> Q <nop>
 " than 5 lines
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count :  "") . 'k'
 nnoremap <expr> j (v:count > 5 ? "m'" . v:count :  "") . 'j'
+
+nnoremap <ScrollWheelUp> 10-zz
+nnoremap <ScrollWheelDown> 10jzz
 
 nnoremap <leader>; :
 vnoremap <leader>; :
@@ -455,8 +447,8 @@ function! WrapText(line, wrapping_pattern)
 endfunction
 
 " Global serach (files)
-nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>
-nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files --hidden --follow .'}))<CR>
+nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --follow .'}))<CR>
+nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files --follow .'}))<CR>
 function! SearchFilesByWord(word)
     :execute ":FZF -q " . a:word
 endfunction
@@ -544,6 +536,7 @@ let g:git_actions = {
             \'s': {'title': "Status", 'execute': 'Git' },
             \'h': {'title': "hunk", 'menu': g:hunk_actions },
             \'r': {'title': "remote", 'menu': { 'p': {'title': "push", 'execute': '!git push' }, 'P': {'title': "publish", 'execute': '!git publish' }, } },
+            \'c': {'title': "commit", 'execute': "!" },
             \}
 
 nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
@@ -581,6 +574,22 @@ fun! Run()
     :startinsert
 endfunction
 
+" 'smart' pairs
+inoremap (<CR> (<CR>)<ESC>O<ESC>cc
+inoremap [<CR> [<CR>]<ESC>O<ESC>cc
+inoremap {<CR> {<CR>}<ESC>O<ESC>cc
+
+function ExpandIfInsideBrackets()
+    let previous = strpart(getline('.'), col('.')-2, 1)
+    let next = strpart(getline('.'), col('.')-1, 1)
+
+    if ((previous == "(" && next == ")") || (previous == "[" && next == "]") || (previous == "{" && next == "}"))
+        return "\<cr>\<esc>\O" 
+    else
+        return "\<cr>"
+endfunction
+inoremap <expr> <cr> ExpandIfInsideBrackets()
+
 " }}}
 "============================================================================
 "Keybindings, custom mappings END
@@ -614,7 +623,7 @@ augroup END
 " Use spellcheck for certain filestypes
 augroup spellcheck
     au!
-    au Filetype markdown,asciidoc,text,gitcommit setlocal spell
+    au Filetype markdown,text,gitcommit setlocal spell
 augroup END
 
 " Git commits
@@ -635,7 +644,7 @@ augroup END
 augroup noteshook
     autocmd!
     " Create commit message with the following format: "Updated <filename>"
-    autocmd BufWritePost **/Documents/notes/* silent !file-commit.sh $HOME/Documents/notes "Update %:t"
+    autocmd BufWritePost **/Documents/notes/* silent !file-commit.sh $HOME/Documents/notes "Update %:t" && /Users/rikulaa/Documents/notes/.bin/build-tags.sh
 augroup END
 
 augroup journalhook
@@ -741,14 +750,11 @@ endif
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
-local aerial = require('aerial')
 local null_ls = require('null-ls')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- attach aerial
-  aerial.on_attach(client)
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -777,6 +783,9 @@ local on_attach = function(client, bufnr)
 
 end
 
+
+    -- Setup lspconfig.
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
@@ -789,6 +798,7 @@ for _, lsp in ipairs(servers) do
     flags = {
       debounce_text_changes = 150,
     },
+    capabilities = capabilities
   }
 end
 
@@ -800,6 +810,7 @@ nvim_lsp.elixirls.setup{
   flags = {
     debounce_text_changes = 150,
   },
+  capabilities = capabilities,
 }
 
 -- Setup php for wordpress also
@@ -810,6 +821,7 @@ nvim_lsp.intelephense.setup({
   flags = {
     debounce_text_changes = 150,
   },
+  capabilities = capabilities,
     settings = {
         intelephense = {
             stubs = { 
@@ -896,11 +908,19 @@ null_ls.setup({
         null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.diagnostics.shellcheck,
         null_ls.builtins.formatting.mix,
-        null_ls.builtins.diagnostics.pylint
+        null_ls.builtins.diagnostics.pylint.with({
+        -- command = "DJANGO_SETTINGS_MODULE=andolys.settings .pip/bin/pylint",
+        -- command = ".pip/bin/pylint",
+        args = {"--rcfile", "andolys/.pylintrc", "--load-plugins=pylint_django", "--django-settings-module=andolys/settings.py", "--from-stdin", "$FILENAME", "-f", "json"},
+-- DJANGO_SETTINGS_MODULE=andolys.settings .pip/bin/pylint --rcfile andolys/.pylintrc andolys/plots/models/area.py --load-plugins=pylint_django --django-settings-module=andolys/settings.py
+
+        })
     },
     on_attach = on_attach
 })
-
+--.with({
+            --extra_args = { "--rcfile", "andolys/.pylintrc", "--django-settings-module=andolys/.settings" }
+        --})
 --require'nvim-treesitter.configs'.setup {
   --ensure_installed = { 'javascript' }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ---- ignore_install = { "javascript" }, -- List of parsers to ignore installing
@@ -914,6 +934,59 @@ null_ls.setup({
     --additional_vim_regex_highlighting = false,
   --},
 --}
+
+  local cmp = require'cmp'
+    -- Global setup.
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+          -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+          -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+          -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        end,
+      },
+      mapping = {
+        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+        ['<C-e>'] = cmp.mapping({
+          i = cmp.mapping.abort(),
+          c = cmp.mapping.close(),
+        }),
+        -- Accept currently selected item. If none selected, `select` first item.
+        -- Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      },
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        -- { name = 'ultisnips' }, -- For ultisnips users.
+      }, {
+        { name = 'buffer' },
+      })
+    })
+    -- `/` cmdline setup.
+    cmp.setup.cmdline('/', {
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+    -- `:` cmdline setup.
+    cmp.setup.cmdline(':', {
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        { name = 'cmdline' }
+      })
+    })
+
+require("bufjump").setup({
+    forward = "<Tab>",
+    backward = "<S-Tab>",
+    on_success = nil
+})
+
+
 
 EOF
 
@@ -933,6 +1006,8 @@ EOF
 "===========
 " Local 
 "==========
+" TODO: Better to use 'direnv' for extending nvim-default paths? (more safer i
+" guess)
 let f = getcwd()."/init.vim"
 if filereadable(f)
     let trusted_file_path = stdpath("cache") . "/" . "trusted_init_files"
