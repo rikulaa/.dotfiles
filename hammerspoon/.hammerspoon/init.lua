@@ -170,9 +170,10 @@ end
 -- SHORTCUTS
 function initShortcuts()
   -- open terminal
-  hs.hotkey.bind(cmd, "return", function()
-      hs.application.open('iTerm')
-  end)
+  -- cmd+return conflicts with some keymappings osx programs
+  -- hs.hotkey.bind(cmd, "return", function()
+  --     hs.application.open('iTerm')
+  -- end)
 
   -- open browser
   -- hs.hotkey.bind(mod, "b", function()
