@@ -12,6 +12,7 @@ nix-env -iA \
     nixpkgs.wget \
     nixpkgs.imagemagick \
 	nixpkgs.htop \
+	nixpkgs.tldr \
     nixpkgs.ffmpeg 
 
 # neovim 6.0.0
