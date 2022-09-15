@@ -1,6 +1,7 @@
 tap 'homebrew/cask-fonts'
 
 brew 'fish'
+brew 'git-flow'
 cask '1password'
 cask 'discord'
 cask 'dropbox'
