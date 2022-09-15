@@ -11,6 +11,7 @@
     amend = commit --amend --no-edit
     undo = reset HEAD~1 --mixed
     co = checkout
+    cob = checkout -b
     coi = "!f() { git checkout $(git branch | fzf); }; f"
     lg = log --pretty=format:'%C(red)%h%C(yellow)%d  %Creset%s %Cgreen(%cr) %C(bold blue) <%cn>' --decorate
     st = status -sb
