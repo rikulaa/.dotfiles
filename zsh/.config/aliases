@@ -20,6 +20,7 @@ alias tmuxconf='$EDITOR $HOME/.tmux.conf'
 alias dotenv='$EDITOR $XDG_CONFIG_HOME/env'
 alias playground='cd ~/src/me/playground'
 alias vi='$EDITOR'
+alias bm='nd'
 
 alias sshconfig='$EDITOR ~/.ssh/config'
 
@@ -28,13 +29,13 @@ alias g='git'
 if [ -n "$ZSH_VERSION" ]; then
         compdef g='git'
 fi 
-alias bin='cd ~/.local/bin'
+# alias bin='cd ~/.local/bin'
 
 alias school='cd ~/src/school'
-alias work='cd ~/src/work'
-alias me='cd ~/src/me'
+# alias work='cd ~/src/work'
+# alias me='cd ~/src/me'
 alias docs='cd ~/Documents'
-alias notes='cd ~/Documents/notes/'
+# alias notes='cd ~/Documents/notes/'
 alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
 alias devd='open https://devdocs.io/'
 
@@ -57,9 +58,12 @@ else
     colorflag="-G"
 fi
 
+alias l="ls -al $colorflag"
+
 # extend cd to always list files when navigating
 cd() {
-    builtin cd "$@" && ls -l $colorflag
+    # builtin cd "$@" && ls -l $colorflag
+    builtin cd "$@" && l
 }
 
 # # move backwards more easily
@@ -67,9 +71,6 @@ goBack() {
     cd .. 
 }
 alias ..='cd ..'
-
-alias l="ls -al $colorflag"
-alias ls="ls -1 $colorflag"
 
 tree() {
     find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' 

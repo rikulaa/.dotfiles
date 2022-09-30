@@ -98,7 +98,7 @@ fi
 # End Nix
 
 source $XDG_CONFIG_HOME/env
-source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
+# source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
 source $XDG_CONFIG_HOME/aliases
 
 # Source named directories

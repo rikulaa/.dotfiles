@@ -2,5 +2,6 @@
 
 if [ -n "$1" ]; then
     echo "$@" >> "$NAMED_DIRECTORIES_CONFIG"
+    echo "Run 'reload' to source the changes in current shell"
 fi
 
