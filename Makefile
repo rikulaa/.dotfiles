@@ -65,3 +65,5 @@ flatpak: # Install flatpack
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	
 
+nix-collect-garbage: ## Remove nix garbage
+	nix-collect-garbage

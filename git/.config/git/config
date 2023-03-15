@@ -8,6 +8,7 @@
     A = add -A
     adder ="!f() { git add $(git status --short | awk '{ print $2 }' | fzf --multi); }; f"
     cm = commit -v
+    cmf = commit --no-verify
     amend = commit --amend --no-edit
     undo = reset HEAD~1 --mixed
     co = checkout
@@ -28,6 +29,7 @@
 
     wip = !git add -A && git commit --no-verify -m "wip"
     save = stash -u
+    save-staged = stash push --staged
     restore = stash pop
 
     # list files which have changed since REVIEW_BASE

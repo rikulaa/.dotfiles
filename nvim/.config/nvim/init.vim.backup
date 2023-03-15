@@ -14,10 +14,13 @@ Plug 'nvim-lua/plenary.nvim' " For null-ls
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'branch': 'main' }
 Plug 'mtikekar/nvim-send-to-term'
 Plug 'kwkarlwang/bufjump.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
 Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
 Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+
+Plug 'MunifTanjim/prettier.nvim', { 'branch': 'main' }
 
 Plug 'rikulaa/vim-yamenu'
 Plug 'chrisbra/csv.vim'
@@ -39,13 +42,13 @@ endif
 
 " Languages (syntax etc)
 " JS
-Plug 'posva/vim-vue', {'for': 'vue'}
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'pangloss/vim-javascript'
-Plug 'alampros/vim-styled-jsx' " NOT USED ?
-Plug 'leafgarland/typescript-vim' " Syntax for ts
-Plug 'heavenshell/vim-jsdoc'
-Plug 'leafOfTree/vim-vue-plugin'
+" Plug 'posva/vim-vue', {'for': 'vue'}
+" Plug 'MaxMEllon/vim-jsx-pretty'
+" Plug 'pangloss/vim-javascript'
+" Plug 'alampros/vim-styled-jsx' " NOT USED ?
+" Plug 'leafgarland/typescript-vim' " Syntax for ts
+" Plug 'heavenshell/vim-jsdoc'
+" Plug 'leafOfTree/vim-vue-plugin'
 Plug 'LnL7/vim-nix'
 
 
@@ -132,6 +135,7 @@ set completeopt=noinsert,menuone,noselect
 
 " UI settings
 set number					" For line numbering
+set relativenumber
 set wildmenu                " Display all matching files when we tab complete
 set noruler
 set nocursorline
@@ -156,7 +160,7 @@ function! SyncOsxColorscheme(timer)
         endif
     endfunction
 
-    call jobstart('defaults read -g AppleInterfaceStyle 2>/dev/null', {'on_stdout': function('s:OnEvent'), 'on_exit': function('s:OnEvent')})
+    " call jobstart('defaults read -g AppleInterfaceStyle 2>/dev/null', {'on_stdout': function('s:OnEvent'), 'on_exit': function('s:OnEvent')})
 endfunction
 
 " Update colorscheme automatically (based on system preference, only for oxs)
@@ -213,10 +217,11 @@ command! -nargs=? Web :call websearch#Search(<q-args>)
 
 command! So :source %
 
-command! Bdall silent! :%bdelete
+command! Bdall silent! :%bdelete!
 command! Rm :call functions#DeleteAndCloseBuffer()
 command! -nargs=1 -complete=file Mv silent :call functions#MoveBuffer(<q-args>)
 command! -nargs=1 -complete=file Cp silent :call functions#CopyBuffer(<q-args>)
+command! -register CopyMatches call functions#CopyMatches(<q-reg>)
 
 command CopyPath let @+ = expand('%:p')
 command CP CopyPath
@@ -259,6 +264,9 @@ function! Repl(cmd)
 endfunction
 
 command! -nargs=? Repl :call Repl(<q-args>)
+
+command Exec set splitright | vnew | set filetype=sh | silent read !sh #
+
 
 iabbrev date@ <Esc>:let @+ = strftime("%Y-%m-%d")"<cr>"+pa
 iabbrev time@ <Esc>:let @+ = strftime("%T")"<cr>"+pa
@@ -447,8 +455,8 @@ function! WrapText(line, wrapping_pattern)
 endfunction
 
 " Global serach (files)
-nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --follow .'}))<CR>
-nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files --follow .'}))<CR>
+nnoremap <leader>p :call fzf#run(fzf#wrap({'source': 'rg --files --follow --ignore-file=.gitignore .'}))<CR>
+nnoremap <leader>. :call fzf#run(fzf#wrap({'source': 'rg --files --follow --ignore-file=.gitignore .'}))<CR>
 function! SearchFilesByWord(word)
     :execute ":FZF -q " . a:word
 endfunction
@@ -513,6 +521,9 @@ cnoremap <C-b> <Left>
 inoremap <C-f> <Right>
 cnoremap <C-f> <Right>
 
+nnoremap Q :bd!<cr>
+nnoremap T :tabnew<cr>
+nnoremap <leader>le :Exec<cr>
 " inoremap <C-h> <Left>
 " inoremap <C-j> <Down>
 " inoremap <C-k> <Up>
@@ -542,6 +553,7 @@ let g:git_actions = {
 nnoremap <silent> <leader>v  :call yamenu#Show(g:git_actions)<CR>
 
 let g:open_actions = {
+            \'q': {'title': "Quickfix", 'execute': ':copen' },
             \'v': {'title': "Open vimrc", 'execute': ':Vimrc' },
             \'w': {'title': "Websearch: ", 'execute': "Web" },
             \}
@@ -785,7 +797,7 @@ end
 
 
     -- Setup lspconfig.
-    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
@@ -902,45 +914,66 @@ local severities = {
 }
 
 -- Setup null-ls
-null_ls.setup({
-     -- you must define at least one source for the plugin to work
-    sources = {
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.formatting.mix,
-        null_ls.builtins.diagnostics.pylint.with({
-        -- command = "DJANGO_SETTINGS_MODULE=andolys.settings .pip/bin/pylint",
-        -- command = ".pip/bin/pylint",
-        args = {"--rcfile", "andolys/.pylintrc", "--load-plugins=pylint_django", "--django-settings-module=andolys/settings.py", "--from-stdin", "$FILENAME", "-f", "json"},
--- DJANGO_SETTINGS_MODULE=andolys.settings .pip/bin/pylint --rcfile andolys/.pylintrc andolys/plots/models/area.py --load-plugins=pylint_django --django-settings-module=andolys/settings.py
+--null_ls.setup({
+     ---- you must define at least one source for the plugin to work
+    --sources = {
+        --null_ls.builtins.diagnostics.eslint,
+        --null_ls.builtins.diagnostics.shellcheck,
+        --null_ls.builtins.formatting.mix,
+        --null_ls.builtins.diagnostics.pylint.with({
+        ---- command = "DJANGO_SETTINGS_MODULE=andolys.settings .pip/bin/pylint",
+        ---- command = ".pip/bin/pylint",
+        --args = {"--rcfile", "andolys/.pylintrc", "--load-plugins=pylint_django", "--django-settings-module=andolys/settings.py", "--from-stdin", "$FILENAME", "-f", "json"},
+---- DJANGO_SETTINGS_MODULE=andolys.settings .pip/bin/pylint --rcfile andolys/.pylintrc andolys/plots/models/area.py --load-plugins=pylint_django --django-settings-module=andolys/settings.py
+--
+        --})
+    --},
+    --on_attach = on_attach
+--})
 
-        })
-    },
-    on_attach = on_attach
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettier', -- or `'prettierd'` (v0.22+)
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
 })
+
 --.with({
             --extra_args = { "--rcfile", "andolys/.pylintrc", "--django-settings-module=andolys/.settings" }
         --})
---require'nvim-treesitter.configs'.setup {
-  --ensure_installed = { 'javascript' }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ---- ignore_install = { "javascript" }, -- List of parsers to ignore installing
-  --highlight = {
-    --enable = true,              -- false will disable the whole extension
-    ---- disable = { "c", "rust" },  -- list of language that will be disabled
-    ---- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    ---- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    ---- Using this option may slow down your editor, and you may see some duplicate highlights.
-    ---- Instead of true it can also be a list of languages
-    --additional_vim_regex_highlighting = false,
-  --},
---}
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { 'javascript', 'svelte', 'css' }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 
   local cmp = require'cmp'
     -- Global setup.
     cmp.setup({
       snippet = {
         expand = function(args)
-          vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+          --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
           -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
           -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
           -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -1032,3 +1065,12 @@ if filereadable(f)
     endif
 endif
 
+
+
+"============================================================================
+" NOTES
+"============================================================================
+" 
+" Populate  quickfix from buffer
+" :cgetbuffer
+" 

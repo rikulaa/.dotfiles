@@ -11,7 +11,7 @@ DOTFILES_DIR=$HOME/.dotfiles
 
 alias zshrc='$EDITOR $ZDOTDIR/.zshrc'
 alias bashrc='$EDITOR $HOME/.bashrc'
-alias vimrc='$EDITOR $XDG_CONFIG_HOME/nvim/init.vim'
+alias vimrc='$EDITOR $XDG_CONFIG_HOME/nvim/init.lua'
 alias aliases='$EDITOR $XDG_CONFIG_HOME/aliases'
 alias aliases_local='$EDITOR $HOME/.aliases'
 alias gitconfig='$EDITOR $XDG_CONFIG_HOME/git/config'
@@ -21,6 +21,7 @@ alias dotenv='$EDITOR $XDG_CONFIG_HOME/env'
 alias playground='cd ~/src/me/playground'
 alias vi='$EDITOR'
 alias bm='nd'
+alias art='php artisan'
 
 alias sshconfig='$EDITOR ~/.ssh/config'
 
@@ -206,6 +207,7 @@ alias rn='react-native'
 # ANDROID-STUDIO
 alias react-native-android-emulator='/Users/rikulaa/Library/Android/sdk/tools/emulator -avd react-native -netdelay none -netspeed full'
 
+# Uses ten 'process slots' by default
 alias snip='make -f .snippets'
 
 ## Functions
