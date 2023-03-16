@@ -127,6 +127,10 @@ vim.keymap.set('c', '<C-b>', '<Left>', {})
 vim.keymap.set('i', '<C-f>', '<Right>', {})
 vim.keymap.set('c', '<C-f>', '<Right>', {})
 
+-- Move visual block
+vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { desc = 'Move selection one line up'})
+vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { desc = 'Move selection one line down'})
+
 -- window navigation
 vim.keymap.set('n', '<leader>w', '<C-W>', { desc = 'Windows'})
 
