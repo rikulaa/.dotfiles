@@ -22,6 +22,7 @@ alias playground='cd ~/src/me/playground'
 alias vi='$EDITOR'
 alias bm='nd'
 alias art='php artisan'
+alias create-secret='openssl rand -hex 32'
 
 alias sshconfig='$EDITOR ~/.ssh/config'
 
