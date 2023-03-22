@@ -15,6 +15,7 @@ function! functions#ChangeTagName()
 	" The '.' regular expression matches exactly one
 	" character.
 
+    normal F<l
 	let dec = char2nr(matchstr(getline('.'), '\%' . col('.') . 'c.'))
     if dec == 60 || dec == 47 
         normal l
@@ -28,9 +29,9 @@ function! functions#ChangeTagName()
 
     normal %l
 
-    execute 'normal! "_ciw'.newName
+    execute 'normal! "_ct>'.newName
     :call cursor(cursor_pos_start[1], cursor_pos_start[2])
-    execute 'normal! "_ciw'.newName
+    execute 'normal! "_ct '.newName
 endfunction
 
 
@@ -76,3 +77,11 @@ function! functions#StripTrailingWhitespace()
         normal `z
     endif
 endfunction
+
+function! functions#CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)

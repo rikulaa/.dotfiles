@@ -14,17 +14,20 @@ require('packer').startup(function()
       'nvim-telescope/telescope.nvim', tag = '0.1.1',
       requires = { {'nvim-lua/plenary.nvim'} }
   }
+  use 'mtikekar/nvim-send-to-term'
 
   -- Lua
   use "folke/which-key.nvim"
 
-  use {
-      "L3MON4D3/LuaSnip",
-      -- follow latest release.
-      tag = "v1.*",
-      -- install jsregexp (optional!:).
-      run = "make install_jsregexp"
-  }
+  use "SirVer/ultisnips"
+
+  -- use {
+  --     "L3MON4D3/LuaSnip",
+  --     -- follow latest release.
+  --     tag = "v1.*",
+  --     -- install jsregexp (optional!:).
+  --     run = "make install_jsregexp"
+  -- }
 
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
@@ -182,10 +185,13 @@ vim.keymap.set('n', '<leader>vrp', '<cmd>!git push<CR>', { desc = 'Git push'})
 -- Open
 vim.keymap.set('n', '<leader>ov', '<cmd>e $MYVIMRC<CR>', { desc = 'Open vimrc'})
 
-
 -- Commands
 vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
+vim.api.nvim_create_user_command('Rm', 'bdelete | !rm %<CR>', {})
 
+vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
+
+vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
 
 
 -- LSP setup
@@ -207,9 +213,11 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_set_keymap('n', '<C-LeftMouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -235,7 +243,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
-local servers = { 'pylsp', 'tsserver','vuels', 'intelephense', 'astro' }
+local servers = { 'pylsp', 'tsserver','vuels', 'intelephense', 'astro', 'svelte' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -262,20 +270,20 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -283,14 +291,14 @@ cmp.setup {
 }
 
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'javascript', 'tsx', 'typescript', 'help', 'vim', 'php', 'markdown' },
+  ensure_installed = { 'javascript', 'tsx', 'typescript', 'help', 'vim', 'php', 'markdown', 'elixir' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
