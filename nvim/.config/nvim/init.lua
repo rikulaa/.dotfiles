@@ -2,6 +2,8 @@ local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
 
+  use 'github/copilot.vim'
+
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -11,8 +13,8 @@ require('packer').startup(function()
 
   use "windwp/nvim-autopairs"
   use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.1',
-      requires = { {'nvim-lua/plenary.nvim'} }
+    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    requires = { {'nvim-lua/plenary.nvim'} }
   }
   use 'mtikekar/nvim-send-to-term'
 
@@ -42,158 +44,6 @@ require('packer').startup(function()
   use 'arcticicestudio/nord-vim'
 end)
 
-local set = vim.opt
-
--- if executable('rg')
-if vim.fn.executable('rg') == 1 then
-    set.grepprg= 'rg --vimgrep'
-end
-
-
--- Open quickfix after searching
-vim.cmd([[
-    augroup quickfix
-        autocmd!
-        autocmd QuickFixCmdPost grep cwindow
-        autocmd QuickFixCmdPost lgrep lwindow
-    augroup END
-]])
-
--- Highlight yanked text
-vim.cmd([[
-    augroup yanking
-        au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
-    augroup END
-]])
--- Tabs
-
-set.shiftwidth = 4 -- When indenting with >
-set.expandtab = true
-
--- for which-key
-vim.o.timeoutlen = 500
-
--- Colors
--- vim.cmd.colorscheme('nord')
--- set.background = 'light'
-
-
-vim.cmd.colorscheme('catppuccin-latte')
--- set.background = 'light'
-set.termguicolors = true
-
--- UI
-set.number = true
-
--- Windows
-set.splitbelow = true
-set.splitright = true
-set.wrap = false
-
--- Mouse
-set.mouse = 'nvi'
-
-
--- Completion
-set.completeopt ='menu,menuone,noselect'
-
--- Set <leader> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
--- Mappings
-vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
-vim.keymap.set('n', '<leader>p', '<cmd>Telescope find_files<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>.', '<cmd>Telescope find_files<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>,', '<cmd>Telescope buffers<CR>', { desc = 'Buffers'})
-vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
-
--- insert mode readline navigation
-vim.keymap.set('i', '<C-A>', '<C-O>^', {})
-vim.keymap.set('c', '<C-A>', '<Home>', {})
--- Make sure the original behaviour for <C-A> is still available
-vim.keymap.set('c', '<C-X><C-A> ', '<C-A>', {})
-
--- Jump to end of line
-vim.keymap.set('i', '<C-E>', '<C-O>$', {})
-vim.keymap.set('c', '<C-E>', '<End>', {})
--- Move one word backward, forward
-vim.keymap.set('i', '<M-b>', '<C-Left>', {})
-vim.keymap.set('c', '<M-b>', '<C-Left>', {})
-vim.keymap.set('i', '<M-f>', '<C-Right>', {})
-vim.keymap.set('c', '<M-f>', '<C-Right>', {})
--- Move one character backward, forward
-vim.keymap.set('i', '<C-b>', '<Left>', {})
-vim.keymap.set('c', '<C-b>', '<Left>', {})
-vim.keymap.set('i', '<C-f>', '<Right>', {})
-vim.keymap.set('c', '<C-f>', '<Right>', {})
-
--- Move visual block
-vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { desc = 'Move selection one line up'})
-vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { desc = 'Move selection one line down'})
-
--- window navigation
-vim.keymap.set('n', '<leader>w', '<C-W>', { desc = 'Windows'})
-
--- navigation
-vim.keymap.set('n', ']t', '<cmd>tabnext<CR>', {})
-vim.keymap.set('n', '[t', '<cmd>tabprev<CR>', {})
-
--- nav - buffers
-vim.keymap.set('n', ']b', '<cmd>bnext<CR>', {})
-vim.keymap.set('n', '[b', '<cmd>bprev<CR>', {})
-
--- nav - quickfix
-vim.keymap.set('n', ']q', '<cmd>cnext<CR>', {})
-vim.keymap.set('n', '[q', '<cmd>cprev<CR>', {})
-
--- nav - arglist
-vim.keymap.set('n', ']a', '<cmd>next<CR>', {})
-vim.keymap.set('n', '[a', '<cmd>prev<CR>', {})
-
--- File operations
-vim.keymap.set('n', '<leader>fw', '<cmd>write<CR>', { desc = 'Write file'})
-
--- Eeasier copy pasta
-vim.keymap.set('n', '<leader>Y', '"*y', { desc = 'Copy to system clipboard' })
-vim.keymap.set('v', '<leader>Y', '"*y', { desc = 'Copy to system clipboard'})
-vim.keymap.set('n', '<leader>P', '"+p', { desc = 'Paste from system clipboard'})
-
--- 
-vim.keymap.set('n', '<leader>ss', ':%s//g<Left><Left>', { desc = 'Substitute'})
--- Rsname last search
--- vim.keymap.set('n', '<leader>ss', ':%s///g<Left><Left>', { desc = 'Substitute last search pattern'})
--- vim.keymap.set('v', '<leader>ss', ':%s///g<Left><Left>', { desc = 'Substitute last search pattern'})
-vim.keymap.set('v', '<leader>ss', ':s//g<Left><Left>', { desc = 'Substitute inside visual selection'})
-
-
--- cli
-vim.keymap.set('n', '<leader>;', ':', {})
-
--- searching
-vim.keymap.set('n', '<leader>/', ':silent grep! ', { desc = 'Grep' })
-vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" ', { desc = 'Grep (visual selection)' })
-
-
--- Git
-vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Git'})
-vim.keymap.set('n', '<leader>vhs', '<cmd>GitGutterStageHunk<CR>', { desc = 'Stage hunk'})
-vim.keymap.set('n', '<leader>vrp', '<cmd>!git push<CR>', { desc = 'Git push'})
-
--- Open
-vim.keymap.set('n', '<leader>ov', '<cmd>e $MYVIMRC<CR>', { desc = 'Open vimrc'})
-
--- Commands
-vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
-vim.api.nvim_create_user_command('Rm', 'bdelete | !rm %<CR>', {})
-
-vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
-
-vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
-
-
 -- LSP setup
 local nvim_lsp = require('lspconfig')
 
@@ -203,6 +53,8 @@ local on_attach = function(client, bufnr)
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- this get's overwritten due to some reason?
+  vim.opt_local.autoindent = true
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -236,8 +88,8 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-    -- Setup lspconfig.
-  -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- Setup lspconfig.
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
@@ -303,8 +155,14 @@ require('nvim-treesitter.configs').setup {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {'php'},
+  },
+  indent = { 
+    enable = true,
+    disable = { 'php' },
+  },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -367,4 +225,171 @@ require('nvim-ts-autotag').setup()
 require("nvim-autopairs").setup {}
 
 require("which-key").setup {}
+
+local set = vim.opt
+
+-- if executable('rg')
+if vim.fn.executable('rg') == 1 then
+  set.grepprg= 'rg --vimgrep'
+end
+
+
+-- Open quickfix after searching
+vim.cmd([[
+    augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost grep cwindow
+    autocmd QuickFixCmdPost lgrep lwindow
+    augroup END
+]])
+
+-- Highlight yanked text
+vim.cmd([[
+    augroup yanking
+    au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+    augroup END
+]])
+-- Tabs
+
+set.shiftwidth = 4 -- When indenting with >
+set.expandtab = true
+set.autoindent = true
+
+set.swapfile = false
+
+-- for which-key
+vim.o.timeoutlen = 500
+
+-- Colors
+-- vim.cmd.colorscheme('nord')
+-- set.background = 'light'
+
+
+vim.cmd.colorscheme('catppuccin-latte')
+-- set.background = 'light'
+set.termguicolors = true
+
+-- UI
+set.number = true
+set.cursorline = true
+
+-- Windows
+set.splitbelow = true
+set.splitright = true
+set.wrap = false
+
+-- Mouse
+set.mouse = 'nvi'
+
+
+-- Completion
+set.completeopt ='menu,menuone,noselect'
+
+-- Set <leader> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Mappings
+vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
+vim.keymap.set('n', '<leader>p', '<cmd>Telescope find_files<CR>', { desc = 'Search files'})
+vim.keymap.set('n', '<leader>.', '<cmd>Telescope find_files<CR>', { desc = 'Search files'})
+vim.keymap.set('n', '<leader>,', '<cmd>Telescope buffers<CR>', { desc = 'Buffers'})
+vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
+
+-- insert mode readline navigation
+vim.keymap.set('i', '<C-A>', '<C-O>^', {})
+vim.keymap.set('c', '<C-A>', '<Home>', {})
+-- Make sure the original behaviour for <C-A> is still available
+vim.keymap.set('c', '<C-X><C-A> ', '<C-A>', {})
+
+-- Jump to end of line
+vim.keymap.set('i', '<C-E>', '<C-O>$', {})
+vim.keymap.set('c', '<C-E>', '<End>', {})
+-- Move one word backward, forward
+vim.keymap.set('i', '<M-b>', '<C-Left>', {})
+vim.keymap.set('c', '<M-b>', '<C-Left>', {})
+vim.keymap.set('i', '<M-f>', '<C-Right>', {})
+vim.keymap.set('c', '<M-f>', '<C-Right>', {})
+-- Move one character backward, forward
+vim.keymap.set('i', '<C-b>', '<Left>', {})
+vim.keymap.set('c', '<C-b>', '<Left>', {})
+vim.keymap.set('i', '<C-f>', '<Right>', {})
+vim.keymap.set('c', '<C-f>', '<Right>', {})
+
+-- Move visual block
+vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { desc = 'Move selection one line up'})
+vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { desc = 'Move selection one line down'})
+
+-- Easyaling visual block
+vim.keymap.set('v', '<leader>=', ':EasyAlign<CR>', { desc = 'Easy align selection'})
+
+-- window navigation
+vim.keymap.set('n', '<leader>w', '<C-W>', { desc = 'Windows'})
+
+-- navigation
+vim.keymap.set('n', ']t', '<cmd>tabnext<CR>', {})
+vim.keymap.set('n', '[t', '<cmd>tabprev<CR>', {})
+
+-- nav - buffers
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>', {})
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>', {})
+
+-- nav - quickfix
+vim.keymap.set('n', ']q', '<cmd>cnext<CR>', {})
+vim.keymap.set('n', '[q', '<cmd>cprev<CR>', {})
+
+-- nav - arglist
+vim.keymap.set('n', ']a', '<cmd>next<CR>', {})
+vim.keymap.set('n', '[a', '<cmd>prev<CR>', {})
+
+-- File operations
+vim.keymap.set('n', '<leader>fw', '<cmd>write<CR>', { desc = 'Write file'})
+
+-- Eeasier copy pasta
+vim.keymap.set('n', '<leader>Y', '"*y', { desc = 'Copy to system clipboard' })
+vim.keymap.set('v', '<leader>Y', '"*y', { desc = 'Copy to system clipboard'})
+vim.keymap.set('n', '<leader>P', '"+p', { desc = 'Paste from system clipboard'})
+
+-- 
+vim.keymap.set('n', '<leader>ss', ':%s//g<Left><Left>', { desc = 'Substitute'})
+-- Rsname last search
+-- vim.keymap.set('n', '<leader>ss', ':%s///g<Left><Left>', { desc = 'Substitute last search pattern'})
+-- vim.keymap.set('v', '<leader>ss', ':%s///g<Left><Left>', { desc = 'Substitute last search pattern'})
+vim.keymap.set('v', '<leader>ss', ':s//g<Left><Left>', { desc = 'Substitute inside visual selection'})
+
+
+-- cli
+vim.keymap.set('n', '<leader>;', ':', {})
+
+-- searching
+vim.keymap.set('n', '<leader>/', ':silent grep! ', { desc = 'Grep' })
+vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" ', { desc = 'Grep (visual selection)' })
+vim.keymap.set('n', '<leader>*', 'vawy :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" <CR>', { desc = 'Grep (visual selection)' })
+
+
+-- Git
+vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Status'})
+vim.keymap.set('n', '<leader>va', '<cmd>Ga<CR>', { desc = 'Stage file'})
+vim.keymap.set('n', '<leader>vhs', '<cmd>GitGutterStageHunk<CR>', { desc = 'Stage hunk'})
+vim.keymap.set('n', '<leader>vrp', '<cmd>!git push<CR>', { desc = 'Git push'})
+
+-- Open
+vim.keymap.set('n', '<leader>ov', '<cmd>e $MYVIMRC<CR>', { desc = 'Open vimrc'})
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode'})
+vim.keymap.set('t', '<C-v><Esc>', '<Esc>', { desc = 'Send escape to terminal'})
+-- tnoremap <Esc> <C-\><C-n>
+-- tnoremap <M-[> <Esc>
+-- tnoremap <C-v><Esc> <Esc>
+
+-- Commands
+vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
+vim.api.nvim_create_user_command('Rm', 'bdelete | !rm %<CR>', {})
+
+vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
+
+vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
+
 
