@@ -14,12 +14,6 @@ function! ValidateLiquidSchema()
     normal "zp
 endfunction
 
-let __IncludeActions = {
-            \'v': {'title': "Validate schema", 'execute': 'call ValidateLiquidSchema()' },
-            \}
-
-nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
-
 " To search pattern for split single lined 'render' or 'include' into multiline
 " pattern explanation
 " {%\       Match these characters

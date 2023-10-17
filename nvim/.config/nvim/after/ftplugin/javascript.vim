@@ -12,31 +12,6 @@ setlocal include=^\\s*[^\/]\\+\\(from\\\|require(['\"]\\)
  
 setlocal suffixesadd=.js,.json,.jsx
 
-" setlocal tabstop=2
-" setlocal softtabstop=2
-" setlocal shiftwidth=2			" When indenting with >
-" setlocal expandtab				" When tabbing, insert (four) spaces
-
-" function! JsSortUse()
-"     %sort /\/[A-z]/ r
-" endfunction
-
-" let __IncludeActions = {
-"             \'s': {'title': "sort imports", '': function('JsSortUse', []) },
-"             \'f': {'title': "Fix", 'execute': 'ALEFix' },
-"             \'R': {'title': "Open REPL", 'execute': 'Repl' },
-"             \}
-
-" nnoremap <silent> <leader>l  :call yamenu#Show(__IncludeActions)<CR>
-" nnoremap <silent> <leader>ll :call WrapText("<C-R><C-L>", "console.log(&)")<CR>
-" vnoremap <leader>ll y :call WrapText(@", "console.log(&)")<CR>
-
-" let __IncludeVisualActions = {
-"             \'s': {'title': "Send to REPL", 'execute': ":ReplSend" },
-"             \}
-
-" vnoremap <silent> <leader>l  :call yamenu#Show(__IncludeVisualActions)<CR>
-
 " Toggles between:
 "
 " import {a,b,c} from 'a' 

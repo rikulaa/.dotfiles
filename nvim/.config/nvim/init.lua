@@ -9,13 +9,14 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp'
 
   use 'nvim-treesitter/nvim-treesitter'
+  -- Use treesitter to autoclose and autorename html tag
   use 'windwp/nvim-ts-autotag' 
 
+  use 'MunifTanjim/exrc.nvim'
+
+  use "ibhagwan/fzf-lua"
+
   use "windwp/nvim-autopairs"
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
   use 'mtikekar/nvim-send-to-term'
 
   -- Lua
@@ -79,6 +80,8 @@ local on_attach = function(client, bufnr)
   --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>ls', '<cmd>FzfLua lsp_document_symbols<CR>', opts)
+  buf_set_keymap('n', '<leader>lS', '<cmd>FzfLua lsp_workspace_symbols<CR>', opts)
   buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
   buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
 
@@ -95,7 +98,8 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- tsserver https://github.com/typescript-language-server/typescript-language-server
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
-local servers = { 'pylsp', 'tsserver','vuels', 'intelephense', 'astro', 'svelte' }
+-- eslint: You need to instrall 'vscode-langservers-extracted' from npm
+local servers = { 'pylsp', 'tsserver','vuels', 'intelephense', 'astro', 'svelte', 'eslint', 'gopls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -105,6 +109,14 @@ for _, lsp in ipairs(servers) do
     },
   }
 end
+nvim_lsp['elixirls'].setup {
+  on_attach = on_attach,
+  cababilities = cababilities,
+  cmd = {'elixir-ls'},
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
 
 -- -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -142,8 +154,6 @@ cmp.setup {
   },
 }
 
-
--- vim.lsp.set_log_level("debug")
 
 
 -- [[ Configure Treesitter ]]
@@ -226,6 +236,13 @@ require("nvim-autopairs").setup {}
 
 require("which-key").setup {}
 
+require("exrc").setup({
+  files = {
+    ".nvimrc.lua",
+    ".nvimrc",
+  },
+})
+
 local set = vim.opt
 
 -- if executable('rg')
@@ -264,10 +281,33 @@ vim.o.timeoutlen = 500
 -- vim.cmd.colorscheme('nord')
 -- set.background = 'light'
 
+--function handle_set_background(channel, data, name)
+--    output = vim.fn.join(data)
+--    print(vim.inspect(output))
+--end
+
+--local timer = vim.loop.new_timer()
+--timer:start(1000, 1000, vim.schedule_wrap(function()
+--    print(theme)
+--    -- theme = os.execute('defaults read -g AppleInterfaceStyle 2>/dev/null')
+--    vim.fn.jobstart(
+--        'defaults read -g AppleInterfaceStyle 2>/dev/null',
+--        {
+--            on_stdout = handle_set_background,
+--        })
+--  --vim.fn.jobstart('nvim -h', {'on_stdout':{j,d,e->append(line('.'),d)}})
+
+--end))
 
 vim.cmd.colorscheme('catppuccin-latte')
 -- set.background = 'light'
 set.termguicolors = true
+-- theme = vim.fn.system('defaults read -g AppleInterfaceStyle 2>/dev/null')
+if vim.fn.has('mac') and vim.fn.system('defaults read -g AppleInterfaceStyle 2>/dev/null') == 'Dark\n' then
+    vim.opt.background = 'dark'
+else
+    vim.opt.background = 'light'
+end
 
 -- UI
 set.number = true
@@ -293,9 +333,9 @@ vim.g.maplocalleader = ' '
 
 -- Mappings
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
-vim.keymap.set('n', '<leader>p', '<cmd>Telescope find_files<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>.', '<cmd>Telescope find_files<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>,', '<cmd>Telescope buffers<CR>', { desc = 'Buffers'})
+vim.keymap.set('n', '<leader>p', '<cmd>FzfLua files<CR>', { desc = 'Search files'})
+vim.keymap.set('n', '<leader>.', '<cmd>FzfLua files<CR>', { desc = 'Search files'})
+vim.keymap.set('n', '<leader>,', '<cmd>FzfLua buffers<CR>', { desc = 'Buffers'})
 vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
 
 -- insert mode readline navigation
@@ -365,24 +405,30 @@ vim.keymap.set('n', '<leader>;', ':', {})
 
 -- searching
 vim.keymap.set('n', '<leader>/', ':silent grep! ', { desc = 'Grep' })
-vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" ', { desc = 'Grep (visual selection)' })
+vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! \'<C-R>"\' ', { desc = 'Grep (visual selection)' })
 vim.keymap.set('n', '<leader>*', 'vawy :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" <CR>', { desc = 'Grep (visual selection)' })
 
 
 -- Git
 vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Status'})
 vim.keymap.set('n', '<leader>va', '<cmd>Ga<CR>', { desc = 'Stage file'})
+vim.keymap.set('n', '<leader>vb', '<cmd>Git blame<CR>', { desc = 'Blame'})
 vim.keymap.set('n', '<leader>vhs', '<cmd>GitGutterStageHunk<CR>', { desc = 'Stage hunk'})
 vim.keymap.set('n', '<leader>vrp', '<cmd>!git push<CR>', { desc = 'Git push'})
 
 -- Open
 vim.keymap.set('n', '<leader>ov', '<cmd>e $MYVIMRC<CR>', { desc = 'Open vimrc'})
+vim.keymap.set('n', '<leader>ot', '<cmd>tabnew<CR>', { desc = 'Open new empty tab'})
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<C-v><Esc>', '<Esc>', { desc = 'Send escape to terminal'})
 -- tnoremap <Esc> <C-\><C-n>
 -- tnoremap <M-[> <Esc>
 -- tnoremap <C-v><Esc> <Esc>
+--
+-- Formatting
+vim.keymap.set('n', '<leader>lF', 'gg0gqG<C-O>', { desc = 'Format whole document with formatprq'})
+vim.keymap.set('v', '<leader>lF', 'gq', { desc = 'Format selection with formatprq'})
 
 -- Commands
 vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
