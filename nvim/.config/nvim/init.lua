@@ -270,7 +270,6 @@ vim.cmd([[
 
 set.shiftwidth = 4 -- When indenting with >
 set.expandtab = true
-set.autoindent = true
 
 set.swapfile = false
 

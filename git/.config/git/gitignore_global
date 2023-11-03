@@ -24,6 +24,3 @@ pylint.sh
 .pip
 
 .*.ignore
-
-~/src/work/docue/**/shell.nix
-~/src/work/docue/**/.envrc
