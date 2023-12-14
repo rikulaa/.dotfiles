@@ -18,6 +18,7 @@ alias gitconfig='$EDITOR $XDG_CONFIG_HOME/git/config'
 alias dotfiles='cd $DOTFILES_DIR'
 alias tmuxconf='$EDITOR $HOME/.tmux.conf'
 alias dotenv='$EDITOR $XDG_CONFIG_HOME/env'
+alias ndconfig='$EDITOR $NAMED_DIRECTORIES_CONFIG'
 alias playground='cd ~/src/me/playground'
 alias vi='$EDITOR'
 alias bm='nd'
@@ -46,7 +47,7 @@ alias todo='$EDITOR $HOME/Documents/todos/index.adoc'
 
 # Use bat instead of cat if possible
 if command -v bat > /dev/null; then
-    alias cat='bat --paging=never'
+    alias cat='bat --theme=gruvbox-light --paging=never'
 fi
 
 # ======== FILE SYSTEM ============
@@ -234,10 +235,23 @@ goto() {
         exit 1
     fi
 
-    location=$(find . -type d | fzf)
-    echo "$location"
+    location=$(cat $NAMED_DIRECTORIES_CONFIG | sed 's/.*=//' | fzf)
     
-    if [ -x $location ]; then
-        cd $location
+    if [ -n $location ]; then
+        target=$(echo $location | sed 's/.*=//')
+        cd $target
     fi
+}
+
+nd() {
+    if [[ $1 ]]; then
+        name=$1
+        directory=$PWD
+        echo "$name=$directory" >> $NAMED_DIRECTORIES_CONFIG
+        reload
+        return 0
+    fi
+
+    echo "No directory name provided"
+    return 1
 }
