@@ -1,6 +1,6 @@
 [user]
-	email = riku.laajala@gmail.com
-	name = Riku Laajala
+    email = riku.laajala@gmail.com
+    name = Riku Laajala
 [credential]
     helper = cache --timeout=3600
 [alias]
@@ -13,6 +13,7 @@
     undo = reset HEAD~1 --mixed
     co = checkout
     cob = checkout -b
+    com = checkout master
     coi = "!f() { git checkout $(git branch | fzf); }; f"
     lg = log --pretty=format:'%C(red)%h%C(yellow)%d  %Creset%s %Cgreen(%cr) %C(bold blue) <%cn>' --decorate
     st = status -sb
@@ -59,3 +60,5 @@
     path = ~/src/work/.gitconfig-work
 [commit]
     template = ~/.config/git/commitmsg
+[diff]
+    renameLimit = 999999
