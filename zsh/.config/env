@@ -40,3 +40,5 @@ export REVIEW_BASE=master
 # . $(brew --prefix asdf)/asdf.sh
 
 export TASKRC="$HOME/.config/task/.taskrc"
+
+export PATH="$PATH:/opt/homebrew/bin"
