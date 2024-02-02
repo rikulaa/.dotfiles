@@ -1,3 +1,6 @@
+-- #################
+-- Plugin settings
+-- #################
 local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
@@ -8,13 +11,20 @@ require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
 
-  use 'nvim-treesitter/nvim-treesitter'
+  use  {
+    'nvim-treesitter/nvim-treesitter',
+    tag = 'v0.8.5.2'
+  }
+  -- TODO: update to latest treesitter in order to use this
+  -- use 'nvim-treesitter/nvim-treesitter-textobjects'
+
   -- Use treesitter to autoclose and autorename html tag
   use 'windwp/nvim-ts-autotag' 
 
   use 'MunifTanjim/exrc.nvim'
 
-  use "ibhagwan/fzf-lua"
+  use "junegunn/fzf"
+  use "junegunn/fzf.vim"
 
   use "windwp/nvim-autopairs"
   use 'mtikekar/nvim-send-to-term'
@@ -22,7 +32,10 @@ require('packer').startup(function()
   -- Lua
   use "folke/which-key.nvim"
 
+  -- TODO: get rid of this
   use "SirVer/ultisnips"
+
+  use { 'echasnovski/mini.splitjoin', branch = 'stable' }
 
   -- use {
   --     "L3MON4D3/LuaSnip",
@@ -68,6 +81,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   -- buf_set_keymap('n', '<C-LeftMouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('i', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -99,7 +113,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
 -- eslint: You need to instrall 'vscode-langservers-extracted' from npm
-local servers = { 'pylsp', 'tsserver','vuels', 'intelephense', 'astro', 'svelte', 'eslint', 'gopls' }
+local servers = { 'pylsp', 'tsserver','vuels', 'astro', 'svelte', 'eslint', 'gopls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -109,6 +123,7 @@ for _, lsp in ipairs(servers) do
     },
   }
 end
+-- TODO: configure these more declaratively
 nvim_lsp['elixirls'].setup {
   on_attach = on_attach,
   cababilities = cababilities,
@@ -116,6 +131,21 @@ nvim_lsp['elixirls'].setup {
   flags = {
     debounce_text_changes = 150,
   },
+}
+
+nvim_lsp['intelephense'].setup {
+  on_attach = on_attach,
+  cababilities = cababilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  init_options = {
+    -- storagePath = Optional absolute path to storage dir. Defaults to os.tmpdir().
+    -- globalStoragePath = Optional absolute path to a global storage dir. Defaults to os.homedir().
+    licenceKey = vim.fn.expand('~/.config/intelephense/licence.txt'),
+    -- clearCache = Optional flag to clear server state. State can also be cleared by deleting {storagePath}/intelephense
+    -- See https://github.com/bmewburn/intelephense-docs/blob/master/installation.md#initialisation-options
+  }
 }
 
 -- -- nvim-cmp setup
@@ -156,11 +186,56 @@ cmp.setup {
 
 
 
+-- TODO: update to latest treesitter to use these
+-- nvim_treesitter_text_objects_config = {
+--   select = {
+--     enable = true,
+--     lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+--     keymaps = {
+--       -- You can use the capture groups defined in textobjects.scm
+--       ['aa'] = '@parameter.outer',
+--       ['ia'] = '@parameter.inner',
+--       ['af'] = '@function.outer',
+--       ['if'] = '@function.inner',
+--       ['ac'] = '@class.outer',
+--       ['ic'] = '@class.inner',
+--     },
+--   },
+--   move = {
+--     enable = true,
+--     set_jumps = true, -- whether to set jumps in the jumplist
+--     goto_next_start = {
+--       [']m'] = '@function.outer',
+--       [']]'] = '@class.outer',
+--     },
+--     goto_next_end = {
+--       [']M'] = '@function.outer',
+--       [']['] = '@class.outer',
+--     },
+--     goto_previous_start = {
+--       ['[m'] = '@function.outer',
+--       ['[['] = '@class.outer',
+--     },
+--     goto_previous_end = {
+--       ['[M'] = '@function.outer',
+--       ['[]'] = '@class.outer',
+--     },
+--   },
+--   swap = {
+--     enable = true,
+--     swap_next = {
+--       ['<leader>a'] = '@parameter.inner',
+--     },
+--     swap_previous = {
+--       ['<leader>A'] = '@parameter.inner',
+--     },
+--   },
+-- }
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'javascript', 'tsx', 'typescript', 'help', 'vim', 'php', 'markdown', 'elixir' },
+  ensure_installed = { 'javascript', 'tsx', 'typescript', 'help', 'vim', 'php', 'markdown', 'elixir', 'heex', 'eex' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -182,50 +257,6 @@ require('nvim-treesitter.configs').setup {
       node_decremental = '<M-space>',
     },
   },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
 }
 
 -- Enable autoclosing https://github.com/windwp/nvim-ts-autotag
@@ -236,16 +267,20 @@ require("nvim-autopairs").setup {}
 
 require("which-key").setup {}
 
+require("mini.splitjoin").setup {}
+
 require("exrc").setup({
   files = {
-    ".nvimrc.lua",
-    ".nvimrc",
+      ".nvimrc.lua",
+      ".nvimrc",
   },
 })
 
+-- #################
+-- Personal settings
+-- #################
 local set = vim.opt
 
--- if executable('rg')
 if vim.fn.executable('rg') == 1 then
   set.grepprg= 'rg --vimgrep'
 end
@@ -267,6 +302,12 @@ vim.cmd([[
     augroup END
 ]])
 -- Tabs
+
+vim.cmd([[
+    augroup php
+    au BufNewFile *.php execute 'normal O<?php' | normal j
+    augroup END
+]])
 
 set.shiftwidth = 4 -- When indenting with >
 set.expandtab = true
@@ -310,6 +351,7 @@ end
 
 -- UI
 set.number = true
+set.relativenumber = true
 set.cursorline = true
 
 -- Windows
@@ -332,9 +374,9 @@ vim.g.maplocalleader = ' '
 
 -- Mappings
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
-vim.keymap.set('n', '<leader>p', '<cmd>FzfLua files<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>.', '<cmd>FzfLua files<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>,', '<cmd>FzfLua buffers<CR>', { desc = 'Buffers'})
+vim.keymap.set('n', '<leader>p', '<cmd>GitFiles<CR>', { desc = 'Search files'})
+vim.keymap.set('n', '<leader>.', '<cmd>GitFiles<CR>', { desc = 'Search files'})
+vim.keymap.set('n', '<leader>,', '<cmd>Buffers<CR>', { desc = 'Buffers'})
 vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
 
 -- insert mode readline navigation
@@ -367,9 +409,19 @@ vim.keymap.set('v', '<leader>=', ':EasyAlign<CR>', { desc = 'Easy align selectio
 -- window navigation
 vim.keymap.set('n', '<leader>w', '<C-W>', { desc = 'Windows'})
 
--- navigation
+-- navigation - tabs
 vim.keymap.set('n', ']t', '<cmd>tabnext<CR>', {})
 vim.keymap.set('n', '[t', '<cmd>tabprev<CR>', {})
+vim.keymap.set('n', '<leader>1', '<cmd>tabfirst<cr>', {})
+vim.keymap.set('n', '<leader>2', '2gt', {})
+vim.keymap.set('n', '<leader>3', '3gt', {})
+vim.keymap.set('n', '<leader>4', '4gt', {})
+vim.keymap.set('n', '<leader>5', '5gt', {})
+vim.keymap.set('n', '<leader>6', '6gt', {})
+vim.keymap.set('n', '<leader>7', '7gt', {})
+vim.keymap.set('n', '<leader>8', '8gt', {})
+vim.keymap.set('n', '<leader>9', '<cmd>tablast<cr>', {})
+-- TODO: 9 => should jump to last tab
 
 -- nav - buffers
 vim.keymap.set('n', ']b', '<cmd>bnext<CR>', {})
@@ -384,7 +436,8 @@ vim.keymap.set('n', ']a', '<cmd>next<CR>', {})
 vim.keymap.set('n', '[a', '<cmd>prev<CR>', {})
 
 -- File operations
-vim.keymap.set('n', '<leader>fw', '<cmd>write<CR>', { desc = 'Write file'})
+vim.keymap.set('n', '<leader>fw', '<cmd>write<CR>', { desc = 'Write file (buffer)'})
+vim.keymap.set('n', '<leader>fd', '<cmd>bdelete<CR>', { desc = 'Delete file (buffer)'})
 
 -- Eeasier copy pasta
 vim.keymap.set('n', '<leader>Y', '"*y', { desc = 'Copy to system clipboard' })
@@ -403,13 +456,16 @@ vim.keymap.set('v', '<leader>ss', ':s//g<Left><Left>', { desc = 'Substitute insi
 vim.keymap.set('n', '<leader>;', ':', {})
 
 -- searching
-vim.keymap.set('n', '<leader>/', ':silent grep! ', { desc = 'Grep' })
+vim.keymap.set('n', '<leader>/', ':silent grep! ""<Left>', { desc = 'Grep' })
 vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! \'<C-R>"\' ', { desc = 'Grep (visual selection)' })
 vim.keymap.set('n', '<leader>*', 'vawy :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" <CR>', { desc = 'Grep (visual selection)' })
+-- vim.keymap.set('n', 'n', 'nzz', { desc = '' })
+-- vim.keymap.set('n', 'N', 'Nzz', { desc = '' })
 
 
 -- Git
-vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Status'})
+-- vim.keymap.set('n', '<leader>vs', '<cmd>tabnew | Git | only<CR>', { desc = 'Status'}) -- TODO: Would be nice to always jump to this window if it's available
+vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Status'}) -- TODO: Would be nice to always jump to this window if it's available
 vim.keymap.set('n', '<leader>va', '<cmd>Ga<CR>', { desc = 'Stage file'})
 vim.keymap.set('n', '<leader>vb', '<cmd>Git blame<CR>', { desc = 'Blame'})
 vim.keymap.set('n', '<leader>vhs', '<cmd>GitGutterStageHunk<CR>', { desc = 'Stage hunk'})
@@ -417,7 +473,8 @@ vim.keymap.set('n', '<leader>vrp', '<cmd>!git push<CR>', { desc = 'Git push'})
 
 -- Open
 vim.keymap.set('n', '<leader>ov', '<cmd>e $MYVIMRC<CR>', { desc = 'Open vimrc'})
-vim.keymap.set('n', '<leader>ot', '<cmd>tabnew<CR>', { desc = 'Open new empty tab'})
+vim.keymap.set('n', '<leader>oc', '<cmd>copen<CR>', { desc = 'Open quickfix'})
+vim.keymap.set('n', '<leader>ot', '<cmd>tabnew<CR>', { desc = 'Open new tab'})
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<C-v><Esc>', '<Esc>', { desc = 'Send escape to terminal'})
@@ -431,10 +488,60 @@ vim.keymap.set('v', '<leader>lF', 'gq', { desc = 'Format selection with formatpr
 
 -- Commands
 vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
-vim.api.nvim_create_user_command('Rm', 'bdelete | !rm %<CR>', {})
+vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!', {})
 
 vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
 
 vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
 
+vim.api.nvim_create_user_command(
+  'Run',
+  function(params)
+      -- TODO: detect if there is already a terminal open and use that instead
+      if params['args'] == '' then
+      -- TODO: customizable cmd by filetype,environment etc
+        vim.cmd('split | terminal!' .. vim.o.filetype .. ' ' .. vim.fn.expand('%'))
+        vim.cmd('normal GA')
+    else
+        vim.cmd('split | terminal!' .. params['args'])
+        vim.cmd('normal GA')
+      end
+  end,
+  {nargs='*'}
+)
 
+
+-- TODO: this has to be window specific, does it?
+local Filelist = {
+    direction = 1,
+    index = 0,
+    files = {},
+    previous = function()
+        Filelist.index = Filelist.index - 1
+        file = Filelist.files[Filelist.index]
+        vim.cmd('e ' .. file)
+    end,
+    next = function()
+        Filelist.index = Filelist.index + 1
+        file = Filelist.files[Filelist.index]
+        vim.cmd('e ' .. file)
+    end,
+    push = function(file)
+        Filelist.index = #Filelist.files + 1
+        table.insert(Filelist.files, file)
+    end,
+}
+_G.Filelist = Filelist
+vim.api.nvim_create_user_command(
+  'Previous',
+  function(params)
+      Filelist.previous()
+  end,
+  {nargs='*'}
+)
+vim.cmd([[
+    augroup quickfix
+    autocmd!
+    autocmd BufEnter * lua Filelist.push(vim.fn.expand('%'))
+    augroup END
+]])
