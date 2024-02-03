@@ -113,7 +113,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
 -- eslint: You need to instrall 'vscode-langservers-extracted' from npm
-local servers = { 'pylsp', 'tsserver','vuels', 'astro', 'svelte', 'eslint', 'gopls' }
+local servers = { 'pylsp', 'tsserver','vuels', 'astro', 'svelte', 'eslint', 'gopls', 'html' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
