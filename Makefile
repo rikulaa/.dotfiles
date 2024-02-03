@@ -50,7 +50,7 @@ change-login-shell: ## Change login shell to zsh
 osx-defaults: ## Write osx defaults
 	defaults write -g InitialKeyRepeat -int 25
 	defaults write -g KeyRepeat -int 2
-	defaults write com.apple.dock orientation -string right # Dock to the right
+	defaults write com.apple.dock orientation -string left # Dock to the left
 	defaults write com.apple.dock magnification -bool false
 	defaults write com.apple.dock autohide -int 1
 	defaults write com.apple.dock autohide-delay -int 0
