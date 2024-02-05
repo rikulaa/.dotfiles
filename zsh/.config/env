@@ -41,4 +41,7 @@ export REVIEW_BASE=master
 
 export TASKRC="$HOME/.config/task/.taskrc"
 
-export PATH="$PATH:/opt/homebrew/bin"
+# Add laravel-herd to path
+HERD_PATH="$HOME/Library/Application Support/Herd/bin"
+
+export PATH="$PATH:/opt/homebrew/bin:$HERD_PATH"
