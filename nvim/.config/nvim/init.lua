@@ -288,7 +288,7 @@ end
 
 -- Open quickfix after searching
 vim.cmd([[
-    augroup quickfix
+    augroup BetterQuickFix
     autocmd!
     autocmd QuickFixCmdPost grep cwindow
     autocmd QuickFixCmdPost lgrep lwindow
