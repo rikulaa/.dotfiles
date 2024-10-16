@@ -13,7 +13,12 @@ require('packer').startup(function()
 
   use  {
     'nvim-treesitter/nvim-treesitter',
-    tag = 'v0.8.5.2'
+    tag = 'v0.9.2',
+      run = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+      end,
+
   }
   -- TODO: update to latest treesitter in order to use this
   -- use 'nvim-treesitter/nvim-treesitter-textobjects'
@@ -235,7 +240,7 @@ cmp.setup {
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'javascript', 'tsx', 'typescript', 'help', 'vim', 'php', 'markdown', 'elixir', 'heex', 'eex' },
+  ensure_installed = { 'vimdoc', 'javascript', 'tsx', 'typescript', 'vim', 'php', 'markdown', 'elixir', 'heex', 'eex' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
