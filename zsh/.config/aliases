@@ -24,6 +24,10 @@ alias vi='$EDITOR'
 alias bm='nd'
 alias art='php artisan'
 alias create-secret='openssl rand -hex 32'
+alias nix-version="nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'"
+alias d=direnv
+alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
+
 
 alias sshconfig='$EDITOR ~/.ssh/config'
 
