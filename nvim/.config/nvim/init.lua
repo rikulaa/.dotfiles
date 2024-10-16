@@ -11,6 +11,8 @@ require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
 
+  use 'stevearc/conform.nvim'
+
   use  {
     'nvim-treesitter/nvim-treesitter',
     tag = 'v0.9.2',
@@ -26,6 +28,7 @@ require('packer').startup(function()
   -- Use treesitter to autoclose and autorename html tag
   use 'windwp/nvim-ts-autotag' 
 
+  -- For project specific settings (.nvimrc.lua, .nvimrc, etc.)
   use 'MunifTanjim/exrc.nvim'
 
   use "junegunn/fzf"
@@ -42,21 +45,11 @@ require('packer').startup(function()
 
   use { 'echasnovski/mini.splitjoin', branch = 'stable' }
 
-  -- use {
-  --     "L3MON4D3/LuaSnip",
-  --     -- follow latest release.
-  --     tag = "v1.*",
-  --     -- install jsregexp (optional!:).
-  --     run = "make install_jsregexp"
-  -- }
-
-  use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'junegunn/vim-easy-align'
   use 'tpope/vim-abolish'
   use 'tpope/vim-fugitive'
   use 'airblade/vim-gitgutter'
-  use 'editorconfig/editorconfig-vim'
 
   use { "catppuccin/nvim", as = "catppuccin" }
   use 'morhetz/gruvbox'
@@ -97,13 +90,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
   --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
   buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
   buf_set_keymap('n', '<leader>ls', '<cmd>FzfLua lsp_document_symbols<CR>', opts)
   buf_set_keymap('n', '<leader>lS', '<cmd>FzfLua lsp_workspace_symbols<CR>', opts)
+  buf_set_keymap('n', '<leader>olr', '<cmd>LspRestart<CR>', opts)
   buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
   buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
-
 end
 
 
@@ -118,7 +111,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
 -- eslint: You need to instrall 'vscode-langservers-extracted' from npm
-local servers = { 'pylsp', 'tsserver','vuels', 'astro', 'svelte', 'eslint', 'gopls', 'html' }
+local servers = { 'pylsp', 'ts_ls','vuels', 'astro', 'svelte', 'eslint', 'gopls', 'html' , 'jsonls', 'vls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -281,11 +274,22 @@ require("exrc").setup({
   },
 })
 
+-- Formatter
+require("conform").setup({
+  formatters_by_ft = {
+    -- Use a sub-list to run only the first available formatter
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
+    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+  },
+})
+
 -- #################
 -- Personal settings
 -- #################
 local set = vim.opt
 
+-- Default greprpg defaults to 'rg --vimgrep -uu' (which search almost everything)
 if vim.fn.executable('rg') == 1 then
   set.grepprg= 'rg --vimgrep'
 end
@@ -322,32 +326,8 @@ set.swapfile = false
 -- for which-key
 vim.o.timeoutlen = 500
 
--- Colors
--- vim.cmd.colorscheme('nord')
--- set.background = 'light'
-
---function handle_set_background(channel, data, name)
---    output = vim.fn.join(data)
---    print(vim.inspect(output))
---end
-
---local timer = vim.loop.new_timer()
---timer:start(1000, 1000, vim.schedule_wrap(function()
---    print(theme)
---    -- theme = os.execute('defaults read -g AppleInterfaceStyle 2>/dev/null')
---    vim.fn.jobstart(
---        'defaults read -g AppleInterfaceStyle 2>/dev/null',
---        {
---            on_stdout = handle_set_background,
---        })
---  --vim.fn.jobstart('nvim -h', {'on_stdout':{j,d,e->append(line('.'),d)}})
-
---end))
-
 vim.cmd.colorscheme('catppuccin-latte')
--- set.background = 'light'
 set.termguicolors = true
--- theme = vim.fn.system('defaults read -g AppleInterfaceStyle 2>/dev/null')
 if vim.fn.has('mac') and vim.fn.system('defaults read -g AppleInterfaceStyle 2>/dev/null') == 'Dark\n' then
     vim.opt.background = 'dark'
 else
@@ -379,8 +359,9 @@ vim.g.maplocalleader = ' '
 
 -- Mappings
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
-vim.keymap.set('n', '<leader>p', '<cmd>GitFiles<CR>', { desc = 'Search files'})
-vim.keymap.set('n', '<leader>.', '<cmd>GitFiles<CR>', { desc = 'Search files'})
+-- Use 'rg --files' because it seems to be the easiest way to get the most sensible list of files (e.g in git repository and not in git repository)
+vim.keymap.set('n', '<leader>p', ":call fzf#run(fzf#wrap({'source': 'rg --files'}))<cr>", { desc = 'Search files'})
+vim.keymap.set('n', '<leader>.',  ":call fzf#run(fzf#wrap({'source': 'rg --files'}))<cr>", { desc = 'Search files'})
 vim.keymap.set('n', '<leader>,', '<cmd>Buffers<CR>', { desc = 'Buffers'})
 vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
 
@@ -427,10 +408,6 @@ vim.keymap.set('n', '<leader>7', '7gt', {})
 vim.keymap.set('n', '<leader>8', '8gt', {})
 vim.keymap.set('n', '<leader>9', '<cmd>tablast<cr>', {})
 -- TODO: 9 => should jump to last tab
-
--- nav - buffers
-vim.keymap.set('n', ']b', '<cmd>bnext<CR>', {})
-vim.keymap.set('n', '[b', '<cmd>bprev<CR>', {})
 
 -- nav - quickfix
 vim.keymap.set('n', ']q', '<cmd>cnext<CR>', {})
@@ -481,7 +458,9 @@ vim.keymap.set('n', '<leader>ov', '<cmd>e $MYVIMRC<CR>', { desc = 'Open vimrc'})
 vim.keymap.set('n', '<leader>oc', '<cmd>copen<CR>', { desc = 'Open quickfix'})
 vim.keymap.set('n', '<leader>ot', '<cmd>tabnew<CR>', { desc = 'Open new tab'})
 
+vim.keymap.set('t', '<Esc>', '<C-c>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode'})
+vim.keymap.set('t', '<Esc>', '<C-c>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<C-v><Esc>', '<Esc>', { desc = 'Send escape to terminal'})
 -- tnoremap <Esc> <C-\><C-n>
 -- tnoremap <M-[> <Esc>

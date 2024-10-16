@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.1713773202/share/lua/5.1/?.lua;/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.1713773202/share/lua/5.1/?/init.lua;/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.1713773202/lib/luarocks/rocks-5.1/?.lua;/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.1713773202/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/rikulaa/.cache/nvim/packer_hererocks/2.1.1713773202/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["bufjump.nvim"] = {
+    loaded = true,
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/bufjump.nvim",
+    url = "https://github.com/kwkarlwang/bufjump.nvim"
+  },
   catppuccin = {
     loaded = true,
     path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/catppuccin",
@@ -84,15 +89,40 @@ _G.packer_plugins = {
     path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
-  ["editorconfig-vim"] = {
+  ["conform.nvim"] = {
     loaded = true,
-    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/editorconfig-vim",
-    url = "https://github.com/editorconfig/editorconfig-vim"
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/conform.nvim",
+    url = "https://github.com/stevearc/conform.nvim"
+  },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
+  ["exrc.nvim"] = {
+    loaded = true,
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/exrc.nvim",
+    url = "https://github.com/MunifTanjim/exrc.nvim"
+  },
+  fzf = {
+    loaded = true,
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/fzf",
+    url = "https://github.com/junegunn/fzf"
+  },
+  ["fzf.vim"] = {
+    loaded = true,
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/fzf.vim",
+    url = "https://github.com/junegunn/fzf.vim"
   },
   gruvbox = {
     loaded = true,
     path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
+  },
+  ["mini.splitjoin"] = {
+    loaded = true,
+    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/mini.splitjoin",
+    url = "https://github.com/echasnovski/mini.splitjoin"
   },
   ["nord-vim"] = {
     loaded = true,
@@ -134,16 +164,6 @@ _G.packer_plugins = {
     path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
-  ["plenary.nvim"] = {
-    loaded = true,
-    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/plenary.nvim",
-    url = "https://github.com/nvim-lua/plenary.nvim"
-  },
-  ["telescope.nvim"] = {
-    loaded = true,
-    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/telescope.nvim",
-    url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
   ultisnips = {
     loaded = true,
     path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/ultisnips",
@@ -153,11 +173,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/vim-abolish",
     url = "https://github.com/tpope/vim-abolish"
-  },
-  ["vim-commentary"] = {
-    loaded = true,
-    path = "/Users/rikulaa/.local/share/nvim/site/pack/packer/start/vim-commentary",
-    url = "https://github.com/tpope/vim-commentary"
   },
   ["vim-easy-align"] = {
     loaded = true,

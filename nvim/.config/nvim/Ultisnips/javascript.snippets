@@ -6,10 +6,14 @@ snippet af
 }
 endsnippet
 
-snippet fn
+snippet fun
 function ${1}(${2}) {
 	${3}
 }
+endsnippet
+
+snippet fn
+(${1}) => ${2}
 endsnippet
 
 snippet const
@@ -22,8 +26,18 @@ let ${1} = ${2};
 endsnippet
 
 snippet action
-export const ${1} = type('$1');
-export const ${2} = action($1, ${4:});
+export const ${1} = creator('$1', $2);
+endsnippet
+
+snippet selector
+export const ${1} = pipe(root, prop('$1'))
+endsnippet
+
+snippet effect
+export let $1 = ($2) => (getState, dispatch) => {
+$3
+};
+$1 = creator('$1', $1)
 endsnippet
 
 snippet sagawatch
