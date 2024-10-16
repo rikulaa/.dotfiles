@@ -43,8 +43,6 @@ require('packer').startup(function()
   -- TODO: get rid of this
   use "SirVer/ultisnips"
 
-  use { 'echasnovski/mini.splitjoin', branch = 'stable' }
-
   use 'tpope/vim-surround'
   use 'junegunn/vim-easy-align'
   use 'tpope/vim-abolish'
@@ -264,8 +262,6 @@ require('nvim-ts-autotag').setup()
 require("nvim-autopairs").setup {}
 
 require("which-key").setup {}
-
-require("mini.splitjoin").setup {}
 
 require("exrc").setup({
   files = {
