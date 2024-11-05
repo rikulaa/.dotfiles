@@ -82,8 +82,7 @@ precmd() {
     VENV_PROMPT=""
     if [ -n "${VIRTUAL_ENV+1}" ]; then VENV_PROMPT=" (venv)" fi # Slow as hell
 
-    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT${vcs_info_msg_0_}$VENV_PROMPT$NODE_PROMPT"$'\n'"%F{blue}λ%F %F{reset_color}"
-    # RPS1=""
+    PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT${vcs_info_msg_0_}$VENV_PROMPT"$'\n'"%F{blue}λ%F %F{reset_color}"
 }
 
 reload() {
@@ -98,7 +97,6 @@ fi
 # End Nix
 
 source $XDG_CONFIG_HOME/env
-# source $XDG_CONFIG_HOME/zsh/plugins/bookmarks
 source $XDG_CONFIG_HOME/aliases
 
 # Source named directories
@@ -108,8 +106,7 @@ if [ -e $NAMED_DIRECTORIES_CONFIG ]; then
         hash -d $(echo $LINE | cut -d '=' -f 1)=$(echo $LINE | cut -d '=' -f 2)
     done <  $NAMED_DIRECTORIES_CONFIG
 fi
-# Autosuggestions
-# . $shell_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Highlighting
 if [ -f "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
     source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
