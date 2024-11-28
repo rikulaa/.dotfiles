@@ -23,4 +23,5 @@ pylint.sh
 .conda
 .pip
 
-.*.ignore
+*.ignore
+*.ignore.*

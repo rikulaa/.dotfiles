@@ -47,12 +47,6 @@
     # Delete local tags, fetch new tags from remote
     sync-local-tags = !git tag -l | xargs git tag -d && git fetch --tags
     vu = "!f() { git branch -D feature/version-update; git checkout -b feature/version-update; }; f"
-
-    # Taken directly from wincent's repos' (e.g https://github.com/wincent/ferret)
-    #  Lists out contributors
-    contributors = !git shortlog -s HEAD | grep -v $(git config --get user.email) | cut -f 2-3 | sed -e 's/^/- /'
-[core]
-    excludesFile = ~/.config/git/gitignore_global
 [merge]
     tool = vimdiff
 [mergetool "vimdiff"]
