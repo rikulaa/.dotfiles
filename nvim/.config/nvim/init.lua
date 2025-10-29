@@ -22,6 +22,7 @@ require('packer').startup(function()
       end,
 
   }
+  use 'nelsyeung/twig.vim'
   -- TODO: update to latest treesitter in order to use this
   -- use 'nvim-treesitter/nvim-treesitter-textobjects'
 
@@ -40,6 +41,8 @@ require('packer').startup(function()
   -- Lua
   use "folke/which-key.nvim"
 
+  use 'ionide/Ionide-vim'
+
   -- TODO: get rid of this
   use "SirVer/ultisnips"
 
@@ -55,7 +58,7 @@ require('packer').startup(function()
 end)
 
 -- LSP setup
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = vim.lsp
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -85,7 +88,11 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'grr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
   --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
@@ -97,6 +104,49 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
 end
 
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach_omnisharp = function(client, bufnr)
+
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- this get's overwritten due to some reason?
+  vim.opt_local.autoindent = true
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua require("omnisharp_extended").lsp_type_definition()<cr>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua require("omnisharp_extended").lsp_definition()<cr>', opts)
+  -- buf_set_keymap('n', '<C-LeftMouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<leader>li', '<cmd>lua require("omnisharp_extended").lsp_implementation()<cr>', opts)
+  buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'grr', '<cmd>lua require("omnisharp_extended").lsp_references()<cr>', opts)
+  buf_set_keymap('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+  --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
+  buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>ls', '<cmd>FzfLua lsp_document_symbols<CR>', opts)
+  buf_set_keymap('n', '<leader>lS', '<cmd>FzfLua lsp_workspace_symbols<CR>', opts)
+  buf_set_keymap('n', '<leader>olr', '<cmd>LspRestart<CR>', opts)
+  buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
+  buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
+end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -109,18 +159,32 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
 -- eslint: You need to instrall 'vscode-langservers-extracted' from npm
-local servers = { 'pylsp', 'ts_ls','vuels', 'astro', 'svelte', 'eslint', 'gopls', 'html' , 'jsonls', 'vls' }
+-- vuels https://github.com/vuejs/language-tools/wiki/Neovim
+-- remove eslint and vuels
+local servers = { 'pylsp', 'ts_ls', 'astro', 'svelte', 'eslint', 'gopls', 'html' , 'jsonls', 'vls', 'omnisharp' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  nvim_lsp.config[lsp] = {
     on_attach = on_attach,
     cababilities = cababilities,
     flags = {
       debounce_text_changes = 150,
     },
   }
+  nvim_lsp.enable(lsp)
+
 end
 -- TODO: configure these more declaratively
-nvim_lsp['elixirls'].setup {
+nvim_lsp.config['vuels'] = {
+  on_attach = on_attach,
+  cababilities = cababilities,
+  cmd = {'vue-language-server'},
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
+nvim_lsp.enable('vuels')
+
+nvim_lsp.config['elixirls'] = {
   on_attach = on_attach,
   cababilities = cababilities,
   cmd = {'elixir-ls'},
@@ -128,8 +192,18 @@ nvim_lsp['elixirls'].setup {
     debounce_text_changes = 150,
   },
 }
+nvim_lsp.enable('elixirls')
 
-nvim_lsp['intelephense'].setup {
+nvim_lsp.config['intelephense'] = {
+  -- Enable wordpress support
+  settings = {
+    intelephense = {
+      stubs = { "/Users/rikulaa/.config/composer/vendor/php-stubs", "bcmath", "bz2", "Core", "curl", "date", "dom", "fileinfo", "filter", "gd", "gettext", "hash", "iconv", "imap", "intl", "json", "libxml", "mbstring", "mcrypt", "mysql", "mysqli", "password", "pcntl", "pcre", "PDO", "pdo_mysql", "Phar", "readline", "regex", "session", "SimpleXML", "sockets", "sodium", "standard", "superglobals", "tokenizer", "xml", "xdebug", "xmlreader", "xmlwriter", "yaml", "zip", "zlib", "wordpress", "woocommerce", "wordpress-stubs", "woocommerce-stubs", "acf-pro-stubs", "wordpress-globals", "wp-cli-stubs", "genesis-stubs", "polylang-stubs"},
+      files = {
+        maxSize = 5000000;
+      };
+    };
+  },
   on_attach = on_attach,
   cababilities = cababilities,
   flags = {
@@ -141,8 +215,56 @@ nvim_lsp['intelephense'].setup {
     licenceKey = vim.fn.expand('~/.config/intelephense/licence.txt'),
     -- clearCache = Optional flag to clear server state. State can also be cleared by deleting {storagePath}/intelephense
     -- See https://github.com/bmewburn/intelephense-docs/blob/master/installation.md#initialisation-options
-  }
+  },
 }
+nvim_lsp.enable('intelephense')
+-- nvim_lsp.enable('intelephense')
+
+nvim_lsp['omnisharp'] = {
+    -- on_attach = on_attach_omnisharp,
+    on_attach = on_attach,
+    cmd = { "OmniSharp" },
+
+    settings = {
+      FormattingOptions = {
+        -- Enables support for reading code style, naming convention and analyzer
+        -- settings from .editorconfig.
+        EnableEditorConfigSupport = true,
+        -- Specifies whether 'using' directives should be grouped and sorted during
+        -- document formatting.
+        OrganizeImports = true,
+      },
+      MsBuild = {
+        -- If true, MSBuild project system will only load projects for files that
+        -- were opened in the editor. This setting is useful for big C# codebases
+        -- and allows for faster initialization of code navigation features only
+        -- for projects that are relevant to code that is being edited. With this
+        -- setting enabled OmniSharp may load fewer projects and may thus display
+        -- incomplete reference lists for symbols.
+        LoadProjectsOnDemand = nil,
+      },
+      RoslynExtensionsOptions = {
+        -- Enables support for roslyn analyzers, code fixes and rulesets.
+        EnableAnalyzersSupport = nil,
+        -- Enables support for showing unimported types and unimported extension
+        -- methods in completion lists. When committed, the appropriate using
+        -- directive will be added at the top of the current file. This option can
+        -- have a negative impact on initial completion responsiveness,
+        -- particularly for the first few completion sessions after opening a
+        -- solution.
+        EnableImportCompletion = true,
+        -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+        -- true
+        AnalyzeOpenDocumentsOnly = nil,
+      },
+      Sdk = {
+        -- Specifies whether to include preview versions of the .NET SDK when
+        -- determining which version to use for project loading.
+        IncludePrereleases = true,
+      },
+    },
+}
+-- nvim_lsp.enable('omnisharp')
 
 -- -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -157,7 +279,7 @@ cmp.setup {
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
     -- ['<Tab>'] = cmp.mapping(function(fallback)
@@ -359,7 +481,15 @@ vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
 vim.keymap.set('n', '<leader>p', ":call fzf#run(fzf#wrap({'source': 'rg --files'}))<cr>", { desc = 'Search files'})
 vim.keymap.set('n', '<leader>.',  ":call fzf#run(fzf#wrap({'source': 'rg --files'}))<cr>", { desc = 'Search files'})
 vim.keymap.set('n', '<leader>,', '<cmd>Buffers<CR>', { desc = 'Buffers'})
-vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
+-- vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
+vim.keymap.set('n', '<leader>e', function()
+  local is_netrw = vim.bo.filetype == 'netrw'
+  if is_netrw then
+    vim.cmd('Rexplore')
+  else
+    vim.cmd('Explore')
+  end
+end, { desc = 'Toggle file explorer' })
 
 -- insert mode readline navigation
 vim.keymap.set('i', '<C-A>', '<C-O>^', {})
@@ -507,15 +637,28 @@ local Filelist = {
         vim.cmd('e ' .. file)
     end,
     push = function(file)
-        Filelist.index = #Filelist.files + 1
-        table.insert(Filelist.files, file)
+      if string.len(file) > 0 then
+        last_file = Filelist.files[#Filelist.files]
+        if last_file ~= file then
+          print(file)
+          Filelist.index = #Filelist.files + 1
+          table.insert(Filelist.files, file)
+        end
+      end
     end,
 }
 _G.Filelist = Filelist
 vim.api.nvim_create_user_command(
-  'Previous',
+  'PreviousBuffer',
   function(params)
       Filelist.previous()
+  end,
+  {nargs='*'}
+)
+vim.api.nvim_create_user_command(
+  'NextBuffer',
+  function(params)
+      Filelist.next()
   end,
   {nargs='*'}
 )
@@ -525,3 +668,10 @@ vim.cmd([[
     autocmd BufEnter * lua Filelist.push(vim.fn.expand('%'))
     augroup END
 ]])
+
+
+-- sharp
+vim.g["fsharp#fsautocomplete_command"] = { "dotnet", "fsautocomplete", "--background-service-enabled" }
+
+
+
