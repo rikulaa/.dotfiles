@@ -3,10 +3,17 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+# Opt out of dotnet telemetry
+export DOTNET_CLI_TELEMETRY_OPTOUT=true
+
+# Add laravel-herd to path
+HERD_PATH="$HOME/Library/Application Support/Herd/bin"
+
 # Move zsh config files to under ~/.config (note: needs to be sourced at .zshenv)
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/sbin:/usr/local/bin:$HOME/.config/composer/vendor/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/sbin:/usr/local/bin:$HOME/.config/composer/vendor/bin:/opt/homebrew/bin:/usr/local/share/dotnet:/Users/rikulaa/.dotnet/tools:$HERD_PATH:$HOOME/.config/composer/vendor/bin"
 export JOURNAL_PATH="$HOME/Dropbox/personal/journal"
+
 
 export NAMED_DIRECTORIES_CONFIG="$HOME/.config/named-directories"
 
@@ -35,8 +42,3 @@ export EDITOR=$VIM_EDITOR
 export REVIEW_BASE=master
 
 export TASKRC="$HOME/.config/task/.taskrc"
-
-# Add laravel-herd to path
-HERD_PATH="$HOME/Library/Application Support/Herd/bin"
-
-export PATH="$PATH:/opt/homebrew/bin:$HERD_PATH"
