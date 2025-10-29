@@ -28,26 +28,17 @@ alias nix-version="nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 alias d=direnv
 alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
 
-
-alias sshconfig='$EDITOR ~/.ssh/config'
-
 alias g='git'
 # Use completion for git aliases (in zsh)
 if [ -n "$ZSH_VERSION" ]; then
         compdef g='git'
 fi 
-# alias bin='cd ~/.local/bin'
 
-alias school='cd ~/src/school'
-# alias work='cd ~/src/work'
-# alias me='cd ~/src/me'
-alias docs='cd ~/Documents'
-# alias notes='cd ~/Documents/notes/'
-alias worknotes='$EDITOR ~/Documents/notes/work/index.adoc'
+
 alias devd='open https://devdocs.io/'
 
 alias nixinfo='nix-shell -p nix-info --run "nix-info -m"'
-alias todo='$EDITOR $HOME/Documents/todos/index.adoc'
+alias todo='$EDITOR $HOME/Documents/todos/index.md'
 
 # Use bat instead of cat if possible
 if command -v bat > /dev/null; then
@@ -83,15 +74,8 @@ tree() {
     find "$@" | sed -e 's;[^/]*/;|____;g;s;____|; |;g' 
 }
 
-alias vpn='cd /etc/openvpn/'
-
-alias www='cd /var/www/ && ls'
-
 # create delete folders
 alias rmd='rm -Rf'
-alias touchd='mkdir'
-
-alias dirs='dirs -v'
 
 case $(uname) in
     Darwin)
@@ -132,9 +116,6 @@ fi
 
 # ======== APPLICATIONS ============
 #
-alias browser='python -m webbrowser -t'
-
-
 # TMUX
 # Force tmux to open in 256 colour mode
 alias tmux='tmux -2'
@@ -207,12 +188,6 @@ docker_exec() {
     docker exec -it $(dockerps_name) "$@"
 }
 
-# REACT NATIVE 
-alias rn='react-native'
-
-# ANDROID-STUDIO
-alias react-native-android-emulator='/Users/rikulaa/Library/Android/sdk/tools/emulator -avd react-native -netdelay none -netspeed full'
-
 # Uses ten 'process slots' by default
 alias snip='make -f .snippets'
 
@@ -227,11 +202,6 @@ h() {
     # Strip all the whitespace from the beginning
     eval "$(history | sed 's/[0-9]\{1,\}[-]\{0,1\}[:]\{0,2\}//g' | sed 's/^[ ]*//g' | fzf)"
 }
-
-ttouch() {
-    mkdir -p "$(dirname "$1")" && touch "$1" ;
-}
-
 
 goto() {
     if ! [ -x "$(command -v fzf)" ]; then

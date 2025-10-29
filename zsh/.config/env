@@ -14,7 +14,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/sbin:/usr/local/bin:$HOME/.config/composer/vendor/bin:/opt/homebrew/bin:/usr/local/share/dotnet:/Users/rikulaa/.dotnet/tools:$HERD_PATH:$HOOME/.config/composer/vendor/bin"
 export JOURNAL_PATH="$HOME/Dropbox/personal/journal"
 
-
 export NAMED_DIRECTORIES_CONFIG="$HOME/.config/named-directories"
 
 export LC_MESSAGES='en_US.UTF-8'
@@ -40,5 +39,3 @@ export EDITOR=$VIM_EDITOR
 
 # For diffing
 export REVIEW_BASE=master
-
-export TASKRC="$HOME/.config/task/.taskrc"

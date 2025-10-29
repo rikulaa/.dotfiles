@@ -85,9 +85,6 @@ precmd() {
     PS1="$SUDO_PROMPT%F{blue}%c%f$JOBS_PROMPT${vcs_info_msg_0_}$VENV_PROMPT"$'\n'"%F{blue}λ%F %F{reset_color}"
 }
 
-reload() {
-    source $ZDOTDIR/.zshrc
-}
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
@@ -114,3 +111,9 @@ fi
 
 # Use direnv
 eval "$(direnv hook zsh)"
+
+# Reload configuration
+reload() {
+    source $ZDOTDIR/.zshrc
+}
+
