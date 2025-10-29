@@ -41,6 +41,7 @@ require('packer').startup(function()
   -- Lua
   use "folke/which-key.nvim"
 
+  -- TODO: Can you configure just omnisharp ?
   use 'ionide/Ionide-vim'
 
   -- TODO: get rid of this
