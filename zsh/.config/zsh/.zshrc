@@ -100,7 +100,9 @@ source $XDG_CONFIG_HOME/aliases
 # https://unix.stackexchange.com/questions/7011/how-to-loop-over-the-lines-of-a-file
 if [ -e $NAMED_DIRECTORIES_CONFIG ]; then
     while IFS='' read -r LINE || [ -n "${LINE}" ]; do
-        hash -d $(echo $LINE | cut -d '=' -f 1)=$(echo $LINE | cut -d '=' -f 2)
+        ALIAS=$(echo $LINE | cut -d '=' -f 1)
+        DIRECTORY=$(echo $LINE | cut -d '=' -f 2)
+        hash -d "$ALIAS"="$DIRECTORY"
     done <  $NAMED_DIRECTORIES_CONFIG
 fi
 
