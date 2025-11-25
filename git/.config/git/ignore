@@ -25,3 +25,5 @@ pylint.sh
 
 *.ignore
 *.ignore.*
+
+./fnm/*
