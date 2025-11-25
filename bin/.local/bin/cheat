@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cheatsheets_dir=$HOME/.dotfiles/cheatsheets
+cheatsheets_dir=$HOME/Documents/notes/cheatsheets
 
 if [ -x "$(command -v fzf)" ]; then
     cd "$cheatsheets_dir" || exit

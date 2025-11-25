@@ -1,6 +1,0 @@
-== Cannot add or update a child row: a foreign key constraint fails (`shopify`.`#sql-1_117`, CONSTRAINT `Orders_checkoutId_foreign_idx` FOREIGN KEY (`checkoutId`) REFERENCES `Checkouts` (`id`))
-
-Tapahtuu mikäli päivitettäväss taulussa on jo rivejä. (ei pysty lisämään tyhjää IDtä riville)
-
-https://stackoverflow.com/a/53099922
-
