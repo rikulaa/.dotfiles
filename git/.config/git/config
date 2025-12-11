@@ -1,6 +1,12 @@
-[user]
-    email = riku.laajala@gmail.com
-    name = Riku Laajala
+[includeIf "gitdir:~/src/me/"]  
+  path = ~/.config/git/credentials-personal  
+[includeIf "gitdir:~/.dotfiles/"]  
+  path = ~/.config/git/credentials-personal  
+
+# Conditional include for work repositories  
+[includeIf "gitdir:~/src/work/"]  
+  path = ~/.config/git/credentials-work  
+ 
 [credential]
     helper = cache --timeout=3600
 [alias]

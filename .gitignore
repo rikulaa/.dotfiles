@@ -13,4 +13,4 @@ tools/neovim*
 tools/ripgrep*
 tools/*
 
-
+git/.config/git/credentials-*
