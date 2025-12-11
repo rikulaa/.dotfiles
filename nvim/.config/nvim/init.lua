@@ -5,7 +5,7 @@ local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
 
-  use 'github/copilot.vim'
+  -- use 'github/copilot.vim'
 
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/nvim-cmp'
@@ -42,7 +42,7 @@ require('packer').startup(function()
   use "folke/which-key.nvim"
 
   -- TODO: Can you configure just omnisharp ?
-  use 'ionide/Ionide-vim'
+  -- use 'ionide/Ionide-vim'
 
   -- TODO: get rid of this
   use "SirVer/ultisnips"
@@ -68,7 +68,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   -- this get's overwritten due to some reason?
-  vim.opt_local.autoindent = true
+  -- vim.opt_local.autoindent = true
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -112,7 +112,7 @@ local on_attach_omnisharp = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   -- this get's overwritten due to some reason?
-  vim.opt_local.autoindent = true
+  -- vim.opt_local.autoindent = true
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -160,9 +160,10 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
 -- eslint: You need to instrall 'vscode-langservers-extracted' from npm
--- vuels https://github.com/vuejs/language-tools/wiki/Neovim
+-- vuels https://github.com/vuejs/language-tools/wiki/Neovim, https://github.com/neovim/nvim-lspconfig/blob/master/lsp/vue_ls.lua
 -- remove eslint and vuels
-local servers = { 'pylsp', 'ts_ls', 'astro', 'svelte', 'eslint', 'gopls', 'html' , 'jsonls', 'vls', 'omnisharp' }
+-- local servers = { 'pylsp', 'ts_ls', 'astro', 'svelte', 'eslint', 'gopls', 'html' , 'jsonls', 'vls', 'omnisharp' }
+local servers = { 'pylsp', 'ts_ls', 'eslint', 'astro', 'svelte', 'gopls', 'html' , 'jsonls', 'vls','omnisharp'}
 for _, lsp in ipairs(servers) do
   nvim_lsp.config[lsp] = {
     on_attach = on_attach,
@@ -175,15 +176,15 @@ for _, lsp in ipairs(servers) do
 
 end
 -- TODO: configure these more declaratively
-nvim_lsp.config['vuels'] = {
-  on_attach = on_attach,
-  cababilities = cababilities,
-  cmd = {'vue-language-server'},
-  flags = {
-    debounce_text_changes = 150,
-  },
-}
-nvim_lsp.enable('vuels')
+-- nvim_lsp.config['vuels'] = {
+--   on_attach = on_attach,
+--   cababilities = cababilities,
+--   cmd = {'vue-language-server'},
+--   flags = {
+--     debounce_text_changes = 150,
+--   },
+-- }
+-- nvim_lsp.enable('vuels')
 
 nvim_lsp.config['elixirls'] = {
   on_attach = on_attach,
@@ -265,7 +266,18 @@ nvim_lsp['omnisharp'] = {
       },
     },
 }
--- nvim_lsp.enable('omnisharp')
+nvim_lsp.enable('omnisharp')
+
+-- fsautocomplete
+nvim_lsp.config['fsautocomplete'] = {
+  on_attach = on_attach,
+  cababilities = cababilities,
+  cmd = {"dotnet", "fsautocomplete", "--background-service-enabled" },
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
+nvim_lsp.enable('fsautocomplete')
 
 -- -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -364,8 +376,8 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = {'php'},
   },
   indent = { 
-    enable = true,
-    disable = { 'php' },
+    enable = false,
+    disable = { 'php', 'typescript', 'tsx', 'javascript' },
   },
   incremental_selection = {
     enable = true,
@@ -437,7 +449,7 @@ vim.cmd([[
     augroup END
 ]])
 
-set.shiftwidth = 4 -- When indenting with >
+-- set.shiftwidth = 4 -- When indenting with >
 set.expandtab = true
 
 set.swapfile = false
@@ -512,9 +524,12 @@ vim.keymap.set('c', '<C-b>', '<Left>', {})
 vim.keymap.set('i', '<C-f>', '<Right>', {})
 vim.keymap.set('c', '<C-f>', '<Right>', {})
 
--- Move visual block
+-- Move visual block (up/down)
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { desc = 'Move selection one line up'})
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { desc = 'Move selection one line down'})
+-- Move visual block (left/right)
+vim.keymap.set('v', '<', '<gv', { desc = 'Decrease indent for selection'})
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent selection'})
 
 -- Easyaling visual block
 vim.keymap.set('v', '<leader>=', ':EasyAlign<CR>', { desc = 'Easy align selection'})
@@ -534,7 +549,6 @@ vim.keymap.set('n', '<leader>6', '6gt', {})
 vim.keymap.set('n', '<leader>7', '7gt', {})
 vim.keymap.set('n', '<leader>8', '8gt', {})
 vim.keymap.set('n', '<leader>9', '<cmd>tablast<cr>', {})
--- TODO: 9 => should jump to last tab
 
 -- nav - quickfix
 vim.keymap.set('n', ']q', '<cmd>cnext<CR>', {})
@@ -565,7 +579,7 @@ vim.keymap.set('v', '<leader>ss', ':s//g<Left><Left>', { desc = 'Substitute insi
 vim.keymap.set('n', '<leader>;', ':', {})
 
 -- searching
-vim.keymap.set('n', '<leader>/', ':silent grep! ""<Left>', { desc = 'Grep' })
+vim.keymap.set('n', '<leader>/', ':silent grep! ', { desc = 'Grep' })
 vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! \'<C-R>"\' ', { desc = 'Grep (visual selection)' })
 vim.keymap.set('n', '<leader>*', 'vawy :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" <CR>', { desc = 'Grep (visual selection)' })
 -- vim.keymap.set('n', 'n', 'nzz', { desc = '' })
