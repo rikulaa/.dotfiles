@@ -33,10 +33,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-# Autocomplete make targets
-zstyle ':completion:*:make:*:targets' call-command true
-zstyle ':completion:*:*:make:*' tag-order 'targets'
-
 # Shift-tab to reverse the menu
 bindkey '^[[Z' reverse-menu-complete
 
