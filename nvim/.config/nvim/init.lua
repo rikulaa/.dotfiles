@@ -616,7 +616,7 @@ vim.keymap.set('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc
 vim.keymap.set('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
 
 -- Commands
-vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
+vim.api.nvim_create_user_command('Ga', 'Git add %', {})
 vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!', {})
 
 vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
