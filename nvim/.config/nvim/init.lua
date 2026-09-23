@@ -611,6 +611,10 @@ vim.keymap.set('t', '<C-v><Esc>', '<Esc>', { desc = 'Send escape to terminal'})
 vim.keymap.set('n', '<leader>lF', 'gg0gqG<C-O>', { desc = 'Format whole document with formatprq'})
 vim.keymap.set('v', '<leader>lF', 'gq', { desc = 'Format selection with formatprq'})
 
+-- Mouse
+vim.keymap.set('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = 'Jump to definition' })
+vim.keymap.set('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
+
 -- Commands
 vim.api.nvim_create_user_command('Ga', 'silent !git add "%"', {})
 vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!', {})
