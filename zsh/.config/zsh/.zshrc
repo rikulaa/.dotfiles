@@ -16,6 +16,7 @@ bindkey -e
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=$HOME/.cache/zsh/history
+[[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
 setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
