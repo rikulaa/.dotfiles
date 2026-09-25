@@ -25,9 +25,9 @@ apt-docker: ## Install docker via apt
 
 # OSX has a bit more configurations
 ifeq ($(UNAME),Darwin)
-CONFIG_DIRS = bin nvim zsh git tmux hammerspoon karabiner
+CONFIG_DIRS = nix bin nvim zsh git tmux hammerspoon karabiner
 else
-CONFIG_DIRS = bin nvim zsh git tmux
+CONFIG_DIRS = nix bin nvim zsh git tmux
 endif
 
 link-configs: ## Link configuration files
