@@ -28,6 +28,8 @@ alias nix-version="nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 alias nixhub='open https://www.nixhub.io/packages/nodejs'
 alias d=direnv
 alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
+alias httpyac="docker run -it --rm --network=host -v ${PWD}:/data ghcr.io/anweber/httpyac:latest"
+alias wcir='jq ".scripts" package.json'
 
 alias g='git'
 # Use completion for git aliases (in zsh)
@@ -230,3 +232,17 @@ nd() {
     echo "No directory name provided"
     return 1
 }
+
+ slugify() {
+     # Every uppercase letter to lowercase
+     # Replace spaces with dash
+     # deletes any character that is not a lowercase letter, digit, or dash. This strips punctuation like apostrophes, commas, periods, etc.
+     # Remove additional dashes
+     #  removes a dash if it's at the very start (^-) or very end (-$) of the string, in case the input started/ended with a space or stripped character that would otherwise leave a stray leading/trailing dash.
+   echo "$1" \
+     | tr '[:upper:]' '[:lower:]' \
+     | tr ' ' '-' \
+     | sed -E 's/[^a-z0-9-]//g' \
+     | sed -E 's/-+/-/g' \
+     | sed -E 's/^-|-$//g'
+ }
