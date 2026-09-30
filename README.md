@@ -38,3 +38,10 @@ Remaps and shortcuts are done with
 - hammerspoon
 - karabiner
 - osx settings (switching between workspaces)
+
+### OSX
+
+by default Option is used to type special characters (Option+B → ∫), not to send Esc the way readline expects for M-b/M-f word-jump bindings.
+
+Fix in iTerm2 (Settings → Profiles → Keys → General):
+- Set "Left Option Key" (and Right, if you use it) to "Esc+"
