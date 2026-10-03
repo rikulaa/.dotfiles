@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Every uppercase letter to lowercase
+# Replace spaces with dash
+# deletes any character that is not a lowercase letter, digit, or dash. This strips punctuation like apostrophes, commas, periods, etc.
+# Remove additional dashes
+#  removes a dash if it's at the very start (^-) or very end (-$) of the string, in case the input started/ended with a space or stripped character that would otherwise leave a stray leading/trailing dash.
+echo "$1" \
+| tr '[:upper:]' '[:lower:]' \
+| tr ' ' '-' \
+| sed -E 's/[^a-z0-9-]//g' \
+| sed -E 's/-+/-/g' \
+| sed -E 's/^-|-$//g'
