@@ -73,3 +73,5 @@
     renameLimit = 999999
 [core]
 	excludesFile = ~/.gitignore_global
+[init]
+	defaultBranch = main
