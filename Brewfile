@@ -1,5 +1,3 @@
-tap 'homebrew/cask-fonts'
-
 cask '1password'
 cask 'discord'
 cask 'dropbox'
@@ -22,3 +20,6 @@ cask 'iterm2'
 cask 'windscribe'
 cask 'drawio'
 cask 'dbngin'
+cask 'maccy'
+cask 'bruno'
+cask sourcegit
