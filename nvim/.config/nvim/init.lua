@@ -236,7 +236,15 @@ nvim_lsp.config['fsautocomplete'] = {
     debounce_text_changes = 150,
   },
 }
-nvim_lsp.enable('fsautocomplete')
+vim.lsp.enable('fsautocomplete')
+
+
+-- Harper (local offline "grammarly")
+vim.lsp.config['harper'] = {
+    cmd = { 'harper-ls', '--stdio' },
+    filetypes = { 'markdown', 'text', 'tex', 'typst', 'gitcommit' }
+}
+vim.lsp.enable('harper')
 
 -- -- nvim-cmp setup
 local cmp = require 'cmp'

@@ -11,9 +11,10 @@ nix-env -iA \
     nixpkgs.wget \
     nixpkgs.htop \
     nixpkgs.tldr \
+    nixpkgs.git \
     nixpkgs.ffmpeg
 
 # Install latest an greatest neovim
-nix-env -f channel:nixpkgs-unstable -i fzf
+nix-env -f channel:nixpkgs-unstable -i fzf harper
 
 nix-env -f https://github.com/NixOS/nixpkgs/archive/e6f23dc08d3624daab7094b701aa3954923c6bbb.tar.gz -i neovim
