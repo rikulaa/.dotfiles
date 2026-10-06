@@ -1,3 +1,5 @@
+-- To replace text by piping to shell inside insert mode (after "c") you can press <C-R>=system(['the-commadn', @"])
+vim.cmd.packadd("cfilter")
 -- #################
 -- Plugin settings
 -- #################
