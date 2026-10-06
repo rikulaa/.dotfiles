@@ -591,6 +591,8 @@ vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!',
 vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
 
 vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
+-- Edit current filetype's plugin file
+vim.api.nvim_create_user_command('Eft', function () vim.cmd(':execute "e ~/.config/nvim/after/ftplugin/".&filetype.".lua"') end, {})
 
 vim.api.nvim_create_user_command(
   'Run',
