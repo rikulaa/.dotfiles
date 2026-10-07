@@ -15,7 +15,7 @@ brew-bundle: ## Install brew programs
 	brew bundle
 
 nix-programs: ## Install nix programs
-	./.bin/nix-programs.sh
+	nix profile install .
 
 apt-programs: apt-docker
 apt-docker: ## Install docker via apt
