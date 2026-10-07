@@ -1,103 +1,72 @@
--- To replace text by piping to shell inside insert mode (after "c") you can press <C-R>=system(['the-commadn', @"])
-vim.cmd.packadd("cfilter")
+vim.cmd.packadd("cfilter") -- Filter cuickfix with /pat/
+
 -- #################
 -- Plugin settings
 -- #################
 local use = require('packer').use
 require('packer').startup(function()
-  use 'wbthomason/packer.nvim' -- Package manager
-
-  -- use 'github/copilot.vim'
-
-  use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-
-  use 'stevearc/conform.nvim'
-
-  use  {
-    'nvim-treesitter/nvim-treesitter',
-    tag = 'v0.9.2',
-      run = function()
-        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-        ts_update()
-      end,
-
+  use 'wbthomason/packer.nvim'  -- Package manager
+  use 'neovim/nvim-lspconfig'   -- Configurations for Nvim LSP
+  use 'hrsh7th/nvim-cmp'        -- autocomplete popup menu
+  use 'hrsh7th/cmp-nvim-lsp'    -- lsp source for cmp
+  use 'stevearc/conform.nvim'   -- Formatting
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    branch ="main",
+    run = ":TSUpdate",
   }
-  use 'nelsyeung/twig.vim'
-  -- TODO: update to latest treesitter in order to use this
-  -- use 'nvim-treesitter/nvim-treesitter-textobjects'
-
-  -- Use treesitter to autoclose and autorename html tag
-  use 'windwp/nvim-ts-autotag' 
-
-  -- For project specific settings (.nvimrc.lua, .nvimrc, etc.)
-  use 'MunifTanjim/exrc.nvim'
-
+  use 'nelsyeung/twig.vim'      -- support for twig syntax higlights
+  use 'windwp/nvim-ts-autotag'  -- Use treesitter to autoclose and autorename html tag
   use "junegunn/fzf"
   use "junegunn/fzf.vim"
-
-  use "windwp/nvim-autopairs"
+  use "windwp/nvim-autopairs"   -- Insert matching brackets, e.g. (|), {|}
   use 'mtikekar/nvim-send-to-term'
-
-  -- Lua
   use "folke/which-key.nvim"
-
+  use "Hoffs/omnisharp-extended-lsp.nvim"
   -- TODO: Can you configure just omnisharp ?
   -- use 'ionide/Ionide-vim'
-
-  -- TODO: get rid of this
-  use "SirVer/ultisnips"
-
   use 'tpope/vim-surround'
-  use 'junegunn/vim-easy-align'
-  use 'tpope/vim-abolish'
-  use 'tpope/vim-fugitive'
-  use 'airblade/vim-gitgutter'
-
+  use 'junegunn/vim-easy-align' -- align
+  use 'tpope/vim-abolish'       -- Convert between cases -> camelCase -> snake_case
+  use 'tpope/vim-fugitive'      -- Git porcelain
+  use 'airblade/vim-gitgutter'  -- Show git diff signatures in "gutter"
   use { "catppuccin/nvim", as = "catppuccin" }
-  use 'morhetz/gruvbox'
-  use 'arcticicestudio/nord-vim'
 end)
 
 -- LSP setup
-local nvim_lsp = vim.lsp
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  -- this get's overwritten due to some reason?
-  -- vim.opt_local.autoindent = true
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  -- See help: lsp.txt, vim.lsp.*
+  -- Some keymaps are created unconditionally when Nvim starts:
+  -- - "grn" is mapped in Normal mode to |vim.lsp.buf.rename()|
+  -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
+  -- - "grr" is mapped in Normal mode to |vim.lsp.buf.references()|
+  -- - "gri" is mapped in Normal mode to |vim.lsp.buf.implementation()|
+  -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
+  -- - CTRL-S is mapped in Insert mode to |vim.lsp.buf.signature_help()|
+
+  buf_set_keymap('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = 'Jump to definition' })
+  buf_set_keymap('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- buf_set_keymap('n', '<C-LeftMouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<C-S>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('i', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- Default mapping "grn"
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- Default mapping "gra"
   buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'grr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
-  --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
   buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
   buf_set_keymap('n', '<leader>ls', '<cmd>FzfLua lsp_document_symbols<CR>', opts)
@@ -110,38 +79,38 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach_omnisharp = function(client, bufnr)
-
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  -- this get's overwritten due to some reason?
-  -- vim.opt_local.autoindent = true
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  -- See help: lsp.txt, vim.lsp.*
+  -- Some keymaps are created unconditionally when Nvim starts:
+  -- - "grn" is mapped in Normal mode to |vim.lsp.buf.rename()|
+  -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
+  -- - "grr" is mapped in Normal mode to |vim.lsp.buf.references()|
+  -- - "gri" is mapped in Normal mode to |vim.lsp.buf.implementation()|
+  -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
+  -- - CTRL-S is mapped in Insert mode to |vim.lsp.buf.signature_help()|
+
+  -- Mouse navigation
+  buf_set_keymap('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = 'Jump to definition' })
+  buf_set_keymap('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
   buf_set_keymap('n', 'gD', '<cmd>lua require("omnisharp_extended").lsp_type_definition()<cr>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua require("omnisharp_extended").lsp_definition()<cr>', opts)
-  -- buf_set_keymap('n', '<C-LeftMouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<C-S>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua require("omnisharp_extended").lsp_implementation()<cr>', opts)
   buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('i', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- Default mapping "grn"
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- Default mapping "gra"
   buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'grr', '<cmd>lua require("omnisharp_extended").lsp_references()<cr>', opts)
-  buf_set_keymap('n', 'gri', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gO', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
-  --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
   buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
   buf_set_keymap('n', '<leader>ls', '<cmd>FzfLua lsp_document_symbols<CR>', opts)
@@ -162,33 +131,83 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Python: https://github.com/python-lsp/python-lsp-server
 -- php (intelephense): https://intelephense.com/
 -- eslint: You need to instrall 'vscode-langservers-extracted' from npm
--- vuels https://github.com/vuejs/language-tools/wiki/Neovim, https://github.com/neovim/nvim-lspconfig/blob/master/lsp/vue_ls.lua
+-- vue_ls needs vtsls for typescript support
 -- remove eslint and vuels
 -- local servers = { 'pylsp', 'ts_ls', 'astro', 'svelte', 'eslint', 'gopls', 'html' , 'jsonls', 'vls', 'omnisharp' }
-local servers = { 'pylsp', 'ts_ls', 'eslint', 'astro', 'svelte', 'gopls', 'html' , 'jsonls', 'vls','omnisharp'}
+--
+local servers = { 'pylsp', 'eslint', 'astro', 'svelte', 'gopls', 'html' , 'jsonls', 'biome'}
 for _, lsp in ipairs(servers) do
-  nvim_lsp.config[lsp] = {
+  vim.lsp.config[lsp] = {
     on_attach = on_attach,
     cababilities = cababilities,
     flags = {
       debounce_text_changes = 150,
     },
   }
-  nvim_lsp.enable(lsp)
+  vim.lsp.enable(lsp)
 
 end
--- TODO: configure these more declaratively
--- nvim_lsp.config['vuels'] = {
---   on_attach = on_attach,
---   cababilities = cababilities,
---   cmd = {'vue-language-server'},
---   flags = {
---     debounce_text_changes = 150,
---   },
--- }
--- nvim_lsp.enable('vuels')
 
-nvim_lsp.config['elixirls'] = {
+-- ts_ls's default root_dir walks up to the nearest package-manager lock file (or .git),
+-- which in a pnpm monorepo is the workspace root. `typescript` is never resolvable from
+-- there (nothing at the root depends on it directly), so typescript-language-server falls
+-- back to a global/bundled tsserver that can resolve package `exports` maps differently
+-- than each app's local TypeScript does. Prefer the nearest tsconfig.json/jsconfig.json
+-- instead, so it roots the same way `tsc` itself does.
+vim.lsp.config['ts_ls'] = {
+  on_attach = on_attach,
+  cababilities = cababilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  root_dir = function(bufnr, on_dir)
+    local project_root = vim.fs.root(bufnr, { 'tsconfig.json', 'jsconfig.json' })
+      or vim.fs.root(bufnr, { 'package.json', '.git' })
+    on_dir(project_root or vim.fn.getcwd())
+  end,
+}
+vim.lsp.enable('ts_ls')
+
+
+vim.lsp.config('vue_ls', {
+  init_options = {
+    typescript = {
+      tsdk = vim.fn.expand '$PWD/.fnm/node-versions/v26.5.1/installation/lib/node_modules/typescript'
+    }
+  }
+})
+
+-- vue_ls needs vtsls for typescript support in vue files
+local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+-- TODO: use envrc to add path to bin
+local vue_language_server_path = vim.fn.expand '$PWD/.fnm/node-versions/v26.5.1/installation/lib/node_modules/@vue/language-server'
+
+local vue_plugin = {
+  name = '@vue/typescript-plugin',
+  location = vue_language_server_path,
+  languages = { 'vue' },
+  configNamespace = 'typescript',
+}
+vim.lsp.config['vtsls'] = {
+  on_attach = on_attach,
+  cababilities = cababilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+   settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = tsserver_filetypes,
+}
+vim.lsp.enable('vtsls')
+
+vim.lsp.config['elixirls'] = {
   on_attach = on_attach,
   cababilities = cababilities,
   cmd = {'elixir-ls'},
@@ -196,9 +215,9 @@ nvim_lsp.config['elixirls'] = {
     debounce_text_changes = 150,
   },
 }
-nvim_lsp.enable('elixirls')
+vim.lsp.enable('elixirls')
 
-nvim_lsp.config['intelephense'] = {
+vim.lsp.config['intelephense'] = {
   -- Enable wordpress support
   settings = {
     intelephense = {
@@ -214,15 +233,10 @@ nvim_lsp.config['intelephense'] = {
     debounce_text_changes = 150,
   },
   init_options = {
-    -- storagePath = Optional absolute path to storage dir. Defaults to os.tmpdir().
-    -- globalStoragePath = Optional absolute path to a global storage dir. Defaults to os.homedir().
     licenceKey = vim.fn.expand('~/.config/intelephense/licence.txt'),
-    -- clearCache = Optional flag to clear server state. State can also be cleared by deleting {storagePath}/intelephense
-    -- See https://github.com/bmewburn/intelephense-docs/blob/master/installation.md#initialisation-options
   },
 }
-nvim_lsp.enable('intelephense')
--- nvim_lsp.enable('intelephense')
+vim.lsp.enable('intelephense')
 
 vim.lsp.config('omnisharp', {
   on_attach = on_attach_omnisharp,
@@ -230,7 +244,7 @@ vim.lsp.config('omnisharp', {
 vim.lsp.enable('omnisharp')
 
 -- fsautocomplete
-nvim_lsp.config['fsautocomplete'] = {
+vim.lsp.config['fsautocomplete'] = {
   on_attach = on_attach,
   cababilities = cababilities,
   cmd = {"dotnet", "fsautocomplete", "--background-service-enabled" },
@@ -239,6 +253,7 @@ nvim_lsp.config['fsautocomplete'] = {
   },
 }
 vim.lsp.enable('fsautocomplete')
+vim.g["fsharp#fsautocomplete_command"] = { "dotnet", "fsautocomplete", "--background-service-enabled" }
 
 
 -- Harper (local offline "grammarly")
@@ -251,11 +266,6 @@ vim.lsp.enable('harper')
 -- -- nvim-cmp setup
 local cmp = require 'cmp'
 cmp.setup {
-  -- snippet = {
-  --   expand = function(args)
-  --     luasnip.lsp_expand(args.body)
-  --   end,
-  -- },
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -264,20 +274,6 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
-    -- ['<Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -285,79 +281,7 @@ cmp.setup {
 }
 
 
-
--- TODO: update to latest treesitter to use these
--- nvim_treesitter_text_objects_config = {
---   select = {
---     enable = true,
---     lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
---     keymaps = {
---       -- You can use the capture groups defined in textobjects.scm
---       ['aa'] = '@parameter.outer',
---       ['ia'] = '@parameter.inner',
---       ['af'] = '@function.outer',
---       ['if'] = '@function.inner',
---       ['ac'] = '@class.outer',
---       ['ic'] = '@class.inner',
---     },
---   },
---   move = {
---     enable = true,
---     set_jumps = true, -- whether to set jumps in the jumplist
---     goto_next_start = {
---       [']m'] = '@function.outer',
---       [']]'] = '@class.outer',
---     },
---     goto_next_end = {
---       [']M'] = '@function.outer',
---       [']['] = '@class.outer',
---     },
---     goto_previous_start = {
---       ['[m'] = '@function.outer',
---       ['[['] = '@class.outer',
---     },
---     goto_previous_end = {
---       ['[M'] = '@function.outer',
---       ['[]'] = '@class.outer',
---     },
---   },
---   swap = {
---     enable = true,
---     swap_next = {
---       ['<leader>a'] = '@parameter.inner',
---     },
---     swap_previous = {
---       ['<leader>A'] = '@parameter.inner',
---     },
---   },
--- }
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'vimdoc', 'javascript', 'tsx', 'typescript', 'vim', 'php', 'markdown', 'elixir', 'heex', 'eex' },
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = {'php'},
-  },
-  indent = { 
-    enable = false,
-    disable = { 'php', 'typescript', 'tsx', 'javascript' },
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
-    },
-  },
-}
+require('nvim-treesitter').install {'vimdoc', 'javascript', 'tsx', 'typescript', 'vue', 'vim', 'php', 'markdown', 'elixir', 'heex', 'eex' }
 
 -- Enable autoclosing https://github.com/windwp/nvim-ts-autotag
 require('nvim-ts-autotag').setup()
@@ -366,13 +290,6 @@ require('nvim-ts-autotag').setup()
 require("nvim-autopairs").setup {}
 
 require("which-key").setup {}
-
-require("exrc").setup({
-  files = {
-      ".nvimrc.lua",
-      ".nvimrc",
-  },
-})
 
 -- Formatter
 require("conform").setup({
@@ -419,7 +336,7 @@ vim.cmd([[
 ]])
 
 -- set.shiftwidth = 4 -- When indenting with >
-set.expandtab = true
+-- set.expandtab = true
 
 set.swapfile = false
 
@@ -444,26 +361,29 @@ set.splitbelow = true
 set.splitright = true
 set.wrap = false
 
--- Mouse
+-- Mouse support for: 'normal', 'visual' and 'insert' modes.
+-- Command-line mode does not deliberately support mouse because enables tmux mouse passthrough 
 set.mouse = 'nvi'
-
 
 -- Completion
 set.completeopt ='menu,menuone,noselect'
 
 -- Set <leader> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Mappings
+
+-- Clear out search highlights with escape
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
 -- Use 'rg --files' because it seems to be the easiest way to get the most sensible list of files (e.g in git repository and not in git repository)
 vim.keymap.set('n', '<leader>p', ":call fzf#run(fzf#wrap({'source': 'rg --files'}))<cr>", { desc = 'Search files'})
 vim.keymap.set('n', '<leader>.',  ":call fzf#run(fzf#wrap({'source': 'rg --files'}))<cr>", { desc = 'Search files'})
 vim.keymap.set('n', '<leader>,', '<cmd>Buffers<CR>', { desc = 'Buffers'})
--- vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Explore files'})
+
+-- "Explore" files
+-- If we are already in netrw-buffer, we need to call "Rexplore" (Return to Explorer) instead of "Explore"
 vim.keymap.set('n', '<leader>e', function()
   local is_netrw = vim.bo.filetype == 'netrw'
   if is_netrw then
@@ -473,20 +393,23 @@ vim.keymap.set('n', '<leader>e', function()
   end
 end, { desc = 'Toggle file explorer' })
 
--- insert mode readline navigation
+-- insert mode readline (like) navigation
 vim.keymap.set('i', '<C-A>', '<C-O>^', {})
 vim.keymap.set('c', '<C-A>', '<Home>', {})
+
 -- Make sure the original behaviour for <C-A> is still available
 vim.keymap.set('c', '<C-X><C-A> ', '<C-A>', {})
 
 -- Jump to end of line
 vim.keymap.set('i', '<C-E>', '<C-O>$', {})
 vim.keymap.set('c', '<C-E>', '<End>', {})
+
 -- Move one word backward, forward
 vim.keymap.set('i', '<M-b>', '<C-Left>', {})
 vim.keymap.set('c', '<M-b>', '<C-Left>', {})
 vim.keymap.set('i', '<M-f>', '<C-Right>', {})
 vim.keymap.set('c', '<M-f>', '<C-Right>', {})
+
 -- Move one character backward, forward
 vim.keymap.set('i', '<C-b>', '<Left>', {})
 vim.keymap.set('c', '<C-b>', '<Left>', {})
@@ -496,6 +419,7 @@ vim.keymap.set('c', '<C-f>', '<Right>', {})
 -- Move visual block (up/down)
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { desc = 'Move selection one line up'})
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { desc = 'Move selection one line down'})
+
 -- Move visual block (left/right)
 vim.keymap.set('v', '<', '<gv', { desc = 'Decrease indent for selection'})
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent selection'})
@@ -503,7 +427,7 @@ vim.keymap.set('v', '>', '>gv', { desc = 'Indent selection'})
 -- Easyaling visual block
 vim.keymap.set('v', '<leader>=', ':EasyAlign<CR>', { desc = 'Easy align selection'})
 
--- window navigation
+-- Window navigation. <leader>w as a additional prefix.
 vim.keymap.set('n', '<leader>w', '<C-W>', { desc = 'Windows'})
 
 -- navigation - tabs
@@ -536,13 +460,12 @@ vim.keymap.set('n', '<leader>Y', '"*y', { desc = 'Copy to system clipboard' })
 vim.keymap.set('v', '<leader>Y', '"*y', { desc = 'Copy to system clipboard'})
 vim.keymap.set('n', '<leader>P', '"+p', { desc = 'Paste from system clipboard'})
 
--- 
+-- Substitute shorthand
 vim.keymap.set('n', '<leader>ss', ':%s//g<Left><Left>', { desc = 'Substitute'})
--- Rsname last search
--- vim.keymap.set('n', '<leader>ss', ':%s///g<Left><Left>', { desc = 'Substitute last search pattern'})
--- vim.keymap.set('v', '<leader>ss', ':%s///g<Left><Left>', { desc = 'Substitute last search pattern'})
-vim.keymap.set('v', '<leader>ss', ':s//g<Left><Left>', { desc = 'Substitute inside visual selection'})
+vim.keymap.set('n', 'gss', ':%s//g<Left><Left>', { desc = 'Substitute'})
 
+-- Substitute inside visual selection
+vim.keymap.set('v', '<leader>ss', ':s//g<Left><Left>', { desc = 'Substitute inside visual selection'})
 
 -- cli
 vim.keymap.set('n', '<leader>;', ':', {})
@@ -551,13 +474,11 @@ vim.keymap.set('n', '<leader>;', ':', {})
 vim.keymap.set('n', '<leader>/', ':silent grep! ', { desc = 'Grep' })
 vim.keymap.set('v', '<leader>/', 'y :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! \'<C-R>"\' ', { desc = 'Grep (visual selection)' })
 vim.keymap.set('n', '<leader>*', 'vawy :let @/ = \'<C-r>\"\' | set hlsearch | silent grep! <C-R>" <CR>', { desc = 'Grep (visual selection)' })
--- vim.keymap.set('n', 'n', 'nzz', { desc = '' })
--- vim.keymap.set('n', 'N', 'Nzz', { desc = '' })
 
 
 -- Git
 -- vim.keymap.set('n', '<leader>vs', '<cmd>tabnew | Git | only<CR>', { desc = 'Status'}) -- TODO: Would be nice to always jump to this window if it's available
-vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Status'}) -- TODO: Would be nice to always jump to this window if it's available
+vim.keymap.set('n', '<leader>vs', '<cmd>Git<CR>', { desc = 'Status'})
 vim.keymap.set('n', '<leader>va', '<cmd>Ga<CR>', { desc = 'Stage file'})
 vim.keymap.set('n', '<leader>vb', '<cmd>Git blame<CR>', { desc = 'Blame'})
 vim.keymap.set('n', '<leader>vhs', '<cmd>GitGutterStageHunk<CR>', { desc = 'Stage hunk'})
@@ -572,17 +493,10 @@ vim.keymap.set('t', '<Esc>', '<C-c>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<Esc>', '<C-c>', { desc = 'Exit terminal mode'})
 vim.keymap.set('t', '<C-v><Esc>', '<Esc>', { desc = 'Send escape to terminal'})
--- tnoremap <Esc> <C-\><C-n>
--- tnoremap <M-[> <Esc>
--- tnoremap <C-v><Esc> <Esc>
---
+
 -- Formatting
 vim.keymap.set('n', '<leader>lF', 'gg0gqG<C-O>', { desc = 'Format whole document with formatprq'})
 vim.keymap.set('v', '<leader>lF', 'gq', { desc = 'Format selection with formatprq'})
-
--- Mouse
-vim.keymap.set('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = 'Jump to definition' })
-vim.keymap.set('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
 
 -- Commands
 vim.api.nvim_create_user_command('Ga', 'Git add %', {})
@@ -591,6 +505,7 @@ vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!',
 vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
 
 vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
+
 -- Edit current filetype's plugin file
 vim.api.nvim_create_user_command('Eft', function () vim.cmd(':execute "e ~/.config/nvim/after/ftplugin/".&filetype.".lua"') end, {})
 
@@ -660,8 +575,8 @@ vim.cmd([[
 ]])
 
 
--- sharp
-vim.g["fsharp#fsautocomplete_command"] = { "dotnet", "fsautocomplete", "--background-service-enabled" }
+vim.cmd([[iabbrev coauthclaude Co-Authored-By: Claude <noreply@anthropic.com>]])
 
 
-
+-- NOTES
+-- To replace text by piping to shell inside insert mode (after "c") you can press <C-R>=system(['the-commadn', @"])

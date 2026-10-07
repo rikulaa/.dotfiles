@@ -17,4 +17,8 @@ nix-env -iA \
 # Install latest an greatest neovim
 nix-env -f channel:nixpkgs-unstable -i fzf harper
 
-nix-env -f https://github.com/NixOS/nixpkgs/archive/e6f23dc08d3624daab7094b701aa3954923c6bbb.tar.gz -i neovim
+nix-env -f https://github.com/NixOS/nixpkgs/archive/c9baf8b27b3e1114b13b6406d58e1f6c500eae30.tar.gz -i neovim
+
+# For neovim tree-sitter
+nix profile install nixpkgs#lua51Packages.tree-sitter-cli
+
