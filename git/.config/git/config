@@ -1,13 +1,11 @@
-[includeIf "gitdir:~/src/me/"]  
-  path = ~/.config/git/credentials-personal  
-[includeIf "gitdir:~/.dotfiles/"]  
-  path = ~/.config/git/credentials-personal  
+[includeIf "gitdir:~/"]  
+  path = ~/.config/git/config-personal  
 
 # Conditional include for work repositories  
 [includeIf "gitdir:~/src/work/"]  
-  path = ~/.config/git/credentials-work  
+  path = ~/.config/git/config-work  
 [includeIf "gitdir:~/Local Sites/"]  
-  path = ~/.config/git/credentials-work  
+  path = ~/.config/git/config-work  
  
 [credential]
     helper = cache --timeout=3600
