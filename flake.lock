@@ -1,0 +1,41 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 315532800,
+        "narHash": "sha256-7WQwlykef1x8n7aoyw4XP6882i2NRs5F6dVCXZ1NI1g=",
+        "rev": "7dd199b0e2993e37b4775ed66b1c291699608c9f",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1086972.7dd199b0e299/nixexprs.tar.zst?lastModified=1791336361"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst"
+      }
+    },
+    "nixpkgs-neovim": {
+      "locked": {
+        "lastModified": 1776007998,
+        "narHash": "sha256-DnfsWmzqjhBXgZLOWIilV983ZiomBXsxuujPUwuKlVQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c9baf8b27b3e1114b13b6406d58e1f6c500eae30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c9baf8b27b3e1114b13b6406d58e1f6c500eae30",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-neovim": "nixpkgs-neovim"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
