@@ -51,12 +51,12 @@ local on_attach = function(client, bufnr)
   -- - "gri" is mapped in Normal mode to |vim.lsp.buf.implementation()|
   -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
   -- - CTRL-S is mapped in Insert mode to |vim.lsp.buf.signature_help()|
+	-- "k" is mapped in Normal mode to "Hover"
 
   buf_set_keymap('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = 'Jump to definition' })
   buf_set_keymap('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('i', '<C-S>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -99,7 +99,6 @@ local on_attach_omnisharp = function(client, bufnr)
   buf_set_keymap('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
   buf_set_keymap('n', 'gD', '<cmd>lua require("omnisharp_extended").lsp_type_definition()<cr>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua require("omnisharp_extended").lsp_definition()<cr>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('i', '<C-S>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua require("omnisharp_extended").lsp_implementation()<cr>', opts)
   buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
