@@ -79,44 +79,20 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach_omnisharp = function(client, bufnr)
+  on_attach(client, bufnr)
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
-  -- See help: lsp.txt, vim.lsp.*
-  -- Some keymaps are created unconditionally when Nvim starts:
-  -- - "grn" is mapped in Normal mode to |vim.lsp.buf.rename()|
-  -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
-  -- - "grr" is mapped in Normal mode to |vim.lsp.buf.references()|
-  -- - "gri" is mapped in Normal mode to |vim.lsp.buf.implementation()|
-  -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
-  -- - CTRL-S is mapped in Insert mode to |vim.lsp.buf.signature_help()|
-
-  -- Mouse navigation
+  -- Override some mappings for omnisharp (jumps to source definitions)
   buf_set_keymap('n', '<X2Mouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = 'Jump to definition' })
-  buf_set_keymap('n', '<X1Mouse>', '<C-O>', { desc = 'Go back' })
   buf_set_keymap('n', 'gD', '<cmd>lua require("omnisharp_extended").lsp_type_definition()<cr>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua require("omnisharp_extended").lsp_definition()<cr>', opts)
-  buf_set_keymap('i', '<C-S>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>li', '<cmd>lua require("omnisharp_extended").lsp_implementation()<cr>', opts)
-  buf_set_keymap('n', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('i', '<F3>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- Default mapping "grn"
-  buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- Default mapping "gra"
-  buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'grr', '<cmd>lua require("omnisharp_extended").lsp_references()<cr>', opts)
-
-  buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
-  buf_set_keymap('v', '<leader>lf', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
-  buf_set_keymap('n', '<leader>ls', '<cmd>FzfLua lsp_document_symbols<CR>', opts)
-  buf_set_keymap('n', '<leader>lS', '<cmd>FzfLua lsp_workspace_symbols<CR>', opts)
-  buf_set_keymap('n', '<leader>olr', '<cmd>LspRestart<CR>', opts)
-  buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', {})
-  buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
