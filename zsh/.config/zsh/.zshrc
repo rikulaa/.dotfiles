@@ -115,6 +115,11 @@ fi
 # Use direnv
 eval "$(direnv hook zsh)"
 
+# fzf
+if command -v fzf > /dev/null; then
+    source <(fzf --zsh)
+fi
+
 # Reload configuration
 reload() {
     source $ZDOTDIR/.zshrc
