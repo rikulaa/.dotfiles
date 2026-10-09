@@ -13,4 +13,6 @@ tools/neovim*
 tools/ripgrep*
 tools/*
 
+zsh/.config/zsh/plugins/*
+
 git/.config/git/config-*
