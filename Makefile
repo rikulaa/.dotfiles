@@ -8,8 +8,8 @@ help:           ## Show this help.
 
 install: | $(UNAME)-install ## Setup new machine
 
-Darwin-install: nix-programs brew-bundle link-configs install-vim-plugins change-login-shell osx-defaults
-Linux-install: nix-programs link-configs install-vim-plugins change-login-shell gnome-settings
+Darwin-install: nix-programs brew-bundle link-configs install-vim-plugins zsh-syntax-highlighting change-login-shell osx-defaults 
+Linux-install: nix-programs link-configs install-vim-plugins zsh-syntax-highlighting change-login-shell gnome-settings
 
 brew-bundle: ## Install brew programs
 	brew bundle
@@ -67,3 +67,6 @@ flatpak: # Install flatpack
 
 nix-collect-garbage: ## Remove nix garbage
 	nix-collect-garbage
+
+zsh-syntax-highlighting:
+	cd ~/.config/zsh/plugins/ && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git 
