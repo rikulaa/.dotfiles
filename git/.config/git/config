@@ -21,7 +21,7 @@
     # Checkout|branch history
     bh = !git reflog | grep 'checkout:' | sed 's/.*to //'  | head -20 | tac
     # Checkout interactive history
-    coih = !$_target=$(git bh | fzf) && git checkout $_target
+    coih = !_TARGET=$(git bh | fzf) && git checkout $_TARGET
     lg = log --pretty=format:'%C(red)%h%C(yellow)%d  %Creset%s %Cgreen(%cr) %C(bold blue) <%cn>' --decorate
     st = status -sb
     d = diff
