@@ -27,3 +27,5 @@ pylint.sh
 *.ignore.*
 
 ./fnm/*
+
+**/.claude/settings.local.json
