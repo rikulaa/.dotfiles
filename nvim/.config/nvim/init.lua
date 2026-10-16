@@ -25,7 +25,9 @@ require('packer').startup(function()
   use "Hoffs/omnisharp-extended-lsp.nvim"
   -- TODO: Can you configure just omnisharp ?
   -- use 'ionide/Ionide-vim'
-  use 'tpope/vim-surround'
+  use "dcampos/nvim-snippy"
+  use "dcampos/cmp-snippy"
+  use "tpope/vim-surround"
   use 'junegunn/vim-easy-align' -- align
   use 'tpope/vim-abolish'       -- Convert between cases -> camelCase -> snake_case
   use 'tpope/vim-fugitive'      -- Git porcelain
@@ -250,8 +252,16 @@ cmp.setup {
       select = true,
     },
   },
+
+  snippet = {
+    expand = function(args)
+      require 'snippy'.expand_snippet(args.body)
+    end
+  },
+
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'snippy' },
   },
 }
 
@@ -275,6 +285,8 @@ require("conform").setup({
     typescriptreact = { "prettierd", "prettier", stop_after_first = true },
   },
 })
+
+require('snippy').setup({})
 
 -- #################
 -- Personal settings
@@ -349,6 +361,18 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Mappings
+
+-- Expand snippet with tab, cycle through positions with C-j, C-k
+vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+    return require('snippy').can_expand() and '<Plug>(snippy-expand)' or '<Tab>'
+end, { expr = true })
+vim.keymap.set({ 'i', 's' }, '<C-j>', function()
+    return require('snippy').can_jump(1) and '<Plug>(snippy-next)' or '<C-j>'
+end, { expr = true })
+vim.keymap.set({ 'i', 's' }, '<C-k>', function()
+    return require('snippy').can_jump(-1) and '<Plug>(snippy-previous)' or '<C-k>'
+end, { expr = true })
+vim.keymap.set('x', '<Tab>', '<Plug>(snippy-cut-text)')
 
 -- Clear out search highlights with escape
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<CR>', {})
