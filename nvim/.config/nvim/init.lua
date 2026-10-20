@@ -455,8 +455,12 @@ vim.keymap.set('n', '<leader>fw', '<cmd>write<CR>', { desc = 'Write file (buffer
 vim.keymap.set('n', '<leader>fd', '<cmd>bdelete<CR>', { desc = 'Delete file (buffer)'})
 
 -- Eeasier copy pasta
+vim.keymap.set('n', 'yY', '"*yy', { desc = 'Copy to system clipboard' })
 vim.keymap.set('n', '<leader>Y', '"*y', { desc = 'Copy to system clipboard' })
+
+vim.keymap.set('v', 'Y', '"*y', { desc = 'Copy to system clipboard'})
 vim.keymap.set('v', '<leader>Y', '"*y', { desc = 'Copy to system clipboard'})
+
 vim.keymap.set('n', '<leader>P', '"+p', { desc = 'Paste from system clipboard'})
 
 -- Substitute shorthand
