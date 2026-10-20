@@ -503,7 +503,12 @@ vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!',
 
 vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
 
-vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
+vim.api.nvim_create_user_command('CopyName', function()
+  local path = vim.fn.expand("%:.")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path)
+end, {})
+
 vim.api.nvim_create_user_command("CopyLocation", function(opts)
   -- Path relative to cwd; use '%:p' instead for an absolute path
   local path = vim.fn.expand("%:.")
