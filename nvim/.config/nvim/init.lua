@@ -504,6 +504,20 @@ vim.api.nvim_create_user_command('Rm', 'call system(["rm", expand("%")]) | bd!',
 vim.api.nvim_create_user_command('Bdall', 'silent! :%bdelete!', {})
 
 vim.api.nvim_create_user_command('CopyName', ':let @+ = expand(\'%\')', {})
+vim.api.nvim_create_user_command("CopyLocation", function(opts)
+  -- Path relative to cwd; use '%:p' instead for an absolute path
+  local path = vim.fn.expand("%:.")
+  local loc
+  if opts.line1 == opts.line2 then
+    -- filename:location
+    loc = string.format("%s:%d", path, opts.line1)
+  else
+    -- filename:start-end
+    loc = string.format("%s:%d-%d", path, opts.line1, opts.line2)
+  end
+  vim.fn.setreg("+", loc)
+  vim.notify("Copied: " .. loc)
+end, { range = true, desc = "Copy file path and line range to system clipboard" })
 
 -- Edit current filetype's plugin file
 vim.api.nvim_create_user_command('Eft', function () vim.cmd(':execute "e ~/.config/nvim/after/ftplugin/".&filetype.".lua"') end, {})
