@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+echo "https://$(git remote get-url origin | sed 's/^\(git@\|https\)//; s/\.git$//; s/:/\//;')"
