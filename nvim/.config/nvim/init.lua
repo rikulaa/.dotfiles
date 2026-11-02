@@ -457,6 +457,10 @@ vim.keymap.set('n', '<leader>fd', '<cmd>bdelete<CR>', { desc = 'Delete file (buf
 vim.keymap.set('n', 'yY', '"*yy', { desc = 'Copy to system clipboard' })
 vim.keymap.set('n', '<leader>Y', '"*y', { desc = 'Copy to system clipboard' })
 
+vim.keymap.set('n', '<leader>yf', ':CopyName<CR>', { desc = 'Copy filename to clipboard' })
+vim.keymap.set('n', '<leader>yl', ':CopyLocation<CR>', { desc = 'Copy location to clipboard' })
+vim.keymap.set('v', '<leader>yl', ':CopyLocation<CR>', { desc = 'Copy location to clipboard' })
+
 vim.keymap.set('v', 'Y', '"*y', { desc = 'Copy to system clipboard'})
 vim.keymap.set('v', '<leader>Y', '"*y', { desc = 'Copy to system clipboard'})
 
