@@ -344,8 +344,6 @@ set.relativenumber = true
 set.cursorline = true
 
 -- Windows
-set.splitbelow = true
-set.splitright = true
 set.wrap = false
 
 -- Mouse support for: 'normal', 'visual' and 'insert' modes.
