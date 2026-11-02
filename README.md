@@ -22,6 +22,33 @@ Download syncing, setup with gist and download settings
 
 ## Nix
 
+### Flakes and profile
+
+To install base profile
+```
+nix profile install .
+```
+
+To update revision run
+
+```
+nix flake lock
+```
+
+To remove everything in a profile
+```
+nix profile remove '.*'
+```
+
+To add package (into flake file) and upgrade, run:
+```
+nix flake lock
+nix profile upgrade "Base packages"
+```
+
+
+
+
 Some times the newer nix version might contain programs which won't compile.
 To search for older version look here: https://lazamar.co.uk/nix-versions/
 
@@ -45,3 +72,5 @@ by default Option is used to type special characters (Option+B → ∫), not to 
 
 Fix in iTerm2 (Settings → Profiles → Keys → General):
 - Set "Left Option Key" (and Right, if you use it) to "Esc+"
+
+
