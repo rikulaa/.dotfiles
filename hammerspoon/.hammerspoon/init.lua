@@ -171,14 +171,14 @@ end
 function initShortcuts()
   -- open terminal
   -- cmd+return conflicts with some keymappings osx programs
-  -- hs.hotkey.bind(cmd, "return", function()
-  --     hs.application.open('iTerm')
-  -- end)
+  hs.hotkey.bind(mod2, "return", function()
+      hs.application.open('iTerm')
+  end)
 
   -- open browser
-  -- hs.hotkey.bind(mod, "b", function()
-  --     hs.application.open("Firefox")
-  -- end)
+  hs.hotkey.bind(mod2, "b", function()
+      hs.application.open("Google Chrome")
+  end)
 
   -- open editor
   -- hs.hotkey.bind(mod, "C", function()
