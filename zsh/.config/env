@@ -11,7 +11,7 @@ HERD_PATH="$HOME/Library/Application Support/Herd/bin"
 
 # Move zsh config files to under ~/.config (note: needs to be sourced at .zshenv)
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/sbin:/usr/local/bin:$HOME/.config/composer/vendor/bin:/opt/homebrew/bin:/usr/local/share/dotnet:/Users/rikulaa/.dotnet/tools:$HERD_PATH:$HOOME/.config/composer/vendor/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.nix-profile/bin::$PATH:/usr/local/sbin:/usr/local/bin:$HOME/.config/composer/vendor/bin:/opt/homebrew/bin:/usr/local/share/dotnet:/Users/rikulaa/.dotnet/tools:$HERD_PATH:$HOOME/.config/composer/vendor/bin:$HOME/.bun/bin:"
 export JOURNAL_PATH="$HOME/Dropbox/personal/journal"
 
 export NAMED_DIRECTORIES_CONFIG="$HOME/.config/named-directories"
