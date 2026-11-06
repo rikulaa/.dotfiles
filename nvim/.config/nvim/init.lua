@@ -294,11 +294,11 @@ require('snippy').setup({})
 -- #################
 local set = vim.opt
 
--- Default greprpg defaults to 'rg --vimgrep -uu' (which search almost everything)
-if vim.fn.executable('rg') == 1 then
-  set.grepprg= 'rg --vimgrep'
-end
 
+-- Refresh after coming back from terminal (Ctrl-z, fg)
+-- vim.api.nvim_create_autocmd({ "VimResume" }, {
+--   command = "edit",
+-- })
 
 -- Open quickfix after searching
 vim.cmd([[
