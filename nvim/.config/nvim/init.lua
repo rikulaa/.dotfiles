@@ -327,6 +327,7 @@ vim.cmd([[
 -- set.expandtab = true
 
 set.swapfile = false
+set.undofile = true
 
 -- for which-key
 vim.o.timeoutlen = 500
