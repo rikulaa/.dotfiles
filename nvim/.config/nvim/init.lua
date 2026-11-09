@@ -150,19 +150,19 @@ vim.lsp.enable('ts_ls')
 vim.lsp.config('vue_ls', {
   init_options = {
     typescript = {
-      tsdk = vim.fn.expand '$PWD/.fnm/node-versions/v26.5.1/installation/lib/node_modules/typescript'
+      tsdk = vim.env.TS_LIB_PATH
     }
   }
 })
+vim.lsp.enable('vue_ls')
 
 -- vue_ls needs vtsls for typescript support in vue files
 local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
--- TODO: use envrc to add path to bin
-local vue_language_server_path = vim.fn.expand '$PWD/.fnm/node-versions/v26.5.1/installation/lib/node_modules/@vue/language-server'
 
 local vue_plugin = {
   name = '@vue/typescript-plugin',
-  location = vue_language_server_path,
+  -- TODO: use envrc to add path to bin
+  location = vim.env._LOCAL_VUE_LANGUAGE_SERVER_PATH,
   languages = { 'vue' },
   configNamespace = 'typescript',
 }
