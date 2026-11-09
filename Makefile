@@ -56,8 +56,9 @@ osx-defaults: ## Write osx defaults
 	defaults write com.apple.dock autohide-delay -int 0
 
 gnome-settings: ## Better defaults to gnome-shell
-	gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'RIGHT'
-	gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+	# Faster window switch on current workspace
+	# gsettings set org.gnome.desktop.wm.keybindings cycle-windows "['<Alt>j']"
+	# gsettings set org.gnome.desktop.wm.keybindings cycle-windows-backward "['<Alt>k']"
 
 flatpak: # Install flatpack
 	sudo apt install flatpak -y
