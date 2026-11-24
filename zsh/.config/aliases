@@ -31,6 +31,7 @@ alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "/run/host-services/ssh
 alias httpyac="docker run -it --rm --network=host -v ${PWD}:/data ghcr.io/anweber/httpyac:latest"
 alias wcir='jq ".scripts" package.json'
 alias gitu='nvim -c "Git | only"'
+alias co-auth-claude='claude -p "What Co-Authored-By line would you put in a git commit? Print only the line."'
 
 alias g='git'
 # Use completion for git aliases (in zsh)
