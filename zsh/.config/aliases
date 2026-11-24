@@ -193,7 +193,15 @@ docker_exec() {
 }
 
 # Uses ten 'process slots' by default
-alias snip='make -f .snippets.mk'
+# alias snip='make -f .snippets.mk'
+
+snip() {
+    if [[ $1 ]]; then
+	    make -f .snippets.mk $1
+    else
+	    cat .snippets.mk
+    fi
+}
 
 ## Functions
 h() {
