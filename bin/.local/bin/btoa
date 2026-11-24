@@ -1,8 +1,9 @@
 #!/bin/sh
 
-echo $1 | base64      
-# if command -v node >/dev/null 2>&1; then
-#     # TODO
-#     # echo "base64 exists"
-# else
-# fi
+if [ $# -gt 0 ]; then
+	printf '%s' "$*" | base64 -w0
+else
+	# read from stdin
+	printf '%s' "$(cat)" | base64 -w0
+fi
+echo
